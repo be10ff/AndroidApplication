@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#80808080"
+    android:orientation="vertical" >
+	<!--<LinearLayout-->
+	    <!--android:layout_width="match_parent"-->
+	    <!--android:layout_height="wrap_content"-->
+	    <!--android:orientation="horizontal" >-->
+
+
+		<!--<TextView-->
+		    <!--android:id="@+id/lon_can"-->
+		    <!--android:layout_width="0dp"-->
+		    <!--android:layout_height="wrap_content"-->
+		    <!--android:layout_weight="1"-->
+		    <!--android:text="@string/longtitude"/>-->
+
+		<!--<TextView-->
+		    <!--android:id="@+id/lat_can"-->
+		    <!--android:layout_width="0dp"-->
+		    <!--android:layout_height="wrap_content"-->
+		    <!--android:layout_weight="1"		    -->
+		    <!--android:text="@string/latitude" />-->
+
+	<!--</LinearLayout>-->
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal" >
+
+		<EditText
+			android:id="@+id/lon_can"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:hint="@string/dd_mm_ss_hint"
+			android:ems="10">
+		</EditText>
+
+		<EditText
+			android:id="@+id/lat_can"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:hint="@string/dd_mm_ss_hint"
+			android:ems="10">
+		</EditText>
+
+	</LinearLayout>
+	<!--<LinearLayout-->
+	    <!--android:layout_width="match_parent"-->
+	    <!--android:layout_height="wrap_content"-->
+	    <!--android:orientation="horizontal" >-->
+		<!--<TextView-->
+		    <!--android:id="@+id/lon_grad_min"-->
+		    <!--android:layout_width="0dp"-->
+		    <!--android:layout_height="wrap_content"-->
+		    <!--android:layout_weight="1"-->
+		    <!--android:text="@string/longtitude"/>-->
+
+		<!--<TextView-->
+		    <!--android:id="@+id/lat_grad_min"-->
+		    <!--android:layout_width="0dp"-->
+		    <!--android:layout_height="wrap_content"-->
+		    <!--android:layout_weight="1"		    -->
+		    <!--android:text="@string/latitude" />-->
+
+	<!--</LinearLayout>-->
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal" >
+
+		<EditText
+			android:id="@+id/lon_grad_min"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:hint="@string/dd_mm_hint"
+			android:ems="10">
+		</EditText>
+
+		<EditText
+			android:id="@+id/lat_grad_min"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:hint="@string/dd_mm_hint"
+			android:layout_weight="1"
+			android:ems="10">
+		</EditText>
+
+	</LinearLayout>
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+		<EditText
+		    android:id="@+id/lon_decimal"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+			android:hint="@string/dd_hint"
+		    android:ems="10">
+
+		    <requestFocus />
+		</EditText>
+
+		<EditText
+		    android:id="@+id/lat_decimal"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+			android:hint="@string/dd_hint"
+		    android:ems="10">
+
+		    <!-- <requestFocus /> -->
+		</EditText>
+	
+	</LinearLayout>
+
+
+</LinearLayout>
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="Theme.Text" parent="android:Theme">
+	    <item name="android:textColor">@android:color/black</item>
+   	    <item name="android:textStyle">normal</item>
+   	    <item name="android:typeface">serif</item>
+   	    <item name="android:textSize">12sp</item>
+    </style>
+
+	<style name="Theme.Text_Normal" parent="android:Theme">
+		<item name="android:textColor">@android:color/black</item>
+		<item name="android:textStyle">normal</item>
+		<item name="android:typeface">serif</item>
+		<item name="android:textSize">10sp</item>
+	</style>
+	<style name="Theme.Text_Small" parent="android:Theme">
+		<item name="android:textColor">@android:color/black</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:typeface">serif</item>
+		<item name="android:textSize">8sp</item>
+	</style>
+	<style name="Theme.Layer_Dialog_Padding" parent="android:Theme">
+		<item name="android:paddingLeft">10dp</item>
+		<item name="android:paddingRight">10dp</item>
+		<item name="android:paddingTop">10dp</item>
+		<item name="android:paddingBottom">10dp</item>
+	</style>
+</resources>

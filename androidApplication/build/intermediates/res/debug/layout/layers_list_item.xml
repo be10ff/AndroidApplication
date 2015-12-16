@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:id="@+id/layers_list_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_gravity="center"
+    android:descendantFocusability="blocksDescendants">
+
+    <CheckBox
+        android:id="@+id/layers_list_item_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"    
+        android:layout_marginLeft="15dp"
+        android:button="@drawable/layers_list_item_button" />
+        
+    <TextView
+        style="@style/Theme.Text_Normal"
+        android:id="@+id/layers_list_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/layers_list_default_text"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:scrollHorizontally="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"/>
+
+</RelativeLayout><!-- From: file:/home/artem/AndroidProjects/AndroidApplication/androidApplication/src/main/res/layout/layers_list_item.xml -->

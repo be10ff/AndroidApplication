@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <!-- <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fixable_button"
+        android:baselineAligned="true"
+        android:enabled="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:measureWithLargestChild="false" >
+
+        <ImageButton
+            android:id="@+id/imageButtonStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent_background"
+            android:focusable="false"
+            android:enabled="false"
+            android:src="@drawable/gps_off" />
+
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:orientation="vertical" >
+
+
+	        <TextView
+	            android:id="@+id/textViewStatus"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text=""
+	            android:textColor="@color/dark_text" />
+
+	        <TextView
+	            android:id="@+id/textAccurancy"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text=""
+	            android:textColor="@color/dark_text" />
+	    </LinearLayout>
+
+    </LinearLayout> -->
+
+	    <!-- <ToggleButton
+	        android:id="@+id/gps_status"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:clickable="false"
+	        android:drawableTop="@drawable/gps_status"
+	        android:enabled="true"
+	        android:gravity="bottom|center_horizontal"
+	        android:inputType="none"
+	        android:longClickable="false"
+	        android:textOff="@string/gps_off"
+	        android:textOn="@string/gps_on"
+	        android:textSize="16sp"
+	        android:visibility="visible" /> -->
+    
+
+    <ToggleButton
+        android:id="@+id/auto_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fixable_button"
+        android:drawableTop="@drawable/auto_follow_status_"
+        android:gravity="bottom|center_horizontal"
+        android:textOff=""
+        android:textOn=""
+        android:textSize="0sp" />
+
+
+    <!-- tracking_status -->
+    <ToggleButton
+        android:id="@+id/track_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fixable_button"
+        android:drawableTop="@drawable/stop_start_track_button"
+        android:gravity="center_vertical|center_horizontal"
+        android:textOff=""
+        android:textOn=""
+        android:textSize="0sp" />
+    <ToggleButton
+        android:id="@+id/show_track"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="@drawable/fixable_button"
+        android:gravity="center_vertical|center_horizontal"
+        android:textOff=""
+        android:textOn=""
+        android:textSize="0sp" />
+
+    <ToggleButton
+        android:id="@+id/poi_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fixable_button"
+        android:drawableTop="@drawable/poi_status"
+        android:gravity="bottom|center_horizontal"
+        android:textOff=""
+        android:textOn=""
+        android:textSize="0sp" /> 
+
+</LinearLayout>

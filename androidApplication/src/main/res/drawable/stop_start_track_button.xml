@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:drawable="@drawable/stop_track_pressed"
+        android:state_checked="true"
+        android:state_pressed="true"
+        android:state_enabled="true"/>
+    <item
+        android:drawable="@drawable/start_track_pressed"
+        android:state_checked="false" 
+        android:state_pressed="true"
+        android:state_enabled="true" />
+    <item
+        android:drawable="@drawable/stop_track"
+        android:state_checked="true"
+        android:state_pressed="false"
+        android:state_enabled="true"/>
+    <item
+        android:drawable="@drawable/start_track"
+        android:state_checked="false" 
+        android:state_pressed="false"
+        android:state_enabled="true" />
+    <item
+        android:drawable="@drawable/start_track_disabeled"
+        android:state_enabled="false" 
+        android:state_checked="false" />
+    <item
+        android:drawable="@drawable/stop_track_disabeled"
+        android:state_enabled="false"
+        android:state_checked="true" />
+    
+</selector>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GeoInfo</string>
+    <string name="sub_app_name">Navigator</string>
+    <string name="background">background</string>
+    <string name="button_zoomin">Zoom In</string>
+    <string name="button_zoomout">Zoom Out</string>
+    <string name="button_position">Position</string>
+    <string name="panel_zoom">Zoom Panel</string>
+    <string name="panel_position">Position Panel</string>
+    <string name="dialog_layers">Layers</string>
+    <string name="layers_additional_button">Additional</string>
+    <string name="layers_general_button">General</string>
+    <string name="top_bar_layers_button">Layers</string>
+    <string name="layers_list_default_text">Default text is very long and almost pointless.</string>
+    <string name="project_selector_button">Projects</string>
+    <string name="project_list_default_text">Project</string>
+    <string name="project_list_addition_text">Project_info</string>    
+	<string name="default_project_path">/sdcard/moscow.pro</string>     
+    <string name="markers_button">Markers</string>	
+    <string name="scale_info_default_text">1 000 m</string>
+    <string name="button_square_tool">button_square_tool</string>
+    <string name="button_stop_search">button_stop_search</string>
+    <string name="button_rule_tool">button_rule_tool</string>
+    <string name="button_position_follow">button_position_follow</string>
+    <string name="project_management">Управление проектами...</string>
+    <string name="button_editable_layers">button_editable_layers</string>
+    <string name="StopEditLayer">Закончить редактирование</string>
+    <string name="edit_layer_new">Create</string>
+    <string name="edit_layer_edit_geometry">Edit geometry</string>
+    <string name="edit_layer_edit_attributes">Edit attributes</string>
+    <string name="edit_layer_delete">Delete</string>
+    <string name="button_gps">GPS</string>
+    <string name="add_layer_header">добавить...</string>
+    <string-array name="extentions">
+		<item>"track"</item>
+		<item>"sqlitedb"</item>
+		<item>xml</item>
+    </string-array>
+
+
+    <string name="hello">Hello World, GILibActivity!</string>
+    <!--<string name="app_name">GeoInfo</string>-->
+    <!--<string name="background">background</string>-->
+    <!--<string name="button_zoomin">Zoom In</string>-->
+    <!--<string name="button_zoomout">Zoom Out</string>-->
+    <!--<string name="button_position">Position</string>-->
+    <!--<string name="panel_zoom">Zoom Panel</string>-->
+    <!--<string name="panel_position">Position Panel</string>-->
+    <!--<string name="dialog_layers">Layers</string>-->
+    <!--<string name="layers_additional_button">Additional</string>-->
+    <!--<string name="layers_general_button">General</string>-->
+    <!--<string name="top_bar_layers_button">Layers</string>-->
+    <!--<string name="layers_list_default_text">Default text is very long and almost pointless.</string>-->
+    <!--<string name="project_selector_button">Projects</string>-->
+    <!--<string name="project_list_default_text">Project</string>-->
+    <!--<string name="project_list_addition_text">Project_info</string>-->
+    <!--<string name="default_project_path">/sdcard/moscow.pro</string>-->
+    <!--<string name="markers_button">Markers</string>-->
+    <!--<string name="scale_info_default_text">1 000 m</string>-->
+    <!--<string name="button_square_tool">button_square_tool</string>-->
+    <!--<string name="button_stop_search">button_stop_search</string>-->
+    <!--<string name="button_rule_tool">button_rule_tool</string>-->
+    <string name="ProjectServer_Remotes">Проекты на сервере</string>
+    <string name="ProjectServer_Offline">Сервер недоступен</string>
+    <string name="ProjectServer_Locals">Проекты на устройстве</string>
+    <string name="ProjectServer_BtnLoad">Загрузить</string>
+    <string name="ProjectServer_BtnDelete">Удалить</string>
+    <string name="ProjectServer_BtnClose">Закрыть</string>
+    <string name="ProjectServer_BtnUpdate">Обновить</string>
+    <string name="unzipping">разархивирование</string>
+    <string name="parsing">чтение проектов</string>
+    <color name="Item_Background_Selected">#ffdaffda</color>
+    <color name="Item_Background_Unselected">#0a0a0a0a</color>
+    <string name="image_project_status"></string>
+    <string name="state_ready">готов</string>
+    <string name="state_downloading">загружается</string>
+    <string name="state_updating">обновляется</string>
+    <string name="state_checking">проверяется</string>
+    <string name="state_unzipping">устанавливается</string>
+    <string name="state_deleting">удаляется</string>
+    <string name="state_unknown">неизвестно</string>
+    <!--<string name="edit_layer_new">Create</string>-->
+    <string name="edit_layer_new_stop">Stop creating</string>
+    <!--<string name="edit_layer_edit_geometry">Edit geometry</string>-->
+    <string name="edit_layer_edit_geometry_stop">Stop editing</string>
+    <!--<string name="edit_layer_edit_attributes">Edit attributes</string>-->
+    <string name="edit_layer_edit_attributes_stop">Stop editing</string>
+    <!--<string name="edit_layer_delete">Delete</string>-->
+    <string name="edit_layer_delete_stop">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="longtitude">longtitude</string>
+    <string name="latitude">latitude</string>
+    <string name="gps_off">GPS Off</string>
+    <string name="gps_on">GPS On</string>
+    <string name="auto_follow_on">Auto Follow On</string>
+    <string name="auto_follow_off">Auto Follow Off</string>
+    <string name="start_track">Start new track</string>
+    <string name="pause_track">Pause tracking</string>
+    <string name="stop_track">Finish track</string>
+    <string name="poi">Create POI</string>
+    <string name="stop_poi">Finish POI</string>
+    <string name="new_attribute_name">параметр</string>
+    <string name="new_attribute_value">значение</string>
+    <color name="dark_text">#ff0f050f</color>
+    <color name="transparent_background">#05050505</color>
+    <string name="provider_available">жив</string>
+    <string name="provider_temporary_unavailable">болеет</string>
+    <string name="provider_out_of_service">мертв</string>
+    <string name="format_accurancy">±%%02d m</string>
+    <string name="format_datetime">A%%02d-%%02d-%%02d-%%02d-%%02d</string>
+
+    <string name="button_close">Close</string>
+    <string name="gps_accurancy">-- m</string>
+
+
+    <string name="lontitude">lontitude</string>
+    <string name="dd_mm_ss_hint">DD° MM\' SS.SSSS\"</string>
+    <string name="dd_mm_hint">DD° MM.MMMMMM\'</string>
+    <string name="dd_hint">DD.DDDDDDDD°</string>
+
+    <string name="layer_name">Name</string>
+    <string name="layer_type">Type</string>
+    <string name="layer_location">Location</string>
+    <string name="layer_zoom">Zoom</string>
+    <string name="layer_range">Range </string>
+    <string name="from">from</string>
+    <string name="to">to</string>
+
+    <string name="move_up">Up</string>
+    <string name="move_down">Down</string>
+
+    <string-array name="zoom_type">
+        <item>auto</item>
+        <item>smart</item>
+        <item>adaptive</item>
+    </string-array>
+    <string-array name="layer_type">
+        <item>SQL_YANDEX_LAYER</item>
+        <item>SQL_LAYER</item>
+        <!--<item>XML</item>-->
+        <!--<item>PLIST</item>-->
+        <!--<item>LAYER_GROUP</item>-->
+        <!--<item>RASTER_LAYER</item>-->
+        <!--<item>VECTOR_LAYER</item>-->
+        <!--<item>TILE_LAYER</item>-->
+        <!--<item>ON_LINE</item>-->
+        <!--<item>DBASE</item>-->
+
+    </string-array>
+    <string-array name="source_type">
+        <item>local</item>
+        <item>text</item>
+        <item>absolute</item>
+    </string-array>
+
+    <string-array name="zoom_levels">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+    </string-array>
+
+</resources>

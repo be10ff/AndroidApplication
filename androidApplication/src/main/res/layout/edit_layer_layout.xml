@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <ToggleButton
+        android:id="@+id/edit_layer_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fixable_button"
+        android:drawableTop="@drawable/icon_status"
+        android:gravity="bottom|center_horizontal"
+        android:textOff="@string/edit_layer_new"
+        android:textOn="@string/edit_layer_new_stop"
+        android:textSize="16sp" />
+
+    <ToggleButton
+        android:id="@+id/edit_layer_geometry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fixable_button"
+        android:drawableTop="@drawable/icon_status"
+        android:gravity="bottom|center_horizontal"
+        android:textOff="@string/edit_layer_edit_geometry"
+        android:textOn="@string/edit_layer_edit_geometry_stop"
+        android:textSize="16sp" />
+    
+    <ToggleButton
+        android:id="@+id/edit_layer_attributes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fixable_button"
+        android:drawableTop="@drawable/icon_status"
+        android:gravity="bottom|center_horizontal"
+        android:textOff="@string/edit_layer_edit_attributes"
+        android:textOn="@string/edit_layer_edit_attributes_stop"
+        android:textSize="16sp" />    
+    
+    <ToggleButton
+        android:id="@+id/edit_layer_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fixable_button"
+        android:drawableTop="@drawable/icon_status"
+        android:gravity="bottom|center_horizontal"
+        android:textOff="@string/edit_layer_delete"
+        android:textOn="@string/edit_layer_delete_stop"
+        android:textSize="16sp" /> 
+
+</LinearLayout>

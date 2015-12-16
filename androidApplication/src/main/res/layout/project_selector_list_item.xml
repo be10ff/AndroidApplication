@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:id="@+id/projects_list_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+
+    android:descendantFocusability="blocksDescendants">
+
+    <TextView
+        style="@style/Theme.Text_Normal"
+        android:id="@+id/project_list_item_path"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"    
+        android:layout_marginLeft="15dp"
+        android:text="@string/project_list_addition_text"/>
+
+    <ImageView
+        android:id="@+id/imageViewStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/project_list_item_name"
+        android:src="@drawable/project_mark" />
+
+    <TextView
+        style="@style/Theme.Text_Small"
+        android:id="@+id/project_list_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/project_list_item_path"
+        android:layout_toRightOf="@+id/imageViewStatus"
+        android:clickable="true"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:text="@string/project_list_default_text"/>
+
+</RelativeLayout>

@@ -1,0 +1,53 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+
+    <!--<item name="colorPrimary">@color/app_theme_primary</item>-->
+    <!--<item name="colorPrimaryDark">@color/app_theme_primary_dark</item>-->
+    <!--<item name="colorAccent">@color/background_white</item>-->
+
+
+    <style name="BaseTextStyle" parent="android:TextAppearance.DeviceDefault.Medium">
+        <!--<item name="android:fontFamily">sans-serif</item>-->
+        <item name="android:textColor">@color/black_text</item>
+    </style>
+
+    <style name="CaptionText" parent="BaseTextStyle">
+        <item name="android:textSize">@dimen/caption_size</item>
+    </style>
+
+    <style name="SpinnerText" parent="BaseTextStyle">
+        <item name="android:textSize">@dimen/spinner_text_size</item>
+    </style>
+
+    <style name="DefaultText" parent="BaseTextStyle">
+        <item name="android:textSize">@dimen/text_size</item>
+    </style>
+
+    <style name="ProfileSpinner" parent="@android:style/Widget.Holo.Light.Spinner">
+        <!--<item name="fontFamily">sans-serif</item>-->
+        <item name="android:textSize">@dimen/spinner_text_size</item>
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <!--<item name="android:background">@drawable/oorraa_illuminated_edit_text_background</item>-->
+        <item name="android:dropDownSelector">@drawable/arrow_drop</item>
+    </style>
+</resources>
