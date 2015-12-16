@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/root"
+        android:tag="root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null">
+ 
+       <!-- ru.tcgeo.gilib.GIMap -->
+       <ru.tcgeo.gilib.GIMap
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="67dp"/>
+
+        <ru.tcgeo.gilib.GITouchControl
+            android:id="@+id/touchcontrol"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="67dp" />
+
+        <!-- Top bar image + buttons -->
+        <!--<RelativeLayout  -->
+
+        <FrameLayout
+            android:id="@+id/top_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+                                     
+            <ImageView
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:contentDescription="@string/background"
+                android:scaleType="center"
+                android:src="@drawable/top_bar" />
+
+            <!--  Top bar buttons -->
+            <LinearLayout 
+                android:id="@+id/top_bar_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:orientation="horizontal"
+                android:focusable="true" 
+    			android:focusableInTouchMode="true">
+                 
+                <!-- Left divider -->
+	            <View 
+	                android:layout_height="match_parent"
+	                android:layout_width="2dp"
+	                android:background="#55555555"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp" />
+	                
+                <ImageButton 
+	                android:id="@+id/top_bar_layers_button"
+	                android:src="@drawable/top_bar_layers_button"
+	                android:background="@null"
+	                android:contentDescription="@string/top_bar_layers_button"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:onClick="layersDialogClicked" />
+
+                <!-- Right divider -->
+	            <View 
+	                android:layout_height="match_parent"
+	                android:layout_width="2dp"
+	                android:background="#55555555"
+	                android:layout_marginTop="8dp"
+	                android:layout_marginBottom="8dp" />
+	            <!-- android:layout_alignParentRight="true"  -->
+
+                <ImageButton
+                    android:id="@+id/project_selector_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:background="@null"
+                    android:contentDescription="@string/project_selector_button"
+                    android:onClick="ProjectSelectorDialogClicked"
+                    android:src="@android:drawable/ic_menu_mapmode" />
+	
+                <View 
+	                android:layout_height="match_parent"
+	                android:layout_width="2dp"
+	                android:background="#55555555"
+	                android:layout_marginTop="8dp"
+	                android:layout_marginBottom="8dp" />
+
+                <ImageButton
+                    android:id="@+id/markers_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:background="@null"
+                    android:contentDescription="@string/markers_button"
+                    android:onClick="MarkersDialogClicked"
+                    android:src="@android:drawable/arrow_down_float" />
+                
+ 
+                <View 
+	                android:layout_height="match_parent"
+	                android:layout_width="2dp"
+	                android:background="#55555555"
+	                android:layout_marginTop="8dp"
+	                android:layout_marginBottom="8dp" />	
+			    	                
+            </LinearLayout>
+	          
+        <!-- </RelativeLayout> -->    
+        </FrameLayout>
+        
+ 
+
+        <ru.tcgeo.application.GIScaleControl
+            android:id="@+id/scale_control_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/touchcontrol"
+            android:layout_alignLeft="@id/touchcontrol"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp" >
+
+        </ru.tcgeo.application.GIScaleControl>
+
+        
+    </RelativeLayout>

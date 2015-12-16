@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:state_activated="true"
-          android:drawable="@drawable/square_active" />
-    
-    <item android:drawable="@drawable/square_passive"/>
-
-</selector>
-<!-- From: file:/home/artem/AndroidProjects/AndroidApplication/androidApplication/src/main/res/drawable/button_square.xml -->
