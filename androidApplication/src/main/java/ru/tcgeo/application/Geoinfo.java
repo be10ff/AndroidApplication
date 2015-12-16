@@ -1052,15 +1052,17 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 
 		SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
 		FloatingActionButton.LayoutParams action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(84), ScreenUtils.dpToPx(84));
+        action_params.gravity = Gravity.CENTER_HORIZONTAL;
 		itemBuilder.setLayoutParams(action_params);
+
 		fbGPS.SetGPSEnabledStatus(m_location_listener.m_location_manager.isProviderEnabled(LocationManager.GPS_PROVIDER));
 
 		//--------------------------------------------------------------------
 		// GPS AUTO_FOLL0W
 		//--------------------------------------------------------------------
-//		final CheckBox m_btnAutoFollow = (CheckBox)getLayoutInflater().inflate(R.layout.button_autofollow, null);
 		final CheckBox m_btnAutoFollow = new CheckBox(this);
 		m_btnAutoFollow.setButtonDrawable(R.drawable.auto_follow_status_);
+//        m_btnAutoFollow.setCompoundDrawablesWithIntrinsicBounds(R.drawable.auto_follow_status_, 0, 0, 0);
 		SubActionButton fbAutoFollow = itemBuilder.setContentView(m_btnAutoFollow).build();
 		m_btnAutoFollow.setChecked(GIEditLayersKeeper.Instance().m_AutoFollow);
 		m_btnAutoFollow.setOnClickListener(new View.OnClickListener()
@@ -1091,8 +1093,8 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 		//--------------------------------------------------------------------
 		// GPS TRACK_CONTROL
 		//--------------------------------------------------------------------
-//		final CheckBox m_btnTrackControl = (CheckBox)getLayoutInflater().inflate(R.layout.button_trackcontrol, null);
 		final CheckBox m_btnTrackControl = new CheckBox(this);
+        m_btnTrackControl.setTextSize(0);
 		m_btnTrackControl.setButtonDrawable(R.drawable.stop_start_track_button);
 		SubActionButton fbTrackControl = itemBuilder.setContentView(m_btnTrackControl).build();
 		m_btnTrackControl.setChecked(GIEditLayersKeeper.Instance().m_TrackingStatus == GIEditLayersKeeper.GITrackingStatus.WRITE);
@@ -1114,9 +1116,9 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 		//--------------------------------------------------------------------
 		// GPS SHOW TRACK
 		//--------------------------------------------------------------------
-//		final CheckBox m_btnShowTrack = (CheckBox)getLayoutInflater().inflate(R.layout.button_show_track, null);
 		final CheckBox m_btnShowTrack = new CheckBox(this);
-		m_btnShowTrack.setButtonDrawable(R.drawable.fixable_button);
+        m_btnShowTrack.setTextSize(0);
+		m_btnShowTrack.setButtonDrawable(R.drawable.show_track);
 		SubActionButton fbShowTrack = itemBuilder.setContentView(m_btnShowTrack).build();
 		m_btnShowTrack.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -1131,9 +1133,10 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 		//--------------------------------------------------------------------
 		// GPS POI CONTROL
 		//--------------------------------------------------------------------
-//		final CheckBox m_btnPoiControl = (CheckBox)getLayoutInflater().inflate(R.layout.button_poi_control, null);
-		final CheckBox m_btnPoiControl = new CheckBox(this);
-		m_btnPoiControl.setButtonDrawable(R.drawable.poi_status);
+		final ImageButton m_btnPoiControl = new ImageButton(this);
+//		m_btnPoiControl.setButtonDrawable(R.drawable.poi_status);
+        m_btnPoiControl.setImageResource(R.drawable.poi_status);
+        m_btnPoiControl.setBackgroundDrawable(null);
 		SubActionButton fbPoiControl = itemBuilder.setContentView(m_btnPoiControl).build();
 		m_btnPoiControl.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -1148,6 +1151,7 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 				}
 			}
 		});
+
 		//--------------------------------------------------------------------
 		// GPS buttons
 		//--------------------------------------------------------------------
@@ -1180,11 +1184,6 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 				.setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
 				.setLayoutParams(compass_menu_params)
 				.build();
-
-		SubActionButton.Builder compass_item_builder = new SubActionButton.Builder(this);
-		FloatingActionButton.LayoutParams compass_action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(84), ScreenUtils.dpToPx(84));
-		compass_item_builder.setLayoutParams(compass_action_params);
-
 		//--------------------------------------------------------------------
 		// COMPASS_OPEN_BUTTON
 		//--------------------------------------------------------------------
@@ -1203,7 +1202,7 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 		// COMPASS_OPEN_Layers
 		//--------------------------------------------------------------------
 		final ImageButton btnLayers = new ImageButton(this);
-		btnLayers.setImageResource(R.drawable.top_bar_layers_button);
+		btnLayers.setImageResource(R.drawable.gear);
 		btnLayers.setBackgroundDrawable(null);
 		SubActionButton fbLayers = itemBuilder.setContentView(btnLayers).build();
 		btnLayers.setOnClickListener(new View.OnClickListener() {

@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
-        android:drawable="@drawable/create_poi"
-        android:state_checked="false" 
-        android:state_pressed="false"/>
+        android:drawable="@drawable/car_off"
+        android:state_checked="false"/>
     <item
-        android:drawable="@drawable/create_poi_pressed"
-        android:state_checked="false" 
-        android:state_pressed="true"/>    
-    <item
-        android:drawable="@drawable/finish_poi"
-        android:state_checked="true"
-        android:state_pressed="false"
-        android:state_enabled="true"/>        
-    <item
-        android:drawable="@drawable/finish_poi_pressed"
-        android:state_checked="true"
-        android:state_pressed="true"/>
+        android:drawable="@drawable/car_on"
+        android:state_checked="true"/>
 </selector>
 <!-- From: file:/home/artem/AndroidProjects/AndroidApplication/androidApplication/src/main/res/drawable/auto_follow_status_.xml -->
