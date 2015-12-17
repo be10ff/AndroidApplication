@@ -4,6 +4,7 @@ import java.io.File;
 
 import ru.tcgeo.application.gilib.gps.GICompassView;
 import ru.tcgeo.application.gilib.gps.GISensors;
+import ru.tcgeo.application.gilib.gps.GIXMLTrack;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.GIControlFloating;
@@ -1415,7 +1416,17 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 			layer.m_layer_properties = properties_layer;
 			map.InsertLayerAt(layer, 0);
 		}
-		//else if(extention.equalsIgnoreCase("xml"))
+//		else if(extention.equalsIgnoreCase("track")){
+////            m_layer.m_shapes.add(track);
+//            for(GITuple tuple : map.m_layers.m_list) {
+//                if (tuple.layer instanceof GIEditableSQLiteLayer) {
+//                    GIEditableSQLiteLayer l = (GIEditableSQLiteLayer) tuple.layer;
+//                    if (l.m_Type == GIEditableLayerType.TRACK){
+//                        l.AddGeometry(new GIXMLTrack());
+//                    }
+//                }
+//            }
+//		}
 		map.UpdateMap();
 	}
 
