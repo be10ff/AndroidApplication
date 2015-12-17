@@ -1378,18 +1378,18 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 	public void addLayer(File file) {
 		String filenameArray[] = file.getName().split("\\.");
 		String extention = filenameArray[filenameArray.length - 1];
-		if (extention.equalsIgnoreCase("sqlitedb")) 
+		if (extention.equalsIgnoreCase("sqlitedb"))
 		{
 			GIPropertiesLayer properties_layer = new GIPropertiesLayer();
 			properties_layer.m_enabled = true;
 			properties_layer.m_name = file.getName();
 			properties_layer.m_range = new GIRange();
 			properties_layer.m_source = new GISource("absolute", file.getAbsolutePath()); //getName()
-			properties_layer.m_type = GILayerType.SQL_LAYER;
-			properties_layer.m_strType = "SQL_LAYER";
+			properties_layer.m_type = GILayerType.SQL_YANDEX_LAYER;
+			properties_layer.m_strType = "SQL_YANDEX_LAYER";
 			GILayer layer;
 			//TODO
-			layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayerType.SQL_LAYER);
+			layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayerType.SQL_YANDEX_LAYER);
 			//layer = GILayer.CreateLayer(file.getName(), GILayerType.SQL_LAYER);
 			properties_layer.m_sqldb = new GISQLDB();//"auto";
 			properties_layer.m_sqldb.m_zoom_type = "auto";
