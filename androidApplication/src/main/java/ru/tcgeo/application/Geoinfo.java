@@ -1217,7 +1217,7 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 		// COMPASS_EDIT_Layers
 		//--------------------------------------------------------------------
 		final ImageButton btnEditLayers = new ImageButton(this);
-		btnEditLayers.setImageResource(android.R.drawable.ic_menu_edit);
+		btnEditLayers.setImageResource(R.drawable.edit);
 		btnEditLayers.setBackgroundDrawable(null);
 		SubActionButton fbEditLayers = itemBuilder.setContentView(btnEditLayers).build();
 		btnEditLayers.setOnClickListener(new View.OnClickListener() {
