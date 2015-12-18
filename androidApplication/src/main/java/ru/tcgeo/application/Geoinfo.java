@@ -894,11 +894,16 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 						(int) current_layer2.m_opacity);
 
 				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
+				if (current_layer.m_source.m_location.equalsIgnoreCase("local") || current_layer.m_source.m_location.equalsIgnoreCase("absolute")) {
 					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
 							(int) current_layer2.m_opacity);
+
+                    String path = current_layer.m_source.GetLocalPath();
+                    if(current_layer.m_source.m_location.equalsIgnoreCase("absolute")){
+                        path = current_layer.m_source.GetAbsolutePath();
+                    }
 					layer = GILayer.CreateLayer(
-							current_layer.m_source.GetLocalPath(),
+                            path,
 							GILayerType.XML, vstyle, current_layer.m_encoding);
 
 					layer.setName(current_layer.m_name);
@@ -1415,6 +1420,8 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 			layer.setName(file.getName());
 			layer.m_layer_properties = properties_layer;
 			map.InsertLayerAt(layer, 0);
+		} else if (extention.equalsIgnoreCase("xml")) {
+            addXMLLayer(file);
 		}
 //		else if(extention.equalsIgnoreCase("track")){
 ////            m_layer.m_shapes.add(track);
@@ -1430,7 +1437,60 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 		map.UpdateMap();
 	}
 
-	public GIMap getMap() {
+    private void addXMLLayer(File file)
+    {
+        GIPropertiesLayer properties_layer = new GIPropertiesLayer();
+        properties_layer.m_enabled = true;
+        properties_layer.m_name = file.getName();
+        properties_layer.m_range = new GIRange();
+        properties_layer.m_source = new GISource("absolute", file.getAbsolutePath());
+        properties_layer.m_type = GILayerType.XML;
+        properties_layer.m_strType = "XML";
+        GILayer layer;
+        //
+        Paint fill = new Paint();
+        Paint line = new Paint();
+
+        line.setARGB(255, 128,128, 12);
+        line.setStyle(Style.STROKE);
+        line.setStrokeWidth(2);
+
+        fill.setARGB(255, 128,128, 128);
+        fill.setStrokeWidth(2);
+        fill.setStyle(Style.FILL);
+
+        GIVectorStyle vstyle = new GIVectorStyle(line, fill, 1);
+
+
+
+//        layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayerType.XML);
+        layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayerType.XML, vstyle);
+        properties_layer.m_sqldb = new GISQLDB();
+        properties_layer.m_sqldb.m_zoom_type = "auto";
+        map.ps.m_Group.addEntry(properties_layer);
+        layer.setName(file.getName());
+        layer.m_layer_properties = properties_layer;
+
+//        Paint editing_fill = new Paint();
+//        editing_fill.setColor(Color.CYAN);
+//        editing_fill.setAlpha(96);
+//        editing_fill.setStyle(Style.FILL);
+//
+//        Paint editing_stroke = new Paint();
+//        editing_stroke.setColor(Color.CYAN);
+//        editing_stroke.setStrokeWidth(2);
+//        editing_fill.setAlpha(128);
+//        editing_stroke.setStyle(Style.STROKE);
+//        GIVectorStyle vstyle_editing = new GIVectorStyle(
+//                editing_stroke, editing_fill, 1);
+//
+//        layer.AddStyle(vstyle_editing);
+
+
+        map.AddLayer(layer);
+    }
+
+    public GIMap getMap() {
 		return map;
 	}
 
