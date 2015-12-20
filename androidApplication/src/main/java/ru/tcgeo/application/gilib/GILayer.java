@@ -2,6 +2,7 @@ package ru.tcgeo.application.gilib;
 
 import android.graphics.Bitmap;
 
+import ru.tcgeo.application.GIYandexLayer;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GIProjection;
@@ -43,8 +44,8 @@ public abstract class GILayer
 //					return new GIGoogleLayer(path);
 //				if(path.equalsIgnoreCase("GeoPortal"))
 //					return new GIWMSLayer(path);
-//				if(path.equalsIgnoreCase("Yandex"))
-//					return new GIYandexLayer(path);
+				if(path.equalsIgnoreCase("Yandex"))
+					return new GIYandexLayer(path);
 			}
 			case SQL_LAYER:
 			{
@@ -90,8 +91,8 @@ public abstract class GILayer
 //					return new GIGoogleLayer(path);
 //				if(path.equalsIgnoreCase("GeoPortal"))
 //					return new GIWMSLayer(path);
-//				if(path.equalsIgnoreCase("Yandex"))
-//					return new GIYandexLayer(path);
+				if(path.equalsIgnoreCase("Yandex"))
+					return new GIYandexLayer(path);
 			}
 
 			case SQL_LAYER:
@@ -138,8 +139,8 @@ public abstract class GILayer
 //					return new GIGoogleLayer(path);
 //				if(path.equalsIgnoreCase("GeoPortal"))
 //					return new GIWMSLayer(path);
-//				if(path.equalsIgnoreCase("Yandex"))
-//					return new GIYandexLayer(path);
+				if(path.equalsIgnoreCase("Yandex"))
+					return new GIYandexLayer(path);
 			}
 			case SQL_LAYER:
 			{
