@@ -14,6 +14,7 @@ public class GIColor {
 	public int m_green;
 	public int m_blue;
 	public int m_alpha;
+
 	
 	public GIColor(){
 
@@ -113,5 +114,50 @@ public class GIColor {
 		serializer.attribute("", "a", String.valueOf(m_alpha));
 		serializer.endTag("", "Color");
 		return serializer;
+	}
+
+	public static class Builder {
+		private String description;
+		private String name;
+		private int red;
+		private int green;
+		private int blue;
+		private int alpha;
+
+		public Builder(){}
+
+		public Builder description(String description){
+			this.description = description;
+			return this;
+		}
+
+		public Builder name(String name){
+			this.name = name;
+			return this;
+		}
+
+		public Builder argb(int alpha, int red, int green, int blue){
+			this.alpha = alpha;
+			this.red = red;
+			this.green = green;
+			this.blue = blue;
+			return this;
+		}
+
+		public GIColor build(){
+			GIColor color = new GIColor();
+			color.m_description = description;
+			if(name != null && !name.isEmpty()){
+				color.m_name = name;
+				color.setFromName();
+			} else {
+				color.m_alpha = alpha;
+				color.m_red = red;
+				color.m_green = green;
+				color.m_blue = blue;
+			}
+			return color;
+		}
+
 	}
 }

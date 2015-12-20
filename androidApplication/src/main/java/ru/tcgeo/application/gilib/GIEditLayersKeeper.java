@@ -890,6 +890,17 @@ public class GIEditLayersKeeper {
 
 		return m_Map.ps.m_name + String.format(Locale.ENGLISH, "%02d_%02d_%02d_%02d", mounth+1, day, hour, minute);
 	}
+
+	public static String getTime(String currentTimeShort){
+		String result = "";
+		if(currentTimeShort != null && !currentTimeShort.isEmpty()){
+			String[] parts = currentTimeShort.split("_");
+			if(parts.length == 5) {
+				result = parts[2] + "h" + parts[3] + "m";
+			}
+		}
+		return result;
+	}
 	
 	public void AddPointToTrack()
 	{

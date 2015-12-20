@@ -27,6 +27,7 @@ public class ProjectsAdapter extends ArrayAdapter<ProjectsAdapterItem> {
         final ProjectsAdapterItem item = getItem(position);
         View v = LayoutInflater.from(getContext()).inflate(
                 R.layout.project_selector_list_item, null);
+        View root = v.findViewById(R.id.projects_list_item_root);
         TextView text_name = (TextView) v
                 .findViewById(R.id.project_list_item_name);
         TextView text_path = (TextView) v
@@ -48,7 +49,7 @@ public class ProjectsAdapter extends ArrayAdapter<ProjectsAdapterItem> {
         }
 
 
-        text_name.setOnClickListener(new View.OnClickListener() {
+        root.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
