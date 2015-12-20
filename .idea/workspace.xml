@@ -25,25 +25,21 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="gi" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa8c29bb-4d7a-43e8-80fa-51877adc9ddf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/re_layers_list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/App.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/App.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GIColor.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GIColor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIPropertiesStyle.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIPropertiesStyle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/LayersAdapter.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/LayersAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/ProjectsAdapter.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/ProjectsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/project_selector_list_item.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/project_selector_list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/res/values-normal/styles.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/values-normal/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktGeometry.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktGeometry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktPoint.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktPoint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/values/strings.xml" />
     </list>
     <ignored path="AndroidApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,129 +60,118 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Geoinfo.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Geoinfo.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.42823">
-              <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="961" column="0" selection-start-line="961" selection-start-column="0" selection-end-line="961" selection-end-column="0" />
               <folding>
-                <element signature="e#50750#50805#0" expanded="true" />
-                <element signature="e#52089#52144#0" expanded="true" />
-                <element signature="e#52940#52941#0" expanded="true" />
-                <element signature="e#52961#52962#0" expanded="true" />
-                <element signature="e#56370#56371#0" expanded="true" />
-                <element signature="e#56387#56388#0" expanded="true" />
-                <element signature="e#56425#56426#0" expanded="true" />
-                <element signature="e#56454#56455#0" expanded="true" />
-                <element signature="e#56491#56492#0" expanded="true" />
-                <element signature="e#56519#56520#0" expanded="true" />
-                <element signature="e#56565#56566#0" expanded="true" />
-                <element signature="e#56593#56594#0" expanded="true" />
-                <element signature="e#56637#56638#0" expanded="true" />
-                <element signature="e#56672#56673#0" expanded="true" />
+                <element signature="e#50664#50719#0" expanded="true" />
+                <element signature="e#52003#52058#0" expanded="true" />
+                <element signature="e#52854#52855#0" expanded="true" />
+                <element signature="e#52875#52876#0" expanded="true" />
+                <element signature="e#56284#56285#0" expanded="true" />
+                <element signature="e#56301#56302#0" expanded="true" />
+                <element signature="e#56339#56340#0" expanded="true" />
+                <element signature="e#56368#56369#0" expanded="true" />
+                <element signature="e#56405#56406#0" expanded="true" />
+                <element signature="e#56433#56434#0" expanded="true" />
+                <element signature="e#56479#56480#0" expanded="true" />
+                <element signature="e#56507#56508#0" expanded="true" />
+                <element signature="e#56551#56552#0" expanded="true" />
+                <element signature="e#56586#56587#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GIXMLTrack.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java">
+      <file leaf-file-name="GIParserSource.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIParserSource.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="46" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="46" />
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GIEditLayersKeeper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java">
+      <file leaf-file-name="GITileInfoOSM.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITileInfoOSM.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.307693">
-              <caret line="841" column="0" selection-start-line="841" selection-start-column="0" selection-end-line="841" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GI_WktUserTrack.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktUserTrack.java">
+      <file leaf-file-name="GISQLYandexTile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLYandexTile.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="12" selection-start-line="64" selection-start-column="12" selection-end-line="64" selection-end-column="35" />
+              <caret line="6" column="21" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GIEditableLayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditableLayer.java">
+      <file leaf-file-name="GIITile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GIITile.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+              <caret line="7" column="26" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GI_WktGeometry.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktGeometry.java">
+      <file leaf-file-name="GISQLLayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLLayer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="42" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="49" />
+              <caret line="266" column="38" selection-start-line="266" selection-start-column="38" selection-end-line="266" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LayersAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/LayersAdapter.java">
+      <file leaf-file-name="OpenFileDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/OpenFileDialog.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-              <folding>
-                <element signature="e#1307#1644#0" expanded="true" />
-                <element signature="e#1643#1644#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GILayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="114" column="43" selection-start-line="114" selection-start-column="27" selection-end-line="114" selection-end-column="43" />
-              <folding>
-                <element signature="e#4664#4665#0" expanded="true" />
-                <element signature="e#4679#4680#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GIGPSPointsLayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="25" column="10" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="13" />
+              <caret line="47" column="80" selection-start-line="47" selection-start-column="80" selection-end-line="47" selection-end-column="80" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="re_layers_list_item.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/re_layers_list_item.xml">
+      <file leaf-file-name="GISQLRenderer.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.0784316">
-              <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
-              <folding>
-                <element signature="e#948#982#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-1.4159292">
+              <caret line="34" column="71" selection-start-line="34" selection-start-column="68" selection-end-line="34" selection-end-column="74" />
+              <folding />
             </state>
           </provider>
-          <provider editor-type-id="android-designer">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="GITileInfoYandex.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITileInfoYandex.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/App.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -1638,10 +1623,16 @@
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/ProjectsAdapter.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GIColor.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIPropertiesStyle.java" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/re_layers_list_item.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/LayersAdapter.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktGeometry.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktPoint.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/App.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" />
       </list>
     </option>
@@ -1710,24 +1701,6 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AndroidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="androidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
@@ -1767,6 +1740,32 @@
               <option name="myItemId" value="androidApplication" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gilib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="parser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AndroidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="androidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -1781,6 +1780,7 @@
     <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="device.picker.selection" value="5443a464" />
+    <property name="SearchEverywhereHistoryKey" value="App&#9;PSI&#9;JAVA://ru.tcgeo.application.App&#10;GI&#9;PSI&#9;JAVA://ru.tcgeo.application.wkt.GI_WktPoint" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -2093,7 +2093,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450373483124</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add XMLTrack to project&#10;add XML points to project&#10;&#10;switch Markers source between *.XML layer">
+      <created>1450589657818</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1450589657818</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2106,7 +2112,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45789474" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.065789476" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2115,8 +2121,8 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16604617" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41578948" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.278481" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22236842" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25093076" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2148,7 +2154,8 @@
     <MESSAGE value="some cosmeticals" />
     <MESSAGE value="added layer changed to SQL_YANDEX_LAYER as default" />
     <MESSAGE value="edit layer icon" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit layer icon" />
+    <MESSAGE value="add XMLTrack to project&#10;add XML points to project&#10;&#10;switch Markers source between *.XML layer" />
+    <option name="LAST_COMMIT_MESSAGE" value="add XMLTrack to project&#10;add XML points to project&#10;&#10;switch Markers source between *.XML layer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2159,178 +2166,12 @@
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
-          <line>1457</line>
-          <properties />
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="16" />
+      <option name="time" value="17" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1062" column="59" selection-start-line="1062" selection-start-column="59" selection-end-line="1062" selection-end-column="59" />
-          <folding>
-            <element signature="e#50750#50805#0" expanded="true" />
-            <element signature="e#52089#52144#0" expanded="true" />
-            <element signature="e#52940#52941#0" expanded="true" />
-            <element signature="e#52961#52962#0" expanded="true" />
-            <element signature="e#56370#56371#0" expanded="true" />
-            <element signature="e#56387#56388#0" expanded="true" />
-            <element signature="e#56425#56426#0" expanded="true" />
-            <element signature="e#56454#56455#0" expanded="true" />
-            <element signature="e#56491#56492#0" expanded="true" />
-            <element signature="e#56519#56520#0" expanded="true" />
-            <element signature="e#56565#56566#0" expanded="true" />
-            <element signature="e#56593#56594#0" expanded="true" />
-            <element signature="e#56637#56638#0" expanded="true" />
-            <element signature="e#56672#56673#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/auto_follow_status_.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1062" column="59" selection-start-line="1062" selection-start-column="59" selection-end-line="1062" selection-end-column="59" />
-          <folding>
-            <element signature="e#50750#50805#0" expanded="true" />
-            <element signature="e#52089#52144#0" expanded="true" />
-            <element signature="e#52940#52941#0" expanded="true" />
-            <element signature="e#52961#52962#0" expanded="true" />
-            <element signature="e#56370#56371#0" expanded="true" />
-            <element signature="e#56387#56388#0" expanded="true" />
-            <element signature="e#56425#56426#0" expanded="true" />
-            <element signature="e#56454#56455#0" expanded="true" />
-            <element signature="e#56491#56492#0" expanded="true" />
-            <element signature="e#56519#56520#0" expanded="true" />
-            <element signature="e#56565#56566#0" expanded="true" />
-            <element signature="e#56593#56594#0" expanded="true" />
-            <element signature="e#56637#56638#0" expanded="true" />
-            <element signature="e#56672#56673#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/auto_follow_status_.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1062" column="59" selection-start-line="1062" selection-start-column="59" selection-end-line="1062" selection-end-column="59" />
-          <folding>
-            <element signature="e#50750#50805#0" expanded="true" />
-            <element signature="e#52089#52144#0" expanded="true" />
-            <element signature="e#52940#52941#0" expanded="true" />
-            <element signature="e#52961#52962#0" expanded="true" />
-            <element signature="e#56370#56371#0" expanded="true" />
-            <element signature="e#56387#56388#0" expanded="true" />
-            <element signature="e#56425#56426#0" expanded="true" />
-            <element signature="e#56454#56455#0" expanded="true" />
-            <element signature="e#56491#56492#0" expanded="true" />
-            <element signature="e#56519#56520#0" expanded="true" />
-            <element signature="e#56565#56566#0" expanded="true" />
-            <element signature="e#56593#56594#0" expanded="true" />
-            <element signature="e#56637#56638#0" expanded="true" />
-            <element signature="e#56672#56673#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/auto_follow_status_.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1062" column="59" selection-start-line="1062" selection-start-column="59" selection-end-line="1062" selection-end-column="59" />
-          <folding>
-            <element signature="e#50750#50805#0" expanded="true" />
-            <element signature="e#52089#52144#0" expanded="true" />
-            <element signature="e#52940#52941#0" expanded="true" />
-            <element signature="e#52961#52962#0" expanded="true" />
-            <element signature="e#56370#56371#0" expanded="true" />
-            <element signature="e#56387#56388#0" expanded="true" />
-            <element signature="e#56425#56426#0" expanded="true" />
-            <element signature="e#56454#56455#0" expanded="true" />
-            <element signature="e#56491#56492#0" expanded="true" />
-            <element signature="e#56519#56520#0" expanded="true" />
-            <element signature="e#56565#56566#0" expanded="true" />
-            <element signature="e#56593#56594#0" expanded="true" />
-            <element signature="e#56637#56638#0" expanded="true" />
-            <element signature="e#56672#56673#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/auto_follow_status_.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1062" column="59" selection-start-line="1062" selection-start-column="59" selection-end-line="1062" selection-end-column="59" />
-          <folding>
-            <element signature="e#50750#50805#0" expanded="true" />
-            <element signature="e#52089#52144#0" expanded="true" />
-            <element signature="e#52940#52941#0" expanded="true" />
-            <element signature="e#52961#52962#0" expanded="true" />
-            <element signature="e#56370#56371#0" expanded="true" />
-            <element signature="e#56387#56388#0" expanded="true" />
-            <element signature="e#56425#56426#0" expanded="true" />
-            <element signature="e#56454#56455#0" expanded="true" />
-            <element signature="e#56491#56492#0" expanded="true" />
-            <element signature="e#56519#56520#0" expanded="true" />
-            <element signature="e#56565#56566#0" expanded="true" />
-            <element signature="e#56593#56594#0" expanded="true" />
-            <element signature="e#56637#56638#0" expanded="true" />
-            <element signature="e#56672#56673#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/auto_follow_status_.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/create_poi.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/create_poi_pressed.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/finish_poi.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -2355,27 +2196,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLLayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIParserSQLiteDB.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.53512394">
           <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="71" selection-start-line="34" selection-start-column="68" selection-end-line="34" selection-end-column="74" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2424,6 +2248,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.7">
           <caret line="19" column="40" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2571,25 +2396,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="114" column="43" selection-start-line="114" selection-start-column="27" selection-end-line="114" selection-end-column="43" />
-          <folding>
-            <element signature="e#4664#4665#0" expanded="true" />
-            <element signature="e#4679#4680#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="10" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/re_layers_list_item.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.0784316">
@@ -2614,10 +2420,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/local_project_management/SettingsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditableRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="121" column="21" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSParserTrack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.40430623">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="52" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.923077">
+          <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditableLayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+          <caret line="22" column="36" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42091838">
+          <caret line="102" column="4" selection-start-line="102" selection-start-column="4" selection-end-line="102" selection-end-column="4" />
           <folding />
         </state>
       </provider>
@@ -2625,55 +2471,143 @@
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktUserTrack.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="12" selection-start-line="64" selection-start-column="12" selection-end-line="64" selection-end-column="35" />
+          <caret line="51" column="17" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java">
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="46" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="46" />
+        <state vertical-scroll-proportion="-9.884615">
+          <caret line="136" column="25" selection-start-line="136" selection-start-column="25" selection-end-line="136" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktGeometry.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="42" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="49" />
+        <state vertical-scroll-proportion="-9.307693">
+          <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java">
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.307693">
-          <caret line="841" column="0" selection-start-line="841" selection-start-column="0" selection-end-line="841" selection-end-column="0" />
+        <state vertical-scroll-proportion="-7.576923">
+          <caret line="317" column="9" selection-start-line="317" selection-start-column="9" selection-end-line="317" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.192307">
+          <caret line="89" column="46" selection-start-line="89" selection-start-column="46" selection-end-line="89" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.08990537">
+          <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/OpenFileDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="80" selection-start-line="47" selection-start-column="80" selection-end-line="47" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITileInfoYandex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.42823">
-          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="961" column="0" selection-start-line="961" selection-start-column="0" selection-end-line="961" selection-end-column="0" />
           <folding>
-            <element signature="e#50750#50805#0" expanded="true" />
-            <element signature="e#52089#52144#0" expanded="true" />
-            <element signature="e#52940#52941#0" expanded="true" />
-            <element signature="e#52961#52962#0" expanded="true" />
-            <element signature="e#56370#56371#0" expanded="true" />
-            <element signature="e#56387#56388#0" expanded="true" />
-            <element signature="e#56425#56426#0" expanded="true" />
-            <element signature="e#56454#56455#0" expanded="true" />
-            <element signature="e#56491#56492#0" expanded="true" />
-            <element signature="e#56519#56520#0" expanded="true" />
-            <element signature="e#56565#56566#0" expanded="true" />
-            <element signature="e#56593#56594#0" expanded="true" />
-            <element signature="e#56637#56638#0" expanded="true" />
-            <element signature="e#56672#56673#0" expanded="true" />
+            <element signature="e#50664#50719#0" expanded="true" />
+            <element signature="e#52003#52058#0" expanded="true" />
+            <element signature="e#52854#52855#0" expanded="true" />
+            <element signature="e#52875#52876#0" expanded="true" />
+            <element signature="e#56284#56285#0" expanded="true" />
+            <element signature="e#56301#56302#0" expanded="true" />
+            <element signature="e#56339#56340#0" expanded="true" />
+            <element signature="e#56368#56369#0" expanded="true" />
+            <element signature="e#56405#56406#0" expanded="true" />
+            <element signature="e#56433#56434#0" expanded="true" />
+            <element signature="e#56479#56480#0" expanded="true" />
+            <element signature="e#56507#56508#0" expanded="true" />
+            <element signature="e#56551#56552#0" expanded="true" />
+            <element signature="e#56586#56587#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIParserSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITileInfoOSM.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLYandexTile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="21" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GIITile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLLayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="266" column="38" selection-start-line="266" selection-start-column="38" selection-end-line="266" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.4159292">
+          <caret line="34" column="71" selection-start-line="34" selection-start-column="68" selection-end-line="34" selection-end-column="74" />
+          <folding />
         </state>
       </provider>
     </entry>

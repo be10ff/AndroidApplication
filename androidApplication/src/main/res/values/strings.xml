@@ -33,7 +33,7 @@
     <string name="button_gps">GPS</string>
     <string name="add_layer_header">добавить...</string>
     <string-array name="extentions">
-		<item>"track"</item>
+		<!--<item>"track"</item>-->
 		<item>"sqlitedb"</item>
 		<item>xml</item>
     </string-array>

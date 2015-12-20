@@ -27,7 +27,8 @@ public class GI_WktPoint extends GI_WktGeometry {
 	int m_TrackID;
 	public GI_WktPoint() 
 	{
-		m_bitmap = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.measure_point);
+//		m_bitmap = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.measure_point);
+		m_bitmap = App.getInstance().wktPointBitmap;
 		m_type = GIWKTGeometryType.POINT;
 		m_status = GIWKTGeometryStatus.NEW;
 		m_lon = 0;
@@ -36,7 +37,8 @@ public class GI_WktPoint extends GI_WktGeometry {
 	}
 	public GI_WktPoint(GILonLat point)
 	{
-		m_bitmap = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.measure_point);
+//		m_bitmap = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.measure_point);
+		m_bitmap = App.getInstance().wktPointBitmap;
 		m_type = GIWKTGeometryType.POINT;
 		m_status = GIWKTGeometryStatus.NEW;
 		m_lon = point.lon();

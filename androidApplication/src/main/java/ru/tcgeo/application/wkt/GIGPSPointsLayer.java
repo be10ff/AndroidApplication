@@ -131,4 +131,11 @@ public class GIGPSPointsLayer  extends GIEditableLayer
 		}
 	}
 
+	@Override
+	public void free(){
+//		for(GI_WktGeometry shape : m_shapes){
+//			shape.free();
+//		}
+	}
+
 }

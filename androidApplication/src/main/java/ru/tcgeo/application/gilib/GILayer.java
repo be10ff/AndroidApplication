@@ -228,4 +228,9 @@ public abstract class GILayer
 		return 0;
 	}
 
+	public void free()
+	{
+
+	}
+
 }

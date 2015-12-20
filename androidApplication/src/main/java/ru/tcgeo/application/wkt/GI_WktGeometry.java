@@ -61,4 +61,7 @@ public abstract class GI_WktGeometry
 		return toWKT();
 	}
 	public abstract boolean isTouch(GIBounds point);
+	public void free(){
+
+	}
 }

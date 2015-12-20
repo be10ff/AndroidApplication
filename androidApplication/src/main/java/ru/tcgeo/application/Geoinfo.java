@@ -200,7 +200,13 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
                                 if (geom.m_attributes.containsKey("Project")) {
                                     marker.m_name = (String) geom.m_attributes.get("Project").m_value.toString();
                                     if(geom.m_attributes.containsKey("Description")){
-                                        marker.m_name = " " + GIEditLayersKeeper.getTime((String) geom.m_attributes.get("Description").m_value.toString());
+                                        String data = GIEditLayersKeeper.getTime((String) geom.m_attributes.get("Description").m_value.toString());
+                                        if(!data.isEmpty()){
+                                            marker.m_name =  marker.m_name + " " + data;
+                                        } else {
+                                            marker.m_name =  marker.m_name + " " + (String) geom.m_attributes.get("Description").m_value.toString();
+                                        }
+
                                     }
                                 } else if (!geom.m_attributes.keySet().isEmpty()) {
                                     marker.m_name = (String) geom.m_attributes.get(geom.m_attributes.keySet().toArray()[0]).m_value;
@@ -318,22 +324,7 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 				.findViewById(R.id.layers_list);
 		LayersAdapter adapter = new LayersAdapter(this,
 				R.layout.re_layers_list_item, R.id.layers_list_item_text);
-		// TODO
-		// add_layer_header
-		/**/
-//		View header = getLayoutInflater().inflate(
-//				R.layout.add_layer_header_layout, null);
-//		header.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				OpenFileDialog dlg = new OpenFileDialog();
-//				dlg.setIFolderItemListener(m_fileOpenListener);
-//				dlg.show(getSupportFragmentManager(), "open_dlg");
-//			}
-//		});
-//		layers_list.addHeaderView(header);
-		/**/
+
 		ImageButton additional = (ImageButton) layers_dialog
 				.findViewById(R.id.layers_additional_button);
 		additional.setOnClickListener(new OnClickListener() {
@@ -968,7 +959,7 @@ public class Geoinfo extends FragmentActivity implements IFolderItemListener// i
 					continue;
 				}
 			}
-			//TODO
+
 			if (current_layer.m_type == GILayerType.PLIST) 
 			{
 				Paint fill = new Paint();

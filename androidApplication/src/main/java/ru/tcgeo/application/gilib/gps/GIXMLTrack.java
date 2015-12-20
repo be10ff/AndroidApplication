@@ -1,8 +1,10 @@
 package ru.tcgeo.application.gilib.gps;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.planimetry.Edge;
 import ru.tcgeo.application.gilib.planimetry.Vertex;
 import ru.tcgeo.application.utils.MapUtils;
+import ru.tcgeo.application.wkt.GIWKTParser;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
@@ -295,5 +298,31 @@ public class GIXMLTrack extends GI_WktGeometry {
 	public String SerializedGeometry() 
 	{
 		return m_file;
+	}
+
+	private void load(){
+		try
+		{
+			BufferedReader reader = new BufferedReader(new FileReader(m_file));
+			String line = "";
+			while((line = reader.readLine()) != null)
+			{
+				GI_WktGeometry point = GIWKTParser.CreateGeometryFromWKT(line);
+				m_points.add((GI_WktPoint) point);
+			}
+			reader.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void free(){
+//		for(GI_WktGeometry geometry : m_points){
+//			geometry.free();
+//		}
+//		m_points.clear();
 	}
 }

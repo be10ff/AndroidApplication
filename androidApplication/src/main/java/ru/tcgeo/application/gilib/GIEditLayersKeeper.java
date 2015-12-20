@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import android.app.FragmentManager;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationManager;
@@ -98,6 +99,8 @@ public class GIEditLayersKeeper {
 	final public String gps_dialog_tag = "GPS_DIALOG_TAG";
 	final public String compass_view_tag = "COMPASS_TAG";
 	final public String locator_view_tag = "LOCATOR_TAG";
+
+
 
 	private static GIEditLayersKeeper instance;
 
