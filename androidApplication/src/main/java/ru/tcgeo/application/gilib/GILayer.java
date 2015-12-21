@@ -9,6 +9,7 @@ import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIStyle;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
+import ru.tcgeo.application.gilib.parser.GISQLDB;
 import ru.tcgeo.application.wkt.GIGPSPointsLayer;
 
 public abstract class GILayer
@@ -231,6 +232,12 @@ public abstract class GILayer
 
 	public void free()
 	{
+
+	}
+	public static class Builder{
+		private String name;
+        private GILayerType type;
+        private GISQLDB sqldb;
 
 	}
 

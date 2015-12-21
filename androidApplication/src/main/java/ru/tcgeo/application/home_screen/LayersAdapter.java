@@ -27,21 +27,34 @@ public class LayersAdapter extends ArrayAdapter<LayersAdapterItem> {
                 R.layout.re_layers_list_item, null);
         TextView name = ((TextView) v.findViewById(R.id.layers_list_item_text));
         name.setText(item.m_tuple.layer.getName());
-        View isMarkers = v.findViewById(R.id.isMarkerSource);
-        if(item.m_tuple.layer.getName().equalsIgnoreCase(mActivity.getMap().ps.m_markers)){
-            isMarkers.setVisibility(View.VISIBLE);
-        } else {
-            isMarkers.setVisibility(View.GONE);
-        }
-        name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(item.m_tuple.layer.type_== GILayer.GILayerType.XML){
+
+
+        CheckBox cbMarkers = (CheckBox)v.findViewById(R.id.cbMarkersSource);
+        if(item.m_tuple.layer.type_== GILayer.GILayerType.XML) {
+            cbMarkers.setVisibility(View.VISIBLE);
+            cbMarkers.setChecked(item.m_tuple.layer.getName().equalsIgnoreCase(mActivity.getMap().ps.m_markers));
+            cbMarkers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked) {
                     mActivity.getMap().ps.m_markers = item.m_tuple.layer.getName();
                     notifyDataSetChanged();
+                    }
                 }
-            }
-        });
+            });
+        }else {
+            cbMarkers.setVisibility(View.GONE);
+        }
+
+//        name.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(item.m_tuple.layer.type_== GILayer.GILayerType.XML){
+//                    mActivity.getMap().ps.m_markers = item.m_tuple.layer.getName();
+//                    notifyDataSetChanged();
+//                }
+//            }
+//        });
 //        name.setOnClickListener(mListener);
         CheckBox checkbox = (CheckBox) v.findViewById(R.id.layers_list_item_switch);
         checkbox.setChecked(item.m_tuple.visible);

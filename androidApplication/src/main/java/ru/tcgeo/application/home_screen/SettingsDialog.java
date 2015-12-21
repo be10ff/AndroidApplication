@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -72,18 +73,21 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
                 R.id.project_list_item_path);
         AddProjects(projects_adapter);
         mProjectsList.setAdapter(projects_adapter);
-        mProjectsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        mProjectsList.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onTouch(View v, MotionEvent event) {
                 propertiesParams.weight = 0;
-                projectsParams.weight = 2;
+                projectsParams.weight = 4;
                 mProjectsList.requestLayout();
                 mProperties.requestLayout();
+                return false;
             }
         });
 
+
         layersAdapter = new LayersAdapter((Geoinfo)getActivity(),
-                R.layout.layers_list_item, R.id.layers_list_item_text);
+                R.layout.re_layers_list_item, R.id.layers_list_item_text);
 
         View header = inflater.inflate(
                 R.layout.add_layer_header_layout, null);
@@ -100,13 +104,19 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
 
         addLayers((GIGroupLayer) mMap.m_layers, layersAdapter);
         mLayersList.setAdapter(layersAdapter);
+        mLayersList.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                projectsParams.weight = 1;
+                propertiesParams.weight = 4;
+                mProjectsList.requestLayout();
+                mProperties.requestLayout();
+                return false;
+            }
+        });
         mLayersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                projectsParams.weight = 1;
-                propertiesParams.weight = 2;
-                mProjectsList.requestLayout();
-                mProperties.requestLayout();
 
                 final LayersAdapterItem item = layersAdapter.getItem(position - mLayersList.getHeaderViewsCount());
 

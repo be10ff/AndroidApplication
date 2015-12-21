@@ -10,7 +10,7 @@
     <ListView
         android:id="@+id/projects_list"
         android:layout_width="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="4"
         android:layout_height="0dp"
         android:minHeight="150dp"
         android:fadingEdgeLength="10dp"
@@ -22,7 +22,7 @@
     <ListView
         android:id="@+id/layers_list"
         android:layout_width="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="4"
         android:layout_height="0dp"
         android:minHeight="150dp"
         android:fadingEdgeLength="10dp"
@@ -36,7 +36,7 @@
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="4"
         android:minHeight="150dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"

@@ -7,14 +7,15 @@
     android:padding="10dp"
     android:layout_gravity="center"
     android:descendantFocusability="blocksDescendants">
-    <ImageView
-        android:id="@+id/isMarkerSource"
+
+    <CheckBox
+        android:id="@+id/cbMarkersSource"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/measure_point"
-        android:layout_marginRight="6dp"
         android:layout_gravity="center_vertical"
-        android:visibility="gone"/>
+        android:layout_marginRight="6dp"
+        android:button="@drawable/markers_source_selector"
+        />
     <TextView
         style="@style/Theme.Text_Normal"
         android:id="@+id/layers_list_item_text"

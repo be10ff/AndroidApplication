@@ -165,43 +165,45 @@ public class SettingsFragment extends Fragment {
         }
 
         //zoom type
-        ArrayAdapter<String> zoom_type_adapter = new ArrayAdapter<String>(
-                getActivity(),
-                R.layout.item_spinner,
-                getResources().getStringArray(R.array.zoom_type));
+        if(mItem.m_tuple.layer.m_layer_properties.m_sqldb != null) {
+            ArrayAdapter<String> zoom_type_adapter = new ArrayAdapter<String>(
+                    getActivity(),
+                    R.layout.item_spinner,
+                    getResources().getStringArray(R.array.zoom_type));
 
-        zoom_type_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-        mZoomType.setAdapter(zoom_type_adapter);
-        for(int i = 0; i < getResources().getStringArray(R.array.zoom_type).length; i++){
-            if(getResources().getStringArray(R.array.zoom_type)[i].equals(mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_zoom_type)){
-                mZoomType.setSelection(i);
+            zoom_type_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+            mZoomType.setAdapter(zoom_type_adapter);
+            for (int i = 0; i < getResources().getStringArray(R.array.zoom_type).length; i++) {
+                if (getResources().getStringArray(R.array.zoom_type)[i].equals(mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_zoom_type)) {
+                    mZoomType.setSelection(i);
+                }
             }
-        }
 
-        //zoom max
-        ArrayAdapter<String> zoom_max_adapter = new ArrayAdapter<String>(
-                getActivity(),
-                R.layout.item_spinner,
-                getResources().getStringArray(R.array.zoom_levels));
+            //zoom max
+            ArrayAdapter<String> zoom_max_adapter = new ArrayAdapter<String>(
+                    getActivity(),
+                    R.layout.item_spinner,
+                    getResources().getStringArray(R.array.zoom_levels));
 
-        zoom_max_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-        mZoomMax.setAdapter(zoom_max_adapter);
-        for(int i = 0; i < getResources().getStringArray(R.array.zoom_levels).length; i++){
-            if(getResources().getStringArray(R.array.zoom_levels)[i].equals(String.valueOf(mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_max_z))){
-                mZoomMax.setSelection(i);
+            zoom_max_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+            mZoomMax.setAdapter(zoom_max_adapter);
+            for (int i = 0; i < getResources().getStringArray(R.array.zoom_levels).length; i++) {
+                if (getResources().getStringArray(R.array.zoom_levels)[i].equals(String.valueOf(mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_max_z))) {
+                    mZoomMax.setSelection(i);
+                }
             }
-        }
-        //zoom min
-        ArrayAdapter<String> zoom_min_adapter = new ArrayAdapter<String>(
-                getActivity(),
-                R.layout.item_spinner,
-                getResources().getStringArray(R.array.zoom_levels));
+            //zoom min
+            ArrayAdapter<String> zoom_min_adapter = new ArrayAdapter<String>(
+                    getActivity(),
+                    R.layout.item_spinner,
+                    getResources().getStringArray(R.array.zoom_levels));
 
-        zoom_min_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
-        mZoomMin.setAdapter(zoom_min_adapter);
-        for(int i = 0; i < getResources().getStringArray(R.array.zoom_levels).length; i++){
-            if(getResources().getStringArray(R.array.zoom_levels)[i].equals(String.valueOf(mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_min_z))){
-                mZoomMin.setSelection(i);
+            zoom_min_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+            mZoomMin.setAdapter(zoom_min_adapter);
+            for (int i = 0; i < getResources().getStringArray(R.array.zoom_levels).length; i++) {
+                if (getResources().getStringArray(R.array.zoom_levels)[i].equals(String.valueOf(mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_min_z))) {
+                    mZoomMin.setSelection(i);
+                }
             }
         }
     }
