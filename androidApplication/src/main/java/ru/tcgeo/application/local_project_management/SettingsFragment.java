@@ -3,9 +3,12 @@ package ru.tcgeo.application.local_project_management;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -52,12 +55,13 @@ public class SettingsFragment extends Fragment {
 
     LayersAdapterItem mItem;
     GIMap mMap;
-
+    GILayer.Builder builder;
     public SettingsFragment(){}
 
     public SettingsFragment(GIMap map, LayersAdapterItem item){
         mItem = item;
         mMap = map;
+        builder = new GILayer.Builder(item.m_tuple.layer);
     }
 
     @Override
@@ -66,6 +70,95 @@ public class SettingsFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         reset();
+        mName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                builder.name(mName.getText().toString());
+            }
+        });
+
+        mType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String layer_type = mType.getSelectedItem().toString();
+                if(layer_type.equalsIgnoreCase("SQL_LAYER"))
+                {
+                    builder.type(GILayer.GILayerType.SQL_LAYER);
+                }
+                if(layer_type.equalsIgnoreCase("SQL_YANDEX_LAYER"))
+                {
+                    builder.type(GILayer.GILayerType.SQL_YANDEX_LAYER);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                builder.type(null);
+            }
+        });
+
+        mZoomType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String zoom_type = mZoomType.getSelectedItem().toString();
+                //todo
+//                if(zoom_type.equalsIgnoreCase("adaptive")) {
+//                    (builder.() = GISQLLayer.GISQLiteZoomingType.ADAPTIVE;
+//                } else if(zoom_type.equalsIgnoreCase("smart")) {
+//                    ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
+//                } else {
+//                    ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
+//                }
+                builder.sqldbZoomType(zoom_type);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                builder.sqldbZoomType(null);
+            }
+        });
+
+        mZoomMax.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                builder.sqldbMaxZ(Integer.valueOf(mZoomMax.getSelectedItem().toString()));
+//                ((GISQLLayer)mItem.m_tuple.layer).m_max =  Integer.valueOf(mZoomMax.getSelectedItem().toString());
+                double con = 0.0254*0.0066*256/(0.5*40000000);
+                int from = (int)( 1/(Math.pow(2,  Integer.valueOf(mZoomMin.getSelectedItem().toString()))*con));
+                builder.rangeFrom(from);
+                mItem.m_tuple.scale_range.setMin(1 / ((double)from));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                builder.sqldbMaxZ(-1);
+            }
+        });
+
+        mZoomMin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                builder.sqldbMinZ(Integer.valueOf(mZoomMin.getSelectedItem().toString()));
+//                ((GISQLLayer)mItem.m_tuple.layer).m_min =  Integer.valueOf(mZoomMin.getSelectedItem().toString());
+                double con = 0.0254*0.0066*256/(0.5*40000000);
+                int to =  (int) ( 1/(Math.pow(2,  Integer.valueOf(mZoomMax.getSelectedItem().toString()))*con));
+                builder.rangeTo(to);
+                mItem.m_tuple.scale_range.setMax(1/(double)to);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                builder.sqldbMinZ(-1);
+            }
+        });
+
+
 
         return view;
     }
@@ -73,52 +166,56 @@ public class SettingsFragment extends Fragment {
     @OnClick(R.id.button_apply)
     public void apply(){
 
-        mItem.m_tuple.layer.setName(mName.getText().toString());
+//        mItem.m_tuple.layer.setName(mName.getText().toString());
 
 
-        String layer_type = mType.getSelectedItem().toString();
 
-        if(layer_type.equalsIgnoreCase("SQL_LAYER"))
-        {
-            mItem.m_tuple.layer.m_layer_properties.m_type = GILayer.GILayerType.SQL_LAYER;
-            ((GISQLLayer)mItem.m_tuple.layer).type_ = GILayer.GILayerType.SQL_LAYER;
-        }
-        if(layer_type.equalsIgnoreCase("SQL_YANDEX_LAYER"))
-        {
-            mItem.m_tuple.layer.m_layer_properties.m_type = GILayer.GILayerType.SQL_YANDEX_LAYER;
-            ((GISQLLayer)mItem.m_tuple.layer).type_ = GILayer.GILayerType.SQL_YANDEX_LAYER;
-        }
+//        String layer_type = mType.getSelectedItem().toString();
+//        if(layer_type.equalsIgnoreCase("SQL_LAYER"))
+//        {
+//            mItem.m_tuple.layer.m_layer_properties.m_type = GILayer.GILayerType.SQL_LAYER;
+//            ((GISQLLayer)mItem.m_tuple.layer).type_ = GILayer.GILayerType.SQL_LAYER;
+//        }
+//        if(layer_type.equalsIgnoreCase("SQL_YANDEX_LAYER"))
+//        {
+//            mItem.m_tuple.layer.m_layer_properties.m_type = GILayer.GILayerType.SQL_YANDEX_LAYER;
+//            ((GISQLLayer)mItem.m_tuple.layer).type_ = GILayer.GILayerType.SQL_YANDEX_LAYER;
+//        }
+
+
 
         //zomming type
-        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_zoom_type =  mZoomType.getSelectedItem().toString();
-        String zoom_type = mZoomType.getSelectedItem().toString();
-        if(zoom_type.equalsIgnoreCase("adaptive")) {
-            ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.ADAPTIVE;
-        } else if(zoom_type.equalsIgnoreCase("smart")) {
-            ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
-        } else {
-            ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
-        }
-        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_zoom_type = zoom_type;
-        //zoom
-        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_max_z =  Integer.valueOf(mZoomMax.getSelectedItem().toString());
-        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_min_z =  Integer.valueOf(mZoomMin.getSelectedItem().toString());
+//        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_zoom_type =  mZoomType.getSelectedItem().toString();
+//        String zoom_type = mZoomType.getSelectedItem().toString();
+//        if(zoom_type.equalsIgnoreCase("adaptive")) {
+//            ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.ADAPTIVE;
+//        } else if(zoom_type.equalsIgnoreCase("smart")) {
+//            ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
+//        } else {
+//            ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
+//        }
+//        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_zoom_type = zoom_type;
+//        //zoom
+//        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_max_z =  Integer.valueOf(mZoomMax.getSelectedItem().toString());
+//        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_min_z =  Integer.valueOf(mZoomMin.getSelectedItem().toString());
 
-        ((GISQLLayer)mItem.m_tuple.layer).m_max =  Integer.valueOf(mZoomMax.getSelectedItem().toString());
-        ((GISQLLayer)mItem.m_tuple.layer).m_min =  Integer.valueOf(mZoomMin.getSelectedItem().toString());
+//        ((GISQLLayer)mItem.m_tuple.layer).m_max =  Integer.valueOf(mZoomMax.getSelectedItem().toString());
+//        ((GISQLLayer)mItem.m_tuple.layer).m_min =  Integer.valueOf(mZoomMin.getSelectedItem().toString());
 
 
         //range
-        double con = 0.0254*0.0066*256/(0.5*40000000);
-        int from = (int)( 1/(Math.pow(2,  Integer.valueOf(mZoomMin.getSelectedItem().toString()))*con));
-        int to =  (int) ( 1/(Math.pow(2,  Integer.valueOf(mZoomMax.getSelectedItem().toString()))*con));
+//        double con = 0.0254*0.0066*256/(0.5*40000000);
+//        int from = (int)( 1/(Math.pow(2,  Integer.valueOf(mZoomMin.getSelectedItem().toString()))*con));
+//        int to =  (int) ( 1/(Math.pow(2,  Integer.valueOf(mZoomMax.getSelectedItem().toString()))*con));
 
-        mItem.m_tuple.layer.m_layer_properties.m_range.m_from = from;/*Integer.valueOf(mRangeMin.getText().toString());*/
-        mItem.m_tuple.layer.m_layer_properties.m_range.m_to = to;/*Integer.valueOf(mRangeMax.getText().toString());*/
+//        mItem.m_tuple.layer.m_layer_properties.m_range.m_from = from;/*Integer.valueOf(mRangeMin.getText().toString());*/
+//        mItem.m_tuple.layer.m_layer_properties.m_range.m_to = to;/*Integer.valueOf(mRangeMax.getText().toString());*/
 
 
-        mItem.m_tuple.scale_range.setMin(1 / ((double)from));
-        mItem.m_tuple.scale_range.setMax(1/(double)to);
+//        mItem.m_tuple.scale_range.setMin(1 / ((double)from));
+//        mItem.m_tuple.scale_range.setMax(1/(double)to);
+
+        mItem.m_tuple.layer = builder.build();
 
         ((Geoinfo)getActivity()).getMap().UpdateMap();
     }

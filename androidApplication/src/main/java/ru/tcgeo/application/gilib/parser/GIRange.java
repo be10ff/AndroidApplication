@@ -49,4 +49,36 @@ public class GIRange
 		
 		return new GIScaleRange(1/m_from, 1/m_to);
 	}*/
+
+	public static class Builder{
+		private int from;
+		private int to;
+		GIRange source;
+		Builder(){}
+		Builder(GIRange source){
+			this.source = source;
+		}
+
+		Builder from(int from){
+			this.from = from;
+			return this;
+		}
+		Builder to(int to){
+			this.to = to;
+			return this;
+		}
+
+		GIRange build(){
+			if(source == null){
+				source = new GIRange();
+			}
+			if(from != -1 && from != 0){
+				source.m_from = from;
+			}
+			if(to != -1 && to != 0){
+				source.m_to = to;
+			}
+			return source;
+		}
+	}
 }

@@ -134,4 +134,168 @@ public class GIPropertiesLayer implements ILayersRoot
 			m_Entries.set(index, tmp);
 		}
 	}
+
+	public static class Builder{
+		private String name;
+		private GILayer.GILayerType type;
+		private String strType;
+        private boolean enabled;
+//		private GISource source;
+//		private GIPropertiesStyle style;
+//		private GIRange range;
+//		private GISQLDB sqldb;
+
+        GISource.Builder sourceBuilder;
+        GIPropertiesStyle.Builder styleBuilder;
+        GIRange.Builder rangeBuilder;
+        GISQLDB.Builder sqldbBuilder;
+
+		GIPropertiesLayer layer;
+
+		public Builder(){}
+		public Builder(GIPropertiesLayer layer){
+			this.layer = layer;
+		}
+
+        public Builder name(String name){
+			this.name = name;
+			return this;
+		}
+
+        public Builder type(GILayer.GILayerType type){
+            this.type = type;
+            this.strType = type.name();
+            return this;
+        }
+
+        public Builder enabled(boolean enabled){
+            this.enabled = enabled;
+            return this;
+        }
+
+        public Builder sourceLocation(String location){
+            if(sourceBuilder == null){
+                sourceBuilder = new GISource.Builder(layer.m_source);
+            }
+            sourceBuilder.location(location);
+            return this;
+        }
+
+        public Builder sourceName(String name){
+            if(sourceBuilder == null){
+                sourceBuilder = new GISource.Builder(layer.m_source);
+            }
+            sourceBuilder.name(name);
+            return this;
+        }
+
+        public Builder styleType(String type){
+            if(styleBuilder == null){
+                styleBuilder = new GIPropertiesStyle.Builder(layer.m_style);
+            }
+            styleBuilder.type(type);
+            return this;
+        }
+
+        public Builder styleLineWidth(double width){
+            if(styleBuilder == null){
+                styleBuilder = new GIPropertiesStyle.Builder(layer.m_style);
+            }
+            styleBuilder.lineWidth(width);
+            return this;
+        }
+
+        public Builder styleOpacity(double opacity){
+            if(styleBuilder == null){
+                styleBuilder = new GIPropertiesStyle.Builder(layer.m_style);
+            }
+            styleBuilder.opacity(opacity);
+            return this;
+        }
+
+        public Builder styleColor(GIColor color){
+            if(styleBuilder == null){
+                styleBuilder = new GIPropertiesStyle.Builder(layer.m_style);
+            }
+            styleBuilder.color(color);
+            return this;
+        }
+
+        public Builder rangeFrom(int from){
+            if(rangeBuilder == null){
+                rangeBuilder = new GIRange.Builder(layer.m_range);
+            }
+            rangeBuilder.from(from);
+            return this;
+        }
+
+        public Builder rangeTo(int to){
+            if(rangeBuilder == null){
+                rangeBuilder = new GIRange.Builder(layer.m_range);
+            }
+            rangeBuilder.to(to);
+            return this;
+        }
+
+        public Builder sqldbMaxZ(int maxZ){
+            if(sqldbBuilder == null){
+                sqldbBuilder = new GISQLDB.Builder(layer.m_sqldb);
+            }
+            sqldbBuilder.maxZ(maxZ);
+            return this;
+        }
+
+        public Builder sqldbMinZ(int minZ){
+            if(sqldbBuilder == null){
+                sqldbBuilder = new GISQLDB.Builder(layer.m_sqldb);
+            }
+            sqldbBuilder.minZ(minZ);
+            return this;
+        }
+
+        public Builder sqldbZoomType(String zoomType){
+            if(sqldbBuilder == null){
+                sqldbBuilder = new GISQLDB.Builder(layer.m_sqldb);
+            }
+            sqldbBuilder.zoomType(zoomType);
+            return this;
+        }
+
+        public Builder sqldbRatio(int ratio){
+            if(sqldbBuilder == null){
+                sqldbBuilder = new GISQLDB.Builder(layer.m_sqldb);
+            }
+            sqldbBuilder.ratio(ratio);
+            return this;
+        }
+
+        public GIPropertiesLayer build(){
+            if(layer == null){
+                layer = new GIPropertiesLayer();
+            }
+            if(name != null){
+                layer.m_name = name;
+            }
+            if(type != null){
+                layer.m_type = type;
+            }
+            if(strType != null){
+                layer.m_strType = strType;
+            }
+            if(sourceBuilder!= null){
+                layer.m_source = sourceBuilder.build();
+            }
+            if(styleBuilder!= null){
+                layer.m_style = styleBuilder.build();
+            }
+            if(rangeBuilder!= null){
+                layer.m_range = rangeBuilder.build();
+            }
+            if(sqldbBuilder!= null){
+                layer.m_sqldb = sqldbBuilder.build();
+            }
+            return layer;
+        }
+
+	}
 }

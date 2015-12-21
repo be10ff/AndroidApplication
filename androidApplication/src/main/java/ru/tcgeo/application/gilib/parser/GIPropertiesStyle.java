@@ -32,9 +32,13 @@ public class GIPropertiesStyle
 		private double lineWidth;
 		private double opacity;
 		public ArrayList<GIColor> colors;
+		GIPropertiesStyle source;
 
 		public Builder(){
 
+		}
+		Builder(GIPropertiesStyle source){
+			this.source = source;
 		}
 
 		public Builder type(String type){
@@ -60,13 +64,30 @@ public class GIPropertiesStyle
 			return this;
 		}
 
+
+
 		public GIPropertiesStyle build(){
-			GIPropertiesStyle style = new GIPropertiesStyle();
-			style.m_type = type;
-			style.m_lineWidth = lineWidth;
-			style.m_opacity = opacity;
-			style.m_colors = colors;
-			return style;
+			if(source == null) {
+				GIPropertiesStyle source = new GIPropertiesStyle();
+			}
+			if(type != null) {
+				source.m_type = type;
+			}
+			if(lineWidth != 0) {
+				source.m_lineWidth = lineWidth;
+			}
+			if(opacity != 0) {
+				source.m_opacity = opacity;
+			}
+			if(colors != null) {
+				if(source.m_colors == null){
+					source.m_colors = colors;
+				} else {
+					source.m_colors.addAll(colors);
+				}
+
+			}
+			return source;
 		}
 
 	}

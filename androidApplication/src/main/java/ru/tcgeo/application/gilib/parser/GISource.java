@@ -22,6 +22,8 @@ public class GISource
 		m_location = location;
 		m_name = name;
 	}
+
+
 	public String ToString()
 	{
 		String Res = "Source \n";
@@ -49,5 +51,40 @@ public class GISource
 		serializer.attribute("", "name", m_name);
 		serializer.endTag("", "Source");
 		return serializer;
+	}
+
+	public static class Builder{
+		private String location;
+		private String name;
+		GISource source;
+
+		Builder(){}
+
+		Builder(GISource source){
+			this.source = source;
+		}
+
+		Builder location(String location){
+			this.location = location;
+			return this;
+		}
+
+		Builder name(String name){
+			this.name = name;
+			return this;
+		}
+
+		GISource build(){
+			if(source == null){
+				source = new GISource();
+			}
+			if(location != null) {
+				source.m_location = location;
+			}
+			if(name != null) {
+				source.m_name = name;
+			}
+			return source;
+		}
 	}
 }

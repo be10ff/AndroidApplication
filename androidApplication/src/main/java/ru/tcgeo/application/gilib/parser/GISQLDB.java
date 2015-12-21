@@ -43,4 +43,56 @@ public class GISQLDB {
 		serializer.endTag("", "sqlitedb");
 		return serializer;
 	}
+
+	public static class Builder{
+		GISQLDB source;
+		public String zoomType;
+		public int maxZ;
+		public int minZ;
+		public int ratio;
+
+		Builder(){}
+		Builder(GISQLDB source){
+			this.source = source;
+		}
+
+		Builder zoomType(String zoomType){
+			this.zoomType = zoomType;
+			return this;
+		}
+
+		Builder maxZ(int maxZ){
+			this.maxZ = maxZ;
+			return this;
+		}
+
+		Builder minZ(int minZ){
+			this.minZ = minZ;
+			return this;
+		}
+
+		Builder ratio(int ratio){
+			this.ratio = ratio;
+			return this;
+		}
+
+		GISQLDB build(){
+			if(source == null){
+				source = new GISQLDB();
+			}
+			if(zoomType != null){
+				source.m_zoom_type = zoomType;
+			}
+			if(maxZ != -1 && maxZ != 0){
+				source.m_max_z = maxZ;
+			}
+			if(minZ != -1 && minZ != 0){
+				source.m_min_z = minZ;
+			}
+			if(ratio != -1 && ratio != 0){
+				source.mRatio = ratio;
+			}
+			return source;
+		}
+	}
 }

@@ -4,12 +4,16 @@ import android.graphics.Bitmap;
 
 import ru.tcgeo.application.GIYandexLayer;
 import ru.tcgeo.application.gilib.models.GIBounds;
+import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIStyle;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
+import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
+import ru.tcgeo.application.gilib.parser.GIRange;
 import ru.tcgeo.application.gilib.parser.GISQLDB;
+import ru.tcgeo.application.gilib.parser.GISource;
 import ru.tcgeo.application.wkt.GIGPSPointsLayer;
 
 public abstract class GILayer
@@ -234,11 +238,162 @@ public abstract class GILayer
 	{
 
 	}
-	public static class Builder{
+	public static class Builder {
 		private String name;
-        private GILayerType type;
-        private GISQLDB sqldb;
+		private GILayerType type;
+		GIPropertiesLayer.Builder builder;
+		GILayer layer;
 
+		Builder(){}
+
+		public Builder(GILayer layer){
+			this.layer = layer;
+		}
+
+
+        public Builder name(String name) {
+			this.name = name;
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.name(name);
+			return this;
+		}
+
+        public Builder type(GILayer.GILayerType type) {
+			this.type = type;
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.type(type);
+			return this;
+		}
+
+        public Builder enabled(boolean enabled) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.enabled(enabled);
+			return this;
+		}
+
+        public Builder sourceLocation(String location) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.sourceLocation(location);
+			return this;
+		}
+
+        public Builder sourceName(String name) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.name(name);
+			return this;
+		}
+
+        public Builder styleType(String type) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.styleType(type);
+			return this;
+		}
+
+        public Builder styleLineWidth(double width) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.styleLineWidth(width);
+			return this;
+		}
+
+        public Builder styleOpacity(double opacity) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.styleOpacity(opacity);
+			return this;
+		}
+
+        public Builder styleColor(GIColor color) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.styleColor(color);
+			return this;
+		}
+
+        public Builder rangeFrom(int from) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.rangeFrom(from);
+			return this;
+		}
+
+        public Builder rangeTo(int to) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.rangeTo(to);
+			return this;
+		}
+
+        public Builder sqldbMaxZ(int maxZ) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.sqldbMaxZ(maxZ);
+			return this;
+		}
+
+        public Builder sqldbMinZ(int minZ) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.sqldbMinZ(minZ);
+			return this;
+		}
+
+        public Builder sqldbZoomType(String zoomType) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.sqldbZoomType(zoomType);
+			return this;
+		}
+
+        public Builder sqldbRatio(int ratio) {
+			if (builder == null) {
+				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+			}
+			builder.sqldbRatio(ratio);
+			return this;
+		}
+
+
+        public GILayer build(){
+            if(name != null){
+                layer.m_name = name;
+                if(builder == null){
+                    builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+                }
+                builder.name(name);
+
+            }
+            if(type != null){
+                if(builder == null){
+                    builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
+                }
+                builder.type(type);
+            }
+            if(builder!= null){
+                layer.m_layer_properties = builder.build();
+            }
+            return layer;
+        }
 	}
 
 }
