@@ -1,5 +1,6 @@
 package ru.tcgeo.application.home_screen;
 
+import android.graphics.Paint;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.graphics.drawable.ColorDrawable;
@@ -32,8 +33,11 @@ import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.GISQLLayer;
 import ru.tcgeo.application.gilib.GITuple;
+import ru.tcgeo.application.gilib.models.GIColor;
+import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
+import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
 import ru.tcgeo.application.gilib.parser.GIRange;
 import ru.tcgeo.application.gilib.parser.GISQLDB;
 import ru.tcgeo.application.gilib.parser.GISource;
@@ -81,6 +85,7 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
                 projectsParams.weight = 4;
                 mProjectsList.requestLayout();
                 mProperties.requestLayout();
+                mLayersList.requestLayout();
                 return false;
             }
         });
@@ -111,9 +116,23 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
                 propertiesParams.weight = 4;
                 mProjectsList.requestLayout();
                 mProperties.requestLayout();
+                mLayersList.requestLayout();
                 return false;
             }
         });
+
+        mProperties.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                projectsParams.weight = 2;
+                propertiesParams.weight = 8;
+                mProjectsList.requestLayout();
+                mProperties.requestLayout();
+                mLayersList.requestLayout();
+                return false;
+            }
+        });
+
         mLayersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -199,57 +218,102 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
     }
 
     public void addLayer(File file) {
+
         String filenameArray[] = file.getName().split("\\.");
         String extention = filenameArray[filenameArray.length - 1];
-        if (extention.equalsIgnoreCase("sqlitedb"))
-        {
-            GIPropertiesLayer properties_layer = new GIPropertiesLayer();
-            properties_layer.m_enabled = true;
-            properties_layer.m_name = file.getName();
-            properties_layer.m_range = new GIRange();
-            properties_layer.m_source = new GISource("absolute", file.getAbsolutePath()); //getName()
-            properties_layer.m_type = GILayer.GILayerType.SQL_LAYER;
-            properties_layer.m_strType = "SQL_LAYER";
-            GILayer layer;
-            //TODO
-            layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.SQL_LAYER);
-            //layer = GILayer.CreateLayer(file.getName(), GILayerType.SQL_LAYER);
-            properties_layer.m_sqldb = new GISQLDB();//"auto";
-            properties_layer.m_sqldb.m_zoom_type = "auto";
-
-            properties_layer.m_sqldb.m_min_z = ((GISQLLayer)layer).m_min;
-            properties_layer.m_sqldb.m_max_z = ((GISQLLayer)layer).m_max;
-            ((GISQLLayer)layer).m_min_z = ((GISQLLayer)layer).m_min;
-            ((GISQLLayer)layer).m_max_z = ((GISQLLayer)layer).m_max;
-            int min = ((GISQLLayer)layer).m_min;
-            int max = ((GISQLLayer)layer).m_max;
-//			if(min > 0)
-//			{
-//				min = min - 1;
-//			}
-
-            properties_layer.m_range = new GIRange();
-            double con = 0.0254*0.0066*256/(0.5*40000000);
-            properties_layer.m_range.m_from = (int)( 1/(Math.pow(2,  min)*con));
-            properties_layer.m_range.m_to =  (int) ( 1/(Math.pow(2,  max)*con));
-
-            mMap.ps.m_Group.addEntry(properties_layer);
-            layer.setName(file.getName());
-            layer.m_layer_properties = properties_layer;
-            mMap.InsertLayerAt(layer, 0);
+        if (extention.equalsIgnoreCase("sqlitedb")) {
+            addSQLLayer(file);
+        } else if (extention.equalsIgnoreCase("xml")) {
+            addXMLLayer(file);
         }
-        //else if(extention.equalsIgnoreCase("xml"))
         mMap.UpdateMap();
+        	/*			<Layer name="OSM Tiles" type="ON_LINE" enabled="true">
+				<Source location="text" name="http://a.tile.openstreetmap.org/"/>
+				<Range from="NAN" to="NAN"/>
+			</Layer>
+			*/
     }
+
+    public void addSQLLayer(File file){
+        GIPropertiesLayer properties_layer = new GIPropertiesLayer();
+        properties_layer.m_enabled = true;
+        properties_layer.m_name = file.getName();
+        properties_layer.m_range = new GIRange();
+        properties_layer.m_source = new GISource("absolute", file.getAbsolutePath()); //getName()
+        properties_layer.m_type = GILayer.GILayerType.SQL_YANDEX_LAYER;
+        properties_layer.m_strType = "SQL_YANDEX_LAYER";
+        GILayer layer;
+        //TODO
+        layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.SQL_YANDEX_LAYER);
+        //layer = GILayer.CreateLayer(file.getName(), GILayerType.SQL_LAYER);
+        properties_layer.m_sqldb = new GISQLDB();//"auto";
+        properties_layer.m_sqldb.m_zoom_type = "auto";
+
+        properties_layer.m_sqldb.m_min_z = 1;
+        properties_layer.m_sqldb.m_max_z = 19;
+
+        int min = 1;
+        int max = 19;
+
+        properties_layer.m_range = new GIRange();
+        double con = 0.0254*0.0066*256/(0.5*40000000);
+        properties_layer.m_range.m_from = (int)( 1/(Math.pow(2,  min)*con));
+        properties_layer.m_range.m_to =  (int) ( 1/(Math.pow(2,  max)*con));
+
+        mMap.ps.m_Group.addEntry(properties_layer);
+        layer.setName(file.getName());
+        layer.m_layer_properties = properties_layer;
+        mMap.InsertLayerAt(layer, 0);
+    }
+
+    public void addXMLLayer(File file)
+    {
+        GIPropertiesLayer properties_layer = new GIPropertiesLayer();
+        properties_layer.m_enabled = true;
+        properties_layer.m_name = file.getName();
+        properties_layer.m_range = new GIRange();
+        properties_layer.m_source = new GISource("absolute", file.getAbsolutePath());
+        properties_layer.m_type = GILayer.GILayerType.XML;
+        properties_layer.m_strType = "XML";
+        GILayer layer;
+        //
+        Paint fill = new Paint();
+        Paint line = new Paint();
+
+        GIColor color_fill = new GIColor.Builder().description("fill").name("gray").build();
+        GIColor color_line = new GIColor.Builder().description("fill").name("gray").build();
+
+        line.setColor(color_line.Get());
+        line.setStyle(Paint.Style.STROKE);
+        line.setStrokeWidth(2);
+
+        fill.setColor(color_fill.Get());
+        fill.setStrokeWidth(2);
+        fill.setStyle(Paint.Style.FILL);
+
+        GIVectorStyle vstyle = new GIVectorStyle(line, fill, 1);
+
+        properties_layer.m_style =new GIPropertiesStyle.Builder()
+                .type("vector")
+                .lineWidth(2)
+                .opacity(1)
+                .color(color_line)
+                .color(color_fill)
+                .build();
+
+        layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.XML, vstyle);
+        mMap.ps.m_Group.addEntry(properties_layer);
+        layer.setName(file.getName());
+        layer.m_layer_properties = properties_layer;
+
+        mMap.AddLayer(layer);
+    }
+
     @Subscribe  public void refresh(ProjectChangedEvent e){
         projects_adapter.clear();
-//         projects_adapter = new ProjectsAdapter((Geoinfo)getActivity(),
-//                R.layout.project_selector_list_item,
-//                R.id.project_list_item_path);
+
         AddProjects(projects_adapter);
         layersAdapter.clear();
-//        adapter = new LayersAdapter((Geoinfo)getActivity(),
-//                R.layout.layers_list_item, R.id.layers_list_item_text);
         addLayers((GIGroupLayer) mMap.m_layers, layersAdapter);
         mMap.UpdateMap();
     }

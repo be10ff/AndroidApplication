@@ -127,6 +127,7 @@
     <string name="layer_range">Range </string>
     <string name="from">from</string>
     <string name="to">to</string>
+    <string name="ratio">ratio</string>
 
     <string name="move_up">Up</string>
     <string name="move_down">Down</string>
@@ -135,6 +136,13 @@
         <item>auto</item>
         <item>smart</item>
         <item>adaptive</item>
+    </string-array>
+    <string-array name="ratio">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>8</item>
     </string-array>
     <string-array name="layer_type">
         <item>SQL_YANDEX_LAYER</item>

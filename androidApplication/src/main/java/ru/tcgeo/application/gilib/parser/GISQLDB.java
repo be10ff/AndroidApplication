@@ -4,28 +4,27 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import ru.tcgeo.application.gilib.GISQLLayer;
+
 public class GISQLDB {
 
 
 	public String m_zoom_type;
+	public GISQLLayer.GISQLiteZoomingType m_zooming_type;
 	public int m_max_z;
 	public int m_min_z;
 	public int mRatio;
+
 	
 	public GISQLDB() 
 	{
 		m_zoom_type = "auto";
+		m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
 		m_max_z = 19;
 		m_min_z = 1;
 		mRatio = 1;
 	}
 	
-	/*public GISQLDB(String zoom_type, int min, int max)
-	{
-		m_zoom_type = zoom_type;
-		m_max_z = max;
-		m_min_z = min;
-	}*/
 	public String ToString()
 	{
 		String Res = "sqlitedb \n";
@@ -45,43 +44,54 @@ public class GISQLDB {
 	}
 
 	public static class Builder{
-		GISQLDB source;
-		public String zoomType;
-		public int maxZ;
-		public int minZ;
-		public int ratio;
+		private GISQLDB source;
+		private String zoomType;
+		private GISQLLayer.GISQLiteZoomingType zoomingType;
+		private int maxZ;
+		private int minZ;
+		private int ratio;
 
-		Builder(){}
-		Builder(GISQLDB source){
+		public Builder(){}
+		public Builder(GISQLDB source){
 			this.source = source;
 		}
 
-		Builder zoomType(String zoomType){
+        public Builder zoomType(String zoomType){
 			this.zoomType = zoomType;
+			if(zoomType.equalsIgnoreCase("adaptive")) {
+				this.zoomingType = GISQLLayer.GISQLiteZoomingType.ADAPTIVE;
+			} else if(zoomType.equalsIgnoreCase("smart")) {
+				this.zoomingType = GISQLLayer.GISQLiteZoomingType.SMART;
+			} else {
+				this.zoomingType = GISQLLayer.GISQLiteZoomingType.AUTO;
+			}
 			return this;
 		}
 
-		Builder maxZ(int maxZ){
+        public Builder maxZ(int maxZ){
 			this.maxZ = maxZ;
 			return this;
 		}
 
-		Builder minZ(int minZ){
+        public Builder minZ(int minZ){
 			this.minZ = minZ;
 			return this;
 		}
 
-		Builder ratio(int ratio){
+        public Builder ratio(int ratio){
 			this.ratio = ratio;
 			return this;
 		}
 
-		GISQLDB build(){
+        public GISQLDB build(){
 			if(source == null){
 				source = new GISQLDB();
 			}
 			if(zoomType != null){
 				source.m_zoom_type = zoomType;
+			}
+			if(zoomingType != null){
+				source.m_zooming_type = zoomingType;
 			}
 			if(maxZ != -1 && maxZ != 0){
 				source.m_max_z = maxZ;

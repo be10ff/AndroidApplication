@@ -47,6 +47,9 @@ public class SettingsFragment extends Fragment {
     @Bind(R.id.zoom_type_edit)
     Spinner mZoomType;
 
+    @Bind(R.id.ratio_edit)
+    Spinner mRatio;
+
     @Bind(R.id.zoom_min_edit)
     Spinner mZoomMin;
 
@@ -70,12 +73,15 @@ public class SettingsFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         reset();
+
         mName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -83,16 +89,14 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        mType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String layer_type = mType.getSelectedItem().toString();
-                if(layer_type.equalsIgnoreCase("SQL_LAYER"))
-                {
+                if (layer_type.equalsIgnoreCase("SQL_LAYER")) {
                     builder.type(GILayer.GILayerType.SQL_LAYER);
                 }
-                if(layer_type.equalsIgnoreCase("SQL_YANDEX_LAYER"))
-                {
+                if (layer_type.equalsIgnoreCase("SQL_YANDEX_LAYER")) {
                     builder.type(GILayer.GILayerType.SQL_YANDEX_LAYER);
                 }
             }
@@ -107,14 +111,6 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String zoom_type = mZoomType.getSelectedItem().toString();
-                //todo
-//                if(zoom_type.equalsIgnoreCase("adaptive")) {
-//                    (builder.() = GISQLLayer.GISQLiteZoomingType.ADAPTIVE;
-//                } else if(zoom_type.equalsIgnoreCase("smart")) {
-//                    ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
-//                } else {
-//                    ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
-//                }
                 builder.sqldbZoomType(zoom_type);
             }
 
@@ -124,15 +120,28 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        mZoomMax.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mRatio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                int ratio = Integer.valueOf(mRatio.getSelectedItem().toString());
+                builder.sqldbRatio(ratio);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                builder.sqldbZoomType(null);
+            }
+        });
+
+        mZoomMax.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 builder.sqldbMaxZ(Integer.valueOf(mZoomMax.getSelectedItem().toString()));
 //                ((GISQLLayer)mItem.m_tuple.layer).m_max =  Integer.valueOf(mZoomMax.getSelectedItem().toString());
-                double con = 0.0254*0.0066*256/(0.5*40000000);
-                int from = (int)( 1/(Math.pow(2,  Integer.valueOf(mZoomMin.getSelectedItem().toString()))*con));
+                double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
+                int from = (int) (1 / (Math.pow(2, Integer.valueOf(mZoomMin.getSelectedItem().toString())) * con));
                 builder.rangeFrom(from);
-                mItem.m_tuple.scale_range.setMin(1 / ((double)from));
+                mItem.m_tuple.scale_range.setMin(1 / ((double) from));
             }
 
             @Override
@@ -141,15 +150,15 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        mZoomMin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mZoomMin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 builder.sqldbMinZ(Integer.valueOf(mZoomMin.getSelectedItem().toString()));
 //                ((GISQLLayer)mItem.m_tuple.layer).m_min =  Integer.valueOf(mZoomMin.getSelectedItem().toString());
-                double con = 0.0254*0.0066*256/(0.5*40000000);
-                int to =  (int) ( 1/(Math.pow(2,  Integer.valueOf(mZoomMax.getSelectedItem().toString()))*con));
+                double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
+                int to = (int) (1 / (Math.pow(2, Integer.valueOf(mZoomMax.getSelectedItem().toString())) * con));
                 builder.rangeTo(to);
-                mItem.m_tuple.scale_range.setMax(1/(double)to);
+                mItem.m_tuple.scale_range.setMax(1 / (double) to);
             }
 
             @Override
@@ -165,58 +174,7 @@ public class SettingsFragment extends Fragment {
 
     @OnClick(R.id.button_apply)
     public void apply(){
-
-//        mItem.m_tuple.layer.setName(mName.getText().toString());
-
-
-
-//        String layer_type = mType.getSelectedItem().toString();
-//        if(layer_type.equalsIgnoreCase("SQL_LAYER"))
-//        {
-//            mItem.m_tuple.layer.m_layer_properties.m_type = GILayer.GILayerType.SQL_LAYER;
-//            ((GISQLLayer)mItem.m_tuple.layer).type_ = GILayer.GILayerType.SQL_LAYER;
-//        }
-//        if(layer_type.equalsIgnoreCase("SQL_YANDEX_LAYER"))
-//        {
-//            mItem.m_tuple.layer.m_layer_properties.m_type = GILayer.GILayerType.SQL_YANDEX_LAYER;
-//            ((GISQLLayer)mItem.m_tuple.layer).type_ = GILayer.GILayerType.SQL_YANDEX_LAYER;
-//        }
-
-
-
-        //zomming type
-//        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_zoom_type =  mZoomType.getSelectedItem().toString();
-//        String zoom_type = mZoomType.getSelectedItem().toString();
-//        if(zoom_type.equalsIgnoreCase("adaptive")) {
-//            ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.ADAPTIVE;
-//        } else if(zoom_type.equalsIgnoreCase("smart")) {
-//            ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
-//        } else {
-//            ((GISQLLayer)mItem.m_tuple.layer).m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
-//        }
-//        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_zoom_type = zoom_type;
-//        //zoom
-//        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_max_z =  Integer.valueOf(mZoomMax.getSelectedItem().toString());
-//        mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_min_z =  Integer.valueOf(mZoomMin.getSelectedItem().toString());
-
-//        ((GISQLLayer)mItem.m_tuple.layer).m_max =  Integer.valueOf(mZoomMax.getSelectedItem().toString());
-//        ((GISQLLayer)mItem.m_tuple.layer).m_min =  Integer.valueOf(mZoomMin.getSelectedItem().toString());
-
-
-        //range
-//        double con = 0.0254*0.0066*256/(0.5*40000000);
-//        int from = (int)( 1/(Math.pow(2,  Integer.valueOf(mZoomMin.getSelectedItem().toString()))*con));
-//        int to =  (int) ( 1/(Math.pow(2,  Integer.valueOf(mZoomMax.getSelectedItem().toString()))*con));
-
-//        mItem.m_tuple.layer.m_layer_properties.m_range.m_from = from;/*Integer.valueOf(mRangeMin.getText().toString());*/
-//        mItem.m_tuple.layer.m_layer_properties.m_range.m_to = to;/*Integer.valueOf(mRangeMax.getText().toString());*/
-
-
-//        mItem.m_tuple.scale_range.setMin(1 / ((double)from));
-//        mItem.m_tuple.scale_range.setMax(1/(double)to);
-
         mItem.m_tuple.layer = builder.build();
-
         ((Geoinfo)getActivity()).getMap().UpdateMap();
     }
 
@@ -273,6 +231,19 @@ public class SettingsFragment extends Fragment {
             for (int i = 0; i < getResources().getStringArray(R.array.zoom_type).length; i++) {
                 if (getResources().getStringArray(R.array.zoom_type)[i].equals(mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_zoom_type)) {
                     mZoomType.setSelection(i);
+                }
+            }
+//            ratio
+            ArrayAdapter<String> ratio_adapter = new ArrayAdapter<String>(
+                    getActivity(),
+                    R.layout.item_spinner,
+                    getResources().getStringArray(R.array.ratio));
+
+            ratio_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+            mRatio.setAdapter(ratio_adapter);
+            for (int i = 0; i < getResources().getStringArray(R.array.zoom_type).length; i++) {
+                if (getResources().getStringArray(R.array.ratio)[i].equals(String.valueOf(mItem.m_tuple.layer.m_layer_properties.m_sqldb.mRatio))) {
+                    mRatio.setSelection(i);
                 }
             }
 

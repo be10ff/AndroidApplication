@@ -24,11 +24,10 @@ public class GISQLLayer extends GILayer {
 		ADAPTIVE,	// подходящие тайлы ищутся рекурсией по дереву
 		AUTO;		// тайлы отрисовываются по факту нахождения в базе
 	}
-	public int m_max_z;
-	public int m_min_z;
-	public int m_max;
-	public int m_min;
-	public GISQLiteZoomingType m_zooming_type;
+
+	private int max;
+	private int min;
+
 
 	ArrayList<Integer> m_levels;
 
@@ -38,11 +37,8 @@ public class GISQLLayer extends GILayer {
 		type_ = GILayerType.ON_LINE;
 		m_renderer = new GISQLRenderer();
 		m_projection = GIProjection.WGS84();
-		m_zooming_type = GISQLiteZoomingType.SMART;
-		m_max_z = 19;
-		m_min_z = 1;
-		m_max = 19;
-		m_min = 0;
+		max = 19;
+		min = 0;
 		getMinMaxLevels();
 	}
 	@Override
@@ -62,7 +58,6 @@ public class GISQLLayer extends GILayer {
 		Cursor c;
 		try
 		{
-			//db = SQLiteDatabase.openDatabase(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + m_site, null, SQLiteDatabase.OPEN_READONLY);
 			db = SQLiteDatabase.openDatabase(m_path, null, SQLiteDatabase.OPEN_READONLY);
 			String sql_string = String.format("SELECT DISTINCT (z) FROM tiles");
 			c = db.rawQuery(sql_string, null);
@@ -90,7 +85,6 @@ public class GISQLLayer extends GILayer {
 		Cursor c;
 		try
 		{
-			//db = SQLiteDatabase.openDatabase(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + m_site, null, SQLiteDatabase.OPEN_READONLY);
 			db = SQLiteDatabase.openDatabase(m_path, null, SQLiteDatabase.OPEN_READONLY);
 			String sql_string = String.format("SELECT minzoom, maxzoom FROM info");
 			c = db.rawQuery(sql_string, null);
@@ -98,8 +92,8 @@ public class GISQLLayer extends GILayer {
 		    {
 		        while ( !c.isAfterLast() )
 		        {
-		        	m_min = 17 - c.getInt(1);
-		        	m_max = 17 - c.getInt(0);
+					min = 17 - c.getInt(1);
+		        	max = 17 - c.getInt(0);
 		           c.moveToNext();
 		        }
 		    }
@@ -114,48 +108,33 @@ public class GISQLLayer extends GILayer {
 
 
 	//только при одинаковом покрытии для всех level
-	public int getLevel(int lvl)
-	{
-		switch( m_zooming_type)
-		{
-			case AUTO:
-			{
+	public int getLevel(int lvl) {
+		switch( m_layer_properties.m_sqldb.m_zooming_type){
+			case AUTO:{
 				//ну типа значения по умолчанию
 		        return lvl;
 			}
-			case SMART:
-			{
-		        if(lvl > m_max)
-		        {
-		        	if(lvl <= m_max_z)
-		        	{
-		        		lvl = m_max;
-		        	}
-		        	else
-		        	{
+			case SMART:{
+		        if(lvl > max){
+		        	if(lvl <= m_layer_properties.m_sqldb.m_max_z){
+		        		lvl = max;
+		        	}else{
 		        		lvl = 0;
 		        	}
-
 		        }
-		        if(lvl < m_min)
-		        {
-		        	if(lvl >= m_min_z)
-		        	{
-		        		lvl = m_min;
-		        	}
-		        	else
-		        	{
+		        if(lvl < min){
+		        	if(lvl >= m_layer_properties.m_sqldb.m_min_z){
+		        		lvl = min;
+		        	}else{
 		        		lvl = 30;
 		        	}
 		        }
 		        return lvl;
 			}
-			case ADAPTIVE:
-			{
+			case ADAPTIVE:{
 		        //будет искать тайлы для покрытия рекурсией
 				return lvl;
 			}
-
 		}
 		return lvl;
 	}
@@ -168,22 +147,18 @@ public class GISQLLayer extends GILayer {
 	 * @return true если доступен
 	 *
 	 */
-	//	public boolean IsTilePresent(SQLiteDatabase db, GITileInfoOSM tile)
+
 	public boolean IsTilePresent(SQLiteDatabase db, GITileInfoOSM tile)
 	{
 		boolean res = false;
-		//SQLiteDatabase db;
-		//Cursor c;
 		try
 		{
-			//db = SQLiteDatabase.openDatabase(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + m_site, null, SQLiteDatabase.OPEN_READONLY);
 			String sql_string = String.format(Locale.ENGLISH, "SELECT x, y, z FROM tiles WHERE x=%d AND y=%d AND z=%d", tile.m_xtile,  tile.m_ytile,  17-tile.m_zoom);
 			Cursor c = db.rawQuery(sql_string, null);
 		    if (c.moveToFirst())
 		    {
 		        while ( !c.isAfterLast() )
 		        {
-		           //int x = c.getInt(0);
 		           res = true;
 		           c.moveToNext();
 		        }
@@ -217,15 +192,12 @@ public class GISQLLayer extends GILayer {
 	{
     	GITileInfoOSM left_top_tile = GIITile.CreateTile(z, bounds.left(), bounds.top(), type_);
         GITileInfoOSM right_bottom_tile = GIITile.CreateTile(z, bounds.right(), bounds.bottom(), type_);
-//    	GITileInfoOSM left_top_tile = new GITileInfoOSM(z, bounds.m_left, bounds.m_top);
-//        GITileInfoOSM right_bottom_tile = new GITileInfoOSM(z, bounds.m_right, bounds.m_bottom);
         boolean present = true;
     	for(int x = left_top_tile.m_xtile; x <= right_bottom_tile.m_xtile; x++)
     	{
     		for(int y = left_top_tile.m_ytile; y <= right_bottom_tile.m_ytile; y++)
     		{
     			GITileInfoOSM tile =  GIITile.CreateTile(z, x, y, type_);
-    			//GITileInfoOSM tile = new GITileInfoOSM(z, x, y);
     			if(IsTilePresent(db, tile))
     			{
     				tiles.add(tile);
@@ -262,17 +234,13 @@ public class GISQLLayer extends GILayer {
 	public ArrayList<GITileInfoOSM> GetTiles(GIBounds area, int actual)
 	{
 		ArrayList<GITileInfoOSM> tiles = new ArrayList<GITileInfoOSM>();
-//    	GITileInfoOSM left_top_tile = new GITileInfoOSM(actual, area.m_left, area.m_top);
-//        GITileInfoOSM right_bottom_tile = new GITileInfoOSM(actual, area.m_right, area.m_bottom);
     	GITileInfoOSM left_top_tile = GIITile.CreateTile(actual, area.left(), area.top(), type_);
         GITileInfoOSM right_bottom_tile = GIITile.CreateTile(actual, area.right(), area.bottom(), type_);
-        //boolean present = true;
     	for(int x = left_top_tile.m_xtile; x <= right_bottom_tile.m_xtile; x++)
     	{
     		for(int y = left_top_tile.m_ytile; y <= right_bottom_tile.m_ytile; y++)
     		{
     			GITileInfoOSM tile = GIITile.CreateTile(actual, x, y, type_);
-    			//GITileInfoOSM tile = new GITileInfoOSM(actual, x, y);
 				tiles.add(tile);
     		}
     	}
@@ -282,16 +250,16 @@ public class GISQLLayer extends GILayer {
 	{
 		ArrayList<GITileInfoOSM> tiles = new ArrayList<GITileInfoOSM>();
 		int from = actual - 2;
-		if(from < m_min)
+		if(from < min)
 		{
-			from = m_min;
+			from = min;
 		}
 		int to = actual + 2;
-		if(to > m_max)
+		if(to > max)
 		{
-			to = m_max;
+			to = max;
 		}
-		if((to < m_min)||(from > m_max))
+		if((to < min)||(from > max))
 		{
 			return tiles;
 		}
@@ -313,5 +281,13 @@ public class GISQLLayer extends GILayer {
 				}
 		);
 		return tiles;
+	}
+
+	public int getMax() {
+		return max;
+	}
+
+	public int getMin() {
+		return min;
 	}
 }
