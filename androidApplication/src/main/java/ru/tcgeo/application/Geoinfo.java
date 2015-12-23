@@ -54,6 +54,7 @@ import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.views.GIScaleControl;
 import ru.tcgeo.application.views.OpenFileDialog;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
+import ru.tcgeo.application.wkt.GI_WktLinestring;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 import ru.tcgeo.application.wkt.GI_WktUserTrack;
 
@@ -220,7 +221,34 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
                                 marker.m_diag = 0;
                                 adapter.add(new MarkersAdapterItem(marker));
                             }
-                        }
+                        } else if(geom instanceof GI_WktLinestring){
+							GI_WktLinestring line = (GI_WktLinestring) geom;
+							if(line != null&&line.m_points != null && !line.m_points.isEmpty()){
+								GIPList.GIMarker marker = list.new GIMarker();
+								if (geom.m_attributes.containsKey("Project")) {
+									marker.m_name = (String) geom.m_attributes.get("Project").m_value.toString();
+									if(geom.m_attributes.containsKey("Description")){
+										String data = GIEditLayersKeeper.getTime((String) geom.m_attributes.get("Description").m_value.toString());
+										if(!data.isEmpty()){
+											marker.m_name =  marker.m_name + " " + data;
+										} else {
+											marker.m_name =  marker.m_name + " " + (String) geom.m_attributes.get("Description").m_value.toString();
+										}
+
+									}
+								} else if (!geom.m_attributes.keySet().isEmpty()) {
+									marker.m_name = (String) geom.m_attributes.get(geom.m_attributes.keySet().toArray()[0]).m_value;
+								} else {
+									marker.m_name = String.valueOf(geom.m_ID);
+								}
+								marker.m_lon = ((GI_WktPoint)line.m_points.get(0)).m_lon;
+								marker.m_lat = ((GI_WktPoint)line.m_points.get(0)).m_lat;
+								marker.m_description = "";
+								marker.m_image = "";
+								marker.m_diag = 0;
+								adapter.add(new MarkersAdapterItem(marker));
+							}
+						}
 					}
 				}
 			}
@@ -1151,7 +1179,7 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 				.addSubActionView(fbPoiControl)
 
 				.attachTo(gps_action_button)
-				.setRadius(ScreenUtils.dpToPx(150))
+				.setRadius(ScreenUtils.dpToPx(144))
 				.setStartAngle(0)
 				.setEndAngle(90)
 				.build();
@@ -1237,7 +1265,7 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 				.addSubActionView(fbMarkers)
 
 				.attachTo(compass_action_button)
-				.setRadius(ScreenUtils.dpToPx(150))
+				.setRadius(ScreenUtils.dpToPx(96))
 				.setStartAngle(90)
 				.setEndAngle(180)
 				.build();

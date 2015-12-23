@@ -1,4 +1,4 @@
-package ru.tcgeo.application;
+package ru.tcgeo.application.gilib;
 
 import android.graphics.Bitmap;
 

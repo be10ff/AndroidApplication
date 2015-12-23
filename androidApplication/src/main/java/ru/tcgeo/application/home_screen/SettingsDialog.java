@@ -300,7 +300,7 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
         Paint line = new Paint();
 
         GIColor color_fill = new GIColor.Builder().description("fill").name("gray").build();
-        GIColor color_line = new GIColor.Builder().description("fill").name("gray").build();
+        GIColor color_line = new GIColor.Builder().description("line").name("gray").build();
 
         line.setColor(color_line.Get());
         line.setStyle(Paint.Style.STROKE);

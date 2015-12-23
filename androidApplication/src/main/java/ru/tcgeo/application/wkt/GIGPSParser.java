@@ -60,6 +60,14 @@ public class GIGPSParser {
 			m_ParserCurrent = parser.ReadSection();
 			m_layer.m_shapes.add(track);
 		}
+		if(CurrentSectionName.equalsIgnoreCase("LINE"))
+		{
+			GI_WktLinestring line = new GI_WktLinestring();
+			line.m_attributes = new HashMap<String, GIDBaseField>();
+			GIGPSParserLine parser = new GIGPSParserLine(m_ParserCurrent, line);
+			m_ParserCurrent = parser.ReadSection();
+			m_layer.m_shapes.add(line);
+		}
 	}
 	protected void FinishSection()
 	{

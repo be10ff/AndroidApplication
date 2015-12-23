@@ -1,4 +1,4 @@
-package ru.tcgeo.application;
+package ru.tcgeo.application.gilib;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,9 +12,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import ru.tcgeo.application.gilib.GILayer;
-import ru.tcgeo.application.gilib.GIRenderer;
-import ru.tcgeo.application.gilib.GITileInfoYandex;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIStyle;
 

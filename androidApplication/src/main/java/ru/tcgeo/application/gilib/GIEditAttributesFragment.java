@@ -81,14 +81,14 @@ public class GIEditAttributesFragment extends Fragment implements
 				EditText value_text = (EditText)m_attributes_list.getChildAt(i).findViewById(R.id.field_value);
 				if(value_text != null && name_text != null)
 				{
-					GIEditLayersKeeper.Instance().m_geometry.m_attributes.get(String.valueOf(name_text.getText())).m_value = String.valueOf(value_text.getText());
+					GIEditLayersKeeper.Instance().m_geometry.m_attributes.get(String.valueOf(name_text.getText())).m_value = String.valueOf(value_text.getText().toString());
 				}
 				if(GIEditLayersKeeper.Instance().m_layer.type_ == GILayer.GILayerType.XML)
 				{
 					if(new_attribute_value.getText().length() > 0)
 					{
 						GIDBaseField new_field = new GIDBaseField();
-						new_field.m_value = new_attribute_value.getText();
+						new_field.m_value = new_attribute_value.getText().toString();
 						//TODO
 						new_field.m_name = new_attribute_name.getText().toString();
 						GIEditLayersKeeper.Instance().m_geometry.m_attributes.put(new_attribute_name.getText().toString(), new_field);

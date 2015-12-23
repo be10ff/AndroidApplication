@@ -1,8 +1,7 @@
-package ru.tcgeo.application;
+package ru.tcgeo.application.gilib;
 
 import android.graphics.Bitmap;
 
-import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIProjection;
 
