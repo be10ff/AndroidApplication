@@ -55,6 +55,7 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
     ListView mLayersList;
     FrameLayout mProperties;
     LinearLayout.LayoutParams projectsParams;
+    LinearLayout.LayoutParams layersParams;
     LinearLayout.LayoutParams propertiesParams;
     ProjectsAdapter projects_adapter;
     LayersAdapter layersAdapter;
@@ -70,6 +71,7 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
         mProperties = (FrameLayout)v.findViewById(R.id.content);
 
         propertiesParams = (LinearLayout.LayoutParams) mProperties.getLayoutParams();
+        layersParams = (LinearLayout.LayoutParams) mLayersList.getLayoutParams();
         projectsParams = (LinearLayout.LayoutParams) mProjectsList.getLayoutParams();
         propertiesParams.weight = 0;
         projects_adapter = new ProjectsAdapter((Geoinfo)getActivity(),
@@ -82,6 +84,7 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 propertiesParams.weight = 0;
+                layersParams.weight = 4;
                 projectsParams.weight = 4;
                 mProjectsList.requestLayout();
                 mProperties.requestLayout();
@@ -113,6 +116,7 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 projectsParams.weight = 1;
+                layersParams.weight = 4;
                 propertiesParams.weight = 4;
                 mProjectsList.requestLayout();
                 mProperties.requestLayout();
@@ -125,6 +129,7 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 projectsParams.weight = 2;
+                layersParams.weight = 2;
                 propertiesParams.weight = 8;
                 mProjectsList.requestLayout();
                 mProperties.requestLayout();
@@ -225,13 +230,11 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
             addSQLLayer(file);
         } else if (extention.equalsIgnoreCase("xml")) {
             addXMLLayer(file);
+        } else if (extention.equalsIgnoreCase("yandex")||extention.equalsIgnoreCase("traffic")) {
+            addYandexTraffic(file);
         }
         mMap.UpdateMap();
-        	/*			<Layer name="OSM Tiles" type="ON_LINE" enabled="true">
-				<Source location="text" name="http://a.tile.openstreetmap.org/"/>
-				<Range from="NAN" to="NAN"/>
-			</Layer>
-			*/
+
     }
 
     public void addSQLLayer(File file){
@@ -264,6 +267,22 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
         layer.setName(file.getName());
         layer.m_layer_properties = properties_layer;
         mMap.InsertLayerAt(layer, 0);
+    }
+
+    public void addYandexTraffic(File file){
+        GIPropertiesLayer properties_layer = new GIPropertiesLayer();
+        properties_layer.m_enabled = true;
+        properties_layer.m_name = file.getName();
+        properties_layer.m_range = new GIRange();
+        properties_layer.m_source = new GISource("text", "yandex"); //getName()
+        properties_layer.m_type = GILayer.GILayerType.ON_LINE;
+        properties_layer.m_strType = "ON_LINE";
+        GILayer layer;
+        layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.ON_LINE);
+        mMap.ps.m_Group.addEntry(properties_layer);
+        layer.setName(file.getName());
+        layer.m_layer_properties = properties_layer;
+        mMap.AddLayer(layer);
     }
 
     public void addXMLLayer(File file)

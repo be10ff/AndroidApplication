@@ -702,22 +702,6 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 				}
 
 			}
-			if (current_layer.m_type == GILayerType.ON_LINE) {
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("text")) {
-					layer = GILayer.CreateLayer(
-							current_layer.m_source.GetRemotePath(),
-							GILayerType.ON_LINE);
-					layer.setName(current_layer.m_name);
-					layer.m_layer_properties = current_layer;
-					map.AddLayer(layer,
-							new GIScaleRange(current_layer.m_range),
-							current_layer.m_enabled);
-				} else {
-					continue;
-				}
-
-			}
 			if (current_layer.m_type == GILayerType.SQL_YANDEX_LAYER) {
 				GILayer layer;
 				if (current_layer.m_source.m_location.equalsIgnoreCase("text")) 

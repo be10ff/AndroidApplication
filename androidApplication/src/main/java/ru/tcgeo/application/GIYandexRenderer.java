@@ -22,6 +22,7 @@ public class GIYandexRenderer extends GIRenderer {
 
 	Canvas m_canvas;
 	int downloaded;
+	long downloaded_size;
 	int drawed;
 	int reused;
 	int deleted;
@@ -88,10 +89,10 @@ public class GIYandexRenderer extends GIRenderer {
         			
         			for(GITrafficTileInfoYandex cached : m_cache)
         			{
-        				if(cached.m_zoom == tile.m_zoom && cached.m_xtile == tile.m_xtile && cached.m_ytile == tile.m_ytile && cached.m_TimeStamp < TimeStamp + 300)
+        				if(cached.m_zoom == tile.m_zoom && cached.m_xtile == tile.m_xtile && cached.m_ytile == tile.m_ytile && cached.m_TimeStamp < TimeStamp + 600)
         				{
         					bit_tile = cached.m_bitmap;
-        					cached.m_used_at_last_time = 2;
+        					cached.m_used_at_last_time = GITrafficTileInfoYandex.REUSE;
         					reused++;
         				}
         			}
@@ -103,7 +104,9 @@ public class GIYandexRenderer extends GIRenderer {
 	        	        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 	        	        urlConnection.connect();
 				        InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
 				        bit_tile = BitmapFactory.decodeStream(in);
+						downloaded_size = downloaded_size + bit_tile.getByteCount();
 				        urlConnection.disconnect();
 				        downloaded++;
         			}

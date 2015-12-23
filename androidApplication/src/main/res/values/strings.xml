@@ -36,6 +36,8 @@
 		<!--<item>"track"</item>-->
 		<item>"sqlitedb"</item>
 		<item>xml</item>
+        <item>yandex</item>
+        <item>traffic</item>
     </string-array>
 
 
