@@ -24,7 +24,7 @@ public class GISQLLayer extends GILayer {
 		ADAPTIVE,	// подходящие тайлы ищутся рекурсией по дереву
 		AUTO;		// тайлы отрисовываются по факту нахождения в базе
 	}
-
+	//min & max zoom in *.sqldb see getMinMaxLevels()
 	private int max;
 	private int min;
 

@@ -1,4 +1,4 @@
-package ru.tcgeo.application.local_project_management;
+package ru.tcgeo.application.home_screen;
 
 
 import android.os.Bundle;
@@ -20,11 +20,9 @@ import butterknife.OnClick;
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.GIGroupLayer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.GISQLLayer;
-import ru.tcgeo.application.home_screen.LayersAdapterItem;
+import ru.tcgeo.application.home_screen.adapter.LayersAdapterItem;
 import ru.tcgeo.application.utils.ProjectChangedEvent;
 
 /**
@@ -287,6 +285,13 @@ public class SettingsFragment extends Fragment {
     public void onUp(View v){
         mMap.m_layers.moveUp(mItem.m_tuple);
         mMap.ps.m_Group.moveUp(mItem.m_tuple.layer.m_layer_properties);
+        App.getInstance().getEventBus().post(new ProjectChangedEvent());
+    }
+
+    @OnClick(R.id.remove)
+    public void onRemove(View v){
+        mMap.m_layers.m_list.remove(mItem.m_tuple);
+        mMap.ps.m_Group.m_Entries.remove(mItem.m_tuple.layer.m_layer_properties);
         App.getInstance().getEventBus().post(new ProjectChangedEvent());
     }
 }

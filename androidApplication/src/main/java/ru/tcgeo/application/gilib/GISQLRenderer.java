@@ -50,7 +50,8 @@ public class GISQLRenderer extends GIRenderer {
         	return;
         }
         if((layer.m_layer_properties.m_sqldb.m_zooming_type  == GISQLLayer.GISQLiteZoomingType.SMART
-				|| (layer.m_layer_properties.m_sqldb.m_zooming_type  == GISQLLayer.GISQLiteZoomingType.ADAPTIVE) && (layer.m_layer_properties.m_sqldb.m_min_z  > z || layer.m_layer_properties.m_sqldb.m_max_z < z)))
+				|| layer.m_layer_properties.m_sqldb.m_zooming_type  == GISQLLayer.GISQLiteZoomingType.ADAPTIVE)
+				&& (layer.m_layer_properties.m_sqldb.m_min_z  > z || layer.m_layer_properties.m_sqldb.m_max_z < z))
         {
         	return;
         }

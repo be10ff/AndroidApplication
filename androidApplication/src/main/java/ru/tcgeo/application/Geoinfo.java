@@ -1,7 +1,6 @@
 package ru.tcgeo.application;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import ru.tcgeo.application.gilib.gps.GICompassView;
 import ru.tcgeo.application.gilib.gps.GISensors;
@@ -20,11 +19,8 @@ import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.GIPList;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.GIRuleToolControl;
 import ru.tcgeo.application.gilib.GISQLLayer;
-import ru.tcgeo.application.gilib.GISQLLayer.GISQLiteZoomingType;
 import ru.tcgeo.application.gilib.models.GIScaleRange;
-import ru.tcgeo.application.gilib.GISquareToolControl;
 import ru.tcgeo.application.gilib.GITouchControl;
 import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
@@ -35,33 +31,21 @@ import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.gilib.parser.GIPropertiesGroup;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayerRef;
-import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
-import ru.tcgeo.application.gilib.parser.GIRange;
 import ru.tcgeo.application.gilib.parser.GISQLDB;
-import ru.tcgeo.application.gilib.parser.GISource;
 
-import ru.tcgeo.application.home_screen.EditableLayersAdapter;
-import ru.tcgeo.application.home_screen.EditableLayersAdapterItem;
-import ru.tcgeo.application.home_screen.LayersAdapter;
-import ru.tcgeo.application.home_screen.LayersAdapterItem;
-import ru.tcgeo.application.home_screen.MarkersAdapter;
-import ru.tcgeo.application.home_screen.MarkersAdapterItem;
-import ru.tcgeo.application.home_screen.ProjectsAdapter;
-import ru.tcgeo.application.home_screen.ProjectsAdapterItem;
+import ru.tcgeo.application.home_screen.adapter.EditableLayersAdapter;
+import ru.tcgeo.application.home_screen.adapter.EditableLayersAdapterItem;
+import ru.tcgeo.application.home_screen.adapter.MarkersAdapter;
+import ru.tcgeo.application.home_screen.adapter.MarkersAdapterItem;
 import ru.tcgeo.application.home_screen.SettingsDialog;
-import ru.tcgeo.application.local_project_management.SettingsFragment;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.views.GIScaleControl;
-import ru.tcgeo.application.views.OpenFileDialog;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktLinestring;
 import ru.tcgeo.application.wkt.GI_WktPoint;
-import ru.tcgeo.application.wkt.GI_WktUserTrack;
 
-import android.app.Activity;
 import android.app.Dialog;
 //import android.app.DialogFragment;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.SharedPreferences;
@@ -79,26 +63,19 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-import com.squareup.otto.Bus;
 
 public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/// implements
 																	// OnTouchListener

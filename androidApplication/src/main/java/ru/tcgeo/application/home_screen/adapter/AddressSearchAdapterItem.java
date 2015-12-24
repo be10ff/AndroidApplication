@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib;
+package ru.tcgeo.application.home_screen.adapter;
 
 public class AddressSearchAdapterItem 
 {

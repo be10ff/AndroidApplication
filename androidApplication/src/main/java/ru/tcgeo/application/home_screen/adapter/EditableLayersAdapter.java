@@ -1,4 +1,4 @@
-package ru.tcgeo.application.home_screen;
+package ru.tcgeo.application.home_screen.adapter;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;

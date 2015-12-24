@@ -3,6 +3,7 @@
     android:id="@+id/projects_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
     android:padding="10dp">
 
     <!--android:descendantFocusability="blocksDescendants">-->
@@ -31,13 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/project_list_item_path"
         android:layout_toRightOf="@+id/imageViewStatus"
-        android:clickable="true"
         android:ellipsize="marquee"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
-        android:selectAllOnFocus="true"
         android:singleLine="true"
         android:text="@string/project_list_default_text"/>
 

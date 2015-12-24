@@ -133,6 +133,7 @@
 
     <string name="move_up">Up</string>
     <string name="move_down">Down</string>
+    <string name="remove">Remove</string>
 
     <string-array name="zoom_type">
         <item>auto</item>
@@ -149,7 +150,7 @@
     <string-array name="layer_type">
         <item>SQL_YANDEX_LAYER</item>
         <item>SQL_LAYER</item>
-        <!--<item>XML</item>-->
+        <item>XML</item>
         <!--<item>PLIST</item>-->
         <!--<item>LAYER_GROUP</item>-->
         <!--<item>RASTER_LAYER</item>-->

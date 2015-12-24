@@ -17,8 +17,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-
             android:layout_gravity="center_vertical|right">
+            <TextView
+                android:id="@+id/remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/remove"
+                style="@style/SpinnerText"
+                android:padding="12dp"
+                android:gravity="right"/>
+
                 <TextView
                     android:id="@+id/move_up"
                     android:layout_width="wrap_content"
@@ -28,14 +36,14 @@
                     android:padding="12dp"
                     android:gravity="right"/>
 
-            <TextView
-                    android:id="@+id/move_down"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/move_down"
-                    style="@style/SpinnerText"
-                    android:padding="12dp"
-                    android:gravity="right"/>
+                <TextView
+                        android:id="@+id/move_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/move_down"
+                        style="@style/SpinnerText"
+                        android:padding="12dp"
+                        android:gravity="right"/>
 
             <ImageButton
                 android:id="@+id/button_apply"
