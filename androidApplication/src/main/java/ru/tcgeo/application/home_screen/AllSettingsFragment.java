@@ -11,7 +11,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,16 +23,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.Geoinfo;
+import ru.tcgeo.application.IFolderItemListener;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.home_screen.adapter.LayersAdapterItem;
 import ru.tcgeo.application.utils.ProjectChangedEvent;
+import ru.tcgeo.application.views.OpenFileDialog;
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
  * Created by a_belov on 22.07.15.
  */
-public class SettingsFragment extends Fragment {
+public class AllSettingsFragment extends Fragment implements IFolderItemListener {
 
     @Bind(R.id.layer_name_edit)
     EditText mName;
@@ -42,6 +50,22 @@ public class SettingsFragment extends Fragment {
     @Bind(R.id.layer_location_edit)
     EditText mLocation;
 
+    @Bind(R.id.file_present_status)
+    ImageView mFileOk;
+
+//    @OnClick(R.id.layer_location_edit)
+//    public void onFile(){
+//        OpenFileDialog dlg = new OpenFileDialog();
+//        dlg.setIFolderItemListener(this);
+//        dlg.show(getChildFragmentManager(), "tag");
+//    }
+
+    @Bind(R.id.range_from)
+    Spinner mRangeFrom;
+
+    @Bind(R.id.range_to)
+    Spinner mRangeTo;
+
     @Bind(R.id.zoom_type_edit)
     Spinner mZoomType;
 
@@ -54,12 +78,40 @@ public class SettingsFragment extends Fragment {
     @Bind(R.id.zoom_max_edit)
     Spinner mZoomMax;
 
+    @Bind(R.id.fill_color)
+    View mFillColor;
+
+    @OnClick(R.id.fill_color)
+    public void OnFillColor(){
+        if(mItem.m_tuple.layer.m_layer_properties.m_style != null && mItem.m_tuple.layer.m_layer_properties.m_style.m_colors != null) {
+            for (final GIColor color : mItem.m_tuple.layer.m_layer_properties.m_style.m_colors) {
+                 if (color.m_description.equalsIgnoreCase("fill")) {
+                     new AmbilWarnaDialog(getActivity(), color.Get(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                         @Override
+                         public void onOk(AmbilWarnaDialog dialog, int new_color) {
+                             color.set(new_color);
+                             mStrokeColor.setBackgroundColor(new_color);
+                         }
+
+                         @Override
+                         public void onCancel(AmbilWarnaDialog dialog) {
+                         }
+                     }).show();
+                }
+            }
+        }
+
+    }
+
+    @Bind(R.id.stroke_color)
+    View mStrokeColor;
+
     LayersAdapterItem mItem;
     GIMap mMap;
     GILayer.Builder builder;
-    public SettingsFragment(){}
+    public AllSettingsFragment(){}
 
-    public SettingsFragment(GIMap map, LayersAdapterItem item){
+    public AllSettingsFragment(GIMap map, LayersAdapterItem item){
         mItem = item;
         mMap = map;
         builder = new GILayer.Builder(item.m_tuple.layer);
@@ -69,6 +121,8 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layer_settings, container, false);
         ButterKnife.bind(this, view);
+
+        mLocation.setEnabled(false);
 
         reset();
 
@@ -180,6 +234,13 @@ public class SettingsFragment extends Fragment {
         mName.setText(mItem.m_tuple.layer.getName());
         mLocation.setText(mItem.m_tuple.layer.m_layer_properties.m_source.m_name);
 
+        File file = new File(mItem.m_tuple.layer.m_layer_properties.m_source.m_name);
+        if(file.exists()){
+            mFileOk.setImageResource(R.drawable.project_mark);
+        } else {
+            mFileOk.setImageResource(R.drawable.project_mark_fail);
+        }
+
 //        mRangeMin.setText(String.valueOf(mItem.m_tuple.layer.m_layer_properties.m_range.m_from));
 //        mRangeMax.setText(String.valueOf(mItem.m_tuple.layer.m_layer_properties.m_range.m_to));
 
@@ -272,6 +333,40 @@ public class SettingsFragment extends Fragment {
                 }
             }
         }
+        // range
+        ArrayAdapter<String> range = new ArrayAdapter<String>(
+                getActivity(),
+                R.layout.item_spinner,
+                getResources().getStringArray(R.array.source_type));
+
+        source_type_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+        mRangeFrom.setAdapter(source_type_adapter);
+
+        ArrayAdapter<String> rangeFromAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                R.layout.item_spinner,
+                getResources().getStringArray(R.array.ranges));
+
+        rangeFromAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+        mRangeFrom.setAdapter(rangeFromAdapter);
+        ArrayAdapter<String> rangeToAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                R.layout.item_spinner,
+                getResources().getStringArray(R.array.ranges));
+
+        rangeToAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+        mRangeTo.setAdapter(rangeToAdapter);
+        //colors\
+        if(mItem.m_tuple.layer.m_layer_properties.m_style != null && mItem.m_tuple.layer.m_layer_properties.m_style.m_colors != null) {
+            for (GIColor color : mItem.m_tuple.layer.m_layer_properties.m_style.m_colors) {
+                if (color.m_description.equalsIgnoreCase("line")) {
+                    mStrokeColor.setBackgroundColor(color.Get());
+                }else if (color.m_description.equalsIgnoreCase("fill")){
+                    mFillColor.setBackgroundColor(color.Get());
+                }
+        }
+
+        }
     }
 
     @OnClick(R.id.move_down)
@@ -293,5 +388,17 @@ public class SettingsFragment extends Fragment {
         mMap.m_layers.m_list.remove(mItem.m_tuple);
         mMap.ps.m_Group.m_Entries.remove(mItem.m_tuple.layer.m_layer_properties);
         App.getInstance().getEventBus().post(new ProjectChangedEvent());
+    }
+
+    @Override
+    public void OnCannotFileRead(File file) {
+        Toast.makeText(getActivity(), "can't be read!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void OnFileClicked(File file) {
+        mLocation.setText(file.getAbsolutePath());
+        builder.sourceLocation(file.getAbsolutePath());
+        builder.sourceName("absolute");
     }
 }

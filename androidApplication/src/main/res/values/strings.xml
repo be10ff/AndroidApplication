@@ -130,6 +130,9 @@
     <string name="from">from</string>
     <string name="to">to</string>
     <string name="ratio">ratio</string>
+    <string name="layer_colors">Colors </string>
+    <string name="fill_color">Fill</string>
+    <string name="stroke_color">Stroke</string>
 
     <string name="move_up">Up</string>
     <string name="move_down">Down</string>
@@ -192,6 +195,25 @@
         <item>22</item>
         <item>23</item>
         <item>24</item>
+    </string-array>
+
+    <string-array name="ranges">
+        <item>All</item>
+        <item>1:20</item>
+        <item>1:50</item>
+        <item>1:100</item>
+        <item>1:250</item>
+        <item>1:500</item>
+        <item>1:1000</item>
+        <item>1:2000</item>
+        <item>1:3000</item>
+        <item>1:5000</item>
+        <item>1:10000</item>
+        <item>1:20000</item>
+        <item>1:50000</item>
+        <item>1:100000</item>
+        <item>1:500000</item>
+        <item>1:1000000</item>
     </string-array>
 
 </resources>
