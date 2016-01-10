@@ -38,6 +38,7 @@ import ru.tcgeo.application.home_screen.adapter.EditableLayersAdapterItem;
 import ru.tcgeo.application.home_screen.adapter.MarkersAdapter;
 import ru.tcgeo.application.home_screen.adapter.MarkersAdapterItem;
 import ru.tcgeo.application.home_screen.SettingsDialog;
+import ru.tcgeo.application.home_screen.adapter.ProjectDialog;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.views.GIScaleControl;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
@@ -88,7 +89,7 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 	SharedPreferences sp;
 
 	final public String SAVED_PATH = "default_project_path";
-	Dialog projects_dialog;
+	DialogFragment projects_dialog;
 	Dialog settings_dialog;
 	Dialog markers_dialog;
 	Dialog editablelayers_dialog;
@@ -102,6 +103,8 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 	GILocatorView m_locator;
 
 	GIGPSButtonView fbGPS;
+
+	ImageButton fbEdit;
 
 //	public final IFolderItemListener m_fileOpenListener = this;
 
@@ -524,6 +527,15 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 		markers_list.setAdapter(adapter);
 		editablelayers_dialog.show();
 	}
+    public void ProjectSelectorDialogClicked(final View button) {
+
+        projects_dialog = new ProjectDialog();
+        projects_dialog.show(getSupportFragmentManager(), "project_dialog");
+    }
+
+    public DialogFragment getProjectsDialog(){
+        return projects_dialog;
+    }
 
 	//todo
 	public void SettingsDialogClicked(final View button) {
@@ -1055,7 +1067,6 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 		//--------------------------------------------------------------------
 		final CheckBox m_btnAutoFollow = new CheckBox(this);
 		m_btnAutoFollow.setButtonDrawable(R.drawable.auto_follow_status_);
-//        m_btnAutoFollow.setCompoundDrawablesWithIntrinsicBounds(R.drawable.auto_follow_status_, 0, 0, 0);
 		SubActionButton fbAutoFollow = itemBuilder.setContentView(m_btnAutoFollow).build();
 		m_btnAutoFollow.setChecked(GIEditLayersKeeper.Instance().m_AutoFollow);
 		m_btnAutoFollow.setOnClickListener(new View.OnClickListener()
@@ -1075,13 +1086,13 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 				GIEditLayersKeeper.Instance().GetPositionControl();
 			}
 		});
-		fbAutoFollow.setOnLongClickListener(new View.OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View v) {
-				GIEditLayersKeeper.Instance().m_current_track_control.Show(!GIEditLayersKeeper.Instance().m_current_track_control.mShow);
-				return false;
-			}
-		});
+//		fbAutoFollow.setOnLongClickListener(new View.OnLongClickListener() {
+//			@Override
+//			public boolean onLongClick(View v) {
+//				GIEditLayersKeeper.Instance().m_current_track_control.Show(!GIEditLayersKeeper.Instance().m_current_track_control.mShow);
+//				return false;
+//			}
+//		});
 
 		//--------------------------------------------------------------------
 		// GPS TRACK_CONTROL
@@ -1127,7 +1138,6 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 		// GPS POI CONTROL
 		//--------------------------------------------------------------------
 		final ImageButton m_btnPoiControl = new ImageButton(this);
-//		m_btnPoiControl.setButtonDrawable(R.drawable.poi_status);
         m_btnPoiControl.setImageResource(R.drawable.poi_status);
         m_btnPoiControl.setBackgroundDrawable(null);
 		SubActionButton fbPoiControl = itemBuilder.setContentView(m_btnPoiControl).build();
@@ -1187,24 +1197,25 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 		btnProjectSelectorButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				ProjectSelectorDialogClicked(v);
-				SettingsDialogClicked(v);
+				ProjectSelectorDialogClicked(v);
+//				SettingsDialogClicked(v);
 			}
 		});
 		//--------------------------------------------------------------------
 		// COMPASS_OPEN_Layers
 		//--------------------------------------------------------------------
-//		final ImageButton btnLayers = new ImageButton(this);
-//		btnLayers.setImageResource(R.drawable.gear);
-//		btnLayers.setBackgroundDrawable(null);
-//		SubActionButton fbLayers = itemBuilder.setContentView(btnLayers).build();
-//		btnLayers.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
+		final ImageButton btnLayers = new ImageButton(this);
+		btnLayers.setImageResource(R.drawable.gear);
+		btnLayers.setBackgroundDrawable(null);
+		SubActionButton fbLayers = itemBuilder.setContentView(btnLayers).build();
+		btnLayers.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
 //				layersDialogClicked(v);
-//
-//			}
-//		});
+				SettingsDialogClicked(v);
+
+			}
+		});
 		//--------------------------------------------------------------------
 		// COMPASS_EDIT_Layers
 		//--------------------------------------------------------------------
@@ -1237,17 +1248,51 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 		FloatingActionMenu compassActionMenu = new FloatingActionMenu.Builder(this)
 
 				.addSubActionView(fbOpen)
-//				.addSubActionView(fbLayers)
+				.addSubActionView(fbLayers)
 				.addSubActionView(fbEditLayers)
 				.addSubActionView(fbMarkers)
 
 				.attachTo(compass_action_button)
-				.setRadius(ScreenUtils.dpToPx(96))
+				.setRadius(ScreenUtils.dpToPx(144))
 				.setStartAngle(90)
 				.setEndAngle(180)
 				.build();
 		//--------------------------------------------------------------------
 		// Compass buttons
+		//--------------------------------------------------------------------
+		//--------------------------------------------------------------------
+		// Edit buttons
+		//--------------------------------------------------------------------
+		fbEdit = new ImageButton(this);
+		FloatingActionButton.LayoutParams edit_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
+		edit_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
+
+		FloatingActionButton edit_action_button = new FloatingActionButton.Builder(this)
+				.setContentView(fbEdit)
+				.setBackgroundDrawable(null)
+				.setPosition(FloatingActionButton.POSITION_TOP_LEFT)
+				.setLayoutParams(edit_menu_params)
+				.build();
+
+//		SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+		FloatingActionButton.LayoutParams edit_action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(84), ScreenUtils.dpToPx(84));
+		edit_action_params.gravity = Gravity.CENTER_HORIZONTAL;
+		itemBuilder.setLayoutParams(edit_action_params);
+//
+		FloatingActionMenu editActionMenu = new FloatingActionMenu.Builder(this)
+
+				.addSubActionView(fbOpen)
+				.addSubActionView(fbLayers)
+				.addSubActionView(fbEditLayers)
+				.addSubActionView(fbMarkers)
+
+				.attachTo(edit_action_button)
+				.setRadius(ScreenUtils.dpToPx(144))
+				.setStartAngle(90)
+				.setEndAngle(180)
+				.build();
+		//--------------------------------------------------------------------
+		// Edit buttons
 		//--------------------------------------------------------------------
 
 	}
@@ -1292,7 +1337,10 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 		fbGPS.onPause();
 		// GIEditLayersKeeper.Instance().m_position = null;
 		map.Synhronize();
-		String SaveAsPath = getResources().getString(R.string.default_project_path);
+        String SaveAsPath = getResources().getString(R.string.default_project_path);
+        if(map!=null && map.ps!= null && map.ps.m_path!= null && !map.ps.m_path.isEmpty()){
+            SaveAsPath = map.ps.m_path;
+        }
 		if (map.ps.m_SaveAs != null) {
 			if (map.ps.m_SaveAs.length() > 0) {
 				SaveAsPath = map.ps.m_SaveAs;

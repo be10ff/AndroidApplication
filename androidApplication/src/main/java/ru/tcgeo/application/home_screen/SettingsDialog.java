@@ -53,12 +53,8 @@ import ru.tcgeo.application.views.OpenFileDialog;
 public class SettingsDialog extends DialogFragment implements IFolderItemListener {
 
     private GIMap mMap;
-    ListView mProjectsList;
     ListView mLayersList;
     FrameLayout mProperties;
-    LinearLayout.LayoutParams projectsParams;
-    LinearLayout.LayoutParams layersParams;
-    LinearLayout.LayoutParams propertiesParams;
     ProjectsAdapter projects_adapter;
     LayersAdapter layersAdapter;
 
@@ -67,34 +63,12 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
         getDialog().setCanceledOnTouchOutside(true);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         mMap = ((Geoinfo)getActivity()).getMap();
-        View v = inflater.inflate(R.layout.project_settings_dialog, container, false);
-        mProjectsList = (ListView)  v.findViewById(R.id.projects_list);
+        View v = inflater.inflate(R.layout.settings_dialog, container, false);
         mLayersList = (ListView)  v.findViewById(R.id.layers_list);
         mProperties = (FrameLayout)v.findViewById(R.id.content);
-
-        propertiesParams = (LinearLayout.LayoutParams) mProperties.getLayoutParams();
-        layersParams = (LinearLayout.LayoutParams) mLayersList.getLayoutParams();
-        projectsParams = (LinearLayout.LayoutParams) mProjectsList.getLayoutParams();
-        propertiesParams.weight = 0;
         projects_adapter = new ProjectsAdapter((Geoinfo)getActivity(),
                 R.layout.project_selector_list_item,
                 R.id.project_list_item_path);
-        AddProjects(projects_adapter);
-        mProjectsList.setAdapter(projects_adapter);
-
-        mProjectsList.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                propertiesParams.weight = 0;
-                layersParams.weight = 4;
-                projectsParams.weight = 4;
-                mProjectsList.requestLayout();
-                mProperties.requestLayout();
-                mLayersList.requestLayout();
-                return false;
-            }
-        });
-
 
         layersAdapter = new LayersAdapter((Geoinfo)getActivity(),
                 R.layout.re_layers_list_item, R.id.layers_list_item_text);
@@ -114,32 +88,6 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
 
         addLayers((GIGroupLayer) mMap.m_layers, layersAdapter);
         mLayersList.setAdapter(layersAdapter);
-        mLayersList.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                projectsParams.weight = 1;
-                layersParams.weight = 4;
-                propertiesParams.weight = 4;
-                mProjectsList.requestLayout();
-                mProperties.requestLayout();
-                mLayersList.requestLayout();
-                return false;
-            }
-        });
-
-        mProperties.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                projectsParams.weight = 2;
-                layersParams.weight = 2;
-                propertiesParams.weight = 8;
-                mProjectsList.requestLayout();
-                mProperties.requestLayout();
-                mLayersList.requestLayout();
-                return false;
-            }
-        });
-
         mLayersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -162,15 +110,12 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-//        ft.replace(R.id.content, new SettingsFragment()).commit();
     }
 //
     @Override public void onStart() {
         super.onStart();
 
         Window window = getDialog().getWindow();
-//        window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         WindowManager.LayoutParams windowParams = window.getAttributes();
         windowParams.dimAmount = 0.0f;
@@ -211,15 +156,13 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
 
     @Override
     public void OnCannotFileRead(File file) {
-        Toast.makeText(getActivity(), "can't be read!",
+        Toast.makeText(getActivity(), R.string.file_error,
                 Toast.LENGTH_LONG).show();
     }
 
 
     @Override
     public void OnFileClicked(File file) {
-
-//        App.getInstance().getEventBus().post(new ProjectChangedEvent());
         addLayer(file);
         refresh(new ProjectChangedEvent());
     }
@@ -250,7 +193,6 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
         GILayer layer;
         //TODO
         layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.SQL_YANDEX_LAYER);
-        //layer = GILayer.CreateLayer(file.getName(), GILayerType.SQL_LAYER);
         properties_layer.m_sqldb = new GISQLDB();//"auto";
         properties_layer.m_sqldb.m_zoom_type = "auto";
 

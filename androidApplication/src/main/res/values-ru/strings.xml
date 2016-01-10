@@ -3,72 +3,66 @@
     <string name="app_name">GeoInfo</string>
     <string name="sub_app_name">Navigator</string>
     <string name="background">background</string>
-    <string name="button_zoomin">Zoom In</string>
-    <string name="button_zoomout">Zoom Out</string>
-    <string name="button_position">Position</string>
-    <string name="panel_zoom">Zoom Panel</string>
-    <string name="panel_position">Position Panel</string>
-    <string name="dialog_layers">Layers</string>
-    <string name="layers_additional_button">Additional</string>
-    <string name="layers_general_button">General</string>
-    <string name="top_bar_layers_button">Layers</string>
+    <string name="layers_additional_button">Дополнительно</string>
+    <string name="layers_general_button">Основные</string>
+    <string name="top_bar_layers_button">Слои</string>
     <string name="layers_list_default_text">Default text is very long and almost pointless.</string>
-    <string name="project_selector_button">Projects</string>
-    <string name="project_list_default_text">Project</string>
-    <string name="project_list_addition_text">Project_info</string>    
-	<string name="default_project_path">/sdcard/moscow.pro</string>     
-    <string name="markers_button">Markers</string>	
+    <string name="project_selector_button">Проекты</string>
+    <string name="project_list_default_text">Проект</string>
+    <string name="project_list_addition_text">Project_info</string>
+    <string name="default_project_path">/sdcard/moscow.pro</string>
+    <string name="markers_button">Метки</string>
     <string name="scale_info_default_text">1 000 m</string>
     <string name="button_square_tool">button_square_tool</string>
     <string name="button_stop_search">button_stop_search</string>
     <string name="button_rule_tool">button_rule_tool</string>
     <string name="button_position_follow">button_position_follow</string>
-    <string name="project_management">Project management...</string>
+    <string name="project_management">Управление проектами...</string>
     <string name="button_editable_layers">button_editable_layers</string>
-    <string name="StopEditLayer">Finish editing</string>
-    <string name="edit_layer_new">Create</string>
-    <string name="edit_layer_edit_geometry">Edit geometry</string>
-    <string name="edit_layer_edit_attributes">Edit attributes</string>
-    <string name="edit_layer_delete">Delete</string>
+    <string name="StopEditLayer">Закончить редактирование</string>
+    <string name="edit_layer_new">Создать</string>
+    <string name="edit_layer_edit_geometry">Редактировать\nгеометрию</string>
+    <string name="edit_layer_edit_attributes">Редактировать\nаттрибуты</string>
+    <string name="edit_layer_delete">Удалить</string>
     <string name="button_gps">GPS</string>
-    <string name="add_layer_header">Add...</string>
+    <string name="add_layer_header">добавить...</string>
     <string-array name="extentions">
-		<!--<item>"track"</item>-->
-		<item>"sqlitedb"</item>
-		<item>xml</item>
+        <!--<item>"track"</item>-->
+        <item>"sqlitedb"</item>
+        <item>xml</item>
         <item>yandex</item>
         <item>traffic</item>
     </string-array>
 
-    <string name="ProjectServer_Remotes">Remote projects</string>
-    <string name="ProjectServer_Offline">Server unavaliable</string>
-    <string name="ProjectServer_Locals">Local projects</string>
-    <string name="ProjectServer_BtnLoad">Load</string>
-    <string name="ProjectServer_BtnDelete">Delete</string>
-    <string name="ProjectServer_BtnClose">Close</string>
-    <string name="ProjectServer_BtnUpdate">Refresh</string>
-    <string name="unzipping">unzipping...</string>
-    <string name="parsing">Reading projects...</string>
+    <string name="ProjectServer_Remotes">Проекты на сервере</string>
+    <string name="ProjectServer_Offline">Сервер недоступен</string>
+    <string name="ProjectServer_Locals">Проекты на устройстве</string>
+    <string name="ProjectServer_BtnLoad">Загрузить</string>
+    <string name="ProjectServer_BtnDelete">Удалить</string>
+    <string name="ProjectServer_BtnClose">Закрыть</string>
+    <string name="ProjectServer_BtnUpdate">Обновить</string>
+    <string name="unzipping">разархивирование</string>
+    <string name="parsing">чтение проектов</string>
     <color name="Item_Background_Selected">#ffdaffda</color>
     <color name="Item_Background_Unselected">#0a0a0a0a</color>
     <string name="image_project_status"></string>
     <string name="state_ready">готов</string>
-    <string name="state_downloading">Loading</string>
-    <string name="state_updating">Refreshing</string>
-    <string name="state_checking">Verifieng</string>
-    <string name="state_unzipping">Installing</string>
-    <string name="state_deleting">Removing</string>
-    <string name="state_unknown">Unknown</string>
+    <string name="state_downloading">загружается</string>
+    <string name="state_updating">обновляется</string>
+    <string name="state_checking">проверяется</string>
+    <string name="state_unzipping">устанавливается</string>
+    <string name="state_deleting">удаляется</string>
+    <string name="state_unknown">неизвестно</string>
     <!--<string name="edit_layer_new">Create</string>-->
-    <string name="edit_layer_new_stop">Stop creating</string>
+    <string name="edit_layer_new_stop">Закончить создание</string>
     <!--<string name="edit_layer_edit_geometry">Edit geometry</string>-->
-    <string name="edit_layer_edit_geometry_stop">Stop editing</string>
+    <string name="edit_layer_edit_geometry_stop">Закончить редактирование</string>
     <!--<string name="edit_layer_edit_attributes">Edit attributes</string>-->
-    <string name="edit_layer_edit_attributes_stop">Stop editing</string>
+    <string name="edit_layer_edit_attributes_stop">Закончить редактирование editing</string>
     <!--<string name="edit_layer_delete">Delete</string>-->
-    <string name="edit_layer_delete_stop">Cancel</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="edit_layer_delete_stop">Отмена</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
     <string name="longtitude">longtitude</string>
     <string name="latitude">latitude</string>
     <string name="gps_off">GPS Off</string>
@@ -80,17 +74,17 @@
     <string name="stop_track">Finish track</string>
     <string name="poi">Create POI</string>
     <string name="stop_poi">Finish POI</string>
-    <string name="new_attribute_name">Name</string>
-    <string name="new_attribute_value">Value</string>
+    <string name="new_attribute_name">параметр</string>
+    <string name="new_attribute_value">значение</string>
     <color name="dark_text">#ff0f050f</color>
     <color name="transparent_background">#05050505</color>
-    <string name="provider_available">alive</string>
-    <string name="provider_temporary_unavailable">weak</string>
-    <string name="provider_out_of_service">dead</string>
+    <string name="provider_available">жив</string>
+    <string name="provider_temporary_unavailable">болеет</string>
+    <string name="provider_out_of_service">мертв</string>
     <string name="format_accurancy">±%%02d m</string>
     <string name="format_datetime">A%%02d-%%02d-%%02d-%%02d-%%02d</string>
 
-    <string name="button_close">Close</string>
+    <string name="button_close">Закрыть</string>
     <string name="gps_accurancy">-- m</string>
 
 
@@ -99,22 +93,22 @@
     <string name="dd_mm_hint">DD° MM.MMMMMM\'</string>
     <string name="dd_hint">DD.DDDDDDDD°</string>
 
-    <string name="layer_name">Name</string>
-    <string name="layer_type">Type</string>
-    <string name="layer_location">Location</string>
-    <string name="layer_zoom">Zoom</string>
-    <string name="layer_range">Range </string>
-    <string name="from">from</string>
-    <string name="to">to</string>
-    <string name="ratio">ratio</string>
-    <string name="layer_colors">Colors </string>
-    <string name="fill_color">Fill</string>
-    <string name="stroke_color">Stroke</string>
+    <string name="layer_name">Имя</string>
+    <string name="layer_type">Тип</string>
+    <string name="layer_location">Расположение</string>
+    <string name="layer_zoom">Масштаб</string>
+    <string name="layer_range">Масштаб</string>
+    <string name="from">от</string>
+    <string name="to">до</string>
+    <string name="ratio">увеличение</string>
+    <string name="layer_colors">Цвет</string>
+    <string name="fill_color">Заливка</string>
+    <string name="stroke_color">Контур</string>
 
-    <string name="move_up">Up</string>
-    <string name="move_down">Down</string>
-    <string name="remove">Remove</string>
-    <string name="file_error">File cannot be read</string>
+    <string name="move_up">Выше</string>
+    <string name="move_down">Ниже</string>
+    <string name="remove">Удалить</string>
+    <string name="file_error">Ошибка чтения файла</string>
 
     <string-array name="zoom_type">
         <item>auto</item>
@@ -176,7 +170,7 @@
     </string-array>
 
     <string-array name="ranges">
-        <item>All</item>
+        <item>Все</item>
         <item>1:20</item>
         <item>1:50</item>
         <item>1:100</item>

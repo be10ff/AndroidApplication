@@ -25,9 +25,11 @@ import ru.tcgeo.application.App;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.IFolderItemListener;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.GIEditableRenderer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.models.GIColor;
+import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.home_screen.adapter.LayersAdapterItem;
 import ru.tcgeo.application.utils.ProjectChangedEvent;
 import ru.tcgeo.application.views.OpenFileDialog;
@@ -90,7 +92,11 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
                          @Override
                          public void onOk(AmbilWarnaDialog dialog, int new_color) {
                              color.set(new_color);
-                             mStrokeColor.setBackgroundColor(new_color);
+//                             GIVectorStyle vstyle = new GIVectorStyle(line, fill, 1);
+                             mFillColor.setBackgroundColor(new_color);
+                             ((GIEditableRenderer)mItem.m_tuple.layer.renderer()).m_style.m_paint_brush.setColor(new_color);
+
+
                          }
 
                          @Override
@@ -105,6 +111,29 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
 
     @Bind(R.id.stroke_color)
     View mStrokeColor;
+
+    @OnClick(R.id.stroke_color)
+    public void OnStrokeColor(){
+        if(mItem.m_tuple.layer.m_layer_properties.m_style != null && mItem.m_tuple.layer.m_layer_properties.m_style.m_colors != null) {
+            for (final GIColor color : mItem.m_tuple.layer.m_layer_properties.m_style.m_colors) {
+                if (color.m_description.equalsIgnoreCase("line")) {
+                    new AmbilWarnaDialog(getActivity(), color.Get(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                        @Override
+                        public void onOk(AmbilWarnaDialog dialog, int new_color) {
+                            color.set(new_color);
+                            mStrokeColor.setBackgroundColor(new_color);
+                            ((GIEditableRenderer)mItem.m_tuple.layer.renderer()).m_style.m_paint_pen.setColor(new_color);
+                        }
+
+                        @Override
+                        public void onCancel(AmbilWarnaDialog dialog) {
+                        }
+                    }).show();
+                }
+            }
+        }
+
+    }
 
     LayersAdapterItem mItem;
     GIMap mMap;

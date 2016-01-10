@@ -65,6 +65,7 @@ public class ProjectsAdapter extends ArrayAdapter<ProjectsAdapterItem> {
                     editor.commit();
 //                    mActivity.getProjectsDialog().cancel();
                     App.getInstance().getEventBus().post(new ProjectChangedEvent());
+                    mActivity.getProjectsDialog().getDialog().cancel();
                 }
             }
         });

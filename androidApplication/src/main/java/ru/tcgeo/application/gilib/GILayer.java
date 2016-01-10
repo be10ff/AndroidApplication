@@ -1,6 +1,11 @@
 package ru.tcgeo.application.gilib;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.os.Environment;
+
+import java.io.File;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIColor;
@@ -9,6 +14,9 @@ import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIStyle;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
+import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
+import ru.tcgeo.application.gilib.parser.GIRange;
+import ru.tcgeo.application.gilib.parser.GISource;
 import ru.tcgeo.application.wkt.GIGPSPointsLayer;
 
 public abstract class GILayer
@@ -233,6 +241,64 @@ public abstract class GILayer
 	{
 
 	}
+
+	public static  GIEditableLayer createTrack(String projectName)
+	{
+		File file = new File(projectName + "_track.xml");
+		GIPropertiesLayer properties_layer = new GIPropertiesLayer();
+		properties_layer.m_enabled = true;
+		properties_layer.m_name = file.getName();
+		properties_layer.m_range = new GIRange();
+		properties_layer.m_source = new GISource("absolute", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + file.getName());
+		properties_layer.m_type = GILayer.GILayerType.XML;
+		properties_layer.m_strType = "XML";
+		GILayer layer;
+		//
+		Paint fill = new Paint();
+		Paint line = new Paint();
+
+		GIColor color_fill = new GIColor.Builder().description("fill").name("red").build();
+		GIColor color_line = new GIColor.Builder().description("line").name("red").build();
+
+		line.setColor(color_line.Get());
+		line.setStyle(Paint.Style.STROKE);
+		line.setStrokeWidth(2);
+
+		fill.setColor(color_fill.Get());
+		fill.setStrokeWidth(2);
+		fill.setStyle(Paint.Style.FILL);
+
+		GIVectorStyle vstyle = new GIVectorStyle(line, fill, 1);
+
+		properties_layer.m_style =new GIPropertiesStyle.Builder()
+				.type("vector")
+				.lineWidth(2)
+				.opacity(1)
+				.color(color_line)
+				.color(color_fill)
+				.build();
+
+		layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.XML, vstyle);
+        Paint editing_fill = new Paint();
+        editing_fill.setColor(Color.CYAN);
+        editing_fill.setAlpha(96);
+        editing_fill.setStyle(Paint.Style.FILL);
+
+        Paint editing_stroke = new Paint();
+        editing_stroke.setColor(Color.CYAN);
+        editing_stroke.setStrokeWidth(2);
+        editing_fill.setAlpha(128);
+        editing_stroke.setStyle(Paint.Style.STROKE);
+        GIVectorStyle vstyle_editing = new GIVectorStyle(
+                editing_stroke, editing_fill,
+                1);
+        layer.AddStyle(vstyle_editing);
+
+		layer.setName(file.getName());
+		layer.m_layer_properties = properties_layer;
+		return (GIEditableLayer)layer;
+	}
+
 	public static class Builder {
 		private String name;
 		private GILayerType type;

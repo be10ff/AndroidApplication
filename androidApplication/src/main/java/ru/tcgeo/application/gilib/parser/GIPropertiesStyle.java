@@ -67,8 +67,8 @@ public class GIPropertiesStyle
 
 
 		public GIPropertiesStyle build(){
-			if(source == null) {
-				GIPropertiesStyle source = new GIPropertiesStyle();
+			if(source == null){
+				source = new GIPropertiesStyle();
 			}
 			if(type != null) {
 				source.m_type = type;
@@ -85,7 +85,6 @@ public class GIPropertiesStyle
 				} else {
 					source.m_colors.addAll(colors);
 				}
-
 			}
 			return source;
 		}

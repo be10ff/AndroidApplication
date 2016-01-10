@@ -38,6 +38,7 @@ public class GIColor {
 	
 	public void set(int color)
 	{
+		m_name = "custom";
 		m_alpha = Color.alpha(color);
 		m_red = Color.red(color);
 		m_green = Color.green(color);

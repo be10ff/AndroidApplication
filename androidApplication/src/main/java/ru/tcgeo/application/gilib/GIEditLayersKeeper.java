@@ -817,6 +817,13 @@ public class GIEditLayersKeeper {
 	public boolean CreateTrack()
 	{
 		boolean res = false;
+		if(m_TrackLayer == null){
+            m_TrackLayer = GILayer.createTrack("!!!_test_test_"/*m_Map.ps.m_name*/);
+            m_TrackLayer.setType(GIEditableLayer.GIEditableLayerType.TRACK);
+            m_TrackLayer.Save();
+            m_Map.ps.m_Group.addEntry(m_TrackLayer.m_layer_properties);
+            m_Map.AddLayer(m_TrackLayer);
+        }
 		if(m_TrackLayer != null)
 		{
 			m_TrackingStatus = GITrackingStatus.WRITE;
@@ -983,15 +990,14 @@ public class GIEditLayersKeeper {
 		}
 
 		Location location = m_location_manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		/**/
-//		String mocLocationProvider = "mock";
+
 		String mocLocationProvider = LocationManager.GPS_PROVIDER;
 
 		if (null != m_location_manager.getProvider(mocLocationProvider))
 		{
 			location = m_location_manager.getLastKnownLocation(mocLocationProvider);
 		}
-		/**/
+
 		if(location != null)
 		{
 			if(m_position == null)
