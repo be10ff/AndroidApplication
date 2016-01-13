@@ -104,16 +104,22 @@ public class GIEditAttributesFragment extends Fragment implements
 		{
 			getActivity().getFragmentManager().beginTransaction().remove(this).commit();
 		}
-		if(GIEditLayersKeeper.Instance().m_EditLayerDialog != null)
-		{
-			if(GIEditLayersKeeper.Instance().m_EditLayerDialog.isAdded())
-			{
-				GIEditLayersKeeper.Instance().m_EditLayerDialog.m_btnNew.setEnabled(true);
-				GIEditLayersKeeper.Instance().m_EditLayerDialog.m_btnAttributes.setEnabled(true);
-				GIEditLayersKeeper.Instance().m_EditLayerDialog.m_btnGeometry.setEnabled(true);
-				GIEditLayersKeeper.Instance().m_EditLayerDialog.m_btnDelete.setEnabled(true);
-			}
-		}
+//		if(GIEditLayersKeeper.Instance().m_EditLayerDialog != null)
+//		{
+//			if(GIEditLayersKeeper.Instance().m_EditLayerDialog.isAdded())
+//			{
+//				GIEditLayersKeeper.Instance().m_EditLayerDialog.m_btnNew.setEnabled(true);
+//				GIEditLayersKeeper.Instance().m_EditLayerDialog.m_btnAttributes.setEnabled(true);
+//				GIEditLayersKeeper.Instance().m_EditLayerDialog.m_btnGeometry.setEnabled(true);
+//				GIEditLayersKeeper.Instance().m_EditLayerDialog.m_btnDelete.setEnabled(true);
+//			}
+//		}
+
+        GIEditLayersKeeper.Instance().activity.btnEditCreate.setEnabled(true);
+        GIEditLayersKeeper.Instance().activity.btnEditAttributes.setEnabled(true);
+        GIEditLayersKeeper.Instance().activity.btnEditGeometry.setEnabled(true);
+        GIEditLayersKeeper.Instance().activity.btnEditDelete.setEnabled(true);
+
 		GIEditLayersKeeper.Instance().UpdateMap();
 
 	}

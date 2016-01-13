@@ -73,7 +73,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ToggleButton;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
@@ -106,7 +105,19 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 	GIGPSButtonView fbGPS;
 
 	ImageButton fbEdit;
-	ImageButton fbEditGeometry;
+//	ImageButton fbEditGeometry;
+
+    public CheckBox btnEditCreate;
+    public CheckBox btnEditGeometry;
+    public CheckBox btnEditAttributes;
+    public CheckBox btnEditDelete;
+
+    public SubActionButton fbEditCreate;
+    public SubActionButton fbEditGeometry;
+    public SubActionButton fbEditAttributes;
+    public SubActionButton fbEditDelete;
+
+    public FloatingActionButton fbEditButton;
 
 //	public final IFolderItemListener m_fileOpenListener = this;
 
@@ -1017,6 +1028,7 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 		GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
 		GIEditLayersKeeper.Instance().setTouchControl(touchControl);
 		GIEditLayersKeeper.Instance().setMap(map);
+        GIEditLayersKeeper.Instance().setActivity(this);
 		GIEditLayersKeeper.Instance().setRoot(R.id.root);
 
 		// Setup pixel size to let scale work properly
@@ -1266,31 +1278,31 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 		//--------------------------------------------------------------------
 		// Edit buttons
 		//--------------------------------------------------------------------
-        final CheckBox btnEditCreate = new CheckBox(this);
+        btnEditCreate = new CheckBox(this);
         btnEditCreate.setTextSize(0);
         btnEditCreate.setButtonDrawable(R.drawable.edit);
         btnEditCreate.setBackgroundDrawable(null);
-        final SubActionButton fbEditCreate = itemBuilder.setContentView(btnEditCreate).build();
+        fbEditCreate = itemBuilder.setContentView(btnEditCreate).build();
 
 
-        final CheckBox btnEditGeometry = new CheckBox(this);
+        btnEditGeometry = new CheckBox(this);
         btnEditGeometry.setTextSize(0);
         btnEditGeometry.setButtonDrawable(R.drawable.edit);
         btnEditGeometry.setBackgroundDrawable(null);
-        final SubActionButton fbEditGeometry = itemBuilder.setContentView(btnEditGeometry).build();
+        fbEditGeometry = itemBuilder.setContentView(btnEditGeometry).build();
 
 
-        final CheckBox btnEditAttributes = new CheckBox(this);
+        btnEditAttributes = new CheckBox(this);
         btnEditAttributes.setTextSize(0);
         btnEditAttributes.setButtonDrawable(R.drawable.edit);
         btnEditAttributes.setBackgroundDrawable(null);
-        final SubActionButton fbEditAttributes = itemBuilder.setContentView(btnEditAttributes).build();
+        fbEditAttributes = itemBuilder.setContentView(btnEditAttributes).build();
 
-        final CheckBox btnEditDelete = new CheckBox(this);
+        btnEditDelete = new CheckBox(this);
         btnEditDelete.setTextSize(0);
         btnEditDelete.setButtonDrawable(R.drawable.edit);
         btnEditDelete.setBackgroundDrawable(null);
-        final SubActionButton fbEditDelete = itemBuilder.setContentView(btnEditDelete).build();
+        fbEditDelete = itemBuilder.setContentView(btnEditDelete).build();
 
 
         btnEditCreate.setOnClickListener(new View.OnClickListener() {
@@ -1374,7 +1386,7 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
         fbEdit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(GIEditLayersKeeper.Instance().m_layer == GIEditLayersKeeper.Instance().m_TrackLayer){
+                if (GIEditLayersKeeper.Instance().m_layer == GIEditLayersKeeper.Instance().m_TrackLayer) {
                     fbEditGeometry.setVisibility(View.GONE);
                     fbEditCreate.setVisibility(View.GONE);
                 } else {
@@ -1384,12 +1396,15 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
             }
         });
 
-		FloatingActionButton edit_action_button = new FloatingActionButton.Builder(this)
+		fbEditButton = new FloatingActionButton.Builder(this)
 				.setContentView(fbEdit)
 				.setBackgroundDrawable(null)
 				.setPosition(FloatingActionButton.POSITION_BOTTOM_RIGHT)
 				.setLayoutParams(edit_menu_params)
 				.build();
+
+        fbEditButton.setVisibility(View.GONE);
+        fbEditButton.setActivated(false);
 
 		FloatingActionButton.LayoutParams edit_action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(84), ScreenUtils.dpToPx(84));
 		edit_action_params.gravity = Gravity.CENTER_HORIZONTAL;
@@ -1401,7 +1416,7 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
                 .addSubActionView(fbEditGeometry)
                 .addSubActionView(fbEditAttributes)
                 .addSubActionView(fbEditDelete)
-                .attachTo(edit_action_button)
+                .attachTo(fbEditButton)
 				.setRadius(ScreenUtils.dpToPx(144))
 				.setStartAngle(180)
                 .setEndAngle(270)
