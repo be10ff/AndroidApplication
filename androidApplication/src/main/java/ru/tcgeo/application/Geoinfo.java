@@ -73,6 +73,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ToggleButton;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
@@ -105,6 +106,7 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 	GIGPSButtonView fbGPS;
 
 	ImageButton fbEdit;
+	ImageButton fbEditGeometry;
 
 //	public final IFolderItemListener m_fileOpenListener = this;
 
@@ -1260,36 +1262,149 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 		//--------------------------------------------------------------------
 		// Compass buttons
 		//--------------------------------------------------------------------
+
 		//--------------------------------------------------------------------
 		// Edit buttons
 		//--------------------------------------------------------------------
+        final CheckBox btnEditCreate = new CheckBox(this);
+        btnEditCreate.setTextSize(0);
+        btnEditCreate.setButtonDrawable(R.drawable.edit);
+        btnEditCreate.setBackgroundDrawable(null);
+        final SubActionButton fbEditCreate = itemBuilder.setContentView(btnEditCreate).build();
+
+
+        final CheckBox btnEditGeometry = new CheckBox(this);
+        btnEditGeometry.setTextSize(0);
+        btnEditGeometry.setButtonDrawable(R.drawable.edit);
+        btnEditGeometry.setBackgroundDrawable(null);
+        final SubActionButton fbEditGeometry = itemBuilder.setContentView(btnEditGeometry).build();
+
+
+        final CheckBox btnEditAttributes = new CheckBox(this);
+        btnEditAttributes.setTextSize(0);
+        btnEditAttributes.setButtonDrawable(R.drawable.edit);
+        btnEditAttributes.setBackgroundDrawable(null);
+        final SubActionButton fbEditAttributes = itemBuilder.setContentView(btnEditAttributes).build();
+
+        final CheckBox btnEditDelete = new CheckBox(this);
+        btnEditDelete.setTextSize(0);
+        btnEditDelete.setButtonDrawable(R.drawable.edit);
+        btnEditDelete.setBackgroundDrawable(null);
+        final SubActionButton fbEditDelete = itemBuilder.setContentView(btnEditDelete).build();
+
+
+        btnEditCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ((GIEditLayersKeeper.Instance().getState() != GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION) && (btnEditCreate.isChecked())) {
+                    if (!GIEditLayersKeeper.Instance().CreateNewObject()) {
+                        return;
+                    }
+                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION);
+                    fbEditAttributes.setEnabled(false);
+                    fbEditGeometry.setEnabled(false);
+                    fbEditDelete.setEnabled(false);
+                    btnEditAttributes.setChecked(false);
+                    btnEditGeometry.setChecked(false);
+                    btnEditDelete.setChecked(false);
+                    GIEditLayersKeeper.Instance().UpdateMap();
+                } else {
+                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.RUNNING);
+                    GIEditLayersKeeper.Instance().FillAttributes();
+                    fbEditCreate.setEnabled(false);
+                }
+            }
+        });
+        fbEditGeometry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(GIEditLayersKeeper.Instance().m_layer == GIEditLayersKeeper.Instance().m_TrackLayer){
+                    return;
+                }
+
+                if((GIEditLayersKeeper.Instance().getState() == GIEditLayersKeeper.GIEditingStatus.EDITING_GEOMETRY)||(GIEditLayersKeeper.Instance().getState() == GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING)||(GIEditLayersKeeper.Instance().getState() == GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_NEW_POINT_LOCATION)){
+                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.RUNNING);
+                    GIEditLayersKeeper.Instance().StopEditingGeometry();
+                    fbEditCreate.setEnabled(true);
+                    fbEditAttributes.setEnabled(true);
+                    fbEditDelete.setEnabled(true);
+                    btnEditCreate.setChecked(false);
+                    btnEditAttributes.setChecked(false);
+                    btnEditDelete.setChecked(false);
+                } else {
+                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING);
+                    fbEditCreate.setEnabled(false);
+                    fbEditAttributes.setEnabled(false);
+                    fbEditDelete.setEnabled(false);
+                }
+            }
+        });
+        fbEditAttributes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(GIEditLayersKeeper.Instance().getState() != GIEditLayersKeeper.GIEditingStatus.WAITIN_FOR_SELECT_OBJECT) {
+                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.WAITIN_FOR_SELECT_OBJECT);
+                    fbEditCreate.setEnabled(false);
+                    fbEditGeometry.setEnabled(false);
+                    fbEditDelete.setEnabled(false);
+                    btnEditCreate.setChecked(false);
+                    btnEditGeometry.setChecked(false);
+                    btnEditDelete.setChecked(false);
+                } else {
+                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.RUNNING);
+                    fbEditCreate.setEnabled(true);
+                    fbEditGeometry.setEnabled(true);
+                    fbEditDelete.setEnabled(true);
+                }
+            }
+        });
+
+        fbEditDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_TO_DELETE);
+            }
+        });
+
 		fbEdit = new ImageButton(this);
 		FloatingActionButton.LayoutParams edit_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
 		edit_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
+        fbEdit.setImageResource(R.drawable.edit);
+        fbEdit.setBackgroundDrawable(null);
+        fbEdit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(GIEditLayersKeeper.Instance().m_layer == GIEditLayersKeeper.Instance().m_TrackLayer){
+                    fbEditGeometry.setVisibility(View.GONE);
+                    fbEditCreate.setVisibility(View.GONE);
+                } else {
+                    fbEditGeometry.setVisibility(View.VISIBLE);
+                    fbEditCreate.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
 		FloatingActionButton edit_action_button = new FloatingActionButton.Builder(this)
 				.setContentView(fbEdit)
 				.setBackgroundDrawable(null)
-				.setPosition(FloatingActionButton.POSITION_TOP_LEFT)
+				.setPosition(FloatingActionButton.POSITION_BOTTOM_RIGHT)
 				.setLayoutParams(edit_menu_params)
 				.build();
 
-//		SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
 		FloatingActionButton.LayoutParams edit_action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(84), ScreenUtils.dpToPx(84));
 		edit_action_params.gravity = Gravity.CENTER_HORIZONTAL;
 		itemBuilder.setLayoutParams(edit_action_params);
-//
+
 		FloatingActionMenu editActionMenu = new FloatingActionMenu.Builder(this)
 
-				.addSubActionView(fbOpen)
-				.addSubActionView(fbLayers)
-				.addSubActionView(fbEditLayers)
-				.addSubActionView(fbMarkers)
-
-				.attachTo(edit_action_button)
+				.addSubActionView(fbEditCreate)
+                .addSubActionView(fbEditGeometry)
+                .addSubActionView(fbEditAttributes)
+                .addSubActionView(fbEditDelete)
+                .attachTo(edit_action_button)
 				.setRadius(ScreenUtils.dpToPx(144))
-				.setStartAngle(90)
-				.setEndAngle(180)
+				.setStartAngle(180)
+                .setEndAngle(270)
 				.build();
 		//--------------------------------------------------------------------
 		// Edit buttons
