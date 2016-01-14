@@ -55,12 +55,10 @@ public class GIEditLayersKeeper {
 	private GITouchControl m_TouchControl;
 	public GIMap m_Map;
     public Geoinfo activity;
-//	private Context m_context;
 	private int m_root;
 	public LocationManager m_location_manager;
 	// views
 	public GIEditLayerDialog m_EditLayerDialog;
-//	public GIGPSDialog m_GPSDialog;
 	public GICompassFragment m_compass;
 	public GILocatorFragment m_locator;
 	public GILocatorRange m_range;
@@ -70,7 +68,6 @@ public class GIEditLayersKeeper {
 	public GIGeometryControl m_current_track_control;
 	ArrayList<GIGeometryControl> m_controls;
 	private GIPositionControl m_position;
-	//private GIGPSButtonView m_GPSButton;
 
 	//currents
 	public GIEditableLayer m_layer;

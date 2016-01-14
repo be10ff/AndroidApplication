@@ -78,9 +78,7 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
-public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/// implements
-																	// OnTouchListener
-{
+public class Geoinfo extends FragmentActivity {
 	public static String SETTINGS_FRAGMENT_TAG="settings_fragment_tag";
 
 
@@ -105,7 +103,6 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 	GIGPSButtonView fbGPS;
 
 	ImageButton fbEdit;
-//	ImageButton fbEditGeometry;
 
     public CheckBox btnEditCreate;
     public CheckBox btnEditGeometry;
@@ -118,23 +115,6 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
     public SubActionButton fbEditDelete;
 
     public FloatingActionButton fbEditButton;
-
-//	public final IFolderItemListener m_fileOpenListener = this;
-
-//	public void AddProjects(ArrayAdapter<ProjectsAdapterItem> adapter) {
-//		File dir = (Environment.getExternalStorageDirectory());
-//		for (File file : dir.listFiles()) {
-//			if (file.isFile()) {
-//				if (file.getName().endsWith(".pro")) {
-//					GIProjectProperties proj = new GIProjectProperties(
-//							file.getPath(), true);
-//					if (proj != null) {
-//						adapter.add(new ProjectsAdapterItem(proj));
-//					}
-//				}
-//			}
-//		}
-//	}
 
 	public void AddMarkers(ArrayAdapter<MarkersAdapterItem> adapter) {
 		if (map.ps.m_markers_source == null) {
@@ -273,164 +253,6 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 		map.ScaleMapBy(map.Center(), 0.66f);
 	}
 
-//	public void moveToPosition(View target) {
-//		if (follow_button.isActivated()) {
-//			follow_button.setActivated(false);
-//		} else {
-//			follow_button.setActivated(true);
-//		}
-//		if (null != m_location_listener.m_location)
-//			map.SetCenter(m_location_listener.m_location);
-//	}
-
-	// Temporary substitution for a GILayer iterator
-//	public void add_layers(GIGroupLayer layer,
-//			ArrayAdapter<LayersAdapterItem> adapter) {
-//		for (GITuple tuple : layer.m_list) {
-//			if (GILayerType.LAYER_GROUP == tuple.layer.type_)
-//				add_layers((GIGroupLayer) tuple.layer, adapter);
-//			else {
-//				adapter.add(new LayersAdapterItem(tuple));
-//			}
-//		}
-//	}
-
-	// == Layers Dialog ==
-	/*
-	 * Dialog is always shown under the caller button, if there is enough space.
-	 * Vertical size expends depending on contents up to a fixed value. Some
-	 * other styles issued positioning errors.
-	 */
-//	public void layersDialogClicked(final View layers_button) {
-//		final int layers_dialog_max_height = getWindowManager().getDefaultDisplay().getHeight() / 2;
-//		layers_button.setActivated(true);
-//
-//		final Dialog layers_dialog = new Dialog(this,
-//				R.style.Theme_layers_dialog);
-//		layers_dialog.setContentView(R.layout.layers_dialog);
-//		layers_dialog.getWindow().setBackgroundDrawable(
-//				new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//		layers_dialog.setCanceledOnTouchOutside(true);
-//
-//		layers_dialog.setOnDismissListener(new OnDismissListener() {
-//			public void onDismiss(DialogInterface dialog) {
-//				layers_button.setActivated(false);
-//			}
-//		});
-//
-//		// Place dialog under the button
-//		LayoutParams parameters = layers_dialog.getWindow().getAttributes();
-//		parameters.height = layers_dialog_max_height; // Some hard-coded size
-//
-//		int[] button_location = { 0, 0 };
-//		layers_button.getLocationOnScreen(button_location);
-//
-//		// Official documentation says that this will give actual screen size,
-//		// without taking into account decor elements (status bar).
-//		// But it works exactly as I expected - gives full accessible window
-//		// size.
-//		int screenCenterX = getWindowManager().getDefaultDisplay().getWidth() / 2;
-//		int screenCenterY = getWindowManager().getDefaultDisplay().getHeight() / 2;
-//
-//		// Dialog's 0,0 coordinates are in the middle of the screen
-//		parameters.x = button_location[0] - screenCenterX
-//				+ layers_button.getWidth() / 2;
-//		parameters.y = button_location[1] - screenCenterY
-//				+ layers_button.getHeight() + parameters.height / 2;
-//
-//		layers_dialog.getWindow().setAttributes(parameters);
-//
-//		// Fill list with data
-//		ListView layers_list = (ListView) layers_dialog
-//				.findViewById(R.id.layers_list);
-//		LayersAdapter adapter = new LayersAdapter(this,
-//				R.layout.re_layers_list_item, R.id.layers_list_item_text);
-//
-//		ImageButton additional = (ImageButton) layers_dialog
-//				.findViewById(R.id.layers_additional_button);
-//		additional.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				OpenFileDialog dlg = new OpenFileDialog();
-//				dlg.setIFolderItemListener(m_fileOpenListener);
-//				dlg.show(getSupportFragmentManager(), "open_dlg");
-//				layers_dialog.dismiss();
-//			}
-//		});
-//		/**/
-//		add_layers((GIGroupLayer) map.m_layers, adapter);
-//		layers_list.setAdapter(adapter);
-//		layers_dialog.show();
-//	}
-
-	// == Info Dialog ==
-	/*
-	 * Mostly copied from Layer_Dialog
-	 */
-//	public void ProjectSelectorDialogClicked(final View button) {
-//		final int dialog_max_height = getWindowManager().getDefaultDisplay().getHeight() / 2;
-//		button.setActivated(true);
-//
-//		projects_dialog = new Dialog(this, R.style.Theme_layers_dialog);
-//		projects_dialog.setContentView(R.layout.project_selector_dialog);
-//		projects_dialog.getWindow().setBackgroundDrawable(
-//				new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//		projects_dialog.setCanceledOnTouchOutside(true);
-//
-//		projects_dialog.setOnDismissListener(new OnDismissListener() {
-//			public void onDismiss(DialogInterface dialog) {
-//				button.setActivated(false);
-//			}
-//		});
-//
-//		// Place dialog under the button
-//		LayoutParams parameters = projects_dialog.getWindow().getAttributes();
-//		parameters.height = dialog_max_height; // Some hard-coded size
-//
-//		int[] button_location = { 0, 0 };
-//		button.getLocationOnScreen(button_location);
-//
-//		// Official documentation says that this will give actual screen size,
-//		// without taking into account decor elements (status bar).
-//		// But it works exactly as I expected - gives full accessible window
-//		// size.
-//		int screenCenterX = getWindowManager().getDefaultDisplay().getWidth() / 2;
-//		int screenCenterY = getWindowManager().getDefaultDisplay().getHeight() / 2;
-//
-//		// Dialog's 0,0 coordinates are in the middle of the screen
-//		parameters.x = button_location[0] - screenCenterX + button.getWidth()
-//				/ 2;
-//		parameters.y = button_location[1] - screenCenterY + button.getHeight()
-//				+ parameters.height / 2;
-//
-//		projects_dialog.getWindow().setAttributes(parameters);
-//
-//		// Fill list with data
-//		ListView project_list = (ListView) projects_dialog
-//				.findViewById(R.id.projects_list);
-//		View header = getLayoutInflater().inflate(
-//				R.layout.project_list_management_item, null);
-////		header.setOnClickListener(new OnClickListener() {
-////
-////			@Override
-////			public void onClick(View v) {
-////				projects_dialog.cancel();
-////				GIServer.Instance()
-////						.getPresenter().getDialog()
-////						.show(getFragmentManager(), "dialog");
-////			}
-////		});
-//		project_list.addHeaderView(header);
-//		ProjectsAdapter adapter = new ProjectsAdapter(this,
-//				R.layout.project_selector_list_item,
-//				R.id.project_list_item_path);
-//		AddProjects(adapter);
-//		project_list.setAdapter(adapter);
-//		projects_dialog.show();
-//	}
-
-
 	public void MarkersDialogClicked(final View button) {
 		final int dialog_max_height = getWindowManager().getDefaultDisplay().getHeight() / 2;
 		button.setActivated(true);
@@ -550,93 +372,11 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
         return projects_dialog;
     }
 
-	//todo
+
 	public void SettingsDialogClicked(final View button) {
-
 		DialogFragment dlg = new SettingsDialog();
-//		dlg.getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//		dlg.getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-//		dlg.getDialog().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		dlg.show(getSupportFragmentManager(), "settings_dialog" );
-
-
-//		button.setActivated(true);
-//
-//		settings_dialog = new Dialog(this, R.style.Theme_layers_dialog);
-//		settings_dialog.setContentView(R.layout.project_settings_dialog);
-//		settings_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//		settings_dialog.setCanceledOnTouchOutside(true);
-//
-//		//
-//		LayoutParams parameters = settings_dialog.getWindow().getAttributes();
-//		settings_dialog.getWindow().setAttributes(parameters);
-//		//
-//
-//		settings_dialog.setOnDismissListener(new OnDismissListener() {
-//			public void onDismiss(DialogInterface dialog) {
-//				button.setActivated(false);
-//			}
-//		});
-//
-//		ListView project_list = (ListView) settings_dialog.findViewById(R.id.projects_list);
-//		ListView layers_list = (ListView) settings_dialog.findViewById(R.id.layers_list);
-//		FrameLayout attributes_frame = (FrameLayout) settings_dialog.findViewById(R.id.attributes_frame);
-//
-//
-//
-//
-//		ProjectsAdapter projects_adapter = new ProjectsAdapter(this,
-//				R.layout.project_selector_list_item,
-//				R.id.project_list_item_path);
-//		AddProjects(projects_adapter);
-//		project_list.setAdapter(projects_adapter);
-//
-//		/**/
-//		LayersAdapter adapter = new LayersAdapter(this,
-//				R.layout.layers_list_item, R.id.layers_list_item_text);
-//
-//		View header = getLayoutInflater().inflate(
-//				R.layout.add_layer_header_layout, null);
-//		header.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				OpenFileDialog dlg = new OpenFileDialog(getApplicationContext());
-//				dlg.setIFolderItemListener(m_fileOpenListener);
-//				dlg.show(getFragmentManager(), "open_dlg");
-//			}
-//		});
-//		layers_list.addHeaderView(header);
-//
-////		ImageButton additional = (ImageButton) layers_dialog
-////				.findViewById(R.id.layers_additional_button);
-////		additional.setOnClickListener(new OnClickListener() {
-////
-////			@Override
-////			public void onClick(View v) {
-////				OpenFileDialog dlg = new OpenFileDialog(getApplicationContext());
-////				dlg.setIFolderItemListener(m_fileOpenListener);
-////				dlg.show(getFragmentManager(), "open_dlg");
-////				layers_dialog.dismiss();
-////			}
-////		});
-//
-//		addLayers((GIGroupLayer) map.m_layers, adapter);
-//		layers_list.setAdapter(adapter);
-//		/**/
-//
-//
-//
-//		settings_dialog.show();
-//
-//
-//		/**/
-////		FragmentTransaction ft = ((FragmentActivity) settings_dialog.getOwnerActivity()).getFragmentManager().beginTransaction();
-////		ft.add(R.id.attributes_frame, new SettingsFragment()).commit();
-//		/**/
 	}
-
-
 
 
 	public void LoadPro(String path) {
@@ -1100,13 +840,6 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 				GIEditLayersKeeper.Instance().GetPositionControl();
 			}
 		});
-//		fbAutoFollow.setOnLongClickListener(new View.OnLongClickListener() {
-//			@Override
-//			public boolean onLongClick(View v) {
-//				GIEditLayersKeeper.Instance().m_current_track_control.Show(!GIEditLayersKeeper.Instance().m_current_track_control.mShow);
-//				return false;
-//			}
-//		});
 
 		//--------------------------------------------------------------------
 		// GPS TRACK_CONTROL
@@ -1212,7 +945,6 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 			@Override
 			public void onClick(View v) {
 				ProjectSelectorDialogClicked(v);
-//				SettingsDialogClicked(v);
 			}
 		});
 		//--------------------------------------------------------------------
@@ -1225,7 +957,6 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 		btnLayers.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				layersDialogClicked(v);
 				SettingsDialogClicked(v);
 
 			}
@@ -1427,45 +1158,23 @@ public class Geoinfo extends FragmentActivity /*implements IFolderItemListener*/
 
 	}
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-	}
 
-	// ToDo
 	@Override
 	protected void onResume() {
 		super.onResume();
 		GIEditLayersKeeper.Instance().onResume();
 		GISensors.Instance(this).run(true);
-//		m_gps_button.onResume();
 		fbGPS.onResume();
 
 	};
 
-	// ToDo
-	@Override
-	protected void onStop() {
-		super.onStop();
-		// GIEditLayersKeeper.Instance().m_position = null;
-	};
 
-	// ToDo
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		// GIEditLayersKeeper.Instance().m_position = null;
-	};
-
-	// ToDo
 	@Override
 	protected void onPause() {
 		super.onPause();
 		GIEditLayersKeeper.Instance().onPause();
 		GISensors.Instance(this).run(false);
-//		m_gps_button.onPause();
 		fbGPS.onPause();
-		// GIEditLayersKeeper.Instance().m_position = null;
 		map.Synhronize();
         String SaveAsPath = getResources().getString(R.string.default_project_path);
         if(map!=null && map.ps!= null && map.ps.m_path!= null && !map.ps.m_path.isEmpty()){

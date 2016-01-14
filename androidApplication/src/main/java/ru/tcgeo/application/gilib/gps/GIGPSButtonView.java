@@ -22,13 +22,11 @@ import ru.tcgeo.application.R;
 
 public class GIGPSButtonView extends RelativeLayout 
 {
-	Bitmap m_btn_on;
-	Bitmap m_btn_off;
-	Bitmap m_btn_disable;
 	int m_count;
 	float m_accurancy;
-	Paint m_paint_text;
+	int speed;
 	TextView m_textViewAccurancy;
+	TextView tvSpeed;
 	public ImageView m_StatusImage;
 	private View m_LayoutView;
 	Context m_context;
@@ -50,6 +48,15 @@ public class GIGPSButtonView extends RelativeLayout
 		    	{
 		    		m_textViewAccurancy.setTextColor(Color.argb(255, 191, 63, 0));
 		    	}
+
+				speed = (int)Math.round(3.6*location.getSpeed());
+				if(speed < 10){
+					speed = 0;
+//					tvSpeed.setVisibility(INVISIBLE);
+				} else {
+					tvSpeed.setVisibility(VISIBLE);
+					tvSpeed.setText(String.format("%03d", speed));
+				}
 		    }
 	
 	
@@ -131,9 +138,8 @@ public class GIGPSButtonView extends RelativeLayout
 		m_StatusImage = (ImageView)findViewById(R.id.imageViewStatus);
 		m_StatusImage.setImageResource(R.drawable.gps_disabeled);
 		m_textViewAccurancy.setText("-- m");
+//		tvSpeed.setVisibility(INVISIBLE);
 		blink = false;
-//		GIEditLayersKeeper.Instance().setGPSButton(this);
-
 		locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 	}
 
