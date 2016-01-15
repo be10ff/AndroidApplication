@@ -11,6 +11,7 @@ import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIEditableLayer;
+import ru.tcgeo.application.gilib.GIGroupLayer;
 
 /**
  * Created by a_belov on 06.07.15.
@@ -52,10 +53,8 @@ public class EditableLayersAdapter extends ArrayAdapter<EditableLayersAdapterIte
             @Override
             public void onClick(View v) {
                 GIEditableLayer layer = (GIEditableLayer) item.m_layer;
-                // GIEditLayersKeeper.Instance().setMap(map);
                 GIEditLayersKeeper.Instance().StartEditing(layer);
-                // layer.Serialize();
-                mActivity.getEditablelayersDialog().cancel();
+                mActivity.getEditablelayersDialog().dismiss();
             }
         });
 
@@ -66,5 +65,20 @@ public class EditableLayersAdapter extends ArrayAdapter<EditableLayersAdapterIte
                                  int textViewResourceId) {
         super(activity, resource, textViewResourceId);
         mActivity = activity;
+    }
+
+    public void AddEditableLayers(GIGroupLayer layer) {
+        if (isEmpty()) {
+			/*
+			 * for(GIPropertiesLayerRef layer : map.ps.m_Edit.m_Entries) {
+			 * adapter.add(new EditableLayersAdapterItem(layer)); }
+			 */
+            if (isEmpty()) {
+                for (GIEditableLayer editable_layer : GIEditLayersKeeper
+                        .Instance().m_Layers) {
+                    add(new EditableLayersAdapterItem(editable_layer));
+                }
+            }
+        }
     }
 }

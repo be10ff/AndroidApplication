@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:padding="10dp">
+    android:padding="18dp">
 
     <!--android:descendantFocusability="blocksDescendants">-->
 
@@ -13,29 +13,32 @@
         android:id="@+id/project_list_item_path"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"    
-        android:layout_marginLeft="15dp"
-        android:text="@string/project_list_addition_text"/>
+        android:text="@string/project_list_addition_text"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true" />
 
     <ImageView
         android:id="@+id/imageViewStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/project_list_item_name"
+        android:layout_centerVertical="true"
         android:src="@drawable/project_mark" />
 
     <TextView
         style="@style/Theme.Text_Small"
         android:id="@+id/project_list_item_name"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/project_list_item_path"
-        android:layout_toRightOf="@+id/imageViewStatus"
-        android:ellipsize="marquee"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:scrollHorizontally="true"
-        android:singleLine="true"
-        android:text="@string/project_list_default_text"/>
+        android:layout_centerVertical="true"
 
+        android:layout_toRightOf="@+id/imageViewStatus"
+
+        android:text="@string/project_list_default_text"
+        android:layout_margin="6dp" />
+    <!--android:ellipsize="marquee"-->
+    <!--android:marqueeRepeatLimit="marquee_forever"-->
+    <!--android:scrollHorizontally="true"-->
+    <!--android:singleLine="true"-->
 </RelativeLayout>

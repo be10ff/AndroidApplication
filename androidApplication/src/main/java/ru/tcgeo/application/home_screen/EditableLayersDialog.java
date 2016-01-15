@@ -1,71 +1,62 @@
-package ru.tcgeo.application.home_screen.adapter;
+package ru.tcgeo.application.home_screen;
 
-import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.squareup.otto.Subscribe;
 
 import java.io.File;
 
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.Geoinfo;
-import ru.tcgeo.application.IFolderItemListener;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIGroupLayer;
-import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.GITuple;
-import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
-import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
-import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
-import ru.tcgeo.application.gilib.parser.GIRange;
-import ru.tcgeo.application.gilib.parser.GISQLDB;
-import ru.tcgeo.application.gilib.parser.GISource;
-import ru.tcgeo.application.home_screen.AllSettingsFragment;
-import ru.tcgeo.application.utils.ProjectChangedEvent;
-import ru.tcgeo.application.views.OpenFileDialog;
+import ru.tcgeo.application.home_screen.adapter.EditableLayersAdapter;
+import ru.tcgeo.application.home_screen.adapter.ProjectsAdapter;
+import ru.tcgeo.application.home_screen.adapter.ProjectsAdapterItem;
 
 /**
  * Created by a_belov on 23.07.15.
  */
-public class ProjectDialog extends DialogFragment{
+public class EditableLayersDialog extends DialogFragment{
 
     private GIMap mMap;
-    ListView mProjectsList;
-    ProjectsAdapter projects_adapter;
+    ListView markers_list;
+//    EditableLayersAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         App.getInstance().getEventBus().register(this);
         getDialog().setCanceledOnTouchOutside(true);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         mMap = ((Geoinfo)getActivity()).getMap();
-        View v = inflater.inflate(R.layout.open_project_dialog, container, false);
-        mProjectsList = (ListView)  v.findViewById(R.id.projects_list);
+        View v = inflater.inflate(R.layout.markers_dialog, container, false);
+        markers_list = (ListView)v.findViewById(R.id.markers_list);
+        View header = inflater.inflate(R.layout.editable_layers_stop_edit, null);
+        header.setOnClickListener(new View.OnClickListener() {
 
-        projects_adapter = new ProjectsAdapter((Geoinfo)getActivity(),
-                R.layout.project_selector_list_item,
-                R.id.project_list_item_path);
-        AddProjects(projects_adapter);
-        mProjectsList.setAdapter(projects_adapter);
+            @Override
+            public void onClick(View v) {
+                GIEditLayersKeeper.Instance().StopEditing();
+                dismiss();
+            }
+        });
+        markers_list.addHeaderView(header);
+
+        EditableLayersAdapter adapter = new EditableLayersAdapter((Geoinfo)getActivity(), R.layout.markers_list_item, R.id.markers_list_item_text);
+
+        adapter.AddEditableLayers((GIGroupLayer) mMap.m_layers);
+
+        markers_list.setAdapter(adapter);
 
         return v;
     }
@@ -92,21 +83,6 @@ public class ProjectDialog extends DialogFragment{
         int dialogHeight = (int)(getActivity().getWindowManager().getDefaultDisplay().getHeight()*0.9f);
 
         getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
-    }
-
-    public void AddProjects(ArrayAdapter<ProjectsAdapterItem> adapter) {
-        File dir = (Environment.getExternalStorageDirectory());
-        for (File file : dir.listFiles()) {
-            if (file.isFile()) {
-                if (file.getName().endsWith(".pro")) {
-                    GIProjectProperties proj = new GIProjectProperties(
-                            file.getPath(), true);
-                    if (proj != null) {
-                        adapter.add(new ProjectsAdapterItem(proj));
-                    }
-                }
-            }
-        }
     }
 
 }

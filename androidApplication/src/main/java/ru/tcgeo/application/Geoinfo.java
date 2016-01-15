@@ -4,58 +4,30 @@ import java.io.File;
 
 import ru.tcgeo.application.gilib.gps.GICompassView;
 import ru.tcgeo.application.gilib.gps.GISensors;
-import ru.tcgeo.application.gilib.gps.GIXMLTrack;
 import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.GIControlFloating;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
-import ru.tcgeo.application.gilib.GIEditableLayer;
-import ru.tcgeo.application.gilib.GIEditableLayer.GIEditableLayerType;
-import ru.tcgeo.application.gilib.GIEditableSQLiteLayer;
-import ru.tcgeo.application.gilib.GIGroupLayer;
-import ru.tcgeo.application.gilib.GILayer;
-import ru.tcgeo.application.gilib.GILayer.GILayerType;
 import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.GIPList;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.GISQLLayer;
-import ru.tcgeo.application.gilib.models.GIScaleRange;
 import ru.tcgeo.application.gilib.GITouchControl;
-import ru.tcgeo.application.gilib.GITuple;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
 import ru.tcgeo.application.gilib.gps.GIGPSLocationListener;
-import ru.tcgeo.application.gilib.gps.GILocatorView;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.gilib.parser.GIPropertiesGroup;
-import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
-import ru.tcgeo.application.gilib.parser.GIPropertiesLayerRef;
-import ru.tcgeo.application.gilib.parser.GISQLDB;
 
-import ru.tcgeo.application.home_screen.adapter.EditableLayersAdapter;
-import ru.tcgeo.application.home_screen.adapter.EditableLayersAdapterItem;
-import ru.tcgeo.application.home_screen.adapter.MarkersAdapter;
-import ru.tcgeo.application.home_screen.adapter.MarkersAdapterItem;
+import ru.tcgeo.application.home_screen.EditableLayersDialog;
+import ru.tcgeo.application.home_screen.MarkersDialog;
 import ru.tcgeo.application.home_screen.SettingsDialog;
-import ru.tcgeo.application.home_screen.adapter.ProjectDialog;
+import ru.tcgeo.application.home_screen.ProjectDialog;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.views.GIScaleControl;
-import ru.tcgeo.application.wkt.GI_WktGeometry;
-import ru.tcgeo.application.wkt.GI_WktLinestring;
-import ru.tcgeo.application.wkt.GI_WktPoint;
 
-import android.app.Dialog;
 //import android.app.DialogFragment;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Paint.Style;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -68,37 +40,26 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.WindowManager.LayoutParams;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 public class Geoinfo extends FragmentActivity {
-	public static String SETTINGS_FRAGMENT_TAG="settings_fragment_tag";
-
-
 	GIMap map;
 	GITouchControl touchControl;
 	SharedPreferences sp;
 
 	final public String SAVED_PATH = "default_project_path";
-	DialogFragment projects_dialog;
-	Dialog settings_dialog;
-	Dialog markers_dialog;
-	Dialog editablelayers_dialog;
-
-	GIScaleControl m_scale_control;
+	DialogFragment projectsDialog;
+	DialogFragment markersDialog;
+	DialogFragment editablelayersDialog;
 
 	GIControlFloating m_marker_point;
 
 	GIGPSLocationListener m_location_listener;
-
-	GILocatorView m_locator;
 
 	GIGPSButtonView fbGPS;
 
@@ -116,639 +77,35 @@ public class Geoinfo extends FragmentActivity {
 
     public FloatingActionButton fbEditButton;
 
-	public void AddMarkers(ArrayAdapter<MarkersAdapterItem> adapter) {
-		if (map.ps.m_markers_source == null) {
-			if (adapter.isEmpty()) {
-				GIPList PList = new GIPList();
-				PList.Load(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + map.ps.m_markers); // "/sdcard/"
-				for (GIPList.GIMarker marker : PList.m_list) {
-					adapter.add(new MarkersAdapterItem(marker));
-				}
-			}
-		}
-		if (map.ps.m_markers_source != null) {
-			if (map.ps.m_markers_source.equalsIgnoreCase("file")) {
-				if (adapter.isEmpty()) {
-					GIPList PList = new GIPList();
-					PList.Load(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + map.ps.m_markers);// "/sdcard/"
-					for (GIPList.GIMarker marker : PList.m_list) {
-						adapter.add(new MarkersAdapterItem(marker));
-					}
-				}
-			}
-			if (map.ps.m_markers_source.equalsIgnoreCase("layer")) {
-				GIEditableLayer layer = null;
-				for (GITuple tuple : map.m_layers.m_list) {
-					if (tuple.layer.getName()
-							.equalsIgnoreCase(map.ps.m_markers)) {
-						layer = (GIEditableLayer) tuple.layer;
-						break;
-					}
-				}
-				if (layer != null){
-					adapter.clear();
-					GIPList list = new GIPList();
-					for (GI_WktGeometry geom : layer.m_shapes) {
-                        if(geom instanceof GI_WktPoint){
-                            GI_WktPoint point = (GI_WktPoint) geom;
-                            if (point != null) {
-                                GIPList.GIMarker marker = list.new GIMarker();
-                                if (geom.m_attributes.containsKey("Name")) {
-                                    marker.m_name = (String) geom.m_attributes.get("Name").m_value.toString();
-                                } else if (!geom.m_attributes.keySet().isEmpty()) {
-                                    marker.m_name = (String) geom.m_attributes.get(geom.m_attributes.keySet().toArray()[0]).m_value;
-                                } else {
-                                    marker.m_name = String.valueOf(geom.m_ID);
-                                }
-                                marker.m_lon = point.m_lon;
-                                marker.m_lat = point.m_lat;
-                                marker.m_description = "";
-                                marker.m_image = "";
-                                marker.m_diag = 0;
-                                adapter.add(new MarkersAdapterItem(marker));
-                            }
-                        } else if(geom instanceof GIXMLTrack){
-                            GIXMLTrack track = (GIXMLTrack) geom;
-                            if(track != null&&track.m_points != null && !track.m_points.isEmpty()){
-                                GIPList.GIMarker marker = list.new GIMarker();
-                                if (geom.m_attributes.containsKey("Project")) {
-                                    marker.m_name = (String) geom.m_attributes.get("Project").m_value.toString();
-                                    if(geom.m_attributes.containsKey("Description")){
-                                        String data = GIEditLayersKeeper.getTime((String) geom.m_attributes.get("Description").m_value.toString());
-                                        if(!data.isEmpty()){
-                                            marker.m_name =  marker.m_name + " " + data;
-                                        } else {
-                                            marker.m_name =  marker.m_name + " " + (String) geom.m_attributes.get("Description").m_value.toString();
-                                        }
-
-                                    }
-                                } else if (!geom.m_attributes.keySet().isEmpty()) {
-                                    marker.m_name = (String) geom.m_attributes.get(geom.m_attributes.keySet().toArray()[0]).m_value;
-                                } else {
-                                    marker.m_name = String.valueOf(geom.m_ID);
-                                }
-                                marker.m_lon = ((GI_WktPoint)track.m_points.get(0)).m_lon;
-                                marker.m_lat = ((GI_WktPoint)track.m_points.get(0)).m_lat;
-                                marker.m_description = "";
-                                marker.m_image = "";
-                                marker.m_diag = 0;
-                                adapter.add(new MarkersAdapterItem(marker));
-                            }
-                        } else if(geom instanceof GI_WktLinestring){
-							GI_WktLinestring line = (GI_WktLinestring) geom;
-							if(line != null&&line.m_points != null && !line.m_points.isEmpty()){
-								GIPList.GIMarker marker = list.new GIMarker();
-								if (geom.m_attributes.containsKey("Project")) {
-									marker.m_name = (String) geom.m_attributes.get("Project").m_value.toString();
-									if(geom.m_attributes.containsKey("Description")){
-										String data = GIEditLayersKeeper.getTime((String) geom.m_attributes.get("Description").m_value.toString());
-										if(!data.isEmpty()){
-											marker.m_name =  marker.m_name + " " + data;
-										} else {
-											marker.m_name =  marker.m_name + " " + (String) geom.m_attributes.get("Description").m_value.toString();
-										}
-
-									}
-								} else if (!geom.m_attributes.keySet().isEmpty()) {
-									marker.m_name = (String) geom.m_attributes.get(geom.m_attributes.keySet().toArray()[0]).m_value;
-								} else {
-									marker.m_name = String.valueOf(geom.m_ID);
-								}
-								marker.m_lon = ((GI_WktPoint)line.m_points.get(0)).m_lon;
-								marker.m_lat = ((GI_WktPoint)line.m_points.get(0)).m_lat;
-								marker.m_description = "";
-								marker.m_image = "";
-								marker.m_diag = 0;
-								adapter.add(new MarkersAdapterItem(marker));
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public void AddEditableLayers(GIGroupLayer layer,
-			ArrayAdapter<EditableLayersAdapterItem> adapter) {
-		if (adapter.isEmpty()) {
-
-			/*
-			 * for(GIPropertiesLayerRef layer : map.ps.m_Edit.m_Entries) {
-			 * adapter.add(new EditableLayersAdapterItem(layer)); }
-			 */
-			if (adapter.isEmpty()) {
-				for (GIEditableLayer editable_layer : GIEditLayersKeeper
-						.Instance().m_Layers) {
-					adapter.add(new EditableLayersAdapterItem(editable_layer));
-				}
-			}
-		}
-	}
-
-	public void zoomIn(View target) {
-		map.ScaleMapBy(map.Center(), 1.5f);
-	}
-
-	public void zoomOut(View target) {
-		map.ScaleMapBy(map.Center(), 0.66f);
-	}
-
 	public void MarkersDialogClicked(final View button) {
-		final int dialog_max_height = getWindowManager().getDefaultDisplay().getHeight() / 2;
-		button.setActivated(true);
-		markers_dialog = new Dialog(this, R.style.Theme_layers_dialog);
-		markers_dialog.setContentView(R.layout.markers_dialog);
-		markers_dialog.getWindow().setBackgroundDrawable(
-				new ColorDrawable(android.graphics.Color.TRANSPARENT));
-		markers_dialog.setCanceledOnTouchOutside(true);
-
-		markers_dialog.setOnDismissListener(new OnDismissListener() {
-			public void onDismiss(DialogInterface dialog) {
-				button.setActivated(false);
-			}
-		});
-
-		// Place dialog under the button
-		LayoutParams parameters = markers_dialog.getWindow().getAttributes();
-		parameters.height = dialog_max_height; // Some hard-coded size
-
-		int[] button_location = { 0, 0 };
-		button.getLocationOnScreen(button_location);
-
-		// Official documentation says that this will give actual screen size,
-		// without taking into account decor elements (status bar).
-		// But it works exactly as I expected - gives full accessible window
-		// size.
-		int screenCenterX = getWindowManager().getDefaultDisplay().getWidth() / 2;
-		int screenCenterY = getWindowManager().getDefaultDisplay().getHeight() / 2;
-
-		// Dialog's 0,0 coordinates are in the middle of the screen
-		parameters.x = button_location[0] - screenCenterX + button.getWidth()
-				/ 2;
-		parameters.y = button_location[1] - screenCenterY + button.getHeight()
-				+ parameters.height / 2;
-
-		markers_dialog.getWindow().setAttributes(parameters);
-
-		// Fill list with data
-		ListView markers_list = (ListView) markers_dialog
-				.findViewById(R.id.markers_list);
-		MarkersAdapter adapter = new MarkersAdapter(this,
-				R.layout.markers_list_item, R.id.markers_list_item_text);
-		AddMarkers(adapter);
-		markers_list.setAdapter(adapter);
-		markers_dialog.show();
+		markersDialog = new MarkersDialog();
+		markersDialog.show(getSupportFragmentManager(), "markers_dialog");
 	}
 
 
 	public void EditableLayersDialogClicked(final View button) {
-		final int dialog_max_height = getWindowManager().getDefaultDisplay().getHeight() / 2;
-		button.setActivated(true);
-		editablelayers_dialog = new Dialog(this, R.style.Theme_layers_dialog);
-		editablelayers_dialog.setContentView(R.layout.markers_dialog);
-		editablelayers_dialog.getWindow().setBackgroundDrawable(
-				new ColorDrawable(android.graphics.Color.TRANSPARENT));
-		editablelayers_dialog.setCanceledOnTouchOutside(true);
-
-		editablelayers_dialog.setOnDismissListener(new OnDismissListener() {
-			public void onDismiss(DialogInterface dialog) {
-				button.setActivated(false);
-			}
-		});
-
-		// Place dialog under the button
-		LayoutParams parameters = editablelayers_dialog.getWindow()
-				.getAttributes();
-		parameters.height = dialog_max_height; // Some hard-coded size
-
-		int[] button_location = { 0, 0 };
-		button.getLocationOnScreen(button_location);
-
-		// Official documentation says that this will give actual screen size,
-		// without taking into account decor elements (status bar).
-		// But it works exactly as I expected - gives full accessible window
-		// size.
-		int screenCenterX = getWindowManager().getDefaultDisplay().getWidth() / 2;
-		int screenCenterY = getWindowManager().getDefaultDisplay().getHeight() / 2;
-
-		// Dialog's 0,0 coordinates are in the middle of the screen
-		parameters.x = button_location[0] - screenCenterX + button.getWidth()
-				/ 2;
-		parameters.y = button_location[1] - screenCenterY + button.getHeight()
-				+ parameters.height / 2;
-
-		editablelayers_dialog.getWindow().setAttributes(parameters);
-
-		// Fill list with data
-		ListView markers_list = (ListView) editablelayers_dialog
-				.findViewById(R.id.markers_list);
-		/**/
-		View header = getLayoutInflater().inflate(
-				R.layout.editable_layers_stop_edit, null);
-		header.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				GIEditLayersKeeper.Instance().StopEditing();
-				editablelayers_dialog.cancel();
-			}
-		});
-		markers_list.addHeaderView(header);
-		/**/
-		EditableLayersAdapter adapter = new EditableLayersAdapter(this,
-				R.layout.markers_list_item, R.id.markers_list_item_text);
-		AddEditableLayers((GIGroupLayer) map.m_layers, adapter);
-		// AddEditableLayers(adapter);
-		markers_list.setAdapter(adapter);
-		editablelayers_dialog.show();
+		editablelayersDialog = new EditableLayersDialog();
+		editablelayersDialog.show(getSupportFragmentManager(), "markers_dialog");
 	}
     public void ProjectSelectorDialogClicked(final View button) {
-
-        projects_dialog = new ProjectDialog();
-        projects_dialog.show(getSupportFragmentManager(), "project_dialog");
+        projectsDialog = new ProjectDialog();
+        projectsDialog.show(getSupportFragmentManager(), "project_dialog");
     }
 
     public DialogFragment getProjectsDialog(){
-        return projects_dialog;
+        return projectsDialog;
     }
 
 
 	public void SettingsDialogClicked(final View button) {
 		DialogFragment dlg = new SettingsDialog();
-		dlg.show(getSupportFragmentManager(), "settings_dialog" );
+		dlg.show(getSupportFragmentManager(), "settings_dialog");
 	}
 
 
-	public void LoadPro(String path) {
-		map.ps = new GIProjectProperties(path);
-		GIBounds temp = new GIBounds(map.ps.m_projection, map.ps.m_left,
-				map.ps.m_top, map.ps.m_right, map.ps.m_bottom);
-		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
+	public void LoadProject(String path) {
+		map.LoadProject(path);
 		touchControl.InitMap(map);
-		GIPropertiesGroup current_group = map.ps.m_Group;
-		GIEditLayersKeeper.Instance().ClearLayers();
-		loadGroup(current_group);
-	}
-
-
-	private void loadGroup(GIPropertiesGroup current_layer2)
-	{
-		for (GIPropertiesLayer current_layer : current_layer2.m_Entries)
-		{
-			if (current_layer.m_type == GILayerType.LAYER_GROUP) {
-				loadGroup((GIPropertiesGroup) current_layer);
-			}
-			if (current_layer.m_type == GILayerType.TILE_LAYER) {
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
-					layer = GILayer.CreateLayer(
-							current_layer.m_source.GetLocalPath(),
-							GILayerType.TILE_LAYER);
-					layer.setName(current_layer.m_name);
-					layer.m_layer_properties = current_layer;
-					map.AddLayer(layer,
-							new GIScaleRange(current_layer.m_range),
-							current_layer.m_enabled);
-				} else {
-					continue;
-				}
-
-			}
-			if (current_layer.m_type == GILayerType.ON_LINE) {
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("text")) {
-					layer = GILayer.CreateLayer(
-							current_layer.m_source.GetRemotePath(),
-							GILayerType.ON_LINE);
-					layer.setName(current_layer.m_name);
-					layer.m_layer_properties = current_layer;
-					map.AddLayer(layer,
-							new GIScaleRange(current_layer.m_range),
-							current_layer.m_enabled);
-				} else {
-					continue;
-				}
-
-			}
-			if (current_layer.m_type == GILayerType.SQL_LAYER) 
-			{
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("text")) 
-				{
-					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayerType.SQL_LAYER);
-					layer.setName(current_layer.m_name);
-					if (current_layer.m_sqldb != null) {
-						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
-						{
-							((GISQLLayer) layer).getAvalibleLevels();
-						}
-                        current_layer.m_sqldb = builder.build();
-					}
-					layer.m_layer_properties = current_layer;
-					map.AddLayer(layer,	new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
-				} 
-				else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
-				{
-					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayerType.SQL_LAYER);
-
-					layer.setName(current_layer.m_name);
-					if (current_layer.m_sqldb != null) {
-                        GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-
-						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE")) {
-							((GISQLLayer) layer).getAvalibleLevels();
-						}
-                        current_layer.m_sqldb = builder.build();
-					}
-					layer.m_layer_properties = current_layer;
-					map.AddLayer(layer,	new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
-				}
-				else
-				{
-					continue;
-				}
-
-			}
-			if (current_layer.m_type == GILayerType.SQL_YANDEX_LAYER) {
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("text")) 
-				{
-					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayerType.SQL_YANDEX_LAYER);
-					layer.setName(current_layer.m_name);
-					if (current_layer.m_sqldb != null) {
-                        GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
-						{
-							((GISQLLayer) layer).getAvalibleLevels();
-						}
-                        current_layer.m_sqldb = builder.build();
-					}
-					layer.m_layer_properties = current_layer;
-					map.AddLayer(layer,	new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
-				} 
-				else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
-				{
-					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayerType.SQL_YANDEX_LAYER);
-					layer.setName(current_layer.m_name);
-					if (current_layer.m_sqldb != null) {
-                        GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-						if (current_layer.m_sqldb.m_zoom_type
-								.equalsIgnoreCase("ADAPTIVE")) {
-							((GISQLLayer) layer).getAvalibleLevels();
-						}
-                        current_layer.m_sqldb = builder.build();
-					}
-					layer.m_layer_properties = current_layer;
-					map.AddLayer(layer,	new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
-				}
-				else
-				{
-					continue;
-				}
-
-			}			
-			if (current_layer.m_type == GILayerType.DBASE) {
-				Paint fill = new Paint();
-				Paint line = new Paint();
-				for (GIColor color : current_layer.m_style.m_colors) {
-					if (color.m_description.equalsIgnoreCase("line")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						line.setStyle(Style.STROKE);
-						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-					} else if (color.m_description.equalsIgnoreCase("fill")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-						fill.setStyle(Style.FILL);
-					}
-				}
-
-				Paint editing_fill = new Paint();
-				editing_fill.setColor(Color.CYAN);
-				editing_fill.setAlpha(96);
-				editing_fill.setStyle(Style.FILL);
-
-				Paint editing_stroke = new Paint();
-				editing_stroke.setColor(Color.CYAN);
-				editing_stroke.setStrokeWidth(2);
-				editing_fill.setAlpha(128);
-				editing_stroke.setStyle(Style.STROKE);
-				GIVectorStyle vstyle_editing = new GIVectorStyle(
-						editing_stroke, editing_fill,
-						(int) current_layer2.m_opacity);
-
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
-					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
-							(int) current_layer2.m_opacity);
-					layer = GILayer
-							.CreateLayer(current_layer.m_source.GetLocalPath(),
-									GILayerType.DBASE, vstyle,
-									current_layer.m_encoding);
-
-					layer.setName(current_layer.m_name);
-
-					layer.m_layer_properties = current_layer;
-					layer.AddStyle(vstyle_editing);
-					/**/
-					for (GIPropertiesLayerRef ref : map.ps.m_Edit.m_Entries) {
-						if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
-							GIEditableSQLiteLayer l = (GIEditableSQLiteLayer) layer;
-							if (ref.m_type.equalsIgnoreCase("POINT")) {
-								l.setType(GIEditableLayerType.POINT);
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("LINE")) {
-								l.setType(GIEditableLayerType.LINE);
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("POLYGON")) {
-								l.setType(GIEditableLayerType.POLYGON);
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("TRACK")) {
-								l.setType(GIEditableLayerType.TRACK);
-								continue;
-							}
-						}
-					}
-					map.AddLayer(layer,
-							new GIScaleRange(current_layer.m_range),
-							current_layer.m_enabled);
-					GIEditLayersKeeper.Instance().AddLayer(
-							(GIEditableSQLiteLayer) layer);
-				}
-
-				else {
-					continue;
-				}
-			}
-			//
-			if (current_layer.m_type == GILayerType.XML) {
-				Paint fill = new Paint();
-				Paint line = new Paint();
-				for (GIColor color : current_layer.m_style.m_colors) {
-					if (color.m_description.equalsIgnoreCase("line")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						line.setStyle(Style.STROKE);
-						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-					} else if (color.m_description.equalsIgnoreCase("fill")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-						fill.setStyle(Style.FILL);
-					}
-				}
-
-				Paint editing_fill = new Paint();
-				editing_fill.setColor(Color.CYAN);
-				editing_fill.setAlpha(96);
-				editing_fill.setStyle(Style.FILL);
-
-				Paint editing_stroke = new Paint();
-				editing_stroke.setColor(Color.CYAN);
-				editing_stroke.setStrokeWidth(2);
-				editing_fill.setAlpha(128);
-				editing_stroke.setStyle(Style.STROKE);
-				GIVectorStyle vstyle_editing = new GIVectorStyle(
-						editing_stroke, editing_fill,
-						(int) current_layer2.m_opacity);
-
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("local") || current_layer.m_source.m_location.equalsIgnoreCase("absolute")) {
-					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
-							(int) current_layer2.m_opacity);
-
-                    String path = current_layer.m_source.GetLocalPath();
-                    if(current_layer.m_source.m_location.equalsIgnoreCase("absolute")){
-                        path = current_layer.m_source.GetAbsolutePath();
-                    }
-					layer = GILayer.CreateLayer(
-                            path,
-							GILayerType.XML, vstyle, current_layer.m_encoding);
-
-					layer.setName(current_layer.m_name);
-					layer.m_layer_properties = current_layer;
-
-					layer.AddStyle(vstyle_editing);
-					/**/
-					for (GIPropertiesLayerRef ref : map.ps.m_Edit.m_Entries) {
-						if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
-							GIEditableLayer l = (GIEditableLayer) layer;
-							if (ref.m_type.equalsIgnoreCase("POINT")) {
-								l.setType(GIEditableLayerType.POINT);
-								GIEditLayersKeeper.Instance().m_POILayer = l;
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("LINE")) {
-								l.setType(GIEditableLayerType.LINE);
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("POLYGON")) {
-								l.setType(GIEditableLayerType.POLYGON);
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("TRACK")) {
-								GIEditLayersKeeper.Instance().m_TrackLayer = l;
-								l.setType(GIEditableLayerType.TRACK);
-								continue;
-							}
-						}
-					}
-					map.AddLayer(layer,
-							new GIScaleRange(current_layer.m_range),
-							current_layer.m_enabled);
-					GIEditLayersKeeper.Instance().AddLayer(
-							(GIEditableLayer) layer);
-				}
-
-				else {
-					continue;
-				}
-			}
-
-			if (current_layer.m_type == GILayerType.PLIST) 
-			{
-				Paint fill = new Paint();
-				Paint line = new Paint();
-				for (GIColor color : current_layer.m_style.m_colors) {
-					if (color.m_description.equalsIgnoreCase("line")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						line.setStyle(Style.STROKE);
-						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-					} else if (color.m_description.equalsIgnoreCase("fill")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-						fill.setStyle(Style.FILL);
-					}
-				}
-
-
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
-					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
-							(int) current_layer2.m_opacity);
-					layer = GILayer.CreateLayer(
-							current_layer.m_source.GetLocalPath(),
-							GILayerType.PLIST, vstyle, current_layer.m_encoding);
-
-					layer.setName(current_layer.m_name);
-					layer.m_layer_properties = current_layer;
-
-					map.AddLayer(layer,
-							new GIScaleRange(current_layer.m_range),
-							current_layer.m_enabled);
-					GIEditLayersKeeper.Instance().AddLayer(
-							(GIEditableLayer) layer);
-				}
-			}
-
-		}
 	}
 
 
@@ -1225,7 +582,7 @@ public class Geoinfo extends FragmentActivity {
 				getResources().getString(R.string.default_project_path));
 		// TODO
 		try {
-			LoadPro(path);
+			LoadProject(path);
 			return true;
 		} catch (Exception e) {
 
@@ -1249,15 +606,15 @@ public class Geoinfo extends FragmentActivity {
 		return map;
 	}
 
-	public Dialog getMarkersDialog() {
-		return markers_dialog;
+	public DialogFragment getMarkersDialog() {
+		return markersDialog;
 	}
 
 	public GIControlFloating getMarkerPoint() {
 		return m_marker_point;
 	}
 
-	public Dialog getEditablelayersDialog() {
-		return editablelayers_dialog;
+	public DialogFragment getEditablelayersDialog() {
+		return editablelayersDialog;
 	}
 }

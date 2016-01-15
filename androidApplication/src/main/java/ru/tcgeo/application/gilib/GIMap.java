@@ -1,14 +1,17 @@
 package ru.tcgeo.application.gilib;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -20,16 +23,21 @@ import android.widget.RelativeLayout;
 
 import ru.tcgeo.application.gilib.models.GIBitmap;
 import ru.tcgeo.application.gilib.models.GIBounds;
+import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIScaleRange;
+import ru.tcgeo.application.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.gilib.parser.GIPropertiesGroup;
+import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
+import ru.tcgeo.application.gilib.parser.GIPropertiesLayerRef;
+import ru.tcgeo.application.gilib.parser.GISQLDB;
 import ru.tcgeo.application.utils.MapUtils;
 
 
 public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//implements Runnable SurfaceView
 {
-
-	//new bitmap works
 	GIBitmap m_smooth;
 	GIBitmap m_draft;
 
@@ -208,82 +216,11 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		}
 		Canvas holded_canvas = m_holder.lockCanvas();
 		holded_canvas.drawColor(Color.WHITE);
-		/*if(large_bitmap != null)
-		{
-			if(!large_bitmap.isRecycled() && large_bounds != null)
-			{
-				
-				if(m_old_view_rect != null && m_new_view_rect != null )
-				{
-					Rect rect = new Rect(0, 0, large_bitmap.getWidth(), large_bitmap.getHeight());
-					Rect dst = new Rect(rect);
-					//Rect dst = new Rect(m_old_view_rect);
-					//int dx = (m_new_view_rect.width() - m_old_view_rect.width())/2;
-					//int dy = (m_new_view_rect.height() - m_old_view_rect.height())/2;
-					//dst.inset(-m_old_view_rect.width(), -m_old_view_rect.height());
-					int dx = (m_new_view_rect.width() - rect.width())/2;
-					int dy = (m_new_view_rect.height() - rect.height())/2;
-					dst.inset(-rect.width(), -rect.height());
-					dst.offset(dx, dy);
-					//holded_canvas.drawBitmap(large_bitmap, m_old_view_rect, dst, null);
-					//holded_canvas.drawBitmap(large_bitmap, rect, dst, null);
-					
-					//Canvas tmp = new Canvas(large_bitmap);
-					//Bitmap bmp = Bitmap.createBitmap(large_bitmap);
-					//tmp.drawColor(Color.WHITE);
-					//tmp.drawBitmap(bmp, m_old_view_rect, dst, null);
-
-					//Log.d(LOG_TAG, "onDraw draft with new (" + m_new_view_rect.width() + " ," + m_new_view_rect.height() + ") and old  (" + m_old_view_rect.width() + " ," + m_old_view_rect.height() + ")");
-					
-				}
-				else
-				{
-
-					//Log.d(LOG_TAG, "onDraw draft with large_bounds");
-					RectF screen = MapToScreenDraw(large_bounds);
-					//holded_canvas.drawBitmap(large_bitmap, m_view, screen, null);
-				}
-				//drawBitmap(bitmap, src, dst, paint);
-			}
-		}*/
-		
-		/*
-		if(!m_bitmap.isRecycled())
-		{
-			if(m_old_view_rect != null && m_new_view_rect != null)
-			{
-				Rect rect = new Rect(0, 0, m_bitmap.getWidth(), m_bitmap.getHeight());
-				int dx = (m_new_view_rect.width() - rect.width())/2;
-				int dy = (m_new_view_rect.height() - rect.height())/2;
-				Rect dst = new Rect(rect);
-				dst.offset(dx, dy);
-				//int dx = (m_new_view_rect.width() - m_old_view_rect.width())/2;
-				//int dy = (m_new_view_rect.height() - m_old_view_rect.height())/2;
-				//Rect dst = new Rect(m_old_view_rect);
-				//dst.offset(dx, dy);
-				//holded_canvas.drawBitmap(m_bitmap, m_old_view_rect, dst, null);
-				
-				//Canvas tmp = new Canvas(m_bitmap);
-				//Bitmap bmp = Bitmap.createBitmap(m_bitmap);
-				//tmp.drawColor(Color.WHITE);
-				//tmp.drawBitmap(bmp, m_old_view_rect, dst, null);
-				
-				//holded_canvas.drawBitmap(m_bitmap, rect, dst, null);
-			}
-			else
-			{
-				//holded_canvas.drawBitmap(m_bitmap, m_view_rect, m_view, null);
-			}
-		}*/
 		if(m_draft != null)
 		{
 			m_draft.Draw(holded_canvas, m_bounds);
 		}
 		m_smooth.Draw(holded_canvas, m_bounds);
-
-		
-		//m_old_view_rect = null;
-		//m_new_view_rect = null;
 		m_holder.unlockCanvasAndPost(holded_canvas);
 
     }
@@ -303,9 +240,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		m_holder = getHolder();
 		m_handler = new Handler();
 		m_threadStack = new ThreadStack();
-		//m_holder.addCallback(this);
-		//m_current_working = false;
-		//m_draft_working = false;
 	}
 	
 	public void Clear()
@@ -943,6 +877,376 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 	{
 		DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
 		return displayMetrics.heightPixels - getMeasuredHeight();
+	}
+
+	public void LoadProject(String path) {
+		ps = new GIProjectProperties(path);
+		GIBounds temp = new GIBounds(ps.m_projection, ps.m_left,
+				ps.m_top, ps.m_right, ps.m_bottom);
+		InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
+		GIPropertiesGroup current_group = ps.m_Group;
+		GIEditLayersKeeper.Instance().ClearLayers();
+		loadGroup(current_group);
+	}
+
+	private void loadGroup(GIPropertiesGroup current_layer2)
+	{
+		for (GIPropertiesLayer current_layer : current_layer2.m_Entries)
+		{
+			if (current_layer.m_type == GILayer.GILayerType.LAYER_GROUP) {
+				loadGroup((GIPropertiesGroup) current_layer);
+			}
+			if (current_layer.m_type == GILayer.GILayerType.TILE_LAYER) {
+				GILayer layer;
+				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
+					layer = GILayer.CreateLayer(
+							current_layer.m_source.GetLocalPath(),
+							GILayer.GILayerType.TILE_LAYER);
+					layer.setName(current_layer.m_name);
+					layer.m_layer_properties = current_layer;
+					AddLayer(layer,
+							new GIScaleRange(current_layer.m_range),
+							current_layer.m_enabled);
+				} else {
+					continue;
+				}
+
+			}
+			if (current_layer.m_type == GILayer.GILayerType.ON_LINE) {
+				GILayer layer;
+				if (current_layer.m_source.m_location.equalsIgnoreCase("text")) {
+					layer = GILayer.CreateLayer(
+							current_layer.m_source.GetRemotePath(),
+							GILayer.GILayerType.ON_LINE);
+					layer.setName(current_layer.m_name);
+					layer.m_layer_properties = current_layer;
+					AddLayer(layer,
+							new GIScaleRange(current_layer.m_range),
+							current_layer.m_enabled);
+				} else {
+					continue;
+				}
+
+			}
+			if (current_layer.m_type == GILayer.GILayerType.SQL_LAYER)
+			{
+				GILayer layer;
+				if (current_layer.m_source.m_location.equalsIgnoreCase("text"))
+				{
+					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.SQL_LAYER);
+					layer.setName(current_layer.m_name);
+					if (current_layer.m_sqldb != null) {
+						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
+						{
+							((GISQLLayer) layer).getAvalibleLevels();
+						}
+						current_layer.m_sqldb = builder.build();
+					}
+					layer.m_layer_properties = current_layer;
+					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+				}
+				else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
+				{
+					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayer.GILayerType.SQL_LAYER);
+
+					layer.setName(current_layer.m_name);
+					if (current_layer.m_sqldb != null) {
+						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+
+						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE")) {
+							((GISQLLayer) layer).getAvalibleLevels();
+						}
+						current_layer.m_sqldb = builder.build();
+					}
+					layer.m_layer_properties = current_layer;
+					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+				}
+				else
+				{
+					continue;
+				}
+
+			}
+			if (current_layer.m_type == GILayer.GILayerType.SQL_YANDEX_LAYER) {
+				GILayer layer;
+				if (current_layer.m_source.m_location.equalsIgnoreCase("text"))
+				{
+					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.SQL_YANDEX_LAYER);
+					layer.setName(current_layer.m_name);
+					if (current_layer.m_sqldb != null) {
+						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
+						{
+							((GISQLLayer) layer).getAvalibleLevels();
+						}
+						current_layer.m_sqldb = builder.build();
+					}
+					layer.m_layer_properties = current_layer;
+					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+				}
+				else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
+				{
+					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayer.GILayerType.SQL_YANDEX_LAYER);
+					layer.setName(current_layer.m_name);
+					if (current_layer.m_sqldb != null) {
+						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+						if (current_layer.m_sqldb.m_zoom_type
+								.equalsIgnoreCase("ADAPTIVE")) {
+							((GISQLLayer) layer).getAvalibleLevels();
+						}
+						current_layer.m_sqldb = builder.build();
+					}
+					layer.m_layer_properties = current_layer;
+					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+				}
+				else
+				{
+					continue;
+				}
+
+			}
+			if (current_layer.m_type == GILayer.GILayerType.DBASE) {
+				Paint fill = new Paint();
+				Paint line = new Paint();
+				for (GIColor color : current_layer.m_style.m_colors) {
+					if (color.m_description.equalsIgnoreCase("line")) {
+						if (color.m_name.equalsIgnoreCase("custom")) {
+							line.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						} else {
+							color.setFromName();
+							line.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						}
+						line.setStyle(Paint.Style.STROKE);
+						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+					} else if (color.m_description.equalsIgnoreCase("fill")) {
+						if (color.m_name.equalsIgnoreCase("custom")) {
+							fill.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						} else {
+							color.setFromName();
+							fill.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						}
+						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+						fill.setStyle(Paint.Style.FILL);
+					}
+				}
+
+				Paint editing_fill = new Paint();
+				editing_fill.setColor(Color.CYAN);
+				editing_fill.setAlpha(96);
+				editing_fill.setStyle(Paint.Style.FILL);
+
+				Paint editing_stroke = new Paint();
+				editing_stroke.setColor(Color.CYAN);
+				editing_stroke.setStrokeWidth(2);
+				editing_fill.setAlpha(128);
+				editing_stroke.setStyle(Paint.Style.STROKE);
+				GIVectorStyle vstyle_editing = new GIVectorStyle(
+						editing_stroke, editing_fill,
+						(int) current_layer2.m_opacity);
+
+				GILayer layer;
+				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
+					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
+							(int) current_layer2.m_opacity);
+					layer = GILayer
+							.CreateLayer(current_layer.m_source.GetLocalPath(),
+									GILayer.GILayerType.DBASE, vstyle,
+									current_layer.m_encoding);
+
+					layer.setName(current_layer.m_name);
+
+					layer.m_layer_properties = current_layer;
+					layer.AddStyle(vstyle_editing);
+					/**/
+					for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {
+						if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
+							GIEditableSQLiteLayer l = (GIEditableSQLiteLayer) layer;
+							if (ref.m_type.equalsIgnoreCase("POINT")) {
+								l.setType(GIEditableLayer.GIEditableLayerType.POINT);
+								continue;
+							}
+							if (ref.m_type.equalsIgnoreCase("LINE")) {
+								l.setType(GIEditableLayer.GIEditableLayerType.LINE);
+								continue;
+							}
+							if (ref.m_type.equalsIgnoreCase("POLYGON")) {
+								l.setType(GIEditableLayer.GIEditableLayerType.POLYGON);
+								continue;
+							}
+							if (ref.m_type.equalsIgnoreCase("TRACK")) {
+								l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
+								continue;
+							}
+						}
+					}
+					AddLayer(layer,
+							new GIScaleRange(current_layer.m_range),
+							current_layer.m_enabled);
+					GIEditLayersKeeper.Instance().AddLayer(
+							(GIEditableSQLiteLayer) layer);
+				}
+
+				else {
+					continue;
+				}
+			}
+			//
+			if (current_layer.m_type == GILayer.GILayerType.XML) {
+				Paint fill = new Paint();
+				Paint line = new Paint();
+				for (GIColor color : current_layer.m_style.m_colors) {
+					if (color.m_description.equalsIgnoreCase("line")) {
+						if (color.m_name.equalsIgnoreCase("custom")) {
+							line.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						} else {
+							color.setFromName();
+							line.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						}
+						line.setStyle(Paint.Style.STROKE);
+						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+					} else if (color.m_description.equalsIgnoreCase("fill")) {
+						if (color.m_name.equalsIgnoreCase("custom")) {
+							fill.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						} else {
+							color.setFromName();
+							fill.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						}
+						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+						fill.setStyle(Paint.Style.FILL);
+					}
+				}
+
+				Paint editing_fill = new Paint();
+				editing_fill.setColor(Color.CYAN);
+				editing_fill.setAlpha(96);
+				editing_fill.setStyle(Paint.Style.FILL);
+
+				Paint editing_stroke = new Paint();
+				editing_stroke.setColor(Color.CYAN);
+				editing_stroke.setStrokeWidth(2);
+				editing_fill.setAlpha(128);
+				editing_stroke.setStyle(Paint.Style.STROKE);
+				GIVectorStyle vstyle_editing = new GIVectorStyle(
+						editing_stroke, editing_fill,
+						(int) current_layer2.m_opacity);
+
+				GILayer layer;
+				if (current_layer.m_source.m_location.equalsIgnoreCase("local") || current_layer.m_source.m_location.equalsIgnoreCase("absolute")) {
+					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
+							(int) current_layer2.m_opacity);
+
+					String path = current_layer.m_source.GetLocalPath();
+					if(current_layer.m_source.m_location.equalsIgnoreCase("absolute")){
+						path = current_layer.m_source.GetAbsolutePath();
+					}
+					layer = GILayer.CreateLayer(
+							path,
+							GILayer.GILayerType.XML, vstyle, current_layer.m_encoding);
+
+					layer.setName(current_layer.m_name);
+					layer.m_layer_properties = current_layer;
+
+					layer.AddStyle(vstyle_editing);
+					/**/
+					for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {
+						if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
+							GIEditableLayer l = (GIEditableLayer) layer;
+							if (ref.m_type.equalsIgnoreCase("POINT")) {
+								l.setType(GIEditableLayer.GIEditableLayerType.POINT);
+								GIEditLayersKeeper.Instance().m_POILayer = l;
+								continue;
+							}
+							if (ref.m_type.equalsIgnoreCase("LINE")) {
+								l.setType(GIEditableLayer.GIEditableLayerType.LINE);
+								continue;
+							}
+							if (ref.m_type.equalsIgnoreCase("POLYGON")) {
+								l.setType(GIEditableLayer.GIEditableLayerType.POLYGON);
+								continue;
+							}
+							if (ref.m_type.equalsIgnoreCase("TRACK")) {
+								GIEditLayersKeeper.Instance().m_TrackLayer = l;
+								l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
+								continue;
+							}
+						}
+					}
+					AddLayer(layer,
+							new GIScaleRange(current_layer.m_range),
+							current_layer.m_enabled);
+					GIEditLayersKeeper.Instance().AddLayer(
+							(GIEditableLayer) layer);
+				}
+
+				else {
+					continue;
+				}
+			}
+
+			if (current_layer.m_type == GILayer.GILayerType.PLIST)
+			{
+				Paint fill = new Paint();
+				Paint line = new Paint();
+				for (GIColor color : current_layer.m_style.m_colors) {
+					if (color.m_description.equalsIgnoreCase("line")) {
+						if (color.m_name.equalsIgnoreCase("custom")) {
+							line.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						} else {
+							color.setFromName();
+							line.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						}
+						line.setStyle(Paint.Style.STROKE);
+						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+					} else if (color.m_description.equalsIgnoreCase("fill")) {
+						if (color.m_name.equalsIgnoreCase("custom")) {
+							fill.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						} else {
+							color.setFromName();
+							fill.setARGB(color.m_alpha, color.m_red,
+									color.m_green, color.m_blue);
+						}
+						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+						fill.setStyle(Paint.Style.FILL);
+					}
+				}
+
+
+				GILayer layer;
+				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
+					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
+							(int) current_layer2.m_opacity);
+					layer = GILayer.CreateLayer(
+							current_layer.m_source.GetLocalPath(),
+							GILayer.GILayerType.PLIST, vstyle, current_layer.m_encoding);
+
+					layer.setName(current_layer.m_name);
+					layer.m_layer_properties = current_layer;
+
+					AddLayer(layer,
+							new GIScaleRange(current_layer.m_range),
+							current_layer.m_enabled);
+					GIEditLayersKeeper.Instance().AddLayer(
+							(GIEditableLayer) layer);
+				}
+			}
+
+		}
 	}
 
 }

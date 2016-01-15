@@ -55,7 +55,7 @@ public class ProjectsAdapter extends ArrayAdapter<ProjectsAdapterItem> {
             public void onClick(View v) {
                 if (!item.m_project_settings.m_path.equals(mActivity.getMap().ps.m_path)) {
                     mActivity.getMap().Clear();
-                    mActivity.LoadPro(item.m_project_settings.m_path);
+                    mActivity.LoadProject(item.m_project_settings.m_path);
                     mActivity.getMap().UpdateMap();
                     sp = mActivity.getPreferences(mActivity.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
