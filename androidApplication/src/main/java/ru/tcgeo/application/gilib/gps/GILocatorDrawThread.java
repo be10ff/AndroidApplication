@@ -29,7 +29,7 @@ public class GILocatorDrawThread extends Thread
 	private SurfaceHolder  surfaceHolder;
 	Matrix matrix;
 	public GI_WktGeometry m_POI;
-	//Context m_context;
+	//Context context;
 	GIMap m_map;
 	GILonLat m_lon_lat_poi;
 	Bitmap arrow;

@@ -37,7 +37,7 @@ public class GISensors
 //	}
 	private GISensors(Context context)
 	{
-//		m_context = App.getInstance();
+//		context = App.getInstance();
 		m_context = context;
 		m_sensor_manager = (SensorManager)m_context.getSystemService(Context.SENSOR_SERVICE);
 		m_sensor_gravity = m_sensor_manager.getDefaultSensor(Sensor.TYPE_GRAVITY);
