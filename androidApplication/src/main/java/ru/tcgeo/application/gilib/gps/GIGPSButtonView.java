@@ -155,7 +155,7 @@ public class GIGPSButtonView extends RelativeLayout
 	public void onResume()
 	{
 
-	    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000 * 10, 10, locationListener);
+	    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 10, locationListener);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000 * 10, 10, locationListener);
         locationManager.addGpsStatusListener(lGPS);
         locationManager.addNmeaListener(lNmea);

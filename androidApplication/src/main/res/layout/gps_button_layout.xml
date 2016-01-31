@@ -15,10 +15,9 @@
 
     <TextView
         android:id="@+id/tvSpeed"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:gravity="center_horizontal"
         android:shadowColor="@color/Item_Background_Selected"
         android:shadowDx="2"
         android:shadowDy="2"
@@ -27,7 +26,8 @@
         android:textColor="@color/measure_line_color"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:typeface="normal" />
+        android:typeface="normal"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textViewAccurancy"
@@ -40,9 +40,10 @@
         android:shadowDy="2"
         android:shadowRadius="5"
         android:text="-- m"
-        android:textColor="@color/measure_line_color"
+        android:textColor="@color/dark_red_text"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:typeface="normal" />
+        android:typeface="normal"
+        android:background="@drawable/panel_border_small"/>
 
 </RelativeLayout>
