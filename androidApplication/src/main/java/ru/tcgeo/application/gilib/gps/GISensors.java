@@ -27,17 +27,9 @@ public class GISensors
 		instance.m_context = context;
 		return instance;
 	}
-//	public static GISensors Instance(Context context)
-//	{
-//		if(instance == null)
-//		{
-//			instance = new GISensors(context);
-//		}
-//		return instance;
-//	}
+
 	private GISensors(Context context)
 	{
-//		context = App.getInstance();
 		m_context = context;
 		m_sensor_manager = (SensorManager)m_context.getSystemService(Context.SENSOR_SERVICE);
 		m_sensor_gravity = m_sensor_manager.getDefaultSensor(Sensor.TYPE_GRAVITY);
@@ -53,13 +45,11 @@ public class GISensors
 		valuesResult = new float[3];
 		inR = new float[9];
 		outR = new float[9];
-
 		m_azimuth = new GIConveyor();
 		m_pitch = new GIConveyor();
 		m_roll = new GIConveyor();
 		m_buffer = new GIMNK2DFilter(100);
 		m_locationManager = (LocationManager)m_context.getSystemService(Context.LOCATION_SERVICE);
-
 	}
 
 
@@ -214,12 +204,17 @@ public class GISensors
 	}
 	public float[] getOrientation()
 	{
-		float[] res = new float[3];
-		res[0] = (float) m_azimuth.getValue();
-		res[1] = (float) m_pitch.getValue();
-		res[2] = (float) m_roll.getValue();
-		return res;
+//		float[] res = new float[3];
+//		res[0] = (float) m_azimuth.getValue();
+//		res[1] = (float) m_pitch.getValue();
+//		res[2] = (float) m_roll.getValue();
+//		return res;
+
+		return valuesResult;
 	}
+
+
+
 	public GIMNK2DFilter.ParametricPoint getSpeedAsDelta()
 	{
 		return m_buffer.get_asDelta();

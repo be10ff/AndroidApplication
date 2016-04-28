@@ -22,8 +22,8 @@ import ru.tcgeo.application.R;
 
 public class GIGPSButtonView extends RelativeLayout 
 {
-	int m_count;
-	float m_accurancy;
+	int countSatellite;
+	float accurancy;
 	int speed;
 
 	@Bind(R.id.textViewAccurancy)
@@ -33,7 +33,7 @@ public class GIGPSButtonView extends RelativeLayout
 	TextView tvSpeed;
 
 	@Bind(R.id.imageViewStatus)
-	public ImageView m_StatusImage;
+	public ImageView ivStatus;
 
 
 	private View layoutView;
@@ -46,8 +46,8 @@ public class GIGPSButtonView extends RelativeLayout
 	
 		    public void onLocationChanged(Location location) 
 		    {
-		    	m_accurancy = location.getAccuracy();
-		    	m_textViewAccurancy.setText(String.format("±%02d m", (int)m_accurancy));
+		    	accurancy = location.getAccuracy();
+		    	m_textViewAccurancy.setText(String.format("±%02d m", (int) accurancy));
 		    	blink = !blink;
 		    	if(blink)
 		    	{
@@ -64,7 +64,7 @@ public class GIGPSButtonView extends RelativeLayout
 					tvSpeed.setVisibility(INVISIBLE);
 				} else {
 					tvSpeed.setVisibility(VISIBLE);
-					tvSpeed.setText(String.format("%03d", speed));
+					tvSpeed.setText(/*String.format("%03d", speed)*/String.valueOf(speed));
 				}
 		    }
 	
@@ -93,11 +93,11 @@ public class GIGPSButtonView extends RelativeLayout
 		            if( event == GpsStatus.GPS_EVENT_SATELLITE_STATUS)
 		            {
 		                GpsStatus status = locationManager.getGpsStatus(null);
-		                m_count = 0;
+		                countSatellite = 0;
 		                Iterable<GpsSatellite> sats = status.getSatellites();
 		                for(GpsSatellite sat : sats)
 		                {
-		                	m_count++;
+		                	countSatellite++;
 		                }
 		            }
 		        }
@@ -107,7 +107,7 @@ public class GIGPSButtonView extends RelativeLayout
 			public void onNmeaReceived(long timestamp, String nmea) 
 			{
 				
-				if(m_accurancy < 15 || m_count > 5)
+				if(accurancy < 15 || countSatellite > 5)
 				{
 					ShowGPSStatus(1);
 				}
@@ -142,9 +142,8 @@ public class GIGPSButtonView extends RelativeLayout
 	}
 	private void Init(Context context)
 	{
-//		this.context = context;
 		ButterKnife.bind(this, layoutView);
-		m_StatusImage.setImageResource(R.drawable.gps_disabeled);
+		ivStatus.setImageResource(R.drawable.gps_disabeled);
 		m_textViewAccurancy.setText("-- m");
 		tvSpeed.setVisibility(INVISIBLE);
 		blink = false;
@@ -172,11 +171,11 @@ public class GIGPSButtonView extends RelativeLayout
 	{
 		if(enabeled)
 		{
-			m_StatusImage.setImageDrawable(getResources().getDrawable(R.drawable.gps_out_of_service));				
+			ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_out_of_service));
 		}
 		else
 		{
-			m_StatusImage.setImageDrawable(getResources().getDrawable(R.drawable.gps_disabeled));				
+			ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_disabeled));
 			m_textViewAccurancy.setText("-- m");
 		}
 	}
@@ -186,17 +185,17 @@ public class GIGPSButtonView extends RelativeLayout
 		{
 			case 0:
 			{
-				m_StatusImage.setImageDrawable(getResources().getDrawable(R.drawable.gps_out_of_service));
+				ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_out_of_service));
 				break;
 			}
 			case 2:
 			{
-				m_StatusImage.setImageDrawable(getResources().getDrawable(R.drawable.gps_unavaliable));
+				ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_unavaliable));
 				break;
 			}
 			case 1:
 			{
-				m_StatusImage.setImageDrawable(getResources().getDrawable(R.drawable.gps_avaliable));
+				ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_avaliable));
 				break;
 			}
 

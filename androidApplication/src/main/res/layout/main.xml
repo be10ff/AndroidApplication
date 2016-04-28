@@ -17,158 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-
-
-            <!--<HorizontalScrollView-->
-                <!--android:id="@+id/top_bar_layout"-->
-                <!--style="android:horizontalScrollViewStyle"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:scrollbarStyle="insideOverlay"-->
-                <!--android:visibility="gone">-->
-
-            <!--&lt;!&ndash;  Top bar buttons &ndash;&gt;-->
-            <!--<LinearLayout -->
-                <!--android:id="@+id/top_bar_buttons"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!-- -->
-				<!--android:background="@drawable/top_bar_nine"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:focusable="true" -->
-    			<!--android:focusableInTouchMode="true"-->
-                <!-->-->
-
-	            <!--<View -->
-	                <!--android:layout_height="match_parent"-->
-	                <!--android:layout_width="2dp"-->
-	                <!--android:background="#55555555"-->
-                    <!--android:layout_marginTop="8dp"-->
-                    <!--android:layout_marginBottom="8dp" />-->
-	            <!-- -->
-	            <!--<ru.tcgeo.application.gilib.gps.GIGPSButtonView-->
-	                <!--android:id="@+id/top_bar_gps_button"-->
-	                <!--android:layout_width="wrap_content"-->
-	                <!--android:layout_height="64dp"-->
-	                <!--android:layout_gravity="center"-->
-	                <!--android:layout_marginLeft="5dp"-->
-	                <!--android:layout_marginRight="5dp" />-->
-
-	            <!--<View -->
-	                <!--android:layout_height="match_parent"-->
-	                <!--android:layout_width="2dp"-->
-	                <!--android:background="#55555555"-->
-                    <!--android:layout_marginTop="8dp"-->
-                    <!--android:layout_marginBottom="8dp" />	-->
-                            <!-- -->
-                <!--<ru.tcgeo.application.gilib.gps.GICompassView-->
-                    <!--android:id="@+id/compass_surface_button"-->
-                    <!--android:layout_width="64dp"-->
-                    <!--android:layout_height="64dp"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_marginLeft="5dp"-->
-                    <!--android:layout_marginRight="5dp"-->
-                    <!--android:background="@drawable/top_button_background_normal" />-->
-
-                <!--<View -->
-	                <!--android:layout_height="match_parent"-->
-	                <!--android:layout_width="2dp"-->
-	                <!--android:background="#55555555"-->
-	                <!--android:layout_marginTop="8dp"-->
-	                <!--android:layout_marginBottom="8dp" />-->
-
-                <!--<ImageButton-->
-                    <!--android:id="@+id/markers_button"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_marginLeft="5dp"-->
-                    <!--android:layout_marginRight="5dp"-->
-                    <!--android:background="@drawable/top_button_background_normal"-->
-                    <!--android:contentDescription="@string/markers_button"-->
-                    <!--android:onClick="MarkersDialogClicked"-->
-                    <!--android:scaleType="fitCenter"-->
-                    <!--android:src="@drawable/poi" />-->
- <!-- -->
-                <!--<View -->
-	                <!--android:layout_height="match_parent"-->
-	                <!--android:layout_width="2dp"-->
-	                <!--android:background="#55555555"-->
-	                <!--android:layout_marginTop="8dp"-->
-	                <!--android:layout_marginBottom="8dp" /> -->
-	                <!-- -->
-                <!--<ImageButton-->
-                    <!--android:id="@+id/top_bar_layers_button"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:background="@null"-->
-                    <!--android:contentDescription="@string/top_bar_layers_button"-->
-                    <!--android:onClick="layersDialogClicked"-->
-                    <!--android:src="@drawable/top_bar_layers_button" />-->
-
-                <!--&lt;!&ndash; Right divider &ndash;&gt;-->
-	            <!--<View -->
-	                <!--android:layout_height="match_parent"-->
-	                <!--android:layout_width="2dp"-->
-	                <!--android:background="#55555555"-->
-	                <!--android:layout_marginTop="8dp"-->
-	                <!--android:layout_marginBottom="8dp" />-->
-	            <!--&lt;!&ndash; android:layout_alignParentRight="true"  &ndash;&gt;-->
-
-                <!--<ImageButton-->
-                    <!--android:id="@+id/project_selector_button"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_marginLeft="5dp"-->
-                    <!--android:layout_marginRight="5dp"-->
-                    <!--android:background="@drawable/top_button_background_normal"-->
-                    <!--android:contentDescription="@string/project_selector_button"-->
-                    <!--android:onClick="ProjectSelectorDialogClicked"-->
-                    <!--android:src="@drawable/open" />-->
-                <!-- -->
-                <!--<View -->
-	                <!--android:layout_height="match_parent"-->
-	                <!--android:layout_width="2dp"-->
-	                <!--android:background="@null"-->
-	                <!--android:layout_marginTop="8dp"-->
-	                <!--android:layout_marginBottom="8dp" />	-->
-
-	            <!--<ImageButton-->
-	                <!--android:id="@+id/button_editable_layers"-->
-	                <!--android:layout_width="wrap_content"-->
-	                <!--android:layout_height="wrap_content"-->
-	                <!--android:layout_gravity="center_vertical"-->
-	                <!--android:layout_marginLeft="5dp"-->
-	                <!--android:layout_marginRight="5dp"-->
-	                <!--android:contentDescription="@string/button_editable_layers"-->
-	                <!--android:onClick="EditableLayersDialogClicked"-->
-	                <!--android:src="@android:drawable/ic_menu_edit" />-->
- <!-- -->
-                <!--<View -->
-	                <!--android:layout_height="match_parent"-->
-	                <!--android:layout_width="2dp"-->
-	                <!--android:background="#55555555"-->
-	                <!--android:layout_marginTop="8dp"-->
-	                <!--android:layout_marginBottom="8dp" />-->
-
-			    	                <!-- -->
-            <!--</LinearLayout>-->
-	    <!--</HorizontalScrollView>-->
-
-
-        <!--<ToggleButton -->
-	        <!--android:id="@+id/slide_button"-->
-	        <!--android:drawableTop="@drawable/slide_button"-->
-	        <!--android:background="@null"-->
-	        <!--android:layout_width="wrap_content"-->
-	        <!--android:layout_height="wrap_content"-->
-	        <!--android:textOff=""-->
-        	<!--android:textOn=""-->
-        	<!--android:textSize="0sp"-->
-            <!--android:visibility="gone"/>-->
-
         <ru.tcgeo.application.views.GIScaleControl
             android:id="@+id/scale_control_screen"
             android:layout_width="wrap_content"
@@ -176,9 +24,11 @@
             android:layout_alignBottom="@id/touchcontrol"
             android:layout_alignLeft="@id/touchcontrol"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp" >
-
-        </ru.tcgeo.application.views.GIScaleControl>
-
+            android:layout_marginLeft="5dp" />
+    <ProgressBar
+        android:id="@+id/pbProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 
     </RelativeLayout>

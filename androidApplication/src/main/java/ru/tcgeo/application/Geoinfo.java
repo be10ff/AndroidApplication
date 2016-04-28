@@ -2,6 +2,8 @@ package ru.tcgeo.application;
 
 import java.io.File;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import ru.tcgeo.application.gilib.gps.GICompassView;
 import ru.tcgeo.application.gilib.gps.GISensors;
 import ru.tcgeo.application.gilib.models.GIBounds;
@@ -42,14 +44,28 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 public class Geoinfo extends FragmentActivity {
+	@Bind(R.id.root)
+	View root;
+
+	@Bind(R.id.map)
 	GIMap map;
+
+	@Bind(R.id.touchcontrol)
 	GITouchControl touchControl;
+
+	@Bind(R.id.scale_control_screen)
+	GIScaleControl scaleControl;
+
+	@Bind(R.id.pbProgress)
+	ProgressBar pbProgress;
+
 	SharedPreferences sp;
 
 	final public String SAVED_PATH = "default_project_path";
@@ -104,8 +120,10 @@ public class Geoinfo extends FragmentActivity {
 
 
 	public void LoadProject(String path) {
+		pbProgress.setVisibility(View.VISIBLE);
 		map.LoadProject(path);
 		touchControl.InitMap(map);
+		pbProgress.setVisibility(View.INVISIBLE);
 	}
 
 
@@ -118,7 +136,8 @@ public class Geoinfo extends FragmentActivity {
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main);
-		touchControl = (GITouchControl) findViewById(R.id.touchcontrol);
+		ButterKnife.bind(this);
+//		touchControl = (GITouchControl) findViewById(R.id.touchcontrol);
 
 		createMap();
 
@@ -146,8 +165,8 @@ public class Geoinfo extends FragmentActivity {
 		m_location_listener = new GIGPSLocationListener(map);
 		GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.m_location_manager;
 
-		GIScaleControl m_scale_control_fixed = (GIScaleControl) findViewById(R.id.scale_control_screen);
-		m_scale_control_fixed.setMap(map);
+//		GIScaleControl m_scale_control_fixed = (GIScaleControl) findViewById(R.id.scale_control_screen);
+		scaleControl.setMap(map);
 		//--------------------------------------------------------------------
 		// floating buttons
 		//--------------------------------------------------------------------
@@ -574,9 +593,9 @@ public class Geoinfo extends FragmentActivity {
 	}
 
 	private boolean createMap() {
-		map = (GIMap) findViewById(R.id.map);
-		View parent = findViewById(R.id.root);
-		parent.setBackgroundColor(Color.WHITE);
+//		map = (GIMap) findViewById(R.id.map);
+//		View parent = findViewById(R.id.root);
+		root.setBackgroundColor(Color.WHITE);
 		sp = getPreferences(MODE_PRIVATE);
 		String path = sp.getString(SAVED_PATH,
 				getResources().getString(R.string.default_project_path));

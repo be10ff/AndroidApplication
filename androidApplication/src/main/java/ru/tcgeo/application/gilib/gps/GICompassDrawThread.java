@@ -21,7 +21,6 @@ public class GICompassDrawThread extends Thread
 	public GICompassDrawThread(SurfaceHolder surfaceHolder)
 	{
 		this.surfaceHolder = surfaceHolder;
-
 		arrow = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.arrow);
 	}
 
