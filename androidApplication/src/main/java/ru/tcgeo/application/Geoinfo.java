@@ -4,6 +4,7 @@ import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import ru.tcgeo.application.data.interactors.LoadProjectInteractor;
 import ru.tcgeo.application.gilib.gps.GICompassView;
 import ru.tcgeo.application.gilib.gps.GISensors;
 import ru.tcgeo.application.gilib.models.GIBounds;
@@ -23,10 +24,12 @@ import ru.tcgeo.application.home_screen.MarkersDialog;
 import ru.tcgeo.application.home_screen.SettingsDialog;
 import ru.tcgeo.application.home_screen.ProjectDialog;
 import ru.tcgeo.application.utils.ScreenUtils;
+import ru.tcgeo.application.view.MapView;
 import ru.tcgeo.application.views.GIScaleControl;
 
 //import android.app.DialogFragment;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 
 import android.graphics.Color;
@@ -50,7 +53,7 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
-public class Geoinfo extends FragmentActivity {
+public class Geoinfo extends FragmentActivity implements MapView {
 	@Bind(R.id.root)
 	View root;
 
@@ -64,7 +67,7 @@ public class Geoinfo extends FragmentActivity {
 	GIScaleControl scaleControl;
 
 	@Bind(R.id.pbProgress)
-	ProgressBar pbProgress;
+	View pbProgress;
 
 	SharedPreferences sp;
 
@@ -121,9 +124,33 @@ public class Geoinfo extends FragmentActivity {
 
 	public void LoadProject(String path) {
 		pbProgress.setVisibility(View.VISIBLE);
-		map.LoadProject(path);
+		LoadProjectInteractor interactor = new LoadProjectInteractor();
+		interactor.setView(this);
+		interactor.loadProject(path);
+//		map.LoadProject(path);
+		touchControl.InitMap(map);
+//		pbProgress.setVisibility(View.INVISIBLE);
+	}
+
+	@Override
+	public void onMapLoaded(GIProjectProperties ps) {
+		map.onMapLoaded(ps);
 		touchControl.InitMap(map);
 		pbProgress.setVisibility(View.INVISIBLE);
+	}
+
+	@Override
+	public void onError() {
+		pbProgress.setVisibility(View.INVISIBLE);
+		GIBounds temp = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
+		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
+		map.ps = new GIProjectProperties();
+		sp = getPreferences(MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString(SAVED_PATH, Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + map.ps.m_SaveAs);
+		editor.apply();
+		editor.commit();
+		touchControl.InitMap(map);
 	}
 
 
@@ -137,9 +164,11 @@ public class Geoinfo extends FragmentActivity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main);
 		ButterKnife.bind(this);
-//		touchControl = (GITouchControl) findViewById(R.id.touchcontrol);
 
-		createMap();
+
+		sp = getPreferences(MODE_PRIVATE);
+		String path = sp.getString(SAVED_PATH, getResources().getString(R.string.default_project_path));
+		LoadProject(path);
 
 		GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
 		GIEditLayersKeeper.Instance().setTouchControl(touchControl);
@@ -592,35 +621,6 @@ public class Geoinfo extends FragmentActivity {
 
 	}
 
-	private boolean createMap() {
-//		map = (GIMap) findViewById(R.id.map);
-//		View parent = findViewById(R.id.root);
-		root.setBackgroundColor(Color.WHITE);
-		sp = getPreferences(MODE_PRIVATE);
-		String path = sp.getString(SAVED_PATH,
-				getResources().getString(R.string.default_project_path));
-		// TODO
-		try {
-			LoadProject(path);
-			return true;
-		} catch (Exception e) {
-
-			// ProjectSelectorDialog();
-			GIBounds temp = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
-			map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
-			map.ps = new GIProjectProperties();
-			sp = getPreferences(MODE_PRIVATE);
-			SharedPreferences.Editor editor = sp.edit();
-			editor.putString(SAVED_PATH, Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + map.ps.m_SaveAs);
-			editor.apply();
-			editor.commit();
-			touchControl.InitMap(map);
-			return false;
-		}
-
-	}
-
-
     public GIMap getMap() {
 		return map;
 	}
@@ -636,4 +636,6 @@ public class Geoinfo extends FragmentActivity {
 	public DialogFragment getEditablelayersDialog() {
 		return editablelayersDialog;
 	}
+
+
 }

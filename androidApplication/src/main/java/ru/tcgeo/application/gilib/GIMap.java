@@ -21,6 +21,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import ru.tcgeo.application.data.interactors.LoadProjectInteractor;
 import ru.tcgeo.application.gilib.models.GIBitmap;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIColor;
@@ -34,6 +35,7 @@ import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayerRef;
 import ru.tcgeo.application.gilib.parser.GISQLDB;
 import ru.tcgeo.application.utils.MapUtils;
+import ru.tcgeo.application.view.MapView;
 
 
 public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//implements Runnable SurfaceView
@@ -502,7 +504,9 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		this.invalidate();
 		UpdateMap();		
 	}
-	
+
+
+
 	class RenderTask implements Runnable 
 	{
 		GIBounds actual_bounds;
@@ -881,6 +885,17 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 
 	public void LoadProject(String path) {
 		ps = new GIProjectProperties(path);
+		GIBounds temp = new GIBounds(ps.m_projection, ps.m_left,
+				ps.m_top, ps.m_right, ps.m_bottom);
+		InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
+		GIPropertiesGroup current_group = ps.m_Group;
+		GIEditLayersKeeper.Instance().ClearLayers();
+		loadGroup(current_group);
+	}
+
+
+	public void onMapLoaded(GIProjectProperties ps) {
+		this.ps = ps;
 		GIBounds temp = new GIBounds(ps.m_projection, ps.m_left,
 				ps.m_top, ps.m_right, ps.m_bottom);
 		InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
