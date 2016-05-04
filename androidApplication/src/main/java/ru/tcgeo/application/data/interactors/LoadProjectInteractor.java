@@ -26,10 +26,9 @@ public class LoadProjectInteractor {
                 subscriber.onCompleted();
                 }
             })
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GIProjectProperties>() {
             @Override
             public void onNext(GIProjectProperties s) { view.onMapLoaded(s); }
@@ -38,7 +37,9 @@ public class LoadProjectInteractor {
             public void onCompleted() { }
 
             @Override
-            public void onError(Throwable e) { }
+            public void onError(Throwable e) {
+                view.onError();
+            }
         });
 
     }

@@ -28,6 +28,7 @@ import ru.tcgeo.application.view.MapView;
 import ru.tcgeo.application.views.GIScaleControl;
 
 //import android.app.DialogFragment;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -166,37 +167,40 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		ButterKnife.bind(this);
 
 
-		sp = getPreferences(MODE_PRIVATE);
-		String path = sp.getString(SAVED_PATH, getResources().getString(R.string.default_project_path));
-		LoadProject(path);
+//		sp = getPreferences(MODE_PRIVATE);
+//		String path = sp.getString(SAVED_PATH, getResources().getString(R.string.default_project_path));
+//		LoadProject(path);
+//
+//		GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
+//		GIEditLayersKeeper.Instance().setTouchControl(touchControl);
+//		GIEditLayersKeeper.Instance().setMap(map);
+//        GIEditLayersKeeper.Instance().setActivity(this);
+//		GIEditLayersKeeper.Instance().setRoot(R.id.root);
+//
+//		// Setup pixel size to let scale work properly
+//		DisplayMetrics dm = new DisplayMetrics();
+//		getWindowManager().getDefaultDisplay().getMetrics(dm);
+//		double screenPixels = Math.hypot(dm.widthPixels, dm.heightPixels);
+//		double screenInches = Math.hypot(dm.widthPixels / dm.xdpi,
+//				dm.heightPixels / dm.ydpi);
+//		GIMap.inches_per_pixel = screenInches / screenPixels;
+//
+//
+//		/**/
+//
+//		//TODO uncomment
+////		m_location_manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	5, 5, m_location_listener);
+////		m_location_manager.requestLocationUpdates(	LocationManager.NETWORK_PROVIDER, 5, 5, m_location_listener);
+//
+////		m_location_listener = new GIGPSLocationListener(map);
+//		m_location_listener = new GIGPSLocationListener((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+//		GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.m_location_manager;
+//
+////		GIScaleControl m_scale_control_fixed = (GIScaleControl) findViewById(R.id.scale_control_screen);
+//		scaleControl.setMap(map);
 
-		GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
-		GIEditLayersKeeper.Instance().setTouchControl(touchControl);
-		GIEditLayersKeeper.Instance().setMap(map);
-        GIEditLayersKeeper.Instance().setActivity(this);
-		GIEditLayersKeeper.Instance().setRoot(R.id.root);
-
-		// Setup pixel size to let scale work properly
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-		double screenPixels = Math.hypot(dm.widthPixels, dm.heightPixels);
-		double screenInches = Math.hypot(dm.widthPixels / dm.xdpi,
-				dm.heightPixels / dm.ydpi);
-		GIMap.inches_per_pixel = screenInches / screenPixels;
-		
-
-		/**/
-		
-		//TODO uncomment
-//		m_location_manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	5, 5, m_location_listener);
-//		m_location_manager.requestLocationUpdates(	LocationManager.NETWORK_PROVIDER, 5, 5, m_location_listener);
-		
-		m_location_listener = new GIGPSLocationListener(map);
-		GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.m_location_manager;
-
-//		GIScaleControl m_scale_control_fixed = (GIScaleControl) findViewById(R.id.scale_control_screen);
-		scaleControl.setMap(map);
-		//--------------------------------------------------------------------
+        m_location_listener = new GIGPSLocationListener((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+        GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.m_location_manager;		//--------------------------------------------------------------------
 		// floating buttons
 		//--------------------------------------------------------------------
 
@@ -560,6 +564,40 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		//--------------------------------------------------------------------
 		// Edit buttons
 		//--------------------------------------------------------------------
+
+
+		sp = getPreferences(MODE_PRIVATE);
+		String path = sp.getString(SAVED_PATH, getResources().getString(R.string.default_project_path));
+		LoadProject(path);
+
+		GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
+		GIEditLayersKeeper.Instance().setTouchControl(touchControl);
+		GIEditLayersKeeper.Instance().setMap(map);
+		GIEditLayersKeeper.Instance().setActivity(this);
+		GIEditLayersKeeper.Instance().setRoot(R.id.root);
+
+		// Setup pixel size to let scale work properly
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		double screenPixels = Math.hypot(dm.widthPixels, dm.heightPixels);
+		double screenInches = Math.hypot(dm.widthPixels / dm.xdpi,
+				dm.heightPixels / dm.ydpi);
+		GIMap.inches_per_pixel = screenInches / screenPixels;
+
+
+		/**/
+
+		//TODO uncomment
+//		m_location_manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	5, 5, m_location_listener);
+//		m_location_manager.requestLocationUpdates(	LocationManager.NETWORK_PROVIDER, 5, 5, m_location_listener);
+
+//		m_location_listener = new GIGPSLocationListener(map);
+//		m_location_listener = new GIGPSLocationListener((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+//		GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.m_location_manager;
+
+//		GIScaleControl m_scale_control_fixed = (GIScaleControl) findViewById(R.id.scale_control_screen);
+		scaleControl.setMap(map);
+//		fbGPS.SetGPSEnabledStatus(m_location_listener.m_location_manager.isProviderEnabled(LocationManager.GPS_PROVIDER));
 
 	}
 
