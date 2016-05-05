@@ -7,8 +7,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import ru.tcgeo.application.gilib.gps.GIXMLTrack;
+import ru.tcgeo.application.utils.MapUtils;
 
 
 public class GIGPSParserTrack extends GIGPSParser
@@ -45,6 +47,30 @@ public class GIGPSParserTrack extends GIGPSParser
 						GI_WktGeometry point = GIWKTParser.CreateGeometryFromWKT(line);
 						((GIXMLTrack)m_geometry).m_points.add((GI_WktPoint) point);
 					}
+                    ArrayList<GI_WktGeometry> points = ((GIXMLTrack)m_geometry).m_points;
+
+                    if(points.size() > 2) {
+                        ArrayList<GI_WktGeometry> filtered = new ArrayList<GI_WktGeometry>();
+                        filtered.add(points.get(0));
+                        for (int k = 1; k < points.size()- 2; k++){
+                            GI_WktPoint a = (GI_WktPoint)points.get(k-1);
+                            GI_WktPoint b = (GI_WktPoint)points.get(k);
+                            GI_WktPoint c = (GI_WktPoint)points.get(k+1);
+                            double ab = MapUtils.GetDistance(a.LonLat(), b.LonLat());
+                            double bc = MapUtils.GetDistance(b.LonLat(), c.LonLat());
+                            double ac = MapUtils.GetDistance(a.LonLat(), c.LonLat());
+
+                            if(ac > ab ||  ac > bc){
+                                filtered.add(points.get(k));
+                            } else {
+                                int j = 0;
+                            }
+
+                        }
+                        filtered.add(points.get(points.size()- 1));
+
+                        ((GIXMLTrack)m_geometry).m_points = filtered;
+                    }
 					reader.close();
 				} 
 				catch (IOException e) 

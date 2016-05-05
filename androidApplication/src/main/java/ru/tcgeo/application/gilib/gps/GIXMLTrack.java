@@ -213,11 +213,15 @@ public class GIXMLTrack extends GI_WktGeometry {
 	//TODO test it
 	public void AddPoint(GI_WktPoint point, float accurancy)
 	{
+		if(accurancy > 60){
+			return;
+		}
+
 		boolean res = true;
 		if(m_points.size() > 1)
 		{
 			double distance = MapUtils.GetDistance(((GI_WktPoint) m_points.get(m_points.size() - 1)).LonLat(), point.LonLat());
-			res = distance > accurancy;
+			res = distance > accurancy*1.5f;
 		}
 		//TODO uncomment
 		if(res)
