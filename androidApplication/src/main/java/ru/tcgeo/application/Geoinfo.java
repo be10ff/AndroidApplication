@@ -26,6 +26,11 @@ import ru.tcgeo.application.home_screen.ProjectDialog;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.view.MapView;
 import ru.tcgeo.application.views.GIScaleControl;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 //import android.app.DialogFragment;
 import android.content.Context;
@@ -124,25 +129,44 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
 
 	public void LoadProject(String path) {
+
+		GIBounds temp = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
+		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
 		pbProgress.setVisibility(View.VISIBLE);
 		LoadProjectInteractor interactor = new LoadProjectInteractor();
 		interactor.setView(this);
 		interactor.loadProject(path);
+
 //		map.LoadProject(path);
-		touchControl.InitMap(map);
-//		pbProgress.setVisibility(View.INVISIBLE);
+
 	}
 
-	@Override
-	public void onMapLoaded(GIProjectProperties ps) {
-		map.onMapLoaded(ps);
-		touchControl.InitMap(map);
-		pbProgress.setVisibility(View.INVISIBLE);
-	}
 
-	@Override
-	public void onError() {
-		pbProgress.setVisibility(View.INVISIBLE);
+    @Override
+    public void onProject(GIProjectProperties ps) {
+        GIEditLayersKeeper.Instance().ClearLayers();
+        GIBounds temp = new GIBounds(ps.m_projection, ps.m_left,
+                ps.m_top, ps.m_right, ps.m_bottom);
+        map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
+        touchControl.InitMap(map);
+        map.ps = ps;
+    }
+
+    @Override
+    public void onLayer(LoadProjectInteractor.Layer layer) {
+        map.AddLayer(layer.giLayer, layer.giRange, layer.enabled);
+//        map.UpdateMap();
+    }
+
+    @Override
+    public void onComplited() {
+//        touchControl.InitMap(map);
+        pbProgress.setVisibility(View.INVISIBLE);
+        map.UpdateMap();
+    }
+
+    @Override
+    public void onError() {
 		GIBounds temp = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
 		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
 		map.ps = new GIProjectProperties();
@@ -152,8 +176,8 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		editor.apply();
 		editor.commit();
 		touchControl.InitMap(map);
-	}
-
+        pbProgress.setVisibility(View.INVISIBLE);
+    }
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -569,7 +593,6 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		sp = getPreferences(MODE_PRIVATE);
 		String path = sp.getString(SAVED_PATH, getResources().getString(R.string.default_project_path));
 		LoadProject(path);
-
 		GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
 		GIEditLayersKeeper.Instance().setTouchControl(touchControl);
 		GIEditLayersKeeper.Instance().setMap(map);

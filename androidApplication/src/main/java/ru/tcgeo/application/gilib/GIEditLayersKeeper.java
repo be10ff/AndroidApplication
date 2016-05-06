@@ -1,8 +1,10 @@
 package ru.tcgeo.application.gilib;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -14,6 +16,7 @@ import android.location.LocationManager;
 import android.view.View;
 
 import ru.tcgeo.application.Geoinfo;
+import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.gps.GICompassFragment;
 //import ru.tcgeo.application.gilib.gps.GIGPSDialog;
 import ru.tcgeo.application.gilib.gps.GILocatorFragment;
@@ -839,7 +842,9 @@ public class GIEditLayersKeeper {
 	{
 		boolean res = false;
 		if(m_TrackLayer == null){
-            m_TrackLayer = GILayer.createTrack("!!!_test_test_"/*m_Map.ps.m_name*/);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(activity.getString(R.string.date_format), Locale.ENGLISH);
+            String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
+            m_TrackLayer = GILayer.createTrack(m_Map.ps.m_name + "_" + date);
             m_TrackLayer.setType(GIEditableLayer.GIEditableLayerType.TRACK);
             m_TrackLayer.Save();
             m_Map.ps.m_Group.addEntry(m_TrackLayer.m_layer_properties);
