@@ -26,7 +26,7 @@ public abstract class GILayer
 	public enum GILayerType
 	{
 
-		LAYER_GROUP, RASTER_LAYER, VECTOR_LAYER, TILE_LAYER, ON_LINE, SQL_LAYER, DBASE, XML, SQL_YANDEX_LAYER, PLIST;
+		LAYER_GROUP, RASTER_LAYER, VECTOR_LAYER, TILE_LAYER, ON_LINE, SQL_LAYER, DBASE, XML, SQL_YANDEX_LAYER, PLIST, ZIP;
 	}
 
 	protected GIBounds     m_maxExtent;
@@ -72,6 +72,10 @@ public abstract class GILayer
 				return new GIEditableSQLiteLayer(path, new GIVectorStyle());
 			}
 			case XML:
+			{
+				return new GIGPSPointsLayer(path, new GIVectorStyle());
+			}
+			case ZIP:
 			{
 				return new GIGPSPointsLayer(path, new GIVectorStyle());
 			}

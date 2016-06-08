@@ -61,7 +61,7 @@ public class GIEditLayersKeeper {
 	private int m_root;
 	public LocationManager m_location_manager;
 	// views
-	public GIEditLayerDialog m_EditLayerDialog;
+//	public GIEditLayerDialog m_EditLayerDialog;
 	public GICompassFragment m_compass;
 	public GILocatorFragment m_locator;
 	public GILocatorRange m_range;
@@ -117,7 +117,7 @@ public class GIEditLayersKeeper {
 
 	private GIEditLayersKeeper()
 	{
-		m_EditLayerDialog = null;
+//		m_EditLayerDialog = null;
 		m_EditAttributesFragment = null;
 		m_TrackingStatus = GITrackingStatus.STOP;
 		m_layer = null;

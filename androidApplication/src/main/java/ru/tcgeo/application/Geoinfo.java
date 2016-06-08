@@ -130,8 +130,8 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
 	public void LoadProject(String path) {
 
-		GIBounds temp = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
-		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
+//		GIBounds temp = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
+//		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
 		pbProgress.setVisibility(View.VISIBLE);
 		LoadProjectInteractor interactor = new LoadProjectInteractor();
 		interactor.setView(this);
@@ -167,8 +167,8 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
     @Override
     public void onError() {
-		GIBounds temp = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
-		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
+//		GIBounds temp = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
+//		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
 		map.ps = new GIProjectProperties();
 		sp = getPreferences(MODE_PRIVATE);
 		SharedPreferences.Editor editor = sp.edit();
@@ -444,27 +444,27 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		//--------------------------------------------------------------------
         btnEditCreate = new CheckBox(this);
         btnEditCreate.setTextSize(0);
-        btnEditCreate.setButtonDrawable(R.drawable.edit);
+        btnEditCreate.setButtonDrawable(R.drawable.edit_create_bg);
         btnEditCreate.setBackgroundDrawable(null);
         fbEditCreate = itemBuilder.setContentView(btnEditCreate).build();
 
 
         btnEditGeometry = new CheckBox(this);
         btnEditGeometry.setTextSize(0);
-        btnEditGeometry.setButtonDrawable(R.drawable.edit);
+        btnEditGeometry.setButtonDrawable(R.drawable.edit_geometry_bg);
         btnEditGeometry.setBackgroundDrawable(null);
         fbEditGeometry = itemBuilder.setContentView(btnEditGeometry).build();
 
 
         btnEditAttributes = new CheckBox(this);
         btnEditAttributes.setTextSize(0);
-        btnEditAttributes.setButtonDrawable(R.drawable.edit);
+        btnEditAttributes.setButtonDrawable(R.drawable.edit_attributes_bg);
         btnEditAttributes.setBackgroundDrawable(null);
         fbEditAttributes = itemBuilder.setContentView(btnEditAttributes).build();
 
         btnEditDelete = new CheckBox(this);
         btnEditDelete.setTextSize(0);
-        btnEditDelete.setButtonDrawable(R.drawable.edit);
+        btnEditDelete.setButtonDrawable(R.drawable.edit_delete_bg);
         btnEditDelete.setBackgroundDrawable(null);
         fbEditDelete = itemBuilder.setContentView(btnEditDelete).build();
 
@@ -491,7 +491,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
                 }
             }
         });
-        fbEditGeometry.setOnClickListener(new View.OnClickListener() {
+		btnEditGeometry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(GIEditLayersKeeper.Instance().m_layer == GIEditLayersKeeper.Instance().m_TrackLayer){
@@ -515,7 +515,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
                 }
             }
         });
-        fbEditAttributes.setOnClickListener(new View.OnClickListener() {
+		btnEditAttributes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(GIEditLayersKeeper.Instance().getState() != GIEditLayersKeeper.GIEditingStatus.WAITIN_FOR_SELECT_OBJECT) {
@@ -535,7 +535,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
             }
         });
 
-        fbEditDelete.setOnClickListener(new View.OnClickListener() {
+		btnEditDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_TO_DELETE);
