@@ -18,6 +18,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
 
+import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIProjection;
 
 
@@ -57,9 +58,16 @@ public class GIProjectProperties
 //        m_markers_source = "file";
 //        m_search_file = "";
 //        m_search_body = "";
+		m_top = 65;
+		m_bottom = 46;
+		m_left=28;
+		m_right=48;
         m_point_info = "";
-        
+
         m_Group = new GIPropertiesGroup();
+//		GIBounds temp = new GIBounds(GIProjection.WGS84(), 28, 65, 48, 46);
+		//  <Bounds projection="WGS84" top="57.32512080429306" bottom="53.7729298508898"
+		// //left="35.68824394054793" right="39.35910281197162" />
 	}
 	
 	public GIProjectProperties(String path)
@@ -280,10 +288,12 @@ public class GIProjectProperties
 				serializer = m_Edit.Save(serializer);
 			}
 			
-			serializer.startTag("", "Markers");
-			serializer.attribute("", "file", m_markers);
-			serializer.attribute("", "source", m_markers_source);
-			serializer.endTag("", "Markers");
+			if(m_markers_source != null) {
+				serializer.startTag("", "Markers");
+				serializer.attribute("", "file", m_markers);
+				serializer.attribute("", "source", m_markers_source);
+				serializer.endTag("", "Markers");
+			}
 			
 			if(m_point_info != null)
 			{

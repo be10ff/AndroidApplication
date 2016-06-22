@@ -116,10 +116,10 @@ public class GIGPSDialog extends Fragment implements OnClickListener, OnLongClic
 		m_btnPOI.setOnClickListener(this);
 		m_btnAutoFollow.setOnLongClickListener(this);
 		
-		//SetGPSEnabledStatus(GIEditLayersKeeper.Instance().m_location_manager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-//		if(GIEditLayersKeeper.Instance().m_location_manager.getLastKnownLocation(LocationManager.GPS_PROVIDER) != null)
+		//SetGPSEnabledStatus(GIEditLayersKeeper.Instance().locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+//		if(GIEditLayersKeeper.Instance().locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) != null)
 //		{
-//			m_GPSAccurancy.setText(String.format("±%02d m", ((int)GIEditLayersKeeper.Instance().m_location_manager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getAccuracy())));//
+//			m_GPSAccurancy.setText(String.format("±%02d m", ((int)GIEditLayersKeeper.Instance().locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getAccuracy())));//
 //		}
 		
 		RelativeLayout.LayoutParams m_param;
@@ -191,7 +191,7 @@ public class GIGPSDialog extends Fragment implements OnClickListener, OnLongClic
 //			GIEditLayersKeeper.Instance().m_AutoFollow = m_btnAutoFollow.isChecked();
 //			if(m_btnAutoFollow.isChecked())
 //			{
-//				Location location = GIEditLayersKeeper.Instance().m_location_manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//				Location location = GIEditLayersKeeper.Instance().locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //				if(location != null)
 //				{
 //					GILonLat go_to = GILonLat.fromLocation(location);

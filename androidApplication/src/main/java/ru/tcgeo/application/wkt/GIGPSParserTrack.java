@@ -47,6 +47,9 @@ public class GIGPSParserTrack extends GIGPSParser
 						GI_WktGeometry point = GIWKTParser.CreateGeometryFromWKT(line);
 						((GIXMLTrack)m_geometry).m_points.add((GI_WktPoint) point);
 					}
+
+					int  iiiii = 0;
+
                     ArrayList<GI_WktGeometry> points = ((GIXMLTrack)m_geometry).m_points;
 
                     if(points.size() > 2) {
@@ -73,7 +76,7 @@ public class GIGPSParserTrack extends GIGPSParser
                     }
 					reader.close();
 				} 
-				catch (IOException e) 
+				catch (Exception e)
 				{
 					e.printStackTrace();
 				}

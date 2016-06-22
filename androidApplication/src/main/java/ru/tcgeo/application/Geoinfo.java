@@ -17,7 +17,6 @@ import ru.tcgeo.application.gilib.GITouchControl;
 import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
 import ru.tcgeo.application.gilib.gps.GIGPSLocationListener;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
-import ru.tcgeo.application.gilib.parser.GIPropertiesGroup;
 
 import ru.tcgeo.application.home_screen.EditableLayersDialog;
 import ru.tcgeo.application.home_screen.MarkersDialog;
@@ -26,19 +25,12 @@ import ru.tcgeo.application.home_screen.ProjectDialog;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.view.MapView;
 import ru.tcgeo.application.views.GIScaleControl;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 //import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -53,13 +45,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 public class Geoinfo extends FragmentActivity implements MapView {
+
+	//
 	@Bind(R.id.root)
 	View root;
 
@@ -155,20 +148,17 @@ public class Geoinfo extends FragmentActivity implements MapView {
     @Override
     public void onLayer(LoadProjectInteractor.Layer layer) {
         map.AddLayer(layer.giLayer, layer.giRange, layer.enabled);
-//        map.UpdateMap();
     }
 
     @Override
     public void onComplited() {
-//        touchControl.InitMap(map);
         pbProgress.setVisibility(View.INVISIBLE);
-        map.UpdateMap();
+//        map.UpdateMap();
     }
 
     @Override
     public void onError() {
-//		GIBounds temp = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
-//		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
+
 		map.ps = new GIProjectProperties();
 		sp = getPreferences(MODE_PRIVATE);
 		SharedPreferences.Editor editor = sp.edit();
@@ -177,6 +167,8 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		editor.commit();
 		touchControl.InitMap(map);
         pbProgress.setVisibility(View.INVISIBLE);
+		GIBounds temp = new GIBounds(GIProjection.WGS84(), 28, 65, 48, 46);
+		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
     }
 
 	@Override
@@ -213,18 +205,18 @@ public class Geoinfo extends FragmentActivity implements MapView {
 //		/**/
 //
 //		//TODO uncomment
-////		m_location_manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	5, 5, m_location_listener);
-////		m_location_manager.requestLocationUpdates(	LocationManager.NETWORK_PROVIDER, 5, 5, m_location_listener);
+////		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	5, 5, m_location_listener);
+////		locationManager.requestLocationUpdates(	LocationManager.NETWORK_PROVIDER, 5, 5, m_location_listener);
 //
 ////		m_location_listener = new GIGPSLocationListener(map);
 //		m_location_listener = new GIGPSLocationListener((LocationManager) getSystemService(Context.LOCATION_SERVICE));
-//		GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.m_location_manager;
+//		GIEditLayersKeeper.Instance().locationManager = m_location_listener.locationManager;
 //
 ////		GIScaleControl m_scale_control_fixed = (GIScaleControl) findViewById(R.id.scale_control_screen);
 //		scaleControl.setMap(map);
 
         m_location_listener = new GIGPSLocationListener((LocationManager) getSystemService(Context.LOCATION_SERVICE));
-        GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.m_location_manager;		//--------------------------------------------------------------------
+        GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.locationManager;		//--------------------------------------------------------------------
 		// floating buttons
 		//--------------------------------------------------------------------
 
@@ -247,7 +239,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
         action_params.gravity = Gravity.CENTER_HORIZONTAL;
 		itemBuilder.setLayoutParams(action_params);
 
-		fbGPS.SetGPSEnabledStatus(m_location_listener.m_location_manager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+		fbGPS.SetGPSEnabledStatus(m_location_listener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
 
 		//--------------------------------------------------------------------
 		// GPS AUTO_FOLL0W
@@ -611,16 +603,16 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		/**/
 
 		//TODO uncomment
-//		m_location_manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	5, 5, m_location_listener);
-//		m_location_manager.requestLocationUpdates(	LocationManager.NETWORK_PROVIDER, 5, 5, m_location_listener);
+//		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	5, 5, m_location_listener);
+//		locationManager.requestLocationUpdates(	LocationManager.NETWORK_PROVIDER, 5, 5, m_location_listener);
 
 //		m_location_listener = new GIGPSLocationListener(map);
 //		m_location_listener = new GIGPSLocationListener((LocationManager) getSystemService(Context.LOCATION_SERVICE));
-//		GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.m_location_manager;
+//		GIEditLayersKeeper.Instance().locationManager = m_location_listener.locationManager;
 
 //		GIScaleControl m_scale_control_fixed = (GIScaleControl) findViewById(R.id.scale_control_screen);
 		scaleControl.setMap(map);
-//		fbGPS.SetGPSEnabledStatus(m_location_listener.m_location_manager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+//		fbGPS.SetGPSEnabledStatus(m_location_listener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
 
 	}
 
