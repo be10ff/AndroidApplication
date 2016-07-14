@@ -215,7 +215,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 ////		GIScaleControl m_scale_control_fixed = (GIScaleControl) findViewById(R.id.scale_control_screen);
 //		scaleControl.setMap(map);
 
-        m_location_listener = new GIGPSLocationListener((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+        m_location_listener = new GIGPSLocationListener(this);
         GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.locationManager;		//--------------------------------------------------------------------
 		// floating buttons
 		//--------------------------------------------------------------------
@@ -238,6 +238,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		FloatingActionButton.LayoutParams action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(84), ScreenUtils.dpToPx(84));
         action_params.gravity = Gravity.CENTER_HORIZONTAL;
 		itemBuilder.setLayoutParams(action_params);
+
 
 		fbGPS.SetGPSEnabledStatus(m_location_listener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
 
