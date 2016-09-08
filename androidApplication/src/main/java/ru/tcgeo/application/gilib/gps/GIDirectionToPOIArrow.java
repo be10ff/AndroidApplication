@@ -37,7 +37,7 @@ public class GIDirectionToPOIArrow  extends View implements GIControl
 	Bitmap image;
 	Matrix matrix;
 	int size = 50;
-	int length = 3;
+	int length = 6;
 	int[] map_location = { 0, 0 };
 	GILonLat m_lon_lat_poi;
 	Path path;
@@ -50,7 +50,7 @@ public class GIDirectionToPOIArrow  extends View implements GIControl
 	{
 		super(GIEditLayersKeeper.Instance().getMap().getContext());
 		m_POI = poi;
-		m_context = GIEditLayersKeeper.Instance().getMap().getContext();	
+		m_context = GIEditLayersKeeper.Instance().getMap().getContext();
 		m_map = GIEditLayersKeeper.Instance().getMap();
     	m_map.getLocationOnScreen(map_location);
 		this.setX(map_location[0]);
@@ -69,7 +69,7 @@ public class GIDirectionToPOIArrow  extends View implements GIControl
 		paint_fill = new Paint();
 		paint_fill.setColor(Color.argb(255, 63, 255, 63));//setColor(Color.argb(255, 255, 127, 0));
 		paint_fill.setStyle(Style.FILL);
-		paint_fill.setTextSize(21);
+		paint_fill.setTextSize(m_context.getResources().getDimension(R.dimen.direction_to_point_text_size));
 		paint_fill.setShadowLayer(5, 2, 2, Color.BLACK);
 		
 		/*paint_stroke = new Paint();

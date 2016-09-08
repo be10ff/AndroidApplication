@@ -116,7 +116,7 @@ public class GIRuleToolControl extends View implements OnClickListener, GIContro
         	m_last.setText(GetLengthText(result));
         }
     }
-	public static String GetLengthText(double length)
+	public static String GetLengthText_(double length)
 	{
 		double len = length;
 		String form = "%.2f m";
@@ -145,6 +145,47 @@ public class GIRuleToolControl extends View implements OnClickListener, GIContro
 		else if(len < 1000000)
 		{
 			form = "%.1f km";
+			len = len/1000;
+		}
+		else if(len >= 1000000)
+		{
+			form = "%.0f km";
+			len = len/1000;
+		}
+		return String.format(form, len);
+
+
+	}
+
+	public static String GetLengthText(double length)
+	{
+		double len = length;
+		String form = "%.2f m";
+		if(len < 10)
+		{
+			form = "%.2f m";
+		}
+		else if(len < 100)
+		{
+			form = "%.1f m";
+		}
+		else if(len < 1000)
+		{
+			form = "%.0f m";
+		}
+		else if(len < 10000)
+		{
+			form = "%.2f km";
+			len = len/1000;
+		}
+		else if(len < 100000)
+		{
+			form = "%.1f km";
+			len = len/1000;
+		}
+		else if(len < 1000000)
+		{
+			form = "%.0f km";
 			len = len/1000;
 		}
 		else if(len >= 1000000)
