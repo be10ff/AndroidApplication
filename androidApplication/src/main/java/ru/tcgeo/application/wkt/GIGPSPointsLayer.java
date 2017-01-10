@@ -1,5 +1,6 @@
 package ru.tcgeo.application.wkt;
 
+import android.graphics.Rect;
 import android.util.Log;
 import android.util.Xml;
 
@@ -14,8 +15,11 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import ru.tcgeo.application.gilib.GIEditableLayer;
+import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.gilib.models.Tile;
+import rx.Observable;
 
 public class GIGPSPointsLayer  extends GIEditableLayer
 {
@@ -136,6 +140,11 @@ public class GIGPSPointsLayer  extends GIEditableLayer
 //		for(GI_WktGeometry shape : m_shapes){
 //			shape.free();
 //		}
+	}
+
+	@Override
+	public Observable<Tile> getRedrawTiles(final GIBounds area, final Rect viewRect) {
+		return m_renderer.getTiles(this, area, viewRect);
 	}
 
 }

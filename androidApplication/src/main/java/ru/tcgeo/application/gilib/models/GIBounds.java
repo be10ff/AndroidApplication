@@ -20,6 +20,14 @@ public class GIBounds
 		m_projection = projection;
 	}
 
+	private GIBounds(){
+
+	}
+
+	public static GIBounds copy(GIBounds bounds){
+		return new GIBounds(bounds.projection(), bounds.left(), bounds.top(), bounds.right(), bounds.bottom());
+	}
+
 	public GIBounds (GIProjection projection, GILonLat center, double width,
 	        double height)
 	{

@@ -10,15 +10,19 @@ import java.util.HashMap;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Rect;
 import android.os.Environment;
 import android.util.Log;
 
+import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.gilib.models.Tile;
 import ru.tcgeo.application.wkt.GIDBaseField;
 import ru.tcgeo.application.wkt.GIWKTParser;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktUserTrack;
+import rx.Observable;
 
 public class GIEditableSQLiteLayer extends GIEditableLayer
 {
@@ -288,7 +292,10 @@ public class GIEditableSQLiteLayer extends GIEditableLayer
 			Log.d("LOG_TAG", e.toString());
 		}
 	}
-	
-	
+
+	@Override
+	public Observable<Tile> getRedrawTiles(final GIBounds area, final Rect viewRect) {
+		return m_renderer.getTiles(this, area, viewRect);
+	}
 
 }

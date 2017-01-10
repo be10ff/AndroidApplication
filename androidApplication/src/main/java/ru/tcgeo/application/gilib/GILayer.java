@@ -3,6 +3,7 @@ package ru.tcgeo.application.gilib;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Environment;
 
 import java.io.File;
@@ -13,11 +14,13 @@ import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIStyle;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.gilib.models.Tile;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
 import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
 import ru.tcgeo.application.gilib.parser.GIRange;
 import ru.tcgeo.application.gilib.parser.GISource;
 import ru.tcgeo.application.wkt.GIGPSPointsLayer;
+import rx.Observable;
 
 public abstract class GILayer
 {
@@ -178,6 +181,8 @@ public abstract class GILayer
 	}
 
 	public abstract void Redraw (GIBounds area, Bitmap bitmap, Integer opacity, double scale);
+
+	public abstract Observable<Tile> getRedrawTiles(GIBounds area, Rect viewRect);
 
 	public void RedrawLabels (GIBounds area, Bitmap bitmap, float scale_factor, double s)
 	{

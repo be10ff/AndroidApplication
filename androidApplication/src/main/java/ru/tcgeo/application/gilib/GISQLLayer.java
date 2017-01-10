@@ -7,11 +7,14 @@ import java.util.Locale;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.util.Log;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIITile;
 import ru.tcgeo.application.gilib.models.GIProjection;
+import ru.tcgeo.application.gilib.models.Tile;
+import rx.Observable;
 
 
 public class GISQLLayer extends GILayer {
@@ -49,6 +52,11 @@ public class GISQLLayer extends GILayer {
 		{
 			m_renderer.RenderImage(this, area, opacity, bitmap, scale);
 		}
+	}
+
+	@Override
+	public Observable<Tile> getRedrawTiles(GIBounds area, Rect rect) {
+		return m_renderer.getTiles(this, area, rect);
 	}
 
 	public void getAvalibleLevels()

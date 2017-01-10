@@ -13,8 +13,10 @@ import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIStyle;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.gilib.models.Tile;
 import ru.tcgeo.application.wkt.GIWKTParser;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
+import rx.Observable;
 
 
 public class GIEditableRenderer extends GIRenderer {
@@ -137,6 +139,11 @@ public class GIEditableRenderer extends GIRenderer {
 	@Override
 	public void RenderText(GILayer layer, GIBounds area, Bitmap bitmap, float scale_factor, double scale) 
 	{
+	}
+
+	@Override
+	public Observable<Tile> getTiles(GILayer layer, GIBounds area, Rect rect) {
+		return Observable.empty();
 	}
 
 	@Override

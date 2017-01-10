@@ -1,9 +1,12 @@
 package ru.tcgeo.application.gilib;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIProjection;
+import ru.tcgeo.application.gilib.models.Tile;
+import rx.Observable;
 
 public class GIYandexLayer extends GILayer {
 
@@ -30,6 +33,11 @@ public class GIYandexLayer extends GILayer {
 		{
 			m_renderer.RenderImage(this, area, opacity, bitmap, scale);
 		}
+	}
+
+	@Override
+	public Observable<Tile> getRedrawTiles(final GIBounds area, final Rect viewRect) {
+		return m_renderer.getTiles(this, area, viewRect);
 	}
 
 }

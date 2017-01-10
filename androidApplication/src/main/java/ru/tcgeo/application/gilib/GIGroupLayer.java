@@ -8,6 +8,9 @@ import android.util.Log;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIScaleRange;
+import ru.tcgeo.application.gilib.models.Tile;
+import rx.Observable;
+import rx.Subscriber;
 
 
 public class GIGroupLayer extends GILayer
@@ -69,6 +72,11 @@ public class GIGroupLayer extends GILayer
 				}
 			}
 		}
+	}
+
+	@Override
+	public Observable<Tile> getRedrawTiles(final GIBounds area, final Rect viewRect) {
+		return Observable.empty();
 	}
 
 	public int AddLayer(GILayer layer)

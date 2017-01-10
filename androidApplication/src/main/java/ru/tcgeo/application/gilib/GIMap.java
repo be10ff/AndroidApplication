@@ -21,7 +21,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import ru.tcgeo.application.data.interactors.LoadProjectInteractor;
 import ru.tcgeo.application.gilib.models.GIBitmap;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIColor;
@@ -29,13 +28,19 @@ import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIScaleRange;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.gilib.models.Tile;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.gilib.parser.GIPropertiesGroup;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayerRef;
 import ru.tcgeo.application.gilib.parser.GISQLDB;
 import ru.tcgeo.application.utils.MapUtils;
-import ru.tcgeo.application.view.MapView;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 
 public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//implements Runnable SurfaceView
@@ -59,9 +64,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 	
 	Handler m_handler;
 	SurfaceHolder m_holder;
-	
-	ThreadStack m_threadStack;
-	ru.tcgeo.application.gilib.GIMap target = this;
 	
 	//GIControl's works
 	
@@ -241,7 +243,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		m_layers = new GIGroupLayer();
 		m_holder = getHolder();
 		m_handler = new Handler();
-		m_threadStack = new ThreadStack();
         m_bounds = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
         InitBounds(m_bounds.Reprojected(GIProjection.WorldMercator()));
 	}
@@ -489,211 +490,247 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		fire_onViewMove();
 	}
 	
-	// Factor < 1 is Zoom in, > 1 is Zoom out.
-	// from buttons
-	public void ScaleMapBy (GILonLat focus, double factor)
-	{
-		//ARAB
-		//cant see a reason
-		//Point _focus = MercatorMapToScreen(focus);
-		Point _focus = new Point( m_view.centerX(), m_view.centerY());
-		ScaleViewBy(_focus, factor);
-		/*m_bounds = new GIBounds(m_bounds.projection(),
-                				focus.lon() - (focus.lon() - m_bounds.left()) / factor,
-                				focus.lat() - (focus.lat() - m_bounds.top()) / factor,
-                				focus.lon() - (focus.lon() - m_bounds.right()) / factor,
-                				focus.lat() - (focus.lat() - m_bounds.bottom()) / factor);*/
-		this.invalidate();
-		UpdateMap();		
-	}
+	private void ReRedraw(){
+		final Bitmap bitmap = Bitmap.createBitmap(m_view.width(), m_view.height(), Bitmap.Config.RGB_565);
+		bitmap.eraseColor(Color.WHITE);
+		final Canvas m_canvas = new Canvas(bitmap);
 
+//		Observable<Tile> renderTask =
+//				Observable.from(m_layers.m_list)
+//				.flatMap(new Func1<GITuple, Observable<Tile>>() {
+//					@Override
+//					public Observable<Tile> call(GITuple giTuple) {
+//						return giTuple.layer.getRedrawTiles(GIBounds.copy(m_bounds), m_view);
+//					}
+//				});
+//		renderTask.subscribeOn(Schedulers.newThread())
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribe(new Subscriber<Tile>() {
+//					@Override
+//					public void onCompleted() {
+//
+//					}
+//
+//					@Override
+//					public void onError(Throwable e) {
+//
+//					}
+//
+//					@Override
+//					public void onNext(Tile tile) {
+//						Rect src = new Rect(0, 0, tile.getBitmap().getWidth(), tile.getBitmap().getWidth());
+//						m_canvas.drawBitmap(tile.getBitmap(), src, tile.getRect(), null);
+//						RenewBitmap(bitmap, GIBounds.copy(m_bounds));
+//					}
+//				});
 
+			Observable.from(m_layers.m_list)
+					.flatMap(new Func1<GITuple, Observable<Tile>>() {
+						@Override
+						public Observable<Tile> call(GITuple giTuple) {
+							return giTuple.layer.getRedrawTiles(GIBounds.copy(m_bounds), m_view);
+						}
+					})
+			.subscribeOn(Schedulers.newThread())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(new Subscriber<Tile>() {
+				@Override
+				public void onCompleted() {
 
-	class RenderTask implements Runnable 
-	{
-		GIBounds actual_bounds;
-		public void run() 
-		{
-			actual_bounds = new GIBounds(m_bounds.projection(), m_bounds.left(), m_bounds.top(), m_bounds.right(), m_bounds.bottom());
-			System.gc();
-			final Bitmap tmp_bitmap = Bitmap.createBitmap(m_view.width(), m_view.height(), Bitmap.Config.ARGB_8888);
-			tmp_bitmap.eraseColor(Color.WHITE);
-			double scale_ = GIMap.getScale(m_bounds, m_view);
-			synchronized(m_layers)
-			{
-				m_layers.Redraw(actual_bounds, tmp_bitmap, 255, scale_);
-			}
-			
-			//if(!Thread.currentThread().isInterrupted())	
-			{
-				//Log.d(LOG_TAG, "current " + Thread.currentThread().getId() + " proceed");
-				m_handler.post(new Runnable()
-				{
-					public void run() 
-					{
-						target.RenewBitmap(tmp_bitmap, actual_bounds);
-					}
-				});
-			}
-			target.m_threadStack.kick(true);
-			return;
-		}
-	}
-	class DraftRenderTask implements Runnable
-	{
-		
-		GIBounds actual_bounds;
-		public void run() 
-		{
-			
-			actual_bounds = new GIBounds(m_bounds.projection(), m_bounds.left() - m_bounds.width(),
-			m_bounds.top() + m_bounds.height(), m_bounds.right() + m_bounds.width(), m_bounds.bottom() - m_bounds.height());
-			System.gc();
-			final Bitmap tmp_bitmap = Bitmap.createBitmap(m_view.width(), m_view.height(), Bitmap.Config.ARGB_8888);
-			double scale_ = GIMap.getScale(actual_bounds, m_view);
-			synchronized(m_layers)
-			{
-				m_layers.Redraw(actual_bounds, tmp_bitmap, 255, scale_/3);
-			}
-			m_handler.post(new Runnable()
-			{
-				public void run() 
-				{
-					target.RenewBitmapLarge(tmp_bitmap, actual_bounds);
+				}
+
+				@Override
+				public void onError(Throwable e) {
+
+				}
+
+				@Override
+				public void onNext(Tile tile) {
+					Rect src = new Rect(0, 0, tile.getBitmap().getWidth(), tile.getBitmap().getWidth());
+					m_canvas.drawBitmap(tile.getBitmap(), src, tile.getRect(), null);
+					RenewBitmap(bitmap, GIBounds.copy(m_bounds));
 				}
 			});
-			
-			target.m_threadStack.kick(true);
-			
-			return;
-			
-		}
 	}
+
+
+
+//	class RenderTask implements Runnable
+//	{
+//		GIBounds actual_bounds;
+//		public void run()
+//		{
+//			actual_bounds = new GIBounds(m_bounds.projection(), m_bounds.left(), m_bounds.top(), m_bounds.right(), m_bounds.bottom());
+//			System.gc();
+//			final Bitmap tmp_bitmap = Bitmap.createBitmap(m_view.width(), m_view.height(), Bitmap.Config.ARGB_8888);
+//			tmp_bitmap.eraseColor(Color.WHITE);
+//			double scale_ = GIMap.getScale(m_bounds, m_view);
+//			synchronized(m_layers)
+//			{
+//				m_layers.Redraw(actual_bounds, tmp_bitmap, 255, scale_);
+//			}
+//
+//			//if(!Thread.currentThread().isInterrupted())
+//			{
+//				//Log.d(LOG_TAG, "current " + Thread.currentThread().getId() + " proceed");
+//				m_handler.post(new Runnable()
+//				{
+//					public void run()
+//					{
+//						RenewBitmap(tmp_bitmap, actual_bounds);
+//					}
+//				});
+//			}
+//			m_threadStack.kick(true);
+//			return;
+//		}
+//	}
+
+
+//	class DraftRenderTask implements Runnable
+//	{
+//
+//		GIBounds actual_bounds;
+//		public void run()
+//		{
+//
+//			actual_bounds = new GIBounds(m_bounds.projection(), m_bounds.left() - m_bounds.width(),
+//			m_bounds.top() + m_bounds.height(), m_bounds.right() + m_bounds.width(), m_bounds.bottom() - m_bounds.height());
+//			System.gc();
+//			final Bitmap tmp_bitmap = Bitmap.createBitmap(m_view.width(), m_view.height(), Bitmap.Config.ARGB_8888);
+//			double scale_ = GIMap.getScale(actual_bounds, m_view);
+//			synchronized(m_layers)
+//			{
+//				m_layers.Redraw(actual_bounds, tmp_bitmap, 255, scale_/3);
+//			}
+//			m_handler.post(new Runnable()
+//			{
+//				public void run()
+//				{
+//					RenewBitmapLarge(tmp_bitmap, actual_bounds);
+//				}
+//			});
+//
+//			m_threadStack.kick(true);
+//
+//			return;
+//
+//		}
+//	}
 	
 	public void UpdateMap ()
 	{
+		ReRedraw();
 		m_view_rect = new Rect(m_view);
-		m_threadStack.addTask();
+//		m_threadStack.addTask();
+
+
+
 		fire_afterMapFullRedraw();
 	}
 	public void setToDraft(boolean needed)
 	{
-		m_threadStack.setToDraft(needed);
+//		m_threadStack.setToDraft(needed);
 	}
 
-	class ThreadStack
-	{
-		
-		Thread current;
-		Thread next;
-		boolean ToDoDraft;
-		boolean m_is_draft_nesessary;
-		ThreadStack()
-		{
-			current = null;
-			next = null;
-			ToDoDraft = false;
-			m_is_draft_nesessary = true;
-		}
-		public void setToDraft(boolean needed)
-		{
-			ToDoDraft = needed;
-		}
-		public boolean IsAlive()
-		{
-			if(current != null)
-			{
-				if(current.isAlive())
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-		
-		public void addTask()
-		{
-			if(next != null)
-			{
-//				Thread dummy = next;
+//	class ThreadStack
+//	{
+//
+//		Thread current;
+//		Thread next;
+//		boolean ToDoDraft;
+//		boolean m_is_draft_nesessary;
+//		ThreadStack()
+//		{
+//			current = null;
+//			next = null;
+//			ToDoDraft = false;
+//			m_is_draft_nesessary = true;
+//		}
+//		public void setToDraft(boolean needed)
+//		{
+//			ToDoDraft = needed;
+//		}
+//		public boolean IsAlive()
+//		{
+//			if(current != null)
+//			{
+//				if(current.isAlive())
+//				{
+//					return true;
+//				}
+//			}
+//			return false;
+//		}
+//
+//		public void addTask()
+//		{
+//			if(next != null)
+//			{
+//				next.interrupt();
+//			}
+//			next = new Thread(new RenderTask());
+//			ToDoDraft = true;
+//			kick(false);
+//		}
+//
+//		public void kick(boolean suppress)
+//		{
+//
+//			if(current != null && (current.getState() == Thread.State.RUNNABLE) && !suppress)
+//			{
+//				current.interrupt();
+//				return;
+//			}
+//			else
+//			{
+//				if(next != null)
+//				{
+//					current = next;
+//					next = null;
+//					// TODO MAX_PRIORITY
+//					current.setPriority(Thread.MIN_PRIORITY);
+//					current.start();
+//				}
+//				else
+//				{
+//					if(ToDoDraft)
+//					{
+//						ToDoDraft = false;
+//						current = new Thread(new DraftRenderTask());
+//						// TODO MAX_PRIORITY
+//						current.setPriority(Thread.MIN_PRIORITY);
+//						current.start();
+//					}
+//				}
+//			}
+//		}
+//		public void go_next()
+//		{
+//			if(next != null)
+//			{
+//				current = next;
 //				next = null;
-//				dummy.interrupt();
-				next.interrupt();
-			}
-			next = new Thread(new RenderTask());
-			ToDoDraft = true;
-			kick(false);
-		}
-		
-		public void kick(boolean suppress)
-		{
-			//Log.d(LOG_TAG_THREAD, "kick");
-			if(current != null && (current.getState() == Thread.State.RUNNABLE) && !suppress)//current.isAlive() !current.isInterrupted()
-			{
-//				Thread dummy = current;
-//				current = null;
-//				dummy.interrupt();
-				current.interrupt();
-				//Log.d(LOG_TAG_THREAD, "current " + current.getId() + " interrupting");
-				return;
-			}
-			else 
-			{
-				if(next != null)
-				{
-					current = next;
-					next = null;
-					//Log.d(LOG_TAG, "Next " + current.getId() + " starting as current");
-					// TODO MAX_PRIORITY
-					current.setPriority(Thread.MIN_PRIORITY);
-					current.start();
-				}
-				else
-				{
-					if(ToDoDraft)
-					{
-						ToDoDraft = false;
-						current = new Thread(new DraftRenderTask()); 
-						// TODO MAX_PRIORITY
-						current.setPriority(Thread.MIN_PRIORITY);
-						current.start();
-					}
-				}
-			}
-		}
-		public void go_next()
-		{
-			if(next != null)
-			{
-				current = next;
-				next = null;
-				current.start();
-			}
-			else
-			{
-				current = new Thread(new DraftRenderTask()); ;
-				current.start();
-			}			
-		}		
-		
-	}
+//				current.start();
+//			}
+//			else
+//			{
+//				current = new Thread(new DraftRenderTask()); ;
+//				current.start();
+//			}
+//		}
+//
+//	}
 
 
 	public void RenewBitmap(Bitmap bitmap, GIBounds bounds)
 	{
 		if(bitmap != null)
 		{
-			//m_bitmap.recycle();
-			//m_bitmap = bitmap;
 			m_smooth.Set(bounds, bitmap);
-			//System.gc();
+
 		}
-		//Rect screen = MapToScreen(bounds);
-		//TODO это здесь сбивается scaling после перерисовки?????
-		
-		//m_view_rect.set(screen);
-		target.invalidate();
-		//m_current_working = false;
+		invalidate();
 		fire_afterMapFullRedraw();
 	}
 	public void RenewBitmapLarge(Bitmap bitmap, GIBounds bounds)
@@ -701,11 +738,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		
 		if(bitmap != null)
 		{
-			/*if(large_bitmap != null)
-			{
-				large_bitmap.recycle();
-				//System.gc();
-			}*/
 			if(m_draft != null)
 			{
 				m_draft.Set(bounds, bitmap);
@@ -715,20 +747,10 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 				m_draft = new GIBitmap(bounds, bitmap);
 			}
 		}
-		//m_draft_working = false;
-		//large_bitmap = bitmap;
-		//large_bounds = bounds;
-		target.invalidate();
+
+		invalidate();
 	}	
-	/*public void run()
-	{
-		m_view_rect.set(m_view);
-		m_bitmap.eraseColor(Color.WHITE);
-		double scale_ = GIMap.getScale(m_bounds, m_view);
-		m_layers.Redraw(m_bounds, m_bitmap, 255, scale_);
-		this.invalidate();
-		fire_afterMapFullRedraw();
-	}*/
+
 	public GIBounds getrequestArea(Point point)
 	{
 		double pixelWidth = m_bounds.width() / m_view_rect.width(); 

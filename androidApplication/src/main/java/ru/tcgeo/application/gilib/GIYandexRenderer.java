@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIStyle;
+import ru.tcgeo.application.gilib.models.Tile;
+import rx.Observable;
 
 public class GIYandexRenderer extends GIRenderer {
 
@@ -215,5 +217,8 @@ public class GIYandexRenderer extends GIRenderer {
 	 }*/
 
 
-
+	@Override
+	public Observable<Tile> getTiles(GILayer layer, GIBounds area, Rect rect) {
+		return Observable.empty();
+	}
 }
