@@ -219,11 +219,11 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 			i++; 
 		}
 		Canvas holded_canvas = m_holder.lockCanvas();
-		holded_canvas.drawColor(Color.WHITE);
-		if(m_draft != null)
-		{
-			m_draft.Draw(holded_canvas, m_bounds);
-		}
+//		holded_canvas.drawColor(Color.WHITE);
+//		if(m_draft != null)
+//		{
+//			m_draft.Draw(holded_canvas, m_bounds);
+//		}
 		m_smooth.Draw(holded_canvas, m_bounds);
 		m_holder.unlockCanvasAndPost(holded_canvas);
 
@@ -493,7 +493,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 	private void ReRedraw(){
 		final Bitmap bitmap = Bitmap.createBitmap(m_view.width(), m_view.height(), Bitmap.Config.RGB_565);
 		bitmap.eraseColor(Color.WHITE);
-		final Canvas m_canvas = new Canvas(bitmap);
+//		final Canvas m_canvas = new Canvas(bitmap);
 
 //		Observable<Tile> renderTask =
 //				Observable.from(m_layers.m_list)
@@ -536,7 +536,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 			.subscribe(new Subscriber<Tile>() {
 				@Override
 				public void onCompleted() {
-
+					RenewBitmap(bitmap, GIBounds.copy(m_bounds));
 				}
 
 				@Override
@@ -547,8 +547,9 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 				@Override
 				public void onNext(Tile tile) {
 					Rect src = new Rect(0, 0, tile.getBitmap().getWidth(), tile.getBitmap().getWidth());
-					m_canvas.drawBitmap(tile.getBitmap(), src, tile.getRect(), null);
-					RenewBitmap(bitmap, GIBounds.copy(m_bounds));
+					new Canvas(bitmap).drawBitmap(tile.getBitmap(), src, tile.getRect(), null);
+//					tile.getBitmap().d
+//					RenewBitmap(bitmap, GIBounds.copy(m_bounds));
 				}
 			});
 	}

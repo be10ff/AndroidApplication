@@ -133,7 +133,7 @@ public class GISQLRenderer extends GIRenderer {
 	@Override
 	public Observable<Tile> getTiles(final GILayer layer, final GIBounds bounds, final Rect rect) {
 
-		return /*Observable<Tile> myObservable = */Observable.create(
+		return Observable.create(
 				new Observable.OnSubscribe<Tile>() {
 					@Override
 					public void call(Subscriber<? super Tile> sub) {
@@ -205,11 +205,7 @@ public class GISQLRenderer extends GIRenderer {
 								RectF dst = new RectF(left_scr, top_scr, right_scr, bottom_scr);
 
 								sub.onNext(new Tile(bit_tile, dst));
-								m_canvas.drawBitmap(bit_tile, src, dst, null);
-							}
-							if(Thread.interrupted())
-							{
-								break;
+//								m_canvas.drawBitmap(bit_tile, src, dst, null);
 							}
 						}
 						db.close();
