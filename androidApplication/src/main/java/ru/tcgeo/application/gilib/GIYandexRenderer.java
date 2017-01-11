@@ -16,6 +16,7 @@ import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIStyle;
 import ru.tcgeo.application.gilib.models.Tile;
 import rx.Observable;
+import rx.Subscriber;
 
 public class GIYandexRenderer extends GIRenderer {
 
@@ -36,8 +37,7 @@ public class GIYandexRenderer extends GIRenderer {
 	}
 
 	@Override
-	public void RenderImage(GILayer layer, GIBounds area, int opacity,
-							Bitmap bitmap, double scale)
+	public void RenderImage(GILayer layer, GIBounds area, int opacity, Bitmap bitmap, double scale)
 	{
 		//GIBounds area_y = new GIBounds(area.m_projection, area.m_left, area.m_top, area.m_right, area.m_bottom);
 		m_canvas = new Canvas(bitmap);
@@ -189,36 +189,106 @@ public class GIYandexRenderer extends GIRenderer {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	/*public double[] geoToMercator(double[] g) 
-	 {
-        double d = g[0] * Math.PI / 180, m = g[1] * Math.PI / 180, l = 6378137, k = 0.0818191908426, f = k * Math.sin(m);
-        double h = Math.tan(Math.PI / 4 + m / 2), j = Math.pow(Math.tan(Math.PI / 4 + Math.asin(f) / 2), k), i = h / j;
-        return new double[] { l * d, l * Math.log(i) };
-    }
-	public GILonLat geoToMercator(GILonLat point)
-	{
-		 double[] res = geoToMercator(new double[] { point.lon(),  point.lat() });
-		 return new GILonLat(res[0], res[1]);
-	}
-
-    public double[] mercatorToGeo(double[] e) 
-    {
-        double j = Math.PI, f = j / 2, i = 6378137, n = 0.003356551468879694, k = 0.00000657187271079536, h = 1.764564338702e-8, m = 5.328478445e-11;
-        double g = f - 2 * Math.atan(1 / Math.exp(e[1] / i));
-        double l = g + n * Math.sin(2 * g) + k * Math.sin(4 * g) + h
-                * Math.sin(6 * g) + m * Math.sin(8 * g);
-        double d = e[0] / i;
-        return new double[] { d * 180 / Math.PI, l * 180 / Math.PI };
-    }
-	 public GILonLat mercatorToGeo(GILonLat point)
-	 {
-		 double[] res = mercatorToGeo(new double[] { point.lon(),  point.lat() });
-		 return new GILonLat(res[0], res[1]);
-	 }*/
-
 
 	@Override
-	public Observable<Tile> getTiles(GILayer layer, GIBounds area, Rect rect) {
-		return Observable.empty();
+	public Observable<Tile> getTiles(final GILayer layer, final GIBounds area, final Rect rect) {
+
+		return Observable.create(new Observable.OnSubscribe<Tile>() {
+			@Override
+			public void call(Subscriber<? super Tile> subscriber) {
+				GIBounds area_y = area.Reprojected(layer.projection());
+				int Width_px = rect.width();
+
+				double kf = 360.0f/256.0f;
+
+				double left = area_y.left();
+				double top= area_y.top();
+				double right = area_y.right();
+				double bottom = area_y.bottom();
+
+				double width = right - left;
+
+				double dz = Math.log(Width_px*kf/width)/Math.log(2);
+				int z = (int) Math.round(dz);
+
+				GITileInfoYandex left_top_tile = new GITileInfoYandex(z, area.left(), area.top());
+				GITileInfoYandex right_bottom_tile = new GITileInfoYandex(z, area.right(), area.bottom());
+
+				float koeffX = (float) (rect.width() / (right - left));
+				float koeffY = (float) (rect.height() / (top - bottom));
+
+				for(int x = left_top_tile.m_xtile; x <= right_bottom_tile.m_xtile; x++)
+				{
+					for(int y = left_top_tile.m_ytile; y <= right_bottom_tile.m_ytile; y++)
+					{
+						GITileInfoYandex tile = new GITileInfoYandex(z, x, y);
+
+						Bitmap bit_tile = null;
+						Long TimeStamp = System.currentTimeMillis() / 1000L;
+
+						for(GITrafficTileInfoYandex cached : m_cache)
+						{
+							if(cached.m_zoom == tile.m_zoom && cached.m_xtile == tile.m_xtile && cached.m_ytile == tile.m_ytile && cached.m_TimeStamp < TimeStamp + 600)
+							{
+								bit_tile = cached.m_bitmap;
+								cached.m_used_at_last_time = GITrafficTileInfoYandex.REUSE;
+								reused++;
+							}
+						}
+
+						if(bit_tile == null)
+						{
+							String urlStr = tile.getURL();
+							try {
+								URL url = new URL(urlStr);
+								HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+								urlConnection.connect();
+								InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+								bit_tile = BitmapFactory.decodeStream(in);
+								if(bit_tile == null)
+								{
+									continue;
+								}
+								downloaded_size = downloaded_size + bit_tile.getByteCount();
+								urlConnection.disconnect();
+								downloaded++;
+							} catch (Exception e) {
+//								subscriber.onError(e);
+							}
+						}
+
+
+						m_cache.add(new GITrafficTileInfoYandex(z, x, y, bit_tile));
+
+						Rect src = new Rect(0, 0, bit_tile.getWidth(), bit_tile.getWidth());
+						float left_scr = (float)((tile.m_bounds.TopLeft().lon() - left) * koeffX);
+						float top_scr = (float)(rect.height() - (tile.m_bounds.TopLeft().lat() - bottom) * koeffY);
+						float right_scr = (float) ((tile.m_bounds.BottomRight().lon() - left) * koeffX);
+						float bottom_scr = (float)(rect.height() - (tile.m_bounds.BottomRight().lat() - bottom) * koeffY);
+
+						RectF dst = new RectF(left_scr, top_scr, right_scr, bottom_scr);
+						subscriber.onNext(new Tile(bit_tile, dst));
+						drawed++;
+					}
+				}
+				for(int i = m_cache.size() - 1; i >= 0; i--)
+				{
+					GITrafficTileInfoYandex cached = m_cache.get(i);
+					if(cached.m_used_at_last_time <= 0)
+					{
+						cached.m_bitmap.recycle();
+						m_cache.remove(cached);
+						cached = null;
+						deleted++;
+					}
+					else
+					{
+						cached.m_used_at_last_time--;
+					}
+				}
+
+			}
+		});
 	}
+
 }

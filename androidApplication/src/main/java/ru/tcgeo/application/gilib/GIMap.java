@@ -66,8 +66,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 	Handler m_handler;
 	SurfaceHolder m_holder;
 
-//	ThreadStack m_threadStack = new ThreadStack();
-
 	Subscription subscriptionFine;
 	Subscription subscriptionDraft;
 	//GIControl's works
@@ -584,77 +582,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 				});
 	}
 
-
-
-//	class RenderTask implements Runnable
-//	{
-//		GIBounds actual_bounds;
-//		public void run()
-//		{
-//			actual_bounds = new GIBounds(m_bounds.projection(), m_bounds.left(), m_bounds.top(), m_bounds.right(), m_bounds.bottom());
-//			System.gc();
-//			final Bitmap tmp_bitmap = Bitmap.createBitmap(m_view.width(), m_view.height(), Bitmap.Config.ARGB_8888);
-//			tmp_bitmap.eraseColor(Color.WHITE);
-//			double scale_ = GIMap.getScale(m_bounds, m_view);
-//			synchronized(m_layers)
-//			{
-//				m_layers.Redraw(actual_bounds, tmp_bitmap, 255, scale_);
-//			}
-//
-//			//if(!Thread.currentThread().isInterrupted())
-//			{
-//				//Log.d(LOG_TAG, "current " + Thread.currentThread().getId() + " proceed");
-//				m_handler.post(new Runnable()
-//				{
-//					public void run()
-//					{
-//						RenewBitmap(tmp_bitmap, actual_bounds);
-//					}
-//				});
-//			}
-//			m_threadStack.kick(true);
-//			return;
-//		}
-//	}
-
-
-//	class DraftRenderTask implements Runnable
-//	{
-//
-//		GIBounds actual_bounds;
-//		public void run()
-//		{
-//
-//			actual_bounds = new GIBounds(m_bounds.projection(), m_bounds.left() - m_bounds.width(),
-//			m_bounds.top() + m_bounds.height(), m_bounds.right() + m_bounds.width(), m_bounds.bottom() - m_bounds.height());
-//			System.gc();
-//			final Bitmap tmp_bitmap = Bitmap.createBitmap(m_view.width(), m_view.height(), Bitmap.Config.ARGB_8888);
-//			double scale_ = GIMap.getScale(actual_bounds, m_view);
-//			synchronized(m_layers)
-//			{
-//				m_layers.Redraw(actual_bounds, tmp_bitmap, 255, scale_/3);
-//			}
-//			m_handler.post(new Runnable()
-//			{
-//				public void run()
-//				{
-//					RenewBitmapLarge(tmp_bitmap, actual_bounds);
-//				}
-//			});
-//
-//			m_threadStack.kick(true);
-//
-//			return;
-//
-//		}
-//	}
-
-	public void onAction(){
-		reRedrawFine();
-		m_view_rect = new Rect(m_view);
-		fire_afterMapFullRedraw();
-	}
-	
 	public void UpdateMap ()
 	{
 		reRedrawFine();
@@ -665,96 +592,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 	{
 //		m_threadStack.setToDraft(needed);
 	}
-
-//	class ThreadStack
-//	{
-//
-//		Thread current;
-//		Thread next;
-//		boolean ToDoDraft;
-//		boolean m_is_draft_nesessary;
-//		ThreadStack()
-//		{
-//			current = null;
-//			next = null;
-//			ToDoDraft = false;
-//			m_is_draft_nesessary = true;
-//		}
-//		public void setToDraft(boolean needed)
-//		{
-//			ToDoDraft = needed;
-//		}
-//		public boolean IsAlive()
-//		{
-//			if(current != null)
-//			{
-//				if(current.isAlive())
-//				{
-//					return true;
-//				}
-//			}
-//			return false;
-//		}
-//
-//		public void addTask()
-//		{
-//			if(next != null)
-//			{
-//				next.interrupt();
-//			}
-//			next = new Thread(new RenderTask());
-//			ToDoDraft = true;
-//			kick(false);
-//		}
-//
-//		public void kick(boolean suppress)
-//		{
-//
-//			if(current != null && (current.getState() == Thread.State.RUNNABLE) && !suppress)
-//			{
-//				current.interrupt();
-//				return;
-//			}
-//			else
-//			{
-//				if(next != null)
-//				{
-//					current = next;
-//					next = null;
-//					// TODO MAX_PRIORITY
-//					current.setPriority(Thread.MIN_PRIORITY);
-//					current.start();
-//				}
-//				else
-//				{
-//					if(ToDoDraft)
-//					{
-//						ToDoDraft = false;
-//						current = new Thread(new DraftRenderTask());
-//						// TODO MAX_PRIORITY
-//						current.setPriority(Thread.MIN_PRIORITY);
-//						current.start();
-//					}
-//				}
-//			}
-//		}
-//		public void go_next()
-//		{
-//			if(next != null)
-//			{
-//				current = next;
-//				next = null;
-//				current.start();
-//			}
-//			else
-//			{
-//				current = new Thread(new DraftRenderTask()); ;
-//				current.start();
-//			}
-//		}
-//
-//	}
-
 
 	public void RenewBitmap(Bitmap bitmap, GIBounds bounds)
 	{

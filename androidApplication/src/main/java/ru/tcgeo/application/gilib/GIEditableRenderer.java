@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
 
@@ -17,6 +18,7 @@ import ru.tcgeo.application.gilib.models.Tile;
 import ru.tcgeo.application.wkt.GIWKTParser;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import rx.Observable;
+import rx.Subscriber;
 
 
 public class GIEditableRenderer extends GIRenderer {
@@ -142,8 +144,33 @@ public class GIEditableRenderer extends GIRenderer {
 	}
 
 	@Override
-	public Observable<Tile> getTiles(GILayer layer, GIBounds area, Rect rect) {
-		return Observable.empty();
+	public Observable<Tile> getTiles(final GILayer _layer, final GIBounds area, final Rect rect) {
+		return Observable.create(new Observable.OnSubscribe<Tile>() {
+			@Override
+			public void call(Subscriber<? super Tile> subscriber) {
+				double scale = GIMap.getScale(area, rect);
+				double _scale = GIMap.getScale(area, new Rect(0, 0, rect.width(), rect.height()));
+				if(_scale == 0){return;}
+				float scale_factor = (float) (scale/_scale);
+				//TODO
+				if(scale_factor != 1)
+				{
+					Log.d("LOG_TAG", "skipped");
+					return;
+				}
+				GIEditableLayer layer = (GIEditableLayer)_layer;
+
+				final Bitmap bitmap = Bitmap.createBitmap(rect.width(), rect.height(), Bitmap.Config.RGB_565);
+				bitmap.eraseColor(Color.TRANSPARENT);
+				Canvas canvas = new Canvas(bitmap);
+
+				for(GI_WktGeometry geom : layer.m_shapes)
+				{
+					geom.Draw(canvas, area, scale_factor, layer.m_style.m_paint_pen);
+					geom.Draw(canvas, area, scale_factor, layer.m_style.m_paint_brush);
+				}
+			}
+		});
 	}
 
 	@Override
