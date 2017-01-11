@@ -204,6 +204,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
 						m_map.ScaleViewBy(m_focus, m_ScaleFactor);
 				}
 
+//				m_map.onAction();
 				m_map.invalidate();
 				break;
 			}
@@ -293,15 +294,15 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
 
 	public void onClick(View arg0)
 	{
-		if(!m_IsMultyClick&&!m_IsMoveClick &&!m_IsRule && !m_IsSquare && !GIEditLayersKeeper.Instance().IsRunning())
-		{
-			m_IsClick = false;
-			m_IsLongClick = true;
-			GILonLat lonlat = m_map.ScreenToMap(new Point((int)x, (int)y));
-			Point point = m_map.MapToScreen(lonlat);
-			GIDataRequestorImp requestor = new GIDataRequestorImp(this.getContext(), new Point((int)x, (int)y), m_map.ps);
-		    m_map.RequestDataInPoint(new Point((int)x, (int)y), requestor);
-		    requestor.ShowDialog(this.getContext(), new Point(point.x, point.y), m_map);
-		}
-	}	
+//		if(!m_IsMultyClick&&!m_IsMoveClick &&!m_IsRule && !m_IsSquare && !GIEditLayersKeeper.Instance().IsRunning())
+//		{
+//			m_IsClick = false;
+//			m_IsLongClick = true;
+//			GILonLat lonlat = m_map.ScreenToMap(new Point((int)x, (int)y));
+//			Point point = m_map.MapToScreen(lonlat);
+//			GIDataRequestorImp requestor = new GIDataRequestorImp(this.getContext(), new Point((int)x, (int)y), m_map.ps);
+//		    m_map.RequestDataInPoint(new Point((int)x, (int)y), requestor);
+//		    requestor.ShowDialog(this.getContext(), new Point(point.x, point.y), m_map);
+//		}
+	}
 }

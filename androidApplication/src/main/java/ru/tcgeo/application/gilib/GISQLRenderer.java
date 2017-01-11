@@ -197,15 +197,12 @@ public class GISQLRenderer extends GIRenderer {
 							float koeffY = (float) (rect.height() / (top - bottom));
 							if(bit_tile != null)
 							{
-								Rect src = new Rect(0, 0, bit_tile.getWidth(), bit_tile.getWidth());
 								float left_scr = (float)((tile.m_bounds.TopLeft().lon() - left) * koeffX);
 								float top_scr = (float)(rect.height() - (tile.m_bounds.TopLeft().lat() - bottom) * koeffY);
 								float right_scr = (float) ((tile.m_bounds.BottomRight().lon() - left) * koeffX);
 								float bottom_scr = (float)(rect.height() - (tile.m_bounds.BottomRight().lat() - bottom) * koeffY);
 								RectF dst = new RectF(left_scr, top_scr, right_scr, bottom_scr);
-
 								sub.onNext(new Tile(bit_tile, dst));
-//								m_canvas.drawBitmap(bit_tile, src, dst, null);
 							}
 						}
 						db.close();
@@ -213,7 +210,6 @@ public class GISQLRenderer extends GIRenderer {
 					}
 				}
 		);
-//		return  myObservable;
 	}
 
 	@Override

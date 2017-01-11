@@ -37,8 +37,8 @@ import ru.tcgeo.application.gilib.parser.GISQLDB;
 import ru.tcgeo.application.utils.MapUtils;
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -49,7 +49,8 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 	GIBitmap m_draft;
 
 	GIBounds m_bounds;	// current view extent & projection
-	 public Rect m_view; 		// view size		
+	 public Rect m_view; 		// view size
+	//// TODO: 11.01.17 is  m_view_rect nesessary??
 	Rect m_view_rect;	// viewable part of bitmap
 	public final String LOG_TAG = "LOG_TAG";
 	public ru.tcgeo.application.gilib.parser.GIProjectProperties ps;
@@ -64,7 +65,11 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 	
 	Handler m_handler;
 	SurfaceHolder m_holder;
-	
+
+//	ThreadStack m_threadStack = new ThreadStack();
+
+	Subscription subscriptionFine;
+	Subscription subscriptionDraft;
 	//GIControl's works
 	
 	private ArrayList<GIControl> m_listeners = new ArrayList<GIControl>();
@@ -214,17 +219,18 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		if(m_holder.getSurface() == null)
 			return;
 		int i = 0;
-		while(!m_holder.getSurface().isValid())
-		{
+		while(!m_holder.getSurface().isValid()){
 			i++; 
 		}
 		Canvas holded_canvas = m_holder.lockCanvas();
+		//// TODO: 11.01.17
 //		holded_canvas.drawColor(Color.WHITE);
-//		if(m_draft != null)
-//		{
-//			m_draft.Draw(holded_canvas, m_bounds);
-//		}
-		m_smooth.Draw(holded_canvas, m_bounds);
+		if(m_draft != null){
+			m_draft.Draw(holded_canvas, m_bounds);
+		}
+		if(m_smooth != null) {
+			m_smooth.Draw(holded_canvas, m_bounds);
+		}
 		m_holder.unlockCanvasAndPost(holded_canvas);
 
     }
@@ -378,9 +384,8 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		SetBounds(new_bounds);
 	}
 	
-	public void SetCenter (GILonLat point, double diagonal, GIProjection proj)
-	{
-		// TODO
+	public void SetCenter (GILonLat point, double diagonal, GIProjection proj){
+
 	}
 	
 	public void MoveMapBy (double x, double y)
@@ -490,68 +495,93 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		fire_onViewMove();
 	}
 	
-	private void ReRedraw(){
-		final Bitmap bitmap = Bitmap.createBitmap(m_view.width(), m_view.height(), Bitmap.Config.RGB_565);
-		bitmap.eraseColor(Color.WHITE);
-//		final Canvas m_canvas = new Canvas(bitmap);
+	private void reRedrawFine(){
+		//// TODO: 11.01.17
+//		final Bitmap bitmap = Bitmap.createBitmap(m_view.width(), m_view.height(), Bitmap.Config.RGB_565);
+//		m_smooth.getBitmap().eraseColor(Color.TRANSPARENT);
 
-//		Observable<Tile> renderTask =
-//				Observable.from(m_layers.m_list)
-//				.flatMap(new Func1<GITuple, Observable<Tile>>() {
-//					@Override
-//					public Observable<Tile> call(GITuple giTuple) {
-//						return giTuple.layer.getRedrawTiles(GIBounds.copy(m_bounds), m_view);
-//					}
-//				});
-//		renderTask.subscribeOn(Schedulers.newThread())
-//				.observeOn(AndroidSchedulers.mainThread())
-//				.subscribe(new Subscriber<Tile>() {
-//					@Override
-//					public void onCompleted() {
+//		if(subscriptionFine != null && subscriptionFine.isUnsubscribed()){
+//			subscriptionFine.unsubscribe();
+//		}
 //
-//					}
-//
-//					@Override
-//					public void onError(Throwable e) {
-//
-//					}
-//
-//					@Override
-//					public void onNext(Tile tile) {
-//						Rect src = new Rect(0, 0, tile.getBitmap().getWidth(), tile.getBitmap().getWidth());
-//						m_canvas.drawBitmap(tile.getBitmap(), src, tile.getRect(), null);
-//						RenewBitmap(bitmap, GIBounds.copy(m_bounds));
-//					}
-//				});
+//		if(subscriptionDraft != null && subscriptionDraft.isUnsubscribed()){
+//			subscriptionDraft.unsubscribe();
+//		}
 
-			Observable.from(m_layers.m_list)
+
+
+		subscriptionFine = Observable.from(m_layers.m_list)
 					.flatMap(new Func1<GITuple, Observable<Tile>>() {
 						@Override
 						public Observable<Tile> call(GITuple giTuple) {
 							return giTuple.layer.getRedrawTiles(GIBounds.copy(m_bounds), m_view);
 						}
 					})
-			.subscribeOn(Schedulers.newThread())
-			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe(new Subscriber<Tile>() {
-				@Override
-				public void onCompleted() {
-					RenewBitmap(bitmap, GIBounds.copy(m_bounds));
-				}
+				.onBackpressureBuffer()
+				.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(new Subscriber<Tile>() {
+					@Override
+					public void onCompleted() {
+						reRedrawDraft();
+//						RenewBitmap(bitmap, GIBounds.copy(m_bounds));
+					}
 
-				@Override
-				public void onError(Throwable e) {
+					@Override
+					public void onError(Throwable e) {
+						reRedrawDraft();
+//						RenewBitmap(bitmap, GIBounds.copy(m_bounds));
+					}
 
-				}
+					@Override
+					public void onNext(Tile tile) {
+						Rect src = new Rect(0, 0, tile.getBitmap().getWidth(), tile.getBitmap().getWidth());
+						new Canvas(m_smooth.getBitmap()).drawBitmap(tile.getBitmap(), src, tile.getRect(), null);
+//							tile.getBitmap().recycle();
+						RenewBitmap(m_smooth.getBitmap(), GIBounds.copy(m_bounds));
+					}
+				});
+	}
 
-				@Override
-				public void onNext(Tile tile) {
-					Rect src = new Rect(0, 0, tile.getBitmap().getWidth(), tile.getBitmap().getWidth());
-					new Canvas(bitmap).drawBitmap(tile.getBitmap(), src, tile.getRect(), null);
-//					tile.getBitmap().d
-//					RenewBitmap(bitmap, GIBounds.copy(m_bounds));
-				}
-			});
+	private void reRedrawDraft(){
+		final Bitmap bitmap = Bitmap.createBitmap(m_view.width(), m_view.height(), Bitmap.Config.RGB_565);
+		bitmap.eraseColor(Color.WHITE);
+
+		final GIBounds bounds = new GIBounds(m_bounds.projection(), m_bounds.left() - m_bounds.width(),
+				m_bounds.top() + m_bounds.height(), m_bounds.right() + m_bounds.width(), m_bounds.bottom() - m_bounds.height());
+
+//		if(subscriptionDraft != null && subscriptionDraft.isUnsubscribed()){
+//			subscriptionDraft.unsubscribe();
+//		}
+
+		subscriptionDraft = Observable.from(m_layers.m_list)
+				.flatMap(new Func1<GITuple, Observable<Tile>>() {
+					@Override
+					public Observable<Tile> call(GITuple giTuple) {
+						return giTuple.layer.getRedrawTiles(bounds, m_view);
+					}
+				})
+				.onBackpressureBuffer()
+				.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(new Subscriber<Tile>() {
+					@Override
+					public void onCompleted() {
+						RenewBitmapLarge(bitmap, bounds);
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						RenewBitmapLarge(bitmap, bounds);
+					}
+
+					@Override
+					public void onNext(Tile tile) {
+						Rect src = new Rect(0, 0, tile.getBitmap().getWidth(), tile.getBitmap().getWidth());
+						new Canvas(bitmap).drawBitmap(tile.getBitmap(), src, tile.getRect(), null);
+//							tile.getBitmap().recycle();
+					}
+				});
 	}
 
 
@@ -618,15 +648,17 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 //
 //		}
 //	}
+
+	public void onAction(){
+		reRedrawFine();
+		m_view_rect = new Rect(m_view);
+		fire_afterMapFullRedraw();
+	}
 	
 	public void UpdateMap ()
 	{
-		ReRedraw();
+		reRedrawFine();
 		m_view_rect = new Rect(m_view);
-//		m_threadStack.addTask();
-
-
-
 		fire_afterMapFullRedraw();
 	}
 	public void setToDraft(boolean needed)
@@ -748,7 +780,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 				m_draft = new GIBitmap(bounds, bitmap);
 			}
 		}
-
 		invalidate();
 	}	
 
