@@ -17,7 +17,7 @@ public class GIBitmap
 		this.width = width;
 		this.height = height;
 		System.gc();
-		bitmap =  Bitmap.createBitmap(this.width, this.height, Bitmap.Config.RGB_565);
+		bitmap =  Bitmap.createBitmap(this.width, this.height, Bitmap.Config.ARGB_8888);
 		this.bounds = bounds;
 	}
 	

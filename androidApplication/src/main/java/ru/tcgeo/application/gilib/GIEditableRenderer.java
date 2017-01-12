@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.Log;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
@@ -156,11 +157,11 @@ public class GIEditableRenderer extends GIRenderer {
 				if(scale_factor != 1)
 				{
 					Log.d("LOG_TAG", "skipped");
-					return;
+					subscriber.onCompleted();
 				}
 				GIEditableLayer layer = (GIEditableLayer)_layer;
 
-				final Bitmap bitmap = Bitmap.createBitmap(rect.width(), rect.height(), Bitmap.Config.RGB_565);
+				final Bitmap bitmap = Bitmap.createBitmap(rect.width(), rect.height(), Bitmap.Config.ARGB_4444);
 				bitmap.eraseColor(Color.TRANSPARENT);
 				Canvas canvas = new Canvas(bitmap);
 
@@ -169,6 +170,8 @@ public class GIEditableRenderer extends GIRenderer {
 					geom.Draw(canvas, area, scale_factor, layer.m_style.m_paint_pen);
 					geom.Draw(canvas, area, scale_factor, layer.m_style.m_paint_brush);
 				}
+				subscriber.onNext(new Tile(bitmap, new RectF(rect)));
+				subscriber.onCompleted();
 			}
 		});
 	}

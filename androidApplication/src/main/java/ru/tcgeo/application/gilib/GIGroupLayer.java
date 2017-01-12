@@ -11,6 +11,7 @@ import ru.tcgeo.application.gilib.models.GIScaleRange;
 import ru.tcgeo.application.gilib.models.Tile;
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Func1;
 
 
 public class GIGroupLayer extends GILayer
@@ -76,7 +77,83 @@ public class GIGroupLayer extends GILayer
 
 	@Override
 	public Observable<Tile> getRedrawTiles(final GIBounds area, final Rect viewRect) {
-		return Observable.empty();
+
+		final double _scale = GIMap.getScale(area, new Rect(0, 0, viewRect.width(), viewRect.width()));
+		if(_scale == 0){
+			return Observable.empty();
+		}
+
+		return Observable.from(m_list)
+				.filter(new Func1<GITuple, Boolean>() {
+					@Override
+					public Boolean call(GITuple giTuple) {
+						return giTuple.visible && giTuple.scale_range.IsWithinRange(_scale);
+					}
+				})
+
+				.flatMap(new Func1<GITuple, Observable<Tile>>() {
+					@Override
+					public Observable<Tile> call(GITuple giTuple) {
+						return giTuple.layer.getRedrawTiles(GIBounds.copy(area), viewRect);
+					}
+				})
+				.concatWith(Observable.from(m_list)
+						.filter(new Func1<GITuple, Boolean>() {
+							@Override
+							public Boolean call(GITuple giTuple) {
+								return giTuple.visible && giTuple.scale_range.IsWithinRange(_scale);
+							}
+						})
+
+						.flatMap(new Func1<GITuple, Observable<Tile>>() {
+							@Override
+							public Observable<Tile> call(GITuple giTuple) {
+//								return giTuple.layer.getRedrawTiles(GIBounds.copy(area), viewRect);
+								return Observable.empty();
+							}
+						})
+				);
+
+
+//		return Observable.create(new Observable.OnSubscribe<Tile>() {
+//			@Override
+//			public void call(Subscriber<? super Tile> subscriber) {
+//				double _scale = GIMap.getScale(area, new Rect(0, 0, viewRect.width(), viewRect.width()));
+//				if(_scale == 0){
+//					subscriber.onCompleted();
+//				}
+//
+//				for (int i = 0; i < m_list.size(); ++i)
+//				{
+//
+//					if(m_list.get(i).visible && m_list.get(i).scale_range.IsWithinRange(_scale)) //_scale/scale_factor
+//					{
+////						m_list.get(i).layer.Redraw(area, viewRect, opacity, scale);
+//						m_list.get(i).layer.getRedrawTiles(area, viewRect);
+//					}
+//
+//				}
+//
+//				// wkbMultiPoint, wkbPolygon, wkbLineString, any unknown&undefined
+//				// in RedrawLabels order
+//				int[] types = {4 ,3, 2, 0};
+//				for(int t = 0; t < types.length; t++)
+//				{
+//					int type = types[t];
+//					for (int i = 0; i < m_list.size(); ++i)
+//					{
+//						if(m_list.get(i).layer.getType() == type)
+//						{
+//							if(m_list.get(i).visible && m_list.get(i).scale_range.IsWithinRange(_scale))
+//							{
+//								//todo
+////								m_list.get(i).layer.RedrawLabels(area, bitmap, scale_factor, scale);//Redraw(area, bitmap, opacity, scale);
+//							}
+//						}
+//					}
+//				}
+//			}
+//		});
 	}
 
 	public int AddLayer(GILayer layer)
