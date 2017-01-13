@@ -1,6 +1,6 @@
 package ru.tcgeo.application.home_screen.adapter;
 
-import ru.tcgeo.application.gilib.GIPList;
+import ru.tcgeo.application.gilib.models.GIPList;
 
 /**
  * Created by a_belov on 06.07.15.

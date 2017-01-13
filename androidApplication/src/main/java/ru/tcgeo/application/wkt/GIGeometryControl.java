@@ -9,10 +9,10 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.GIControl;
+import ru.tcgeo.application.gilib.control.GIControl;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
-import ru.tcgeo.application.gilib.GIEditableLayer;
-import ru.tcgeo.application.gilib.GIGeometryPointControl;
+import ru.tcgeo.application.layer.GIEditableLayer;
+import ru.tcgeo.application.gilib.control.GIGeometryPointControl;
 import ru.tcgeo.application.gilib.GIMap;
 
 public class GIGeometryControl extends View implements GIControl

@@ -1,6 +1,6 @@
 package ru.tcgeo.application.home_screen.adapter;
 
-import ru.tcgeo.application.gilib.GIEditableLayer;
+import ru.tcgeo.application.layer.GIEditableLayer;
 
 /**
  * Created by a_belov on 06.07.15.

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import ru.tcgeo.application.gilib.GISQLLayer;
+import ru.tcgeo.application.layer.GISQLLayer;
 
 public class GISQLDB {
 

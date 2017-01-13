@@ -16,12 +16,12 @@ import android.widget.RelativeLayout;
 
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.GIControl;
+import ru.tcgeo.application.gilib.control.GIControl;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.GIRuleToolControl;
+import ru.tcgeo.application.gilib.control.GIRuleToolControl;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktPoint;

@@ -10,8 +10,8 @@ import android.widget.TextView;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
-import ru.tcgeo.application.gilib.GIEditableLayer;
-import ru.tcgeo.application.gilib.GIGroupLayer;
+import ru.tcgeo.application.layer.GIEditableLayer;
+import ru.tcgeo.application.layer.GIGroupLayer;
 
 /**
  * Created by a_belov on 06.07.15.

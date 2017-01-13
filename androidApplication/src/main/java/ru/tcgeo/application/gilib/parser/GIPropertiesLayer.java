@@ -5,10 +5,9 @@ import java.util.ArrayList;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.models.GIEncoding;
-import ru.tcgeo.application.gilib.GILayer;
+import ru.tcgeo.application.layer.GILayer;
 //import ru.tcgeo.application.gilib.models.GIIcon;
 
 public class GIPropertiesLayer implements ILayersRoot

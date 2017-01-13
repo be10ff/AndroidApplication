@@ -1,6 +1,6 @@
 package ru.tcgeo.application.home_screen.adapter;
 
-import ru.tcgeo.application.gilib.GITuple;
+import ru.tcgeo.application.layer.GITuple;
 
 /**
  * Created by a_belov on 06.07.15.

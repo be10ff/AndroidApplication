@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
-import ru.tcgeo.application.gilib.GIEditableSQLiteLayer;
+import ru.tcgeo.application.layer.GIEditableSQLiteLayer;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;

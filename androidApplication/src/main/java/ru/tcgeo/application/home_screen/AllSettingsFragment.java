@@ -25,14 +25,12 @@ import ru.tcgeo.application.App;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.IFolderItemListener;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.GIEditableRenderer;
-import ru.tcgeo.application.gilib.GILayer;
+import ru.tcgeo.application.layer.renderer.GIEditableRenderer;
+import ru.tcgeo.application.layer.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.home_screen.adapter.LayersAdapterItem;
 import ru.tcgeo.application.utils.ProjectChangedEvent;
-import ru.tcgeo.application.views.OpenFileDialog;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**

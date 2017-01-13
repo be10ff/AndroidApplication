@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.GILayer;
+import ru.tcgeo.application.layer.GILayer;
 
 /**
  * Created by a_belov on 06.07.15.

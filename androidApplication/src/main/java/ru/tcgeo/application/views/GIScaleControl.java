@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.GIControl;
+import ru.tcgeo.application.gilib.control.GIControl;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.GIMap;
 

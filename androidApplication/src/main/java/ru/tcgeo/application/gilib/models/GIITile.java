@@ -1,9 +1,7 @@
 package ru.tcgeo.application.gilib.models;
 
 
-import ru.tcgeo.application.gilib.GILayer;
-import ru.tcgeo.application.gilib.GISQLYandexTile;
-import ru.tcgeo.application.gilib.GITileInfoOSM;
+import ru.tcgeo.application.layer.GILayer;
 
 public abstract class GIITile
 {

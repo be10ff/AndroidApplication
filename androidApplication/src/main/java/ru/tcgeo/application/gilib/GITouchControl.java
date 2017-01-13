@@ -11,8 +11,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 
+import ru.tcgeo.application.gilib.control.GIControl;
+import ru.tcgeo.application.gilib.control.GIRuleToolControl;
+import ru.tcgeo.application.gilib.control.GISquareToolControl;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.layer.requestor.GIDataRequestorImp;
 
 
 public class GITouchControl extends View implements GIControl, OnLongClickListener, OnClickListener

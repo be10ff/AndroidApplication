@@ -5,7 +5,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import ru.tcgeo.application.gilib.models.GIEncoding;
 //import ru.tcgeo.application.gilib.models.GIIcon;
-import ru.tcgeo.application.gilib.GILayer;
+import ru.tcgeo.application.layer.GILayer;
 
 
 public class GIParserLayer extends GIParser

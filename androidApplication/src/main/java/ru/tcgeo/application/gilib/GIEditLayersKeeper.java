@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import android.app.FragmentManager;
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationManager;
@@ -17,6 +16,8 @@ import android.view.View;
 
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.control.GIGeometryPointControl;
+import ru.tcgeo.application.gilib.control.GIPositionControl;
 import ru.tcgeo.application.gilib.gps.GICompassFragment;
 //import ru.tcgeo.application.gilib.gps.GIGPSDialog;
 import ru.tcgeo.application.gilib.gps.GILocatorFragment;
@@ -25,6 +26,10 @@ import ru.tcgeo.application.gilib.gps.GIXMLTrack;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
+import ru.tcgeo.application.layer.GIEditableLayer;
+import ru.tcgeo.application.layer.GILayer;
+import ru.tcgeo.application.view.GIEditAttributesFragment;
+import ru.tcgeo.application.view.GILonLatInputDialog;
 import ru.tcgeo.application.wkt.GIDBaseField;
 import ru.tcgeo.application.wkt.GIGeometryControl;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
