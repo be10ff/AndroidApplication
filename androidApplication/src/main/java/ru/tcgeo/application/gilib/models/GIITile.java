@@ -19,6 +19,10 @@ public abstract class GIITile
 			{
 				return new GISQLYandexTile(z, lon, lat);
 			}
+			case FOLDER:
+			{
+				return new GISQLYandexTile(z, lon, lat);
+			}
 			default:
 			{
 				return new GITileInfoOSM(z, lon, lat);
@@ -34,6 +38,10 @@ public abstract class GIITile
 				return new GITileInfoOSM(z, tile_x, tile_y);
 			}
 			case SQL_YANDEX_LAYER:
+			{
+				return new GISQLYandexTile(z, tile_x, tile_y);
+			}
+			case FOLDER:
 			{
 				return new GISQLYandexTile(z, tile_x, tile_y);
 			}

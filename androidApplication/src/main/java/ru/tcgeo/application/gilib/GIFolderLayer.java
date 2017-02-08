@@ -37,7 +37,7 @@ public class GIFolderLayer extends GILayer {
 	{
 		m_path = path;
 		type_ = GILayerType.ON_LINE;
-		m_renderer = new GISQLRenderer();
+		m_renderer = new GIFolderRenderer();
 		m_projection = GIProjection.WGS84();
 		max = 19;
 		min = 0;
@@ -145,7 +145,7 @@ public class GIFolderLayer extends GILayer {
 	 * @param actual "актуальный" уровень
 	 * @return tiles массив тайлов покрытия
 	 */
-	public ArrayList<GITileInfoOSM> GetTilesIteration (SQLiteDatabase db, ArrayList<GITileInfoOSM> tiles, GITileInfoOSM root, GIBounds area, GIBounds bounds, int z, int to, int actual)
+	public ArrayList<GITileInfoOSM> GetTilesIteration (ArrayList<GITileInfoOSM> tiles, GITileInfoOSM root, GIBounds area, GIBounds bounds, int z, int to, int actual)
 	{
     	GITileInfoOSM left_top_tile = GIITile.CreateTile(z, bounds.left(), bounds.top(), type_);
         GITileInfoOSM right_bottom_tile = GIITile.CreateTile(z, bounds.right(), bounds.bottom(), type_);
@@ -155,7 +155,7 @@ public class GIFolderLayer extends GILayer {
     		for(int y = left_top_tile.m_ytile; y <= right_bottom_tile.m_ytile; y++)
     		{
     			GITileInfoOSM tile =  GIITile.CreateTile(z, x, y, type_);
-    			if(IsTilePresent(db, tile))
+    			if(IsTilePresent(tile))
     			{
     				tiles.add(tile);
     				if(z < actual)
@@ -163,7 +163,7 @@ public class GIFolderLayer extends GILayer {
     					GIBounds bo = tile.getBounds().Intersect(area);
     					if(bo != null)
     					{
-    						tiles = GetTilesIteration(db, tiles, tile, area, bo, z+1, to, actual);
+    						tiles = GetTilesIteration(tiles, tile, area, bo, z+1, to, actual);
     					}
     				}
     			}
@@ -175,7 +175,7 @@ public class GIFolderLayer extends GILayer {
     					GIBounds bo = tile.getBounds().Intersect(area);
     					if(bo != null)
     					{
-    						tiles = GetTilesIteration(db, tiles, tile, area, bo, z+1, to, actual);
+    						tiles = GetTilesIteration(tiles, tile, area, bo, z+1, to, actual);
     					}
     				}
     			}
@@ -203,7 +203,7 @@ public class GIFolderLayer extends GILayer {
     	}
     	return tiles;
 	}
-	public ArrayList<GITileInfoOSM> GetTiles(SQLiteDatabase db, GIBounds area, int actual)
+	public ArrayList<GITileInfoOSM> GetTilesAdaptive(GIBounds area, int actual)
 	{
 		ArrayList<GITileInfoOSM> tiles = new ArrayList<GITileInfoOSM>();
 		int from = actual - 2;
@@ -220,7 +220,7 @@ public class GIFolderLayer extends GILayer {
 		{
 			return tiles;
 		}
-		tiles = GetTilesIteration(db, tiles, null, area, area, from, to, actual);
+		tiles = GetTilesIteration(tiles, null, area, area, from, to, actual);
 		Collections.sort(tiles, new Comparator<GITileInfoOSM>()
 				{
 					public int compare(GITileInfoOSM lhs, GITileInfoOSM rhs) {
