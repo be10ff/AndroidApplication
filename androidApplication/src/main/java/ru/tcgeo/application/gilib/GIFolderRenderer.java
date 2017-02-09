@@ -23,9 +23,10 @@ public class GIFolderRenderer extends GIRenderer {
 	}
 
 	@Override
-	public void RenderImage(GILayer layer, GIBounds area, int opacity, Bitmap bitmap, double scale)
+	public void RenderImage(GILayer layer_, GIBounds area, int opacity, Bitmap bitmap, double scale)
 	{
-		m_canvas = new Canvas(bitmap);
+        GIFolderLayer layer = (GIFolderLayer)layer_;
+        m_canvas = new Canvas(bitmap);
 		area = area.Reprojected(layer.projection());
 		int Width_px = bitmap.getWidth();
 
@@ -43,8 +44,8 @@ public class GIFolderRenderer extends GIRenderer {
         int z = (int) Math.round(dz);
 
 
-        z = ((GISQLLayer)layer).getLevel(z);
-        if(layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.AUTO && (((GISQLLayer)layer).getMin() > z || ((GISQLLayer)layer).getMax() < z))
+        z = ((GIFolderLayer)layer).getLevel(z);
+        if(layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.AUTO && (layer.getMin() > z || layer.getMax() < z))
         {
         	return;
         }
@@ -56,7 +57,7 @@ public class GIFolderRenderer extends GIRenderer {
         }
         try
         {
-        	ArrayList<GITileInfoOSM> tiles = new ArrayList<GITileInfoOSM>();
+        	ArrayList<GITileInfoFolder> tiles = new ArrayList<GITileInfoFolder>();
         	if(layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.ADAPTIVE)
         	{
         		tiles = ((GIFolderLayer)layer).GetTilesAdaptive(area, z);
@@ -66,43 +67,33 @@ public class GIFolderRenderer extends GIRenderer {
             	tiles = ((GIFolderLayer)layer).GetTiles(area, z);
         	}
 
-        	for(int i = 0; i < tiles.size(); i++)
+
+			for(int i = 0; i < tiles.size(); i++)
         	{
-    			GITileInfoOSM tile = tiles.get(i);
-    			Bitmap bit_tile = null;
+				GITileInfoFolder tile = tiles.get(i);
 
+				if(layer.IsTilePresent(tile)){
+					Bitmap bit_tile = BitmapFactory.decodeFile(layer.getTilePath(tile));
+					float koeffX = (float) (bitmap.getWidth() / (right - left));
+					float koeffY = (float) (bitmap.getHeight() / (top - bottom));
+					if(bit_tile != null)
+					{
+						Rect src = new Rect(0, 0, bit_tile.getWidth(), bit_tile.getWidth());
+						float left_scr = (float)((tile.m_bounds.TopLeft().lon() - left) * koeffX);
+						float top_scr = (float)(bitmap.getHeight() - (tile.m_bounds.TopLeft().lat() - bottom) * koeffY);
+						float right_scr = (float) ((tile.m_bounds.BottomRight().lon() - left) * koeffX);
+						float bottom_scr = (float)(bitmap.getHeight() - (tile.m_bounds.BottomRight().lat() - bottom) * koeffY);
+						RectF dst = new RectF(left_scr, top_scr, right_scr, bottom_scr);
+						m_canvas.drawBitmap(bit_tile, src, dst, null);
+						bit_tile.recycle();
+					}
+				}
 
-				String sql_string = String.format(Locale.ENGLISH, "SELECT image FROM tiles WHERE x=%d AND y=%d AND z=%d", tile.m_xtile,  tile.m_ytile,  17-tile.m_zoom);
-				Cursor c = db.rawQuery(sql_string, null);
-			    if (c.moveToFirst())
-			    {
-			        while ( !c.isAfterLast() )
-			        {
-			           byte[] blob = c.getBlob(0);
-			           bit_tile = BitmapFactory.decodeByteArray(blob, 0, blob.length);
-			           c.moveToNext();
-			        }
-			    }
-		        c.close();
-		    	float koeffX = (float) (bitmap.getWidth() / (right - left));
-		    	float koeffY = (float) (bitmap.getHeight() / (top - bottom));
-		    	if(bit_tile != null)
-		    	{
-			    	Rect src = new Rect(0, 0, bit_tile.getWidth(), bit_tile.getWidth());
-					float left_scr = (float)((tile.m_bounds.TopLeft().lon() - left) * koeffX);
-					float top_scr = (float)(bitmap.getHeight() - (tile.m_bounds.TopLeft().lat() - bottom) * koeffY);
-					float right_scr = (float) ((tile.m_bounds.BottomRight().lon() - left) * koeffX);
-					float bottom_scr = (float)(bitmap.getHeight() - (tile.m_bounds.BottomRight().lat() - bottom) * koeffY);
-					RectF dst = new RectF(left_scr, top_scr, right_scr, bottom_scr);
-					m_canvas.drawBitmap(bit_tile, src, dst, null);
-					bit_tile.recycle();
-		    	}
 				if(Thread.interrupted())
 				{
 					break;
 				}
     		}
-        	db.close();
         }
         catch(Exception e)
         {

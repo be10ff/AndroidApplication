@@ -79,6 +79,12 @@ public abstract class GILayer
 			{
 				return new GIGPSPointsLayer(path, new GIVectorStyle());
 			}
+			case FOLDER:
+			{
+				GIFolderLayer layer = new GIFolderLayer(path);
+				layer.type_ = type;
+				return layer;
+			}
 //			case PLIST:
 //			{
 //				return new GISPECSLayer(path, new GIVectorStyle());
@@ -116,6 +122,12 @@ public abstract class GILayer
 			case SQL_YANDEX_LAYER:
 			{
 				GISQLLayer layer = new GISQLLayer(path);
+				layer.type_ = type;
+				return layer;
+			}
+			case FOLDER:
+			{
+				GIFolderLayer layer = new GIFolderLayer(path);
 				layer.type_ = type;
 				return layer;
 			}
@@ -157,6 +169,12 @@ public abstract class GILayer
 			case SQL_LAYER:
 			{
 				return new GISQLLayer(path);
+			}
+			case FOLDER:
+			{
+				GIFolderLayer layer = new GIFolderLayer(path);
+				layer.type_ = type;
+				return layer;
 			}
 			case DBASE:
 			{

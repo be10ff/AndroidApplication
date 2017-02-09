@@ -3,6 +3,7 @@ package ru.tcgeo.application.gilib.models;
 
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GISQLYandexTile;
+import ru.tcgeo.application.gilib.GITileInfoFolder;
 import ru.tcgeo.application.gilib.GITileInfoOSM;
 
 public abstract class GIITile
@@ -21,7 +22,7 @@ public abstract class GIITile
 			}
 			case FOLDER:
 			{
-				return new GISQLYandexTile(z, lon, lat);
+				return new GITileInfoFolder(z, lon, lat);
 			}
 			default:
 			{
@@ -43,7 +44,7 @@ public abstract class GIITile
 			}
 			case FOLDER:
 			{
-				return new GISQLYandexTile(z, tile_x, tile_y);
+				return new GITileInfoFolder(z, tile_x, tile_y);
 			}
 			default:
 			{

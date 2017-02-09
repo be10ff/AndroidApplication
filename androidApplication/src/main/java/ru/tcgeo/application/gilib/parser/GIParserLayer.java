@@ -57,6 +57,10 @@ public class GIParserLayer extends GIParser
 				{
 					m_current.m_type = GILayer.GILayerType.SQL_YANDEX_LAYER;
 				}
+				if(m_current.m_strType.equalsIgnoreCase("FOLDER"))
+				{
+					m_current.m_type = GILayer.GILayerType.FOLDER;
+				}
 				if(m_current.m_strType.equalsIgnoreCase("DBASE"))
 				{
 					m_current.m_type = GILayer.GILayerType.DBASE;

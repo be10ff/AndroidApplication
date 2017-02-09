@@ -226,6 +226,47 @@ public class LoadProjectInteractor {
                 }
 
             }
+            if (current_layer.m_type == GILayer.GILayerType.FOLDER) {
+                GILayer layer;
+                if (current_layer.m_source.m_location.equalsIgnoreCase("text"))
+                {
+                    layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.SQL_YANDEX_LAYER);
+                    layer.setName(current_layer.m_name);
+                    if (current_layer.m_sqldb != null) {
+                        GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+                        if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
+                        {
+                            ((GISQLLayer) layer).getAvalibleLevels();
+                        }
+                        current_layer.m_sqldb = builder.build();
+                    }
+                    layer.m_layer_properties = current_layer;
+                    subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
+                }
+                else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
+                {
+                    layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayer.GILayerType.FOLDER);
+                    layer.setName(current_layer.m_name);
+                    if (current_layer.m_sqldb != null) {
+                        GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+                        if (current_layer.m_sqldb.m_zoom_type
+                                .equalsIgnoreCase("ADAPTIVE")) {
+                            ((GISQLLayer) layer).getAvalibleLevels();
+                        }
+                        current_layer.m_sqldb = builder.build();
+                    }
+                    layer.m_layer_properties = current_layer;
+                    subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
+                }
+                else
+                {
+                    continue;
+                }
+
+            }
+
             if (current_layer.m_type == GILayer.GILayerType.DBASE) {
                 Paint fill = new Paint();
                 Paint line = new Paint();

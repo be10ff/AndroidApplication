@@ -20,6 +20,7 @@ import ru.tcgeo.application.gilib.models.GIProjection;
 public class GIFolderLayer extends GILayer {
 
 	String m_path;
+
 	public enum GISQLiteZoomingType
 	{
 		SMART,		// при выходе за указанный диапазон отрисовываются ближайшие доступные
@@ -75,8 +76,7 @@ public class GIFolderLayer extends GILayer {
 		Collections.sort(m_levels);
 
 	}
-	public void getMinMaxLevels()
-	{
+	public void getMinMaxLevels(){
 
         getAvalibleLevels();
         if(m_levels != null && !m_levels.isEmpty()) {
@@ -127,12 +127,15 @@ public class GIFolderLayer extends GILayer {
 	 *
 	 */
 
-	public boolean IsTilePresent(GITileInfoOSM tile)
+	public boolean IsTilePresent(GITileInfoFolder tile)
 	{
-		boolean res = false;
-        File file = new File(m_path + "/" + tile.m_zoom + "/" + tile.m_xtile + "_" + tile.m_ytile + ".png");
+        File file = new File(getTilePath(tile));
         return file.exists();
 	}
+
+    public String getTilePath(GITileInfoFolder tile){
+        return m_path + tile.getPath();
+    }
 
 	/**
 	 * Итерация рекурсии
@@ -145,16 +148,16 @@ public class GIFolderLayer extends GILayer {
 	 * @param actual "актуальный" уровень
 	 * @return tiles массив тайлов покрытия
 	 */
-	public ArrayList<GITileInfoOSM> GetTilesIteration (ArrayList<GITileInfoOSM> tiles, GITileInfoOSM root, GIBounds area, GIBounds bounds, int z, int to, int actual)
+	public ArrayList<GITileInfoFolder> GetTilesIteration (ArrayList<GITileInfoFolder> tiles, GITileInfoFolder root, GIBounds area, GIBounds bounds, int z, int to, int actual)
 	{
-    	GITileInfoOSM left_top_tile = GIITile.CreateTile(z, bounds.left(), bounds.top(), type_);
-        GITileInfoOSM right_bottom_tile = GIITile.CreateTile(z, bounds.right(), bounds.bottom(), type_);
+		GITileInfoFolder left_top_tile = (GITileInfoFolder)GIITile.CreateTile(z, bounds.left(), bounds.top(), type_);
+		GITileInfoFolder right_bottom_tile = (GITileInfoFolder)GIITile.CreateTile(z, bounds.right(), bounds.bottom(), type_);
         boolean present = true;
     	for(int x = left_top_tile.m_xtile; x <= right_bottom_tile.m_xtile; x++)
     	{
     		for(int y = left_top_tile.m_ytile; y <= right_bottom_tile.m_ytile; y++)
     		{
-    			GITileInfoOSM tile =  GIITile.CreateTile(z, x, y, type_);
+				GITileInfoFolder tile =  (GITileInfoFolder)GIITile.CreateTile(z, x, y, type_);
     			if(IsTilePresent(tile))
     			{
     				tiles.add(tile);
@@ -188,24 +191,24 @@ public class GIFolderLayer extends GILayer {
 		return tiles;
 
 	}
-	public ArrayList<GITileInfoOSM> GetTiles(GIBounds area, int actual)
+	public ArrayList<GITileInfoFolder> GetTiles(GIBounds area, int actual)
 	{
-		ArrayList<GITileInfoOSM> tiles = new ArrayList<GITileInfoOSM>();
-    	GITileInfoOSM left_top_tile = GIITile.CreateTile(actual, area.left(), area.top(), type_);
-        GITileInfoOSM right_bottom_tile = GIITile.CreateTile(actual, area.right(), area.bottom(), type_);
+		ArrayList<GITileInfoFolder> tiles = new ArrayList<GITileInfoFolder>();
+		GITileInfoFolder left_top_tile = (GITileInfoFolder)GIITile.CreateTile(actual, area.left(), area.top(), type_);
+		GITileInfoFolder right_bottom_tile = (GITileInfoFolder)GIITile.CreateTile(actual, area.right(), area.bottom(), type_);
     	for(int x = left_top_tile.m_xtile; x <= right_bottom_tile.m_xtile; x++)
     	{
     		for(int y = left_top_tile.m_ytile; y <= right_bottom_tile.m_ytile; y++)
     		{
-    			GITileInfoOSM tile = GIITile.CreateTile(actual, x, y, type_);
+				GITileInfoFolder tile = (GITileInfoFolder)GIITile.CreateTile(actual, x, y, type_);
 				tiles.add(tile);
     		}
     	}
     	return tiles;
 	}
-	public ArrayList<GITileInfoOSM> GetTilesAdaptive(GIBounds area, int actual)
+	public ArrayList<GITileInfoFolder> GetTilesAdaptive(GIBounds area, int actual)
 	{
-		ArrayList<GITileInfoOSM> tiles = new ArrayList<GITileInfoOSM>();
+		ArrayList<GITileInfoFolder> tiles = new ArrayList<GITileInfoFolder>();
 		int from = actual - 2;
 		if(from < min)
 		{
