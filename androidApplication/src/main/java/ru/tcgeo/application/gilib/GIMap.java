@@ -227,7 +227,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 
     }
 	public static double meters_per_inch = 0.0254f; 
-	static double getScale (GIBounds bounds, Rect rect)
+	public static double getScale (GIBounds bounds, Rect rect)
 	{
 		//final static double meters_per_inch = 0.0254f; 
 		GIBounds metric = bounds.Reprojected(GIProjection.WorldMercator());
