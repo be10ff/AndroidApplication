@@ -68,6 +68,14 @@ public class GIGPSParser {
 			m_ParserCurrent = parser.ReadSection();
 			m_layer.m_shapes.add(line);
 		}
+		if(CurrentSectionName.equalsIgnoreCase("BOUNDS"))
+		{
+			GI_WktBounds bounds = new GI_WktBounds();
+			bounds.m_attributes = new HashMap<String, GIDBaseField>();
+			GIGPSParserBounds parser = new GIGPSParserBounds(m_ParserCurrent, bounds);
+			m_ParserCurrent = parser.ReadSection();
+			m_layer.m_shapes.add(bounds);
+		}
 	}
 	protected void FinishSection()
 	{

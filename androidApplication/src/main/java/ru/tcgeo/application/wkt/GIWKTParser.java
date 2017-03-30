@@ -56,6 +56,27 @@ public class GIWKTParser
 				}
 				return line;
 			}
+			else if(m_geometry_description.m_str_type.m_type.equalsIgnoreCase("BOUNDS"))
+			{
+				GI_WktBounds bounds = new GI_WktBounds();
+				bounds.m_status = GI_WktGeometry.GIWKTGeometryStatus.CONSTANT;
+				GIWKTBlock block = (GIWKTBlock)m_geometry_description.m_block;
+				ArrayList<GIWKTDescription> array = block.m_points;
+				for(int i = 0; i < array.size(); i++)
+				{
+					GI_WktPoint point = new GI_WktPoint();
+					GIWKTVertex vertex = (GIWKTVertex)array.get(i);
+					GIWKTDigit lon = (GIWKTDigit)vertex.m_data.get(0);
+					GIWKTDigit lat = (GIWKTDigit)vertex.m_data.get(1);
+					point.m_lon = lon.m_value;
+					point.m_lat = lat.m_value;
+					GILonLat in_map = GIProjection.ReprojectLonLat(point.LonLat(), GIProjection.WGS84(), GIProjection.WorldMercator());
+					point.m_lon_in_map_projection = in_map.lon();
+					point.m_lat_in_map_projection = in_map.lat();
+					bounds.m_points.add(point);
+				}
+				return bounds;
+			}
 			else if(m_geometry_description.m_str_type.m_type.equalsIgnoreCase("POLYGON"))
 			{
 				GI_WktPolygon polygon = new GI_WktPolygon();
@@ -144,6 +165,26 @@ public class GIWKTParser
 					line.m_points.add(point);
 				}
 
+			}
+			else if(m_geometry_description.m_str_type.m_type.equalsIgnoreCase("BOUNDS"))
+			{
+				GI_WktBounds bounds = (GI_WktBounds)geometry;
+				bounds.m_status = GI_WktGeometry.GIWKTGeometryStatus.CONSTANT;
+				GIWKTBlock block = (GIWKTBlock)m_geometry_description.m_block;
+				ArrayList<GIWKTDescription> array = block.m_points;
+				for(int i = 0; i < array.size(); i++)
+				{
+					GI_WktPoint point = new GI_WktPoint();
+					GIWKTVertex vertex = (GIWKTVertex)array.get(i);
+					GIWKTDigit lon = (GIWKTDigit)vertex.m_data.get(0);
+					GIWKTDigit lat = (GIWKTDigit)vertex.m_data.get(1);
+					point.m_lon = lon.m_value;
+					point.m_lat = lat.m_value;
+					GILonLat in_map = GIProjection.ReprojectLonLat(point.LonLat(), GIProjection.WGS84(), GIProjection.WorldMercator());
+					point.m_lon_in_map_projection = in_map.lon();
+					point.m_lat_in_map_projection = in_map.lat();
+					bounds.m_points.add(point);
+				}
 			}
 			else if(m_geometry_description.m_str_type.m_type.equalsIgnoreCase("POLYGON"))
 			{

@@ -18,11 +18,10 @@ import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.GIRenderer;
 import ru.tcgeo.application.gilib.models.GIBounds;
+import ru.tcgeo.application.gilib.models.GICustomTile;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIStyle;
-import ru.tcgeo.application.gilib.models.GITile;
 import ru.tcgeo.application.layer.GITileLayer;
-import rx.Observable;
 
 public class GITileRenderer extends GIRenderer {
 
@@ -38,8 +37,18 @@ public class GITileRenderer extends GIRenderer {
 							Bitmap bitmap, double scale)
 	{
 		m_canvas = new Canvas(bitmap);
+		area = area.Reprojected(layer.projection());
 
-		area = area.Reprojected(GIProjection.WGS84());
+
+        double left = area.left();
+        double top= area.top();
+        double right = area.right();
+        double bottom = area.bottom();
+
+        float koeffX = (float) (bitmap.getWidth() / (right - left));
+        float koeffY = (float) (bitmap.getHeight() / (top - bottom));
+
+        //
 		
 		double _scale = GIMap.getScale(area, new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
 		if(_scale == 0){return;}
@@ -47,10 +56,12 @@ public class GITileRenderer extends GIRenderer {
 		String symantic = "location";
 		String conditions = "";
 		GITileLayer tiles = (GITileLayer)layer;
-		tiles.m_tiles = new ArrayList<GITile>();
+		tiles.m_tiles = new ArrayList<GICustomTile>();
 		area = area.Reprojected(layer.projection());
 //		drawLayer(layer.m_id, symantic, conditions, bitmap.getWidth(), bitmap.getHeight(), area, tiles);
-		for(GITile tile : tiles.m_tiles)
+
+
+		for(GICustomTile tile : tiles.m_tiles)
 		{
 			try
 			{
@@ -58,10 +69,23 @@ public class GITileRenderer extends GIRenderer {
 				{
 					File file = new File(Environment.getExternalStorageDirectory(), tile.m_filename).getAbsoluteFile();
 					Bitmap bit_tile = BitmapFactory.decodeFile(file.getAbsolutePath());
-					Rect src = new Rect(0, 0, bit_tile.getWidth(), bit_tile.getWidth());
-					RectF dst = new RectF(tile.m_points.get(0).x, tile.m_points.get(0).y, tile.m_points.get(2).x, tile.m_points.get(2).y);
-					m_canvas.drawBitmap(bit_tile, src, dst, null);
-					bit_tile.recycle();
+
+                    if(bit_tile != null) {
+                        Rect src = new Rect(0, 0, bit_tile.getWidth(), bit_tile.getWidth());
+
+//                        RectF dst = new RectF(tile.m_points.get(0).x, tile.m_points.get(0).y, tile.m_points.get(2).x, tile.m_points.get(2).y);
+
+                        float left_scr = (float)((tile.m_points.get(0).x - left) * koeffX);
+                        float top_scr = (float)(bitmap.getHeight() - (tile.m_points.get(0).y - bottom) * koeffY);
+                        float right_scr = (float) ((tile.m_points.get(2).x - left) * koeffX);
+                        float bottom_scr = (float)(bitmap.getHeight() - (tile.m_points.get(2).y - bottom) * koeffY);
+
+                        RectF dst = new RectF(left_scr, top_scr, right_scr, bottom_scr);
+
+
+                        m_canvas.drawBitmap(bit_tile, src, dst, null);
+                        bit_tile.recycle();
+                    }
 				}
 			}
 			catch(Exception e)

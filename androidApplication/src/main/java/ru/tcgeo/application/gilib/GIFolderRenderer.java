@@ -39,6 +39,9 @@ public class GIFolderRenderer extends GIRenderer {
         double right = area.right();
         double bottom = area.bottom();
 
+		float koeffX = (float) (bitmap.getWidth() / (right - left));
+		float koeffY = (float) (bitmap.getHeight() / (top - bottom));
+
         double width = right - left;
         double dz = Math.log(Width_px*kf/width)/Math.log(2);
         int z = (int) Math.round(dz);
@@ -74,8 +77,7 @@ public class GIFolderRenderer extends GIRenderer {
 
 				if(layer.IsTilePresent(tile)){
 					Bitmap bit_tile = BitmapFactory.decodeFile(layer.getTilePath(tile));
-					float koeffX = (float) (bitmap.getWidth() / (right - left));
-					float koeffY = (float) (bitmap.getHeight() / (top - bottom));
+
 					if(bit_tile != null)
 					{
 						Rect src = new Rect(0, 0, bit_tile.getWidth(), bit_tile.getWidth());
