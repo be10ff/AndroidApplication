@@ -71,9 +71,26 @@ public class GIGroupLayer extends GILayer
 		}
 	}
 
+	public GILayer find(String name){
+		for (GITuple tuple: m_list) {
+			if(tuple.layer.m_layer_properties.m_source.m_name.equals(name)){
+				return  tuple.layer;
+			}
+		}
+		return null;
+	}
+
 	public int AddLayer(GILayer layer)
 	{
-		if(!m_list.contains(layer))
+		boolean present = false;
+		for (GITuple tuple: m_list) {
+			if(tuple.layer.m_layer_properties.m_source.m_name.equals(layer.m_layer_properties.m_source.m_name)){
+				present = true;
+			}
+
+		}
+//		//todo !!!
+		if(!present)
 		{
 			if(layer.type_ == GILayerType.SQL_LAYER )
 			{

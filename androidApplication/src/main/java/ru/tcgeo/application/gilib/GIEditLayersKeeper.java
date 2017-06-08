@@ -1,6 +1,7 @@
 package ru.tcgeo.application.gilib;
 
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Environment;
 import android.view.View;
 
 import ru.tcgeo.application.Geoinfo;
@@ -844,12 +846,16 @@ public class GIEditLayersKeeper {
 		if(m_TrackLayer == null){
             SimpleDateFormat dateFormat = new SimpleDateFormat(activity.getString(R.string.date_format), Locale.ENGLISH);
             String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
-//			m_Map.ps.m_name
-            m_TrackLayer = GILayer.createTrack(m_Map.ps.m_name,  date);
-            m_TrackLayer.setType(GIEditableLayer.GIEditableLayerType.TRACK);
-            m_TrackLayer.Save();
-            m_Map.ps.m_Group.addEntry(m_TrackLayer.m_layer_properties);
-            m_Map.AddLayer(m_TrackLayer);
+
+			GIEditableLayer  m_TrackLayer = (GIEditableLayer)m_Map.find(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + m_Map.ps.m_name + File.separator + m_Map.ps.m_name + "_" + date + "_track.xml");
+			if(m_TrackLayer == null) {
+				m_TrackLayer = GILayer.createTrack(m_Map.ps.m_name, date);
+				m_TrackLayer.setType(GIEditableLayer.GIEditableLayerType.TRACK);
+				m_TrackLayer.Save();
+
+				m_Map.ps.m_Group.addEntry(m_TrackLayer.m_layer_properties);
+				m_Map.AddLayer(m_TrackLayer);
+			}
         }
 		if(m_TrackLayer != null)
 		{

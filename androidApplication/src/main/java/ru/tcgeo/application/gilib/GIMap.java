@@ -302,6 +302,13 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 	{
 		m_layers.AddLayer(layer);
 	}
+
+	public GILayer find (String source)
+	{
+		return m_layers.find(source);
+	}
+
+
 	
 	public void AddLayer (GILayer layer, GIScaleRange range, boolean enabled)
 	{

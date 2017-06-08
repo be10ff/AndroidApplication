@@ -34,18 +34,13 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa8c29bb-4d7a-43e8-80fa-51877adc9ddf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="fa8c29bb-4d7a-43e8-80fa-51877adc9ddf" name="Default" comment="dublicate layer bug">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/androidApplication.iml" afterPath="$PROJECT_DIR$/androidApplication/androidApplication.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/build.gradle" afterPath="$PROJECT_DIR$/androidApplication/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/layer/renderer/GITileRenderer.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/layer/renderer/GITileRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIGroupLayer.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIGroupLayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIPropertiesLayer.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIPropertiesLayer.java" />
     </list>
     <ignored path="AndroidApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -77,43 +72,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GIEditableLayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditableLayer.java">
+      <file leaf-file-name="Geoinfo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+            <state relative-caret-position="192">
+              <caret line="139" column="0" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GIXMLTrack.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java">
+      <file leaf-file-name="GIMap.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="204" column="23" selection-start-line="204" selection-start-column="19" selection-end-line="204" selection-end-column="25" />
+            <state relative-caret-position="251">
+              <caret line="305" column="23" selection-start-line="305" selection-start-column="19" selection-end-line="305" selection-end-column="23" />
               <folding>
-                <element signature="e#6006#6014#0" expanded="true" />
+                <element signature="e#7652#7653#0" expanded="true" />
+                <element signature="e#7683#7684#0" expanded="true" />
+                <element signature="e#7724#7725#0" expanded="true" />
+                <element signature="e#7759#7760#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Geoinfo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
+      <file leaf-file-name="GIGroupLayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIGroupLayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="281" column="55" selection-start-line="281" selection-start-column="55" selection-end-line="281" selection-end-column="55" />
+            <state relative-caret-position="191">
+              <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GIGPSDialog.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSDialog.java">
+      <file leaf-file-name="GIPropertiesLayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIPropertiesLayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="63" column="17" selection-start-line="63" selection-start-column="17" selection-end-line="63" selection-end-column="17" />
+            <state relative-caret-position="331">
+              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -122,33 +120,8 @@
       <file leaf-file-name="GIEditLayersKeeper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="850" column="69" selection-start-line="850" selection-start-column="51" selection-end-line="850" selection-end-column="69" />
-              <folding>
-                <element signature="e#21580#21620#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GIPropertiesLayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIPropertiesLayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
-              <folding>
-                <element signature="e#896#897#0" expanded="true" />
-                <element signature="e#923#924#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/App.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+            <state relative-caret-position="152">
+              <caret line="849" column="60" selection-start-line="849" selection-start-column="60" selection-end-line="849" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -157,29 +130,193 @@
       <file leaf-file-name="GILayer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="311" column="0" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
+            <state relative-caret-position="236">
+              <caret line="276" column="29" selection-start-line="276" selection-start-column="29" selection-end-line="276" selection-end-column="68" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="File.java" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Android/Sdk/sources/android-23/java/io/File.java">
+      <file leaf-file-name="LoadProjectInteractor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12315">
-              <caret line="888" column="19" selection-start-line="888" selection-start-column="19" selection-end-line="888" selection-end-column="19" />
-              <folding />
+            <state relative-caret-position="281">
+              <caret line="85" column="36" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
+              <folding>
+                <element signature="e#3185#3186#0" expanded="true" />
+                <element signature="e#3251#3252#0" expanded="true" />
+                <element signature="e#3484#3485#0" expanded="true" />
+                <element signature="e#3551#3552#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GIGPSPointsLayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java">
+      <file leaf-file-name="Observable.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.0/d4a0c3bc36ac0ece84cdf7aa08b18c344b467238/rxjava-1.1.0-sources.jar!/rx/Observable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="65685">
+              <caret line="4445" column="0" selection-start-line="4445" selection-start-column="0" selection-end-line="4445" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#587#0" expanded="false" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#2147#2148#0" expanded="false" />
+                <element signature="e#2183#2184#0" expanded="false" />
+                <element signature="e#10714#10715#0" expanded="false" />
+                <element signature="e#10782#10783#0" expanded="false" />
+                <element signature="e#53594#53595#0" expanded="false" />
+                <element signature="e#53650#53651#0" expanded="false" />
+                <element signature="e#54647#54648#0" expanded="false" />
+                <element signature="e#54706#54707#0" expanded="false" />
+                <element signature="e#62196#62197#0" expanded="false" />
+                <element signature="e#62245#62246#0" expanded="false" />
+                <element signature="e#71189#71190#0" expanded="false" />
+                <element signature="e#71239#71240#0" expanded="false" />
+                <element signature="e#120422#120423#0" expanded="false" />
+                <element signature="e#120455#120456#0" expanded="false" />
+                <element signature="e#121322#121323#0" expanded="false" />
+                <element signature="e#121371#121372#0" expanded="false" />
+                <element signature="e#162772#162773#0" expanded="false" />
+                <element signature="e#162808#162809#0" expanded="false" />
+                <element signature="e#163414#163415#0" expanded="false" />
+                <element signature="e#163477#163478#0" expanded="false" />
+                <element signature="e#166475#166476#0" expanded="false" />
+                <element signature="e#166518#166519#0" expanded="false" />
+                <element signature="e#186541#186542#0" expanded="false" />
+                <element signature="e#186591#186592#0" expanded="false" />
+                <element signature="e#193925#193926#0" expanded="false" />
+                <element signature="e#193964#193965#0" expanded="false" />
+                <element signature="e#196089#196090#0" expanded="false" />
+                <element signature="e#196143#196144#0" expanded="false" />
+                <element signature="e#196384#196385#0" expanded="false" />
+                <element signature="e#196432#196433#0" expanded="false" />
+                <element signature="e#197467#197468#0" expanded="false" />
+                <element signature="e#197526#197527#0" expanded="false" />
+                <element signature="e#197749#197750#0" expanded="false" />
+                <element signature="e#197797#197798#0" expanded="false" />
+                <element signature="e#216925#216926#0" expanded="false" />
+                <element signature="e#216985#216986#0" expanded="false" />
+                <element signature="e#221068#221069#0" expanded="false" />
+                <element signature="e#221118#221119#0" expanded="false" />
+                <element signature="e#222615#222616#0" expanded="false" />
+                <element signature="e#222696#222697#0" expanded="false" />
+                <element signature="e#225228#225229#0" expanded="false" />
+                <element signature="e#225275#225276#0" expanded="false" />
+                <element signature="e#230151#230152#0" expanded="false" />
+                <element signature="e#230201#230202#0" expanded="false" />
+                <element signature="e#230277#230278#0" expanded="false" />
+                <element signature="e#230327#230328#0" expanded="false" />
+                <element signature="e#259778#259779#0" expanded="false" />
+                <element signature="e#259817#259818#0" expanded="false" />
+                <element signature="e#277842#277843#0" expanded="false" />
+                <element signature="e#277875#277876#0" expanded="false" />
+                <element signature="e#289973#289974#0" expanded="false" />
+                <element signature="e#290016#290017#0" expanded="false" />
+                <element signature="e#294825#294826#0" expanded="false" />
+                <element signature="e#294859#294860#0" expanded="false" />
+                <element signature="e#297979#297980#0" expanded="false" />
+                <element signature="e#298017#298018#0" expanded="false" />
+                <element signature="e#300182#300183#0" expanded="false" />
+                <element signature="e#300240#300241#0" expanded="false" />
+                <element signature="e#316355#316356#0" expanded="false" />
+                <element signature="e#316406#316407#0" expanded="false" />
+                <element signature="e#323007#323008#0" expanded="false" />
+                <element signature="e#323061#323062#0" expanded="false" />
+                <element signature="e#328197#328198#0" expanded="false" />
+                <element signature="e#328256#328257#0" expanded="false" />
+                <element signature="e#330301#330302#0" expanded="false" />
+                <element signature="e#330360#330361#0" expanded="false" />
+                <element signature="e#331900#331901#0" expanded="false" />
+                <element signature="e#331950#331951#0" expanded="false" />
+                <element signature="e#333743#333744#0" expanded="false" />
+                <element signature="e#333806#333807#0" expanded="false" />
+                <element signature="e#335906#335907#0" expanded="false" />
+                <element signature="e#335979#335980#0" expanded="false" />
+                <element signature="e#343365#343366#0" expanded="false" />
+                <element signature="e#343438#343439#0" expanded="false" />
+                <element signature="e#350091#350092#0" expanded="false" />
+                <element signature="e#350154#350155#0" expanded="false" />
+                <element signature="e#364497#364498#0" expanded="false" />
+                <element signature="e#364550#364551#0" expanded="false" />
+                <element signature="e#381318#381319#0" expanded="false" />
+                <element signature="e#381378#381379#0" expanded="false" />
+                <element signature="e#382795#382796#0" expanded="false" />
+                <element signature="e#382838#382839#0" expanded="false" />
+                <element signature="e#383903#383904#0" expanded="false" />
+                <element signature="e#383961#383962#0" expanded="false" />
+                <element signature="e#389064#389065#0" expanded="false" />
+                <element signature="e#389119#389120#0" expanded="false" />
+                <element signature="e#392586#392587#0" expanded="false" />
+                <element signature="e#392645#392646#0" expanded="false" />
+                <element signature="e#398213#398214#0" expanded="false" />
+                <element signature="e#398256#398257#0" expanded="false" />
+                <element signature="e#400092#400093#0" expanded="false" />
+                <element signature="e#400137#400138#0" expanded="false" />
+                <element signature="e#401034#401035#0" expanded="false" />
+                <element signature="e#401083#401084#0" expanded="false" />
+                <element signature="e#410697#410698#0" expanded="false" />
+                <element signature="e#410772#410773#0" expanded="false" />
+                <element signature="e#412212#412213#0" expanded="false" />
+                <element signature="e#412287#412288#0" expanded="false" />
+                <element signature="e#412357#412358#0" expanded="false" />
+                <element signature="e#412406#412407#0" expanded="false" />
+                <element signature="e#414032#414033#0" expanded="false" />
+                <element signature="e#414079#414080#0" expanded="false" />
+                <element signature="e#414149#414150#0" expanded="false" />
+                <element signature="e#414198#414199#0" expanded="false" />
+                <element signature="e#416076#416077#0" expanded="false" />
+                <element signature="e#416125#416126#0" expanded="false" />
+                <element signature="e#416201#416202#0" expanded="false" />
+                <element signature="e#416248#416249#0" expanded="false" />
+                <element signature="e#416318#416319#0" expanded="false" />
+                <element signature="e#416367#416368#0" expanded="false" />
+                <element signature="e#417467#417468#0" expanded="false" />
+                <element signature="e#417521#417522#0" expanded="false" />
+                <element signature="e#417591#417592#0" expanded="false" />
+                <element signature="e#417642#417643#0" expanded="false" />
+                <element signature="e#417703#417704#0" expanded="false" />
+                <element signature="e#417753#417754#0" expanded="false" />
+                <element signature="e#428850#428851#0" expanded="false" />
+                <element signature="e#428905#428906#0" expanded="false" />
+                <element signature="e#439698#439699#0" expanded="false" />
+                <element signature="e#439745#439746#0" expanded="false" />
+                <element signature="e#476961#476962#0" expanded="false" />
+                <element signature="e#477013#477014#0" expanded="false" />
+                <element signature="e#501094#501095#0" expanded="false" />
+                <element signature="e#501137#501138#0" expanded="false" />
+                <element signature="e#522960#522961#0" expanded="false" />
+                <element signature="e#523027#523028#0" expanded="false" />
+                <element signature="e#524042#524043#0" expanded="false" />
+                <element signature="e#524109#524110#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GITouchControl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITouchControl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1620">
+              <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#2680#2681#0" expanded="false" />
+                <element signature="e#2699#2700#0" expanded="false" />
+                <element signature="e#2733#2734#0" expanded="false" />
+                <element signature="e#2751#2752#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MapView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/view/MapView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1903,8 +2040,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/MarkersDialog.java" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/adapter/MarkersAdapter.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/adapter/EditableLayersAdapter.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/EditableLayersDialog.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/gps_button_layout.xml" />
@@ -1933,12 +2068,10 @@
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSLocationListener.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GIITile.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIFolderLayer.java" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIParserLayer.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITileInfoFolder.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITileLayer.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITileRenderer.java" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIFolderRenderer.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GITile.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktCustomTile.java" />
@@ -1952,8 +2085,12 @@
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/layer/renderer/GITileRenderer.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIPropertiesLayer.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIGroupLayer.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java" />
       </list>
     </option>
   </component>
@@ -1995,8 +2132,105 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AndroidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AndroidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="androidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AndroidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="androidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AndroidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="androidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AndroidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="androidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="home_screen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AndroidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="androidApplication" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2221,103 +2455,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AndroidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AndroidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="androidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AndroidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="androidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AndroidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="androidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AndroidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="androidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="home_screen" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AndroidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="androidApplication" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2327,7 +2464,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="device.picker.selection" value="5443a464" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="5443a464" />
-    <property name="SearchEverywhereHistoryKey" value="GIM&#9;FILE&#9;file:///home/artem/StudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java&#10;GIPo&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java&#10;Edi&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayerDialog.java&#10;GIL&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java&#10;XML&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java&#10;GPS&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java&#10;gisq&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLRenderer.java&#10;rE&#9;PSI&#9;JAVA://ru.tcgeo.application.gilib.GIEditableRenderer&#10;Ed&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java&#10;Sca&#9;PSI&#9;JAVA://ru.tcgeo.application.views.GIScaleControl&#10;GIS&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GISQLDB.java&#10;Ma&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java&#10;gi&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLRenderer.java" />
+    <property name="SearchEverywhereHistoryKey" value="GIP&#9;FILE&#9;file:///home/artem/StudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java&#10;GIM&#9;FILE&#9;file:///home/artem/StudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java&#10;GIPo&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java&#10;Edi&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayerDialog.java&#10;GIL&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java&#10;XML&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java&#10;GPS&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java&#10;gisq&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLRenderer.java&#10;rE&#9;PSI&#9;JAVA://ru.tcgeo.application.gilib.GIEditableRenderer&#10;Ed&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java&#10;Sca&#9;PSI&#9;JAVA://ru.tcgeo.application.views.GIScaleControl&#10;GIS&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GISQLDB.java&#10;Ma&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java&#10;gi&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLRenderer.java" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="116" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_4_API_21" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="197" />
@@ -3002,20 +3139,36 @@
       <option name="project" value="LOCAL" />
       <updated>1490888653577</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Folders for tracks">
+      <created>1496898718121</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1496898718121</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="1977" y="21" width="1863" height="1059" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32943678" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36769393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26359144" sideWeight="0.183391" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2996812" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18278427" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32837406" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37832093" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -3028,7 +3181,7 @@
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16639209" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.56323063" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38363442" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -3120,7 +3273,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="initial" />
     <MESSAGE value="some cosmeticals" />
     <MESSAGE value="added layer changed to SQL_YANDEX_LAYER as default" />
     <MESSAGE value="loadin exist *.xml (track) layer as separate layer. in work." />
@@ -3144,7 +3296,9 @@
     <MESSAGE value="start of GoogleFolderTileLayer:&#10;todo GITileInfoFolder, GIFolderLayer, GIFolderRenderer" />
     <MESSAGE value="re-adding TileLayer..." />
     <MESSAGE value="re-adding TileLayer... GIWktBounds, parsing" />
-    <option name="LAST_COMMIT_MESSAGE" value="re-adding TileLayer... GIWktBounds, parsing" />
+    <MESSAGE value="Folders for tracks" />
+    <MESSAGE value="dublicate layer bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="dublicate layer bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3174,18 +3328,6 @@
           <option name="timeStamp" value="70" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java</url>
-          <line>206</line>
-          <properties />
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java</url>
-          <line>847</line>
-          <properties />
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
           <line>533</line>
           <properties />
@@ -3193,19 +3335,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java</url>
-          <line>463</line>
+          <line>465</line>
           <properties />
           <option name="timeStamp" value="117" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java</url>
-          <line>607</line>
+          <line>609</line>
           <properties />
           <option name="timeStamp" value="126" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java</url>
-          <line>609</line>
+          <line>611</line>
           <properties />
           <option name="timeStamp" value="128" />
         </line-breakpoint>
@@ -3223,21 +3365,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java</url>
-          <line>1028</line>
+          <line>1035</line>
           <properties />
           <option name="timeStamp" value="164" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java</url>
-          <line>908</line>
+          <line>915</line>
           <properties />
           <option name="timeStamp" value="165" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java</url>
-          <line>210</line>
-          <properties />
-          <option name="timeStamp" value="181" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java</url>
@@ -3247,135 +3383,92 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java</url>
-          <line>849</line>
-          <properties />
-          <option name="timeStamp" value="183" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java</url>
-          <line>256</line>
-          <properties />
-          <option name="timeStamp" value="184" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java</url>
-          <line>843</line>
-          <properties />
-          <option name="timeStamp" value="185" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java</url>
-          <line>875</line>
-          <properties />
-          <option name="timeStamp" value="186" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java</url>
-          <line>851</line>
+          <line>856</line>
           <properties />
           <option name="timeStamp" value="187" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java</url>
+          <line>855</line>
+          <properties />
+          <option name="timeStamp" value="188" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIGroupLayer.java</url>
+          <line>92</line>
+          <properties />
+          <option name="timeStamp" value="189" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIPropertiesLayer.java</url>
+          <line>40</line>
+          <properties />
+          <option name="timeStamp" value="191" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIGroupLayer.java</url>
+          <line>84</line>
+          <properties />
+          <option name="timeStamp" value="192" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java</url>
+          <line>85</line>
+          <properties />
+          <option name="timeStamp" value="193" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java</url>
+          <line>90</line>
+          <properties />
+          <option name="timeStamp" value="194" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java</url>
+          <line>80</line>
+          <properties />
+          <option name="timeStamp" value="195" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java</url>
+          <line>131</line>
+          <properties />
+          <option name="timeStamp" value="196" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
+          <line>139</line>
+          <properties />
+          <option name="timeStamp" value="202" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java</url>
+          <line>59</line>
+          <properties />
+          <option name="timeStamp" value="203" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java</url>
+          <line>54</line>
+          <properties />
+          <option name="timeStamp" value="204" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java</url>
+          <line>850</line>
+          <properties />
+          <option name="timeStamp" value="205" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="188" />
+      <option name="time" value="206" />
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="androidApplication">
-        <watch expression="((Entry)((java.util.HashMap)((GI_WktPoint)geometry).m_attributes).entrySet().toArray()[0]).getValue()" custom="java.util.HashMap,java.util.Map.Entry,ru.tcgeo.application.wkt.GI_WktPoint" />
-      </configuration>
-    </watches-manager>
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLYandexTile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GIITile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIYandexRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="58" column="22" selection-start-line="58" selection-start-column="22" selection-end-line="58" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIParserLayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="57" column="59" selection-start-line="57" selection-start-column="59" selection-end-line="57" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/AllSettingsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="180" column="53" selection-start-line="180" selection-start-column="53" selection-end-line="180" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIFolderLayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1815">
-          <caret line="136" column="36" selection-start-line="136" selection-start-column="29" selection-end-line="136" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITileInfoFolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITileLayer.java" />
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITileRenderer.java" />
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/planimetry/Edge.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/planimetry/GIGeometryObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/planimetry/Vertex.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -3481,13 +3574,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-23/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="305" column="54" selection-start-line="305" selection-start-column="54" selection-end-line="305" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GI_WktBounds.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -3545,26 +3631,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GIBounds.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7365">
-          <caret line="568" column="12" selection-start-line="568" selection-start-column="12" selection-end-line="568" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/planimetry/GIGeometryPolygon.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3588,18 +3658,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12315">
           <caret line="888" column="19" selection-start-line="888" selection-start-column="19" selection-end-line="888" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIPropertiesLayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
-          <folding>
-            <element signature="e#896#897#0" expanded="true" />
-            <element signature="e#923#924#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3611,24 +3669,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="281" column="55" selection-start-line="281" selection-start-column="55" selection-end-line="281" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="204" column="23" selection-start-line="204" selection-start-column="19" selection-end-line="204" selection-end-column="25" />
-          <folding>
-            <element signature="e#6006#6014#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditableLayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -3637,29 +3677,372 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="252" column="30" selection-start-line="252" selection-start-column="30" selection-end-line="252" selection-end-column="30" />
+          <folding>
+            <element signature="e#6006#6014#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-23/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="203" column="19" selection-start-line="203" selection-start-column="19" selection-end-line="203" selection-end-column="19" />
+          <folding>
+            <element signature="e#8516#8517#0" expanded="false" />
+            <element signature="e#8548#8549#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-23/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="338" column="33" selection-start-line="338" selection-start-column="27" selection-end-line="338" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITuple.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="263">
+          <caret line="132" column="14" selection-start-line="132" selection-start-column="14" selection-end-line="132" selection-end-column="14" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIParserLayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIParserGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GIProjection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GIBounds.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+          <folding>
+            <element signature="e#915#916#0" expanded="false" />
+            <element signature="e#941#942#0" expanded="false" />
+            <element signature="e#969#970#0" expanded="false" />
+            <element signature="e#999#1000#0" expanded="false" />
+            <element signature="e#1028#1029#0" expanded="false" />
+            <element signature="e#1058#1059#0" expanded="false" />
+            <element signature="e#1084#1085#0" expanded="false" />
+            <element signature="e#1103#1104#0" expanded="false" />
+            <element signature="e#1130#1131#0" expanded="false" />
+            <element signature="e#1150#1151#0" expanded="false" />
+            <element signature="e#1178#1179#0" expanded="false" />
+            <element signature="e#1199#1200#0" expanded="false" />
+            <element signature="e#1228#1229#0" expanded="false" />
+            <element signature="e#1250#1251#0" expanded="false" />
+            <element signature="e#1282#1283#0" expanded="false" />
+            <element signature="e#1323#1324#0" expanded="false" />
+            <element signature="e#1353#1354#0" expanded="false" />
+            <element signature="e#1421#1422#0" expanded="false" />
+            <element signature="e#1455#1456#0" expanded="false" />
+            <element signature="e#1497#1498#0" expanded="false" />
+            <element signature="e#1532#1533#0" expanded="false" />
+            <element signature="e#1576#1577#0" expanded="false" />
+            <element signature="e#1612#1613#0" expanded="false" />
+            <element signature="e#1657#1658#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.0/d4a0c3bc36ac0ece84cdf7aa08b18c344b467238/rxjava-1.1.0-sources.jar!/rx/internal/operators/OperatorMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#596#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1480#1481#0" expanded="false" />
+            <element signature="e#1527#1528#0" expanded="false" />
+            <element signature="e#1597#1598#0" expanded="false" />
+            <element signature="e#1641#1642#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-21/android/view/LayoutInflater.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="613" column="0" selection-start-line="613" selection-start-column="0" selection-end-line="613" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIProjectProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2490">
+          <caret line="185" column="0" selection-start-line="185" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/view/MapView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GITouchControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#2680#2681#0" expanded="false" />
+            <element signature="e#2699#2700#0" expanded="false" />
+            <element signature="e#2733#2734#0" expanded="false" />
+            <element signature="e#2751#2752#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.0/d4a0c3bc36ac0ece84cdf7aa08b18c344b467238/rxjava-1.1.0-sources.jar!/rx/Observable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65685">
+          <caret line="4445" column="0" selection-start-line="4445" selection-start-column="0" selection-end-line="4445" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#587#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2147#2148#0" expanded="false" />
+            <element signature="e#2183#2184#0" expanded="false" />
+            <element signature="e#10714#10715#0" expanded="false" />
+            <element signature="e#10782#10783#0" expanded="false" />
+            <element signature="e#53594#53595#0" expanded="false" />
+            <element signature="e#53650#53651#0" expanded="false" />
+            <element signature="e#54647#54648#0" expanded="false" />
+            <element signature="e#54706#54707#0" expanded="false" />
+            <element signature="e#62196#62197#0" expanded="false" />
+            <element signature="e#62245#62246#0" expanded="false" />
+            <element signature="e#71189#71190#0" expanded="false" />
+            <element signature="e#71239#71240#0" expanded="false" />
+            <element signature="e#120422#120423#0" expanded="false" />
+            <element signature="e#120455#120456#0" expanded="false" />
+            <element signature="e#121322#121323#0" expanded="false" />
+            <element signature="e#121371#121372#0" expanded="false" />
+            <element signature="e#162772#162773#0" expanded="false" />
+            <element signature="e#162808#162809#0" expanded="false" />
+            <element signature="e#163414#163415#0" expanded="false" />
+            <element signature="e#163477#163478#0" expanded="false" />
+            <element signature="e#166475#166476#0" expanded="false" />
+            <element signature="e#166518#166519#0" expanded="false" />
+            <element signature="e#186541#186542#0" expanded="false" />
+            <element signature="e#186591#186592#0" expanded="false" />
+            <element signature="e#193925#193926#0" expanded="false" />
+            <element signature="e#193964#193965#0" expanded="false" />
+            <element signature="e#196089#196090#0" expanded="false" />
+            <element signature="e#196143#196144#0" expanded="false" />
+            <element signature="e#196384#196385#0" expanded="false" />
+            <element signature="e#196432#196433#0" expanded="false" />
+            <element signature="e#197467#197468#0" expanded="false" />
+            <element signature="e#197526#197527#0" expanded="false" />
+            <element signature="e#197749#197750#0" expanded="false" />
+            <element signature="e#197797#197798#0" expanded="false" />
+            <element signature="e#216925#216926#0" expanded="false" />
+            <element signature="e#216985#216986#0" expanded="false" />
+            <element signature="e#221068#221069#0" expanded="false" />
+            <element signature="e#221118#221119#0" expanded="false" />
+            <element signature="e#222615#222616#0" expanded="false" />
+            <element signature="e#222696#222697#0" expanded="false" />
+            <element signature="e#225228#225229#0" expanded="false" />
+            <element signature="e#225275#225276#0" expanded="false" />
+            <element signature="e#230151#230152#0" expanded="false" />
+            <element signature="e#230201#230202#0" expanded="false" />
+            <element signature="e#230277#230278#0" expanded="false" />
+            <element signature="e#230327#230328#0" expanded="false" />
+            <element signature="e#259778#259779#0" expanded="false" />
+            <element signature="e#259817#259818#0" expanded="false" />
+            <element signature="e#277842#277843#0" expanded="false" />
+            <element signature="e#277875#277876#0" expanded="false" />
+            <element signature="e#289973#289974#0" expanded="false" />
+            <element signature="e#290016#290017#0" expanded="false" />
+            <element signature="e#294825#294826#0" expanded="false" />
+            <element signature="e#294859#294860#0" expanded="false" />
+            <element signature="e#297979#297980#0" expanded="false" />
+            <element signature="e#298017#298018#0" expanded="false" />
+            <element signature="e#300182#300183#0" expanded="false" />
+            <element signature="e#300240#300241#0" expanded="false" />
+            <element signature="e#316355#316356#0" expanded="false" />
+            <element signature="e#316406#316407#0" expanded="false" />
+            <element signature="e#323007#323008#0" expanded="false" />
+            <element signature="e#323061#323062#0" expanded="false" />
+            <element signature="e#328197#328198#0" expanded="false" />
+            <element signature="e#328256#328257#0" expanded="false" />
+            <element signature="e#330301#330302#0" expanded="false" />
+            <element signature="e#330360#330361#0" expanded="false" />
+            <element signature="e#331900#331901#0" expanded="false" />
+            <element signature="e#331950#331951#0" expanded="false" />
+            <element signature="e#333743#333744#0" expanded="false" />
+            <element signature="e#333806#333807#0" expanded="false" />
+            <element signature="e#335906#335907#0" expanded="false" />
+            <element signature="e#335979#335980#0" expanded="false" />
+            <element signature="e#343365#343366#0" expanded="false" />
+            <element signature="e#343438#343439#0" expanded="false" />
+            <element signature="e#350091#350092#0" expanded="false" />
+            <element signature="e#350154#350155#0" expanded="false" />
+            <element signature="e#364497#364498#0" expanded="false" />
+            <element signature="e#364550#364551#0" expanded="false" />
+            <element signature="e#381318#381319#0" expanded="false" />
+            <element signature="e#381378#381379#0" expanded="false" />
+            <element signature="e#382795#382796#0" expanded="false" />
+            <element signature="e#382838#382839#0" expanded="false" />
+            <element signature="e#383903#383904#0" expanded="false" />
+            <element signature="e#383961#383962#0" expanded="false" />
+            <element signature="e#389064#389065#0" expanded="false" />
+            <element signature="e#389119#389120#0" expanded="false" />
+            <element signature="e#392586#392587#0" expanded="false" />
+            <element signature="e#392645#392646#0" expanded="false" />
+            <element signature="e#398213#398214#0" expanded="false" />
+            <element signature="e#398256#398257#0" expanded="false" />
+            <element signature="e#400092#400093#0" expanded="false" />
+            <element signature="e#400137#400138#0" expanded="false" />
+            <element signature="e#401034#401035#0" expanded="false" />
+            <element signature="e#401083#401084#0" expanded="false" />
+            <element signature="e#410697#410698#0" expanded="false" />
+            <element signature="e#410772#410773#0" expanded="false" />
+            <element signature="e#412212#412213#0" expanded="false" />
+            <element signature="e#412287#412288#0" expanded="false" />
+            <element signature="e#412357#412358#0" expanded="false" />
+            <element signature="e#412406#412407#0" expanded="false" />
+            <element signature="e#414032#414033#0" expanded="false" />
+            <element signature="e#414079#414080#0" expanded="false" />
+            <element signature="e#414149#414150#0" expanded="false" />
+            <element signature="e#414198#414199#0" expanded="false" />
+            <element signature="e#416076#416077#0" expanded="false" />
+            <element signature="e#416125#416126#0" expanded="false" />
+            <element signature="e#416201#416202#0" expanded="false" />
+            <element signature="e#416248#416249#0" expanded="false" />
+            <element signature="e#416318#416319#0" expanded="false" />
+            <element signature="e#416367#416368#0" expanded="false" />
+            <element signature="e#417467#417468#0" expanded="false" />
+            <element signature="e#417521#417522#0" expanded="false" />
+            <element signature="e#417591#417592#0" expanded="false" />
+            <element signature="e#417642#417643#0" expanded="false" />
+            <element signature="e#417703#417704#0" expanded="false" />
+            <element signature="e#417753#417754#0" expanded="false" />
+            <element signature="e#428850#428851#0" expanded="false" />
+            <element signature="e#428905#428906#0" expanded="false" />
+            <element signature="e#439698#439699#0" expanded="false" />
+            <element signature="e#439745#439746#0" expanded="false" />
+            <element signature="e#476961#476962#0" expanded="false" />
+            <element signature="e#477013#477014#0" expanded="false" />
+            <element signature="e#501094#501095#0" expanded="false" />
+            <element signature="e#501137#501138#0" expanded="false" />
+            <element signature="e#522960#522961#0" expanded="false" />
+            <element signature="e#523027#523028#0" expanded="false" />
+            <element signature="e#524042#524043#0" expanded="false" />
+            <element signature="e#524109#524110#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIPropertiesLayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="139" column="0" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="85" column="36" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
+          <folding>
+            <element signature="e#3185#3186#0" expanded="true" />
+            <element signature="e#3251#3252#0" expanded="true" />
+            <element signature="e#3484#3485#0" expanded="true" />
+            <element signature="e#3551#3552#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIGroupLayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="305" column="23" selection-start-line="305" selection-start-column="19" selection-end-line="305" selection-end-column="23" />
+          <folding>
+            <element signature="e#7652#7653#0" expanded="true" />
+            <element signature="e#7683#7684#0" expanded="true" />
+            <element signature="e#7724#7725#0" expanded="true" />
+            <element signature="e#7759#7760#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="311" column="0" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
+        <state relative-caret-position="236">
+          <caret line="276" column="29" selection-start-line="276" selection-start-column="29" selection-end-line="276" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="850" column="69" selection-start-line="850" selection-start-column="51" selection-end-line="850" selection-end-column="69" />
-          <folding>
-            <element signature="e#21580#21620#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="152">
+          <caret line="849" column="60" selection-start-line="849" selection-start-column="60" selection-end-line="849" selection-end-column="60" />
+          <folding />
         </state>
       </provider>
     </entry>

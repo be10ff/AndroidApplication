@@ -27,6 +27,8 @@ import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -49,11 +51,15 @@ public class LoadProjectInteractor {
                     @Override
                     public GIProjectProperties call(String s) {
                         GIProjectProperties ps = new GIProjectProperties(s);
-                        view.onProject(ps);
+//                        view.onProject(ps);
                         return ps;
                     }
-                })
-                .flatMap(new Func1<GIProjectProperties, Observable<Layer>>() {
+                }).observeOn(AndroidSchedulers.mainThread()).doOnNext(new Action1<GIProjectProperties>() {
+            @Override
+            public void call(GIProjectProperties giProjectProperties) {
+                view.onProject(giProjectProperties);
+            }
+        }).flatMap(new Func1<GIProjectProperties, Observable<Layer>>() {
                     @Override
                     public Observable<Layer> call(final GIProjectProperties giProjectProperties) {
                         return Observable.create(
