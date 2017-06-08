@@ -2,6 +2,7 @@ package ru.tcgeo.application.wkt;
 
 import android.util.Log;
 import android.util.Xml;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -13,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import ru.tcgeo.application.App;
 import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
@@ -128,6 +130,7 @@ public class GIGPSPointsLayer  extends GIEditableLayer
 		catch(Exception e)
 		{
 			Log.d("LOG_TAG", e.toString());
+			Toast.makeText(App.getInstance(), e.toString(), Toast.LENGTH_SHORT);
 		}
 	}
 

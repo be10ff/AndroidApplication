@@ -844,7 +844,8 @@ public class GIEditLayersKeeper {
 		if(m_TrackLayer == null){
             SimpleDateFormat dateFormat = new SimpleDateFormat(activity.getString(R.string.date_format), Locale.ENGLISH);
             String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
-            m_TrackLayer = GILayer.createTrack(m_Map.ps.m_name + "_" + date);
+//			m_Map.ps.m_name
+            m_TrackLayer = GILayer.createTrack(m_Map.ps.m_name,  date);
             m_TrackLayer.setType(GIEditableLayer.GIEditableLayerType.TRACK);
             m_TrackLayer.Save();
             m_Map.ps.m_Group.addEntry(m_TrackLayer.m_layer_properties);
@@ -872,7 +873,7 @@ public class GIEditLayersKeeper {
 			m_CurrentTrack.m_attributes.put("Project", proj_field);
 
 
-			res = ((GIXMLTrack)m_CurrentTrack).Create(getCurrentTimeShort(), m_TrackLayer.m_style, m_TrackLayer.m_encoding);
+			res = ((GIXMLTrack)m_CurrentTrack).Create(m_Map.ps.m_name, getCurrentTimeShort(), m_TrackLayer.m_style, m_TrackLayer.m_encoding);
 			m_CurrentTrack.m_status = GI_WktGeometry.GIWKTGeometryStatus.NEW;
 			m_TrackLayer.m_shapes.add(m_CurrentTrack);
 

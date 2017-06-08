@@ -75,10 +75,10 @@ public class GITileRenderer extends GIRenderer {
 
 //                        RectF dst = new RectF(tile.m_points.get(0).x, tile.m_points.get(0).y, tile.m_points.get(2).x, tile.m_points.get(2).y);
 
-                        float left_scr = (float)((tile.m_points.get(0).x - left) * koeffX);
-                        float top_scr = (float)(bitmap.getHeight() - (tile.m_points.get(0).y - bottom) * koeffY);
-                        float right_scr = (float) ((tile.m_points.get(2).x - left) * koeffX);
-                        float bottom_scr = (float)(bitmap.getHeight() - (tile.m_points.get(2).y - bottom) * koeffY);
+                        float left_scr = (float)((tile.bounds.m_points.get(0).m_lon - left) * koeffX);
+                        float top_scr = (float)(bitmap.getHeight() - (tile.bounds.m_points.get(0).m_lat - bottom) * koeffY);
+                        float right_scr = (float) ((tile.bounds.m_points.get(2).m_lon - left) * koeffX);
+                        float bottom_scr = (float)(bitmap.getHeight() - (tile.bounds.m_points.get(2).m_lat - bottom) * koeffY);
 
                         RectF dst = new RectF(left_scr, top_scr, right_scr, bottom_scr);
 
@@ -90,19 +90,19 @@ public class GITileRenderer extends GIRenderer {
 			}
 			catch(Exception e)
 			{
-				Paint paint = new Paint();
-		        Path path= new Path();
-		        paint.setColor(Color.GRAY);
-		        paint.setStyle(Style.STROKE);
-		        paint.setTextSize(12);
-		        path.moveTo(tile.m_points.get(0).x, tile.m_points.get(0).y);
-				for(int i = 1; i < tile.m_points.size(); i++)
-				{
-			        path.lineTo(tile.m_points.get(i).x, tile.m_points.get(i).y);
-			        if(i == 4)
-			        	m_canvas.drawText(tile.m_filename, tile.m_points.get(i).x + 10, tile.m_points.get(i).y + 10, paint);
-				}
-				m_canvas.drawPath(path, paint);
+//				Paint paint = new Paint();
+//		        Path path= new Path();
+//		        paint.setColor(Color.GRAY);
+//		        paint.setStyle(Style.STROKE);
+//		        paint.setTextSize(12);
+//		        path.moveTo(tile.m_points.get(0).x, tile.m_points.get(0).y);
+//				for(int i = 1; i < tile.m_points.size(); i++)
+//				{
+//			        path.lineTo(tile.m_points.get(i).x, tile.m_points.get(i).y);
+//			        if(i == 4)
+//			        	m_canvas.drawText(tile.m_filename, tile.m_points.get(i).x + 10, tile.m_points.get(i).y + 10, paint);
+//				}
+//				m_canvas.drawPath(path, paint);
 			};
 		}
 
