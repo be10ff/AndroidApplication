@@ -62,14 +62,7 @@ public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
                 mActivity.getMarkersDialog().dismiss();
                 GILonLat new_center = new GILonLat(item.m_marker.m_lon,
                         item.m_marker.m_lat);
-                RelativeLayout layout = (RelativeLayout) mActivity.findViewById(R.id.root);
                 GIControlFloating m_marker_point = mActivity.getMarkerPoint();
-                if (m_marker_point == null) {
-                    m_marker_point = new GIControlFloating(parent
-                            .getContext());
-                    layout.addView(m_marker_point);
-                    m_marker_point.setMap(mActivity.getMap());
-                }
                 m_marker_point.setLonLat(new_center);
                 if (item.m_marker.m_diag != 0) {
                     mActivity.getMap().SetCenter(new_center, item.m_marker.m_diag);

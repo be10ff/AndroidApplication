@@ -303,13 +303,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		m_layers.AddLayer(layer);
 	}
 
-	public GILayer find (String source)
-	{
-		return m_layers.find(source);
-	}
-
-
-	
 	public void AddLayer (GILayer layer, GIScaleRange range, boolean enabled)
 	{
 		m_layers.AddLayer(layer, range, enabled);
@@ -324,13 +317,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		return m_bounds.projection();
 	}
 	
-	public void SetProjection (GIProjection projection)
-	{
-		m_bounds = m_bounds.Reprojected(projection);
-		fire_onViewMove();
-		UpdateMap();
-	}
-	
+
 	public GILonLat Center ()
 	{
 		return new GILonLat((m_bounds.left() + m_bounds.right())/2,
@@ -383,12 +370,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		GIBounds new_bounds = new GIBounds(this.Projection(), center, diagonal*GetCos(), diagonal*GetSin());
 		SetBounds(new_bounds);
 	}
-	
-	public void SetCenter (GILonLat point, double diagonal, GIProjection proj)
-	{
-		// TODO
-	}
-	
+
 	public void MoveMapBy (double x, double y)
 	{
 		m_bounds = new GIBounds(m_bounds.projection(), 

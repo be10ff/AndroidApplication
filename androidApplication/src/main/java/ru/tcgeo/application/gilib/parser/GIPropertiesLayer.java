@@ -32,11 +32,11 @@ public class GIPropertiesLayer implements ILayersRoot
 	public void addEntry(GIPropertiesLayer layer)
 	{
         boolean present = false;
-        for (GIPropertiesLayer l: m_Entries) {
-            if(l.m_source.m_name.equals(layer.m_source.m_name)){
-                present = true;
-            }
-        }
+//        for (GIPropertiesLayer l: m_Entries) {
+//            if(l.m_source.m_name.equals(layer.m_source.m_name)){
+//                present = true;
+//            }
+//        }
         //todo
         if(!present){
             m_Entries.add(layer);

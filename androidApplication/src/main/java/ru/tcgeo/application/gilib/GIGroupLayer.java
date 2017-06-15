@@ -71,35 +71,16 @@ public class GIGroupLayer extends GILayer
 		}
 	}
 
-	public GILayer find(String name){
-		for (GITuple tuple: m_list) {
-			if(tuple.layer.m_layer_properties.m_source.m_name.equals(name)){
-				return  tuple.layer;
-			}
-		}
-		return null;
-	}
-
-	public int AddLayer(GILayer layer)
+	public void AddLayer(GILayer layer)
 	{
-		boolean present = false;
-		for (GITuple tuple: m_list) {
-			if(tuple.layer.m_layer_properties.m_source.m_name.equals(layer.m_layer_properties.m_source.m_name)){
-				present = true;
-			}
-
-		}
-//		//todo !!!
-		if(!present)
+		if(!m_list.contains(layer))
 		{
 			if(layer.type_ == GILayerType.SQL_LAYER )
 			{
 				m_list.add(0, new GITuple(layer, true, new GIScaleRange()));
-				return 0;
 			}
 			m_list.add(new GITuple(layer, true, new GIScaleRange()));
 		}
-		return 0;
 	}
 
 	public int AddLayer(GILayer layer, GIScaleRange range, boolean visible)

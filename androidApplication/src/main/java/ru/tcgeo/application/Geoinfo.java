@@ -45,6 +45,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
@@ -54,7 +55,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
 	//
 	@Bind(R.id.root)
-	View root;
+	RelativeLayout root;
 
 	@Bind(R.id.map)
 	GIMap map;
@@ -684,6 +685,12 @@ public class Geoinfo extends FragmentActivity implements MapView {
 	}
 
 	public GIControlFloating getMarkerPoint() {
+
+		if (m_marker_point == null) {
+			m_marker_point = new GIControlFloating(this);
+			root.addView(m_marker_point);
+			m_marker_point.setMap(getMap());
+		}
 		return m_marker_point;
 	}
 
