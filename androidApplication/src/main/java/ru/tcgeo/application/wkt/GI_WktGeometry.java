@@ -8,6 +8,7 @@ import org.xmlpull.v1.XmlSerializer;
 import java.io.IOException;
 import java.util.Map;
 
+import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
 
@@ -33,10 +34,10 @@ public abstract class GI_WktGeometry
 	public long m_ID;
 	public Map<String, GIDBaseField> m_attributes;
 	
-	public GI_WktGeometry() 
-	{
-		m_ID = -1;
-	}
+//	public GI_WktGeometry()
+//	{
+//		m_ID = -1;
+//	}
 
 	public abstract String toWKT();
 	public abstract void Draw(Canvas canvas, GIBounds area, float scale, Paint paint);
@@ -65,4 +66,30 @@ public abstract class GI_WktGeometry
 	public void free(){
 
 	}
+
+	public static GI_WktGeometry CreateGeometry(GIEditableLayer.GIEditableLayerType type){
+        GI_WktGeometry geometry = null;
+        switch (type)	{
+            case POINT:{
+                geometry = new GI_WktPoint();
+                break;
+            }
+            case LINE:{
+                geometry = new GI_WktLinestring();
+                break;
+            }
+            case POLYGON:{
+                geometry = new GI_WktPolygon();
+                GI_WktLinestring outer_ring = new GI_WktLinestring();
+                ((GI_WktPolygon)geometry).AddRing(outer_ring);
+                break;
+            }
+            case TRACK:{
+                return null;
+            }
+            default:
+                return null;
+        }
+        return geometry;
+    }
 }

@@ -123,16 +123,10 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
 
 	public void LoadProject(String path) {
-
-//		GIBounds temp = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
-//		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
 		pbProgress.setVisibility(View.VISIBLE);
 		LoadProjectInteractor interactor = new LoadProjectInteractor();
 		interactor.setView(this);
 		interactor.loadProject(path);
-
-//		map.LoadProject(path);
-
 	}
 
 
@@ -154,7 +148,6 @@ public class Geoinfo extends FragmentActivity implements MapView {
     @Override
     public void onComplited() {
         pbProgress.setVisibility(View.INVISIBLE);
-//        map.UpdateMap();
     }
 
     @Override
@@ -176,45 +169,10 @@ public class Geoinfo extends FragmentActivity implements MapView {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		//getWindow().addFlags(LayoutParams.FLAG_FULLSCREEN);
-		// ?????
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main);
 		ButterKnife.bind(this);
-
-
-//		sp = getPreferences(MODE_PRIVATE);
-//		String path = sp.getString(SAVED_PATH, getResources().getString(R.string.default_project_path));
-//		LoadProject(path);
-//
-//		GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
-//		GIEditLayersKeeper.Instance().setTouchControl(touchControl);
-//		GIEditLayersKeeper.Instance().setMap(map);
-//        GIEditLayersKeeper.Instance().setActivity(this);
-//		GIEditLayersKeeper.Instance().setRoot(R.id.root);
-//
-//		// Setup pixel size to let scale work properly
-//		DisplayMetrics dm = new DisplayMetrics();
-//		getWindowManager().getDefaultDisplay().getMetrics(dm);
-//		double screenPixels = Math.hypot(dm.widthPixels, dm.heightPixels);
-//		double screenInches = Math.hypot(dm.widthPixels / dm.xdpi,
-//				dm.heightPixels / dm.ydpi);
-//		GIMap.inches_per_pixel = screenInches / screenPixels;
-//
-//
-//		/**/
-//
-//		//TODO uncomment
-////		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	5, 5, m_location_listener);
-////		locationManager.requestLocationUpdates(	LocationManager.NETWORK_PROVIDER, 5, 5, m_location_listener);
-//
-////		m_location_listener = new GIGPSLocationListener(map);
-//		m_location_listener = new GIGPSLocationListener((LocationManager) getSystemService(Context.LOCATION_SERVICE));
-//		GIEditLayersKeeper.Instance().locationManager = m_location_listener.locationManager;
-//
-////		GIScaleControl m_scale_control_fixed = (GIScaleControl) findViewById(R.id.scale_control_screen);
-//		scaleControl.setMap(map);
 
         m_location_listener = new GIGPSLocationListener(this);
         GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.locationManager;		//--------------------------------------------------------------------
@@ -600,22 +558,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		double screenInches = Math.hypot(dm.widthPixels / dm.xdpi,
 				dm.heightPixels / dm.ydpi);
 		GIMap.inches_per_pixel = screenInches / screenPixels;
-
-
-		/**/
-
-		//TODO uncomment
-//		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	5, 5, m_location_listener);
-//		locationManager.requestLocationUpdates(	LocationManager.NETWORK_PROVIDER, 5, 5, m_location_listener);
-
-//		m_location_listener = new GIGPSLocationListener(map);
-//		m_location_listener = new GIGPSLocationListener((LocationManager) getSystemService(Context.LOCATION_SERVICE));
-//		GIEditLayersKeeper.Instance().locationManager = m_location_listener.locationManager;
-
-//		GIScaleControl m_scale_control_fixed = (GIScaleControl) findViewById(R.id.scale_control_screen);
 		scaleControl.setMap(map);
-//		fbGPS.SetGPSEnabledStatus(m_location_listener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-
 	}
 
 
@@ -647,8 +590,6 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		}
 		map.ps.SavePro(SaveAsPath);
 	};
-
-	//
 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {

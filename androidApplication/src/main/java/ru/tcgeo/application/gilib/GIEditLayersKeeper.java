@@ -1,7 +1,7 @@
 package ru.tcgeo.application.gilib;
 
 
-import java.io.File;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,17 +10,14 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import android.app.FragmentManager;
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Environment;
 import android.view.View;
 
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.gps.GICompassFragment;
-//import ru.tcgeo.application.gilib.gps.GIGPSDialog;
 import ru.tcgeo.application.gilib.gps.GILocatorFragment;
 import ru.tcgeo.application.gilib.gps.GILocatorRange;
 import ru.tcgeo.application.gilib.gps.GIXMLTrack;
@@ -63,7 +60,6 @@ public class GIEditLayersKeeper {
 	private int m_root;
 	public LocationManager m_location_manager;
 	// views
-//	public GIEditLayerDialog m_EditLayerDialog;
 	public GICompassFragment m_compass;
 	public GILocatorFragment m_locator;
 	public GILocatorRange m_range;
@@ -84,10 +80,7 @@ public class GIEditLayersKeeper {
 	public GI_WktGeometry m_CurrentTarget;
 	public GI_WktGeometry m_geometry;
 
-	//GILonLat m_last_location;
 	public ArrayList<GIEditableLayer> m_Layers;
-
-
 
 	//statuses
 	public GITrackingStatus m_TrackingStatus;
@@ -140,21 +133,6 @@ public class GIEditLayersKeeper {
 		return !(m_Status == GIEditingStatus.STOPPED);
 	}
 
-//	public GIEditLayerDialog getEditLayerDialog()
-//	{
-//		if(m_Status == GIEditingStatus.EDITING_POI)
-//		{
-//
-//		}
-//		m_EditLayerDialog = (GIEditLayerDialog) m_FragmentManager.findFragmentByTag(edit_layer_tag);
-//		if(m_EditLayerDialog == null)
-//		{
-//				m_EditLayerDialog = new GIEditLayerDialog();
-//			m_FragmentManager.beginTransaction().add(m_root, m_EditLayerDialog, edit_layer_tag).commit();
-//		}
-//		return m_EditLayerDialog;
-//
-//	}
 	public GIEditAttributesFragment getEditAttributesFragment()
 	{
 		m_EditAttributesFragment = (GIEditAttributesFragment) m_FragmentManager.findFragmentByTag(edit_attributes_tag);
@@ -166,19 +144,14 @@ public class GIEditLayersKeeper {
 		return m_EditAttributesFragment;
 	}
 
-	public void setState(GIEditingStatus status)
-	{
+	public void setState(GIEditingStatus status) {
 		m_Status = status;
-		//m_PreviusStatus = status;
-		if(IsRunning())
-		{
+		if(IsRunning())	{
 			m_TouchControl.SetMeasureState(false, false);
 		}
-
 	}
 
-	public void setFragmentManager(FragmentManager fragment_manager)
-	{
+	public void setFragmentManager(FragmentManager fragment_manager){
 		m_FragmentManager = fragment_manager;
 	}
 
@@ -215,54 +188,42 @@ public class GIEditLayersKeeper {
 	{
 		m_root = id;
 	}
-	public boolean CreateNewObject() 
-	{
-		boolean res = false;
-		switch (m_layer.m_Type)
-		{
-			case POINT:
-			{
+
+	public boolean CreateNewObject(){
+		switch (m_layer.m_Type)	{
+			case POINT:{
 				m_geometry = new GI_WktPoint();
-				res =  true;
 				break;
 			}	
-			case LINE:
-			{
+			case LINE:{
 				m_geometry = new GI_WktLinestring();
-				res =  true;
 				break;
 			}
-			case POLYGON:
-			{
+			case POLYGON:{
 				m_geometry = new GI_WktPolygon();
 				GI_WktLinestring outer_ring = new GI_WktLinestring();
 				((GI_WktPolygon)m_geometry).AddRing(outer_ring);
-				res =  true;
 				break;
 			}
-			case TRACK:
-			{
+			case TRACK:{
 				return false;
 			}
 		default:
 			return false;
 		}
-		if( ! res)
-		{
-			return false;
-		}
+
 		m_geometry.m_status = GI_WktGeometry.GIWKTGeometryStatus.NEW;
 		m_geometry.m_attributes = new HashMap<String, GIDBaseField>();
-		for(String key : m_layer.m_attributes.keySet())
-		{
+		for(String key : m_layer.m_attributes.keySet()){
 			m_geometry.m_attributes.put(key, new GIDBaseField(m_layer.m_attributes.get(key)));
 		}
 		m_layer.m_shapes.add(m_geometry);
 		m_current_geometry_editing_control = new GIGeometryControl(m_layer, m_geometry);
 		m_controls.add(m_current_geometry_editing_control);
 		
-		return res;
+		return true;
 	}
+
 	public void onPause()
 	{
 		StopEditing();

@@ -8,43 +8,31 @@
     android:background="@color/white"
     android:tag="root">
  
-       <ru.tcgeo.application.gilib.GIMap
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <ru.tcgeo.application.gilib.GIMap
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-        <ru.tcgeo.application.gilib.GITouchControl
-            android:id="@+id/touchcontrol"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <ru.tcgeo.application.gilib.GITouchControl
+        android:id="@+id/touchcontrol"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-        <ru.tcgeo.application.views.GIScaleControl
-            android:id="@+id/scale_control_screen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/touchcontrol"
-            android:layout_alignLeft="@id/touchcontrol"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp" />
+    <ru.tcgeo.application.views.GIScaleControl
+        android:id="@+id/scale_control_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/touchcontrol"
+        android:layout_alignLeft="@id/touchcontrol"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp" />
     <ProgressBar
         android:id="@+id/pbProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
         android:indeterminate="true"
-
         style="?android:attr/progressBarStyleLarge"
         android:layout_centerInParent="true" />
 
-    <!--android:indeterminateTintMode="src_atop"-->
-    <!--android:indeterminateTint="@color/measure_line_color"-->
-
-    <!--<ImageView-->
-        <!--android:id="@+id/pbProgress"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/background"-->
-        <!--android:visibility="visible"-->
-        <!--/>-->
-
-    </RelativeLayout>
+</RelativeLayout>
