@@ -27,6 +27,7 @@ dependencies {
 
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:animated-vector-drawable:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
 
     //Rx
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -40,6 +41,8 @@ dependencies {
 //    compile 'com.getbase:floatingactionbutton:1.9.1'
 //
 //    compile 'com.github.clans:fab:1.5.3'
+
+    compile 'com.jakewharton:butterknife:7.0.1'
 
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     //http://team.158ltd.com/2015/04/30/part-of-new-design-in-android-floating-action-button/
