@@ -28,9 +28,20 @@ public class GIPropertiesLayer implements ILayersRoot
 	{
 		m_Entries = new ArrayList<GIPropertiesLayer>();
 	}
+
 	public void addEntry(GIPropertiesLayer layer)
 	{
-		m_Entries.add(layer);
+        boolean present = false;
+//        for (GIPropertiesLayer l: m_Entries) {
+//            if(l.m_source.m_name.equals(layer.m_source.m_name)){
+//                present = true;
+//            }
+//        }
+        //todo
+        if(!present){
+            m_Entries.add(layer);
+        }
+//		m_Entries.add(layer);
 	}
 	
 	public String ToString()

@@ -202,11 +202,13 @@ public class GIXMLTrack extends GI_WktGeometry {
 		return false;
 	}
 	
-	public boolean Create(String name, GIVectorStyle style, GIEncoding encoding)
+	public boolean Create(String folder, String name, GIVectorStyle style, GIEncoding encoding)
 	{
 		m_name_wo_extention = name;
-		m_file = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + name  + ".track";
-		return CreateOutput(name);
+
+		m_file = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder + File.separator + name  + ".track";
+
+		return CreateOutput(folder, name);
 
 	}
 	
@@ -250,12 +252,16 @@ public class GIXMLTrack extends GI_WktGeometry {
 	/**/
 	FileOutputStream m_output;
 	BufferedWriter m_writer;
-	public boolean CreateOutput(String name)
+	public boolean CreateOutput(String folder, String name)
 	{
+		File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder);
+		if(!dir.exists()){
+			dir.mkdir();
+		}
 		boolean res = false;
 		try 
 		{
-			m_writer = new BufferedWriter(new FileWriter(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + name + ".track", true));
+			m_writer = new BufferedWriter(new FileWriter(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder + File.separator + name  + ".track", true));
 			res = true;
 		} 
 		catch (IOException e) 

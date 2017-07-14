@@ -227,7 +227,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 
     }
 	public static double meters_per_inch = 0.0254f; 
-	static double getScale (GIBounds bounds, Rect rect)
+	public static double getScale (GIBounds bounds, Rect rect)
 	{
 		//final static double meters_per_inch = 0.0254f; 
 		GIBounds metric = bounds.Reprojected(GIProjection.WorldMercator());
@@ -302,7 +302,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 	{
 		m_layers.AddLayer(layer);
 	}
-	
+
 	public void AddLayer (GILayer layer, GIScaleRange range, boolean enabled)
 	{
 		m_layers.AddLayer(layer, range, enabled);
@@ -317,13 +317,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		return m_bounds.projection();
 	}
 	
-	public void SetProjection (GIProjection projection)
-	{
-		m_bounds = m_bounds.Reprojected(projection);
-		fire_onViewMove();
-		UpdateMap();
-	}
-	
+
 	public GILonLat Center ()
 	{
 		return new GILonLat((m_bounds.left() + m_bounds.right())/2,
@@ -376,12 +370,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		GIBounds new_bounds = new GIBounds(this.Projection(), center, diagonal*GetCos(), diagonal*GetSin());
 		SetBounds(new_bounds);
 	}
-	
-	public void SetCenter (GILonLat point, double diagonal, GIProjection proj)
-	{
-		// TODO
-	}
-	
+
 	public void MoveMapBy (double x, double y)
 	{
 		m_bounds = new GIBounds(m_bounds.projection(), 
@@ -985,6 +974,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 				}
 
 			}
+
 			if (current_layer.m_type == GILayer.GILayerType.SQL_YANDEX_LAYER) {
 				GILayer layer;
 				if (current_layer.m_source.m_location.equalsIgnoreCase("text"))
@@ -1012,6 +1002,48 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
 						if (current_layer.m_sqldb.m_zoom_type
 								.equalsIgnoreCase("ADAPTIVE")) {
+							((GISQLLayer) layer).getAvalibleLevels();
+						}
+						current_layer.m_sqldb = builder.build();
+					}
+					layer.m_layer_properties = current_layer;
+					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+				}
+				else
+				{
+					continue;
+				}
+
+			}
+			if (current_layer.m_type == GILayer.GILayerType.FOLDER)
+			{
+				GILayer layer;
+				if (current_layer.m_source.m_location.equalsIgnoreCase("text"))
+				{
+					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.FOLDER);
+					layer.setName(current_layer.m_name);
+					if (current_layer.m_sqldb != null) {
+						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
+						{
+							((GISQLLayer) layer).getAvalibleLevels();
+						}
+						current_layer.m_sqldb = builder.build();
+					}
+					layer.m_layer_properties = current_layer;
+					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+				}
+				else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
+				{
+					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayer.GILayerType.FOLDER);
+
+					layer.setName(current_layer.m_name);
+					if (current_layer.m_sqldb != null) {
+						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+
+						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE")) {
 							((GISQLLayer) layer).getAvalibleLevels();
 						}
 						current_layer.m_sqldb = builder.build();

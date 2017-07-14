@@ -71,18 +71,16 @@ public class GIGroupLayer extends GILayer
 		}
 	}
 
-	public int AddLayer(GILayer layer)
+	public void AddLayer(GILayer layer)
 	{
 		if(!m_list.contains(layer))
 		{
 			if(layer.type_ == GILayerType.SQL_LAYER )
 			{
 				m_list.add(0, new GITuple(layer, true, new GIScaleRange()));
-				return 0;
 			}
 			m_list.add(new GITuple(layer, true, new GIScaleRange()));
 		}
-		return 0;
 	}
 
 	public int AddLayer(GILayer layer, GIScaleRange range, boolean visible)

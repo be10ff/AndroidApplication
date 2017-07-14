@@ -16,7 +16,7 @@ public abstract class GI_WktGeometry
 {
 	public enum GIWKTGeometryType
 	{
-		POINT, LINE, POLYGON, RING, TRACK;
+		POINT, LINE, POLYGON, RING, TRACK, BOUNDS;
 	}
 	public enum GIWKTGeometryStatus
 	{
@@ -24,7 +24,8 @@ public abstract class GI_WktGeometry
 		MODIFIED, //изменен существующий. для update таблицы. ставится после редактирования аттрибутов или геометрии
 		//DELETED,
 		SAVED, //после чтения из таблицы или сохранения
-		GEOMETRY_EDITING; //при редактировании геометрии . отрисовывается контролами как выбранный объект. после первого сохранения только что создавнного
+		GEOMETRY_EDITING, //при редактировании геометрии . отрисовывается контролами как выбранный объект. после первого сохранения только что создавнного
+		CONSTANT; // статичные объекты. например границы CustomTile
 	}
 
 	public GIWKTGeometryType m_type;

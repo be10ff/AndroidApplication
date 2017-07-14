@@ -4,9 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Environment;
+import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 
+import ru.tcgeo.application.App;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.models.GIEncoding;
@@ -26,7 +29,7 @@ public abstract class GILayer
 	public enum GILayerType
 	{
 
-		LAYER_GROUP, RASTER_LAYER, VECTOR_LAYER, TILE_LAYER, ON_LINE, SQL_LAYER, DBASE, XML, SQL_YANDEX_LAYER, PLIST, ZIP;
+		LAYER_GROUP, RASTER_LAYER, VECTOR_LAYER, TILE_LAYER, ON_LINE, SQL_LAYER, DBASE, XML, SQL_YANDEX_LAYER, PLIST, ZIP, FOLDER;
 	}
 
 	protected GIBounds     m_maxExtent;
@@ -79,6 +82,12 @@ public abstract class GILayer
 			{
 				return new GIGPSPointsLayer(path, new GIVectorStyle());
 			}
+			case FOLDER:
+			{
+				GIFolderLayer layer = new GIFolderLayer(path);
+				layer.type_ = type;
+				return layer;
+			}
 //			case PLIST:
 //			{
 //				return new GISPECSLayer(path, new GIVectorStyle());
@@ -116,6 +125,12 @@ public abstract class GILayer
 			case SQL_YANDEX_LAYER:
 			{
 				GISQLLayer layer = new GISQLLayer(path);
+				layer.type_ = type;
+				return layer;
+			}
+			case FOLDER:
+			{
+				GIFolderLayer layer = new GIFolderLayer(path);
 				layer.type_ = type;
 				return layer;
 			}
@@ -157,6 +172,12 @@ public abstract class GILayer
 			case SQL_LAYER:
 			{
 				return new GISQLLayer(path);
+			}
+			case FOLDER:
+			{
+				GIFolderLayer layer = new GIFolderLayer(path);
+				layer.type_ = type;
+				return layer;
 			}
 			case DBASE:
 			{
@@ -246,14 +267,19 @@ public abstract class GILayer
 
 	}
 
-	public static  GIEditableLayer createTrack(String projectName)
+	public static  GIEditableLayer createTrack(String projectName, String date)
 	{
-		File file = new File(projectName + "_track.xml");
+        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + projectName);
+        if(!dir.exists()){
+			dir.mkdir();
+        }
+
+		File file = new File(projectName + "_" + date + "_track.xml");
 		GIPropertiesLayer properties_layer = new GIPropertiesLayer();
 		properties_layer.m_enabled = true;
 		properties_layer.m_name = file.getName();
 		properties_layer.m_range = new GIRange();
-		properties_layer.m_source = new GISource("absolute", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + file.getName());
+		properties_layer.m_source = new GISource("absolute", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + projectName + File.separator + file.getName());
 		properties_layer.m_type = GILayer.GILayerType.XML;
 		properties_layer.m_strType = "XML";
 		GILayer layer;

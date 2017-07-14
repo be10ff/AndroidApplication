@@ -15,7 +15,7 @@ import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 
 
-public class GITouchControl extends View implements GIControl, OnLongClickListener, OnClickListener
+public class GITouchControl extends View implements GIControl, OnLongClickListener
 {
 	private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener 
 	{
@@ -95,8 +95,6 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
 		m_context = context;
 
 		this.setOnLongClickListener(this);
-		this.setOnClickListener(this);
-
 	}
 
 
@@ -290,18 +288,4 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
 		}
 		return false;
 	}
-
-	public void onClick(View arg0)
-	{
-		if(!m_IsMultyClick&&!m_IsMoveClick &&!m_IsRule && !m_IsSquare && !GIEditLayersKeeper.Instance().IsRunning())
-		{
-			m_IsClick = false;
-			m_IsLongClick = true;
-			GILonLat lonlat = m_map.ScreenToMap(new Point((int)x, (int)y));
-			Point point = m_map.MapToScreen(lonlat);
-			GIDataRequestorImp requestor = new GIDataRequestorImp(this.getContext(), new Point((int)x, (int)y), m_map.ps);
-		    m_map.RequestDataInPoint(new Point((int)x, (int)y), requestor);
-		    requestor.ShowDialog(this.getContext(), new Point(point.x, point.y), m_map);
-		}
-	}	
 }
