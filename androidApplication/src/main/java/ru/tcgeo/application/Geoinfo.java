@@ -138,9 +138,11 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
     @Override
     public void onProject(GIProjectProperties ps) {
+		map.ps = ps;
         GIEditLayersKeeper.Instance().ClearLayers();
         GIBounds temp = new GIBounds(ps.m_projection, ps.m_left,
                 ps.m_top, ps.m_right, ps.m_bottom);
+
         map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
         touchControl.InitMap(map);
         map.ps = ps;
@@ -154,7 +156,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
     @Override
     public void onComplited() {
         pbProgress.setVisibility(View.INVISIBLE);
-//        map.UpdateMap();
+        map.UpdateMap();
     }
 
     @Override
