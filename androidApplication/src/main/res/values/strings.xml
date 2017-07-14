@@ -116,6 +116,7 @@
     <string name="remove">Remove</string>
     <string name="file_error">File cannot be read</string>
 
+
     <string-array name="zoom_type">
         <item>auto</item>
         <item>smart</item>

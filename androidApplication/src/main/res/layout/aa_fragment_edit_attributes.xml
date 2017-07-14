@@ -2,33 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="400dp"
     android:layout_height="wrap_content"
-    android:background="#80808080"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/attributes_list_view"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvAttributes"
         android:layout_width="match_parent"
         android:layout_height="160dp">
 
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/Save"
+        <TextView
+            android:id="@+id/tvSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
+            android:background="@drawable/top_button_background_normal"
+            android:gravity="center"
             android:text="@string/yes" />
 
-        <Button
-            android:id="@+id/Discard"
+        <TextView
+            android:id="@+id/tvDiscard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="1"
+            android:background="@drawable/top_button_background_normal"
+            android:gravity="center"
             android:text="@string/no" />
 
     </LinearLayout>
