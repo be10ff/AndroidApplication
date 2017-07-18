@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.models.Attribute;
 import ru.tcgeo.application.views.callback.AttributesCallback;
 import ru.tcgeo.application.views.viewholder.AttributesHolder;
 
@@ -18,10 +21,12 @@ public class AttributesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private Context context;
     private AttributesCallback callback;
+    private List<Attribute> data;
 
     public AttributesAdapter(Builder builder) {
         this.context = builder.context;
         this.callback = builder.callback;
+        this.data = builder.data;
     }
 
     @Override
@@ -34,18 +39,23 @@ public class AttributesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        AttributesHolder h = (AttributesHolder) holder;
+        Attribute item = data.get(position);
+        h.etName.setText(item.name);
+        h.etValue.setText(item.value);
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data.size();
     }
 
     public static class Builder {
 
         private Context context;
         private AttributesCallback callback;
+        private List<Attribute> data;
 
         public Builder(Context context) {
             this.context = context;
@@ -56,8 +66,13 @@ public class AttributesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return this;
         }
 
+        public Builder data(List<Attribute> data) {
+            this.data = data;
+            return this;
+        }
+
         public AttributesAdapter build() {
-            return AttributesAdapter(this);
+            return new AttributesAdapter(this);
         }
 
     }

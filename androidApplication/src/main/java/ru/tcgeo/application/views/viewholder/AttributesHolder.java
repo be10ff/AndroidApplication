@@ -17,10 +17,10 @@ import ru.tcgeo.application.views.callback.AttributesCallback;
 public class AttributesHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.etName)
-    EditText etName;
+    public EditText etName;
 
     @Bind(R.id.etValue)
-    EditText etValue;
+    public EditText etValue;
 
     private Context context;
 
