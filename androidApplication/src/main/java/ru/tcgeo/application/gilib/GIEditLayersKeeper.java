@@ -24,7 +24,7 @@ import ru.tcgeo.application.gilib.gps.GIXMLTrack;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.views.dialog.attributes.AAEditAttributesFragment;
+import ru.tcgeo.application.views.dialog.EditAttributesDialog;
 import ru.tcgeo.application.wkt.GIDBaseField;
 import ru.tcgeo.application.wkt.GIGeometryControl;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
@@ -52,7 +52,7 @@ public class GIEditLayersKeeper {
 	public GILocatorFragment m_locator;
 	public GILocatorRange m_range;
 	//	public GIEditAttributesFragment m_EditAttributesFragment;
-	public AAEditAttributesFragment m_EditAttributesFragment;
+	public EditAttributesDialog m_EditAttributesFragment;
 	public GIGeometryControl m_current_track_control;
 	//currents
 	public GIEditableLayer m_layer;
@@ -129,46 +129,10 @@ public class GIEditLayersKeeper {
 		return !(m_Status == GIEditingStatus.STOPPED);
 	}
 
-//	public GIEditLayerDialog getEditLayerDialog()
-//	{
-//		if(m_Status == GIEditingStatus.EDITING_POI)
-//		{
-//
-//		}
-//		m_EditLayerDialog = (GIEditLayerDialog) m_FragmentManager.findFragmentByTag(edit_layer_tag);
-//		if(m_EditLayerDialog == null)
-//		{
-//				m_EditLayerDialog = new GIEditLayerDialog();
-//			m_FragmentManager.beginTransaction().add(m_root, m_EditLayerDialog, edit_layer_tag).commit();
-//		}
-//		return m_EditLayerDialog;
-//
-//	}
-//	public GIEditAttributesFragment getEditAttributesFragment()
-//	{
-//		m_EditAttributesFragment = (GIEditAttributesFragment) m_FragmentManager.findFragmentByTag(edit_attributes_tag);
-//		if(m_EditAttributesFragment == null)
-//		{
-//			m_EditAttributesFragment = new GIEditAttributesFragment();
-//			m_FragmentManager.beginTransaction().add(m_root, m_EditAttributesFragment, edit_attributes_tag).commit();
-//		}
-//		return m_EditAttributesFragment;
-//	}
-
-//	public AAEditAttributesFragment getEditAttributesFragment()
-//	{
-//		m_EditAttributesFragment = (AAEditAttributesFragment) m_FragmentManager.findFragmentByTag(edit_attributes_tag);
-//		if(m_EditAttributesFragment == null)
-//		{
-//			m_EditAttributesFragment = new AAEditAttributesFragment();
-//			m_FragmentManager.beginTransaction().add(m_root, m_EditAttributesFragment, edit_attributes_tag).commit();
-//		}
-//		return m_EditAttributesFragment;
-//	}
 
 	public void showEditAttributesFragment()
 	{
-		AAEditAttributesFragment dialog = new AAEditAttributesFragment(activity, true, new DialogInterface.OnCancelListener() {
+		EditAttributesDialog dialog = new EditAttributesDialog(activity, true, new DialogInterface.OnCancelListener() {
 			@Override
 			public void onCancel(DialogInterface dialog) {
 				GIEditLayersKeeper.Instance().activity.btnEditCreate.setEnabled(true);
@@ -178,15 +142,8 @@ public class GIEditLayersKeeper {
 
 				GIEditLayersKeeper.Instance().UpdateMap();
 			}
-		});
+		}, m_geometry.m_attributes);
 		dialog.show();
-//		m_EditAttributesFragment = (AAEditAttributesFragment) m_FragmentManager.findFragmentByTag(edit_attributes_tag);
-//		if(m_EditAttributesFragment == null)
-//		{
-//			m_EditAttributesFragment = new AAEditAttributesFragment();
-//			m_FragmentManager.beginTransaction().add(m_root, m_EditAttributesFragment, edit_attributes_tag).commit();
-//		}
-//		return m_EditAttributesFragment;
 	}
 
 	public void setFragmentManager(FragmentManager fragment_manager)
@@ -407,27 +364,6 @@ public class GIEditLayersKeeper {
 		{
 			layer.m_Status = GIEditableLayer.GIEditableLayerStatus.EDITED;
 
-//			m_EditLayerDialog = (GIEditLayerDialog) m_FragmentManager.findFragmentByTag(edit_layer_tag);
-//			if(m_EditLayerDialog == null)
-//			{
-//				m_EditLayerDialog = new GIEditLayerDialog();
-//				m_FragmentManager.beginTransaction().add(m_root, m_EditLayerDialog, edit_layer_tag).commit();
-//
-//			}
-//			else
-//			{
-//				if(m_layer == m_TrackLayer)
-//				{
-//
-//					m_EditLayerDialog.m_btnGeometry.setVisibility(View.GONE);
-//					m_EditLayerDialog.m_btnNew.setVisibility(View.GONE);
-//				}
-//				else
-//				{
-//					m_EditLayerDialog.m_btnGeometry.setVisibility(View.VISIBLE);
-//					m_EditLayerDialog.m_btnNew.setVisibility(View.VISIBLE);
-//				}
-//			}
             activity.fbEditButton.setVisibility(View.VISIBLE);
             activity.fbEditButton.setActivated(true);
             if(m_layer == m_TrackLayer){
@@ -504,7 +440,6 @@ public class GIEditLayersKeeper {
 			}
 		}
 
-//		GIEditLayersKeeper.Instance().getEditAttributesFragment();
 		showEditAttributesFragment();
 		m_layer.m_Status = GIEditableLayer.GIEditableLayerStatus.UNSAVED;
 		m_layer.Save();
@@ -523,7 +458,6 @@ public class GIEditLayersKeeper {
 		{
 			if(!m_geometry.IsEmpty())
 			{
-//				GIEditLayersKeeper.Instance().getEditAttributesFragment();
 				showEditAttributesFragment();
 			}
 			m_Status = GIEditingStatus.RUNNING;
@@ -853,7 +787,7 @@ public class GIEditLayersKeeper {
             SimpleDateFormat dateFormat = new SimpleDateFormat(activity.getString(R.string.date_format), Locale.ENGLISH);
             String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
 
-//			GIEditableLayer  m_TrackLayer = (GIEditableLayer)m_Map.find(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + m_Map.ps.m_name + File.separator + m_Map.ps.m_name + "_" + date + "_track.xml");
+//			GIEditableLayer  m_TrackLayer = (GIEditableLayer)m_Map.find(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + m_Map.ps.name + File.separator + m_Map.ps.name + "_" + date + "_track.xml");
 //			if(m_TrackLayer == null) {
 				m_TrackLayer = GILayer.createTrack(m_Map.ps.m_name, date);
 				m_TrackLayer.setType(GIEditableLayer.GIEditableLayerType.TRACK);

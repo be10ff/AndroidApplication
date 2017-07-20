@@ -1,34 +1,34 @@
-package ru.tcgeo.application.gilib;
+package ru.tcgeo.application.gilib.models;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import ru.tcgeo.application.gilib.parser.GIParserArray;
 
 
 public class GIPList {
-	
-	public class GIMarker
-	{
-		public String m_name;
-		public String m_description;
-		public String m_image;
-		public double m_lon;
-		public double m_lat;
-		public double m_diag;
-	}
-	public ArrayList<GIMarker> m_list;
+
+	//	public class GIMarker
+//	{
+//		public String name;
+//		public String description;
+//		public String image;
+//		public double lon;
+//		public double lat;
+//		public double diag;
+//	}
+	public ArrayList<Marker> m_list;
 	
 	public GIPList()
 	{
-		
-		m_list = new ArrayList<GIMarker>();
+
+		m_list = new ArrayList<Marker>();
 	}
 	public void Load(String path)
 	{

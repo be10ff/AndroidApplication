@@ -1,36 +1,7 @@
 package ru.tcgeo.application;
 
-import java.io.File;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import ru.tcgeo.application.data.interactors.LoadProjectInteractor;
-import ru.tcgeo.application.gilib.gps.GICompassView;
-import ru.tcgeo.application.gilib.gps.GISensors;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.GIControlFloating;
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
-import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.GITouchControl;
-import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
-import ru.tcgeo.application.gilib.gps.GIGPSLocationListener;
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
-
-import ru.tcgeo.application.home_screen.EditableLayersDialog;
-import ru.tcgeo.application.home_screen.MarkersDialog;
-import ru.tcgeo.application.home_screen.SettingsDialog;
-import ru.tcgeo.application.home_screen.ProjectDialog;
-import ru.tcgeo.application.utils.ScreenUtils;
-import ru.tcgeo.application.view.MapView;
-import ru.tcgeo.application.views.GIScaleControl;
-
-//import android.app.DialogFragment;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -51,54 +22,100 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import ru.tcgeo.application.data.interactors.LoadProjectInteractor;
+import ru.tcgeo.application.gilib.GIControlFloating;
+import ru.tcgeo.application.gilib.GIEditLayersKeeper;
+import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.gilib.GITouchControl;
+import ru.tcgeo.application.gilib.gps.GICompassView;
+import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
+import ru.tcgeo.application.gilib.gps.GIGPSLocationListener;
+import ru.tcgeo.application.gilib.gps.GISensors;
+import ru.tcgeo.application.gilib.models.GIBounds;
+import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.gilib.models.GIProjection;
+import ru.tcgeo.application.gilib.models.Marker;
+import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.home_screen.EditableLayersDialog;
+import ru.tcgeo.application.home_screen.ProjectDialog;
+import ru.tcgeo.application.home_screen.SettingsDialog;
+import ru.tcgeo.application.utils.ScreenUtils;
+import ru.tcgeo.application.view.MapView;
+import ru.tcgeo.application.views.GIScaleControl;
+import ru.tcgeo.application.views.callback.MarkerCallback;
+import ru.tcgeo.application.views.dialog.ReMarkersDialog;
+import ru.tcgeo.application.views.viewholder.AttributesHolder;
+
+//import android.app.DialogFragment;
+
 public class Geoinfo extends FragmentActivity implements MapView {
 
+	final public String SAVED_PATH = "default_project_path";
+	public CheckBox btnEditCreate;
+	public CheckBox btnEditGeometry;
+	public CheckBox btnEditAttributes;
+	public CheckBox btnEditDelete;
+	public SubActionButton fbEditCreate;
+	public SubActionButton fbEditGeometry;
+	public SubActionButton fbEditAttributes;
+	public SubActionButton fbEditDelete;
+	public FloatingActionButton fbEditButton;
 	//
 	@Bind(R.id.root)
 	RelativeLayout root;
-
 	@Bind(R.id.map)
 	GIMap map;
-
 	@Bind(R.id.touchcontrol)
 	GITouchControl touchControl;
-
 	@Bind(R.id.scale_control_screen)
 	GIScaleControl scaleControl;
-
 	@Bind(R.id.pbProgress)
 	View pbProgress;
-
 	SharedPreferences sp;
-
-	final public String SAVED_PATH = "default_project_path";
 	DialogFragment projectsDialog;
 	DialogFragment markersDialog;
 	DialogFragment editablelayersDialog;
-
 	GIControlFloating m_marker_point;
-
 	GIGPSLocationListener m_location_listener;
-
 	GIGPSButtonView fbGPS;
-
 	ImageButton fbEdit;
 
-    public CheckBox btnEditCreate;
-    public CheckBox btnEditGeometry;
-    public CheckBox btnEditAttributes;
-    public CheckBox btnEditDelete;
-
-    public SubActionButton fbEditCreate;
-    public SubActionButton fbEditGeometry;
-    public SubActionButton fbEditAttributes;
-    public SubActionButton fbEditDelete;
-
-    public FloatingActionButton fbEditButton;
-
 	public void MarkersDialogClicked(final View button) {
-		markersDialog = new MarkersDialog();
-		markersDialog.show(getSupportFragmentManager(), "markers_dialog");
+//		markersDialog = new MarkersDialog();
+//		markersDialog.show(getSupportFragmentManager(), "markers_dialog");
+
+		ReMarkersDialog dialog = new ReMarkersDialog.Builder(this)
+				.callback(new MarkerCallback() {
+					@Override
+					public void onClick() {
+
+					}
+
+					@Override
+					public void onAddClick() {
+
+					}
+
+					@Override
+					public void onFieldChanged(AttributesHolder holder) {
+
+					}
+				})
+				.data(getMarkers())
+				.build();
+		dialog.show();
+	}
+
+	private List<Marker> getMarkers() {
+		List<Marker> result = new ArrayList<>();
+
+		return result;
 	}
 
 
@@ -628,7 +645,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		GISensors.Instance(this).run(true);
 		fbGPS.onResume();
 
-	};
+	}
 
 
 	@Override
@@ -648,7 +665,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 			}
 		}
 		map.ps.SavePro(SaveAsPath);
-	};
+	}
 
 	//
 

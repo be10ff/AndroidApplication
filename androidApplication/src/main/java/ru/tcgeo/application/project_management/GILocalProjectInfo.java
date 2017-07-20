@@ -17,7 +17,7 @@
 //		m_file = file;
 //		m_project_properties = new GIProjectProperties(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + file);
 //		m_id = m_project_properties.m_id;
-//		m_name = m_project_properties.m_name;
+//		name = m_project_properties.name;
 //	}
 //
 //	@Override

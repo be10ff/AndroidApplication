@@ -1,10 +1,10 @@
 package ru.tcgeo.application.gilib.models;
 
-import java.io.IOException;
+import android.graphics.Color;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.graphics.Color;
+import java.io.IOException;
 
 public class GIColor {
 
@@ -27,8 +27,8 @@ public class GIColor {
 
 	public String ToString()
 	{
-		String res = "Color : m_description=" + m_description + " m_name=" + m_name + " m_red=" + m_red + " m_green=" + m_green + " m_blue=" + m_blue + " m_alpha=" + m_alpha + "\n";
-		return res;
+        String res = "Color : description=" + m_description + " name=" + m_name + " m_red=" + m_red + " m_green=" + m_green + " m_blue=" + m_blue + " m_alpha=" + m_alpha + "\n";
+        return res;
 	}
 	
 	public int Get()

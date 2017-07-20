@@ -1,20 +1,20 @@
 package ru.tcgeo.application.home_screen.adapter;
 
-import ru.tcgeo.application.gilib.GIPList;
+import ru.tcgeo.application.gilib.models.Marker;
 
 /**
  * Created by a_belov on 06.07.15.
  */
 public class MarkersAdapterItem {
-    final public GIPList.GIMarker m_marker;
+    final public Marker m_marker;
 
-    public MarkersAdapterItem(GIPList.GIMarker marker) {
+    public MarkersAdapterItem(Marker marker) {
         m_marker = marker;
     }
 
     @Override
     public String toString() {
-        return m_marker.m_name + " " + m_marker.m_lon + ":"
-                + m_marker.m_lat;
+        return m_marker.name + " " + m_marker.lon + ":"
+                + m_marker.lat;
     }
 }

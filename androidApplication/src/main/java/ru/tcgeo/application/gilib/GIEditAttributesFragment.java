@@ -19,6 +19,7 @@ import ru.tcgeo.application.R;
 import ru.tcgeo.application.wkt.GIDBaseField;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 
+@Deprecated
 public class GIEditAttributesFragment extends Fragment implements
 		OnClickListener{
 
@@ -123,6 +124,17 @@ public class GIEditAttributesFragment extends Fragment implements
 		GIEditLayersKeeper.Instance().UpdateMap();
 
 	}
+
+    public void AddAttributes(GI_WktGeometry obj, ArrayAdapter<LayersAttributeItem> adapter) {
+        if (adapter.isEmpty()) {
+            for (String name : obj.m_attributes.keySet()) {
+                GIDBaseField value = obj.m_attributes.get(name);
+                LayersAttributeItem item = new LayersAttributeItem(name, value.m_value.toString());
+                adapter.add(item);
+            }
+        }
+    }
+
 	public class LayersAttributeItem
 	{
 		final public String m_field_name;
@@ -140,8 +152,13 @@ public class GIEditAttributesFragment extends Fragment implements
 
 		}
 	}
+
 	public class LayersAttributeAdapter extends ArrayAdapter<LayersAttributeItem>
 	{
+        public LayersAttributeAdapter(Context context, int resource, int textViewResourceId) {
+            super(context, resource, textViewResourceId);
+        }
+
 		@Override
         public View getView (int position, View convertView, final ViewGroup parent)
         {
@@ -149,27 +166,10 @@ public class GIEditAttributesFragment extends Fragment implements
 			View v = LayoutInflater.from(getContext()).inflate(R.layout.edit_attriute_item, null);
 			TextView text_field_name = (TextView)v.findViewById(R.id.field_name);
 			TextView text_field_value = (TextView)v.findViewById(R.id.field_value);
-			
-			text_field_name.setText(item.m_field_name);
+
+            text_field_name.setText(item.m_field_name);
 			text_field_value.setText(item.m_field_value);
 			return v;
         }
-		
-		public LayersAttributeAdapter (Context context, int resource, int textViewResourceId)
-        {
-	        super(context, resource, textViewResourceId);
-        }
-	}
-	public void AddAttributes (GI_WktGeometry obj, ArrayAdapter<LayersAttributeItem> adapter)
-	{
-		if(adapter.isEmpty())
-		{
-			for (String name : obj.m_attributes.keySet())
-			{
-				GIDBaseField value = obj.m_attributes.get(name);
-				LayersAttributeItem item = new LayersAttributeItem(name, value.m_value.toString());
-				adapter.add(item);
-			}
-		}
 	}
 }

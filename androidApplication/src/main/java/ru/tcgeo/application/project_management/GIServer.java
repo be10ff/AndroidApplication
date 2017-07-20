@@ -533,7 +533,7 @@
 //			arg0[0].m_status = GIProjectInfo.GIProjectStatus.FAIL;
 //			for(GIProjectInfo item : remotes)
 //			{
-//				if(item.m_name.equalsIgnoreCase(arg0[0].m_name))
+//				if(item.name.equalsIgnoreCase(arg0[0].name))
 //				{
 //					if(item.m_file.equalsIgnoreCase(arg0[0].m_file))
 //					{
@@ -1042,7 +1042,7 @@
 //		boolean present_res = false;
 //		for(GIProjectInfo item : remotes)
 //		{
-//			if(item.m_name.equalsIgnoreCase(proj.m_name) && item.m_file.equalsIgnoreCase(proj.m_file) &&  (item.m_id == proj.m_id))
+//			if(item.name.equalsIgnoreCase(proj.name) && item.m_file.equalsIgnoreCase(proj.m_file) &&  (item.m_id == proj.m_id))
 //			{
 //				present_res = true;
 //			}

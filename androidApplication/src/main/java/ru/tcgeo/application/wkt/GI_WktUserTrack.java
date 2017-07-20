@@ -14,9 +14,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.App;
-import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIEditableSQLiteLayer;
+import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
@@ -65,8 +65,8 @@ public class GI_WktUserTrack extends GI_WktGeometry {
 			m_layer.m_shapes.get(0).Draw(canvas, area, scale, paint);
 			for(int i = 1; i < m_layer.m_shapes.size(); i++)
 			{
-				((GI_WktPoint)m_layer.m_shapes.get(i)).Draw(canvas, area, scale, paint);
-				PointF point_prev = ((GI_WktPoint)m_layer.m_shapes.get(i-1)).MapToScreen(canvas, area);
+                m_layer.m_shapes.get(i).Draw(canvas, area, scale, paint);
+                PointF point_prev = ((GI_WktPoint)m_layer.m_shapes.get(i-1)).MapToScreen(canvas, area);
 				PointF point_current = ((GI_WktPoint)m_layer.m_shapes.get(i)).MapToScreen(canvas, area);
 				canvas.drawLine(point_prev.x, point_prev.y, point_current.x, point_current.y, paint);
 			}
@@ -81,8 +81,8 @@ public class GI_WktUserTrack extends GI_WktGeometry {
 //			for(int i = 1; i < m_layer.m_shapes.size(); i++)
 //			{
 //
-//				Point first = GIEditLayersKeeper.Instance().getMap().MapToScreenTempo(new GILonLat(((GI_WktPoint)m_layer.m_shapes.get(i-1)).m_lon, ((GI_WktPoint)m_layer.m_shapes.get(i-1)).m_lat));
-//				Point second = GIEditLayersKeeper.Instance().getMap().MapToScreenTempo(new GILonLat(((GI_WktPoint)m_layer.m_shapes.get(i)).m_lon, ((GI_WktPoint)m_layer.m_shapes.get(i)).m_lat));
+//				Point first = GIEditLayersKeeper.Instance().getMap().MapToScreenTempo(new GILonLat(((GI_WktPoint)m_layer.m_shapes.get(i-1)).lon, ((GI_WktPoint)m_layer.m_shapes.get(i-1)).lat));
+//				Point second = GIEditLayersKeeper.Instance().getMap().MapToScreenTempo(new GILonLat(((GI_WktPoint)m_layer.m_shapes.get(i)).lon, ((GI_WktPoint)m_layer.m_shapes.get(i)).lat));
 //				canvas.drawLine(first.x, first.y, second.x, second.y, style.m_paint_pen);
 //			}
 //		}
@@ -94,8 +94,8 @@ public class GI_WktUserTrack extends GI_WktGeometry {
 			m_layer.m_shapes.get(0).Draw(canvas, area, 1, style.m_paint_pen);
 			for(int i = 1; i < m_layer.m_shapes.size(); i++)
 			{
-				((GI_WktPoint)m_layer.m_shapes.get(i)).Draw(canvas, area, 1, style.m_paint_pen);
-				PointF point_prev = ((GI_WktPoint)m_layer.m_shapes.get(i-1)).MapToScreen(canvas, area);
+                m_layer.m_shapes.get(i).Draw(canvas, area, 1, style.m_paint_pen);
+                PointF point_prev = ((GI_WktPoint)m_layer.m_shapes.get(i-1)).MapToScreen(canvas, area);
 				PointF point_current = ((GI_WktPoint)m_layer.m_shapes.get(i)).MapToScreen(canvas, area);
 				canvas.drawLine(point_prev.x - offset[0], point_prev.y - offset[1], point_current.x - offset[0], point_current.y - offset[1], style.m_paint_pen);
 			}
@@ -167,7 +167,26 @@ public class GI_WktUserTrack extends GI_WktGeometry {
 
 		m_layer.Save();
 	}
-	
+
+    @Override
+    public void Delete() {
+        /*File f = new File("/sdcard/" + m_file);
+		//File f = new File("/sdcard/" + m_file);
+		if(f.exists())
+		{
+			f.delete();
+		}*/
+
+    }
+
+    @Override
+    public String SerializedGeometry() {
+
+        File f = new File(m_file);
+        String res = f.getName();
+        return res;
+    }
+
 	public class DBHelper extends SQLiteOpenHelper
 	{
 		String m_name;
@@ -178,8 +197,7 @@ public class GI_WktUserTrack extends GI_WktGeometry {
 		}
 
 		@Override
-		public void onCreate(SQLiteDatabase db) 
-		{
+        public void onCreate(SQLiteDatabase db) {
 			try
 			{
 				db.execSQL("CREATE TABLE Layer(id INTEGER PRIMARY KEY, Geometry VARCHAR(1000), Description VARCHAR(100), BBOX_left REAL, BBOX_right REAL, BBOX_top REAL, BBOX_bottom REAL)");
@@ -200,8 +218,7 @@ public class GI_WktUserTrack extends GI_WktGeometry {
 		}
 
 		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
-		{
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			try
 			{
 				db.execSQL("DROP TABLE IF EXISTS Layer");
@@ -209,27 +226,5 @@ public class GI_WktUserTrack extends GI_WktGeometry {
 			}
 			catch(Exception e) {}
 		}
-	}
-
-	@Override
-	public void Delete() 
-	{
-		/*File f = new File("/sdcard/" + m_file);
-		//File f = new File("/sdcard/" + m_file);
-		if(f.exists())
-		{
-			f.delete();
-		}*/
-		
-	}
-
-
-	@Override
-	public String SerializedGeometry() 
-	{
-		
-		File f = new File(m_file);
-		String res = f.getName();
-		return res;
 	}
 }

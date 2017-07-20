@@ -26,14 +26,14 @@ import ru.tcgeo.application.wkt.GI_WktPoint;
 
 public class GILonLatInputDialog extends DialogFragment 
 {
-	private EditText m_lon_dec;
+    GI_WktPoint m_point;
+    GIGeometryPointControl m_control;
+    private EditText m_lon_dec;
 	private EditText m_lat_dec;
 	private EditText m_lon_can;
 	private EditText m_lat_can;
 	private EditText m_lon_grad_min;
 	private EditText m_lat_grad_min;
-	GI_WktPoint m_point;
-	GIGeometryPointControl m_control;
 //	public GILonLatInputDialog()
 //	{
 //	}
@@ -43,6 +43,12 @@ public class GILonLatInputDialog extends DialogFragment
 		m_control = control;
 		m_point = m_control.m_WKTPoint;
 	}
+
+    static public String customFormat(String pattern, double value) {
+        DecimalFormat myFormatter = new DecimalFormat(pattern);
+        return myFormatter.format(value);
+    }
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInctanceState)
 	{
 //		getDialog().setTitle("Dialog");
@@ -87,8 +93,8 @@ public class GILonLatInputDialog extends DialogFragment
 			public void afterTextChanged(Editable s) {
 				if (m_lat_dec.hasFocus()) {
 					try {
-						//m_point.m_lat = Double.valueOf(s.toString());
-						m_point.m_lat = GIYandexUtils.DoubleLonLatFromString(s.toString());
+                        //m_point.lat = Double.valueOf(s.toString());
+                        m_point.m_lat = GIYandexUtils.DoubleLonLatFromString(s.toString());
 						m_lat_can.setText(getCanonicalCoordString(m_point.m_lat));
 						m_lat_grad_min.setText(getGradMinCoordString(m_point.m_lat));
 					} catch (NumberFormatException e) {
@@ -200,7 +206,6 @@ public class GILonLatInputDialog extends DialogFragment
 		return v;
 	}
 
-
 	public void onCancel(DialogInterface dialog)
 	{
 		try
@@ -211,15 +216,15 @@ public class GILonLatInputDialog extends DialogFragment
 			m_lon_dec.setTextColor(Color.BLACK);
 			m_lat_dec.setTextColor(Color.RED);
 			m_lat_dec.requestFocus();
-			//m_point.m_lat = Double.valueOf(m_lat_dec.getText().toString());
-			m_lat_dec.setTextColor(Color.BLACK);
-			
+            //m_point.lat = Double.valueOf(m_lat_dec.getText().toString());
+            m_lat_dec.setTextColor(Color.BLACK);
+
 //			m_control.m_WKTPoint.m_lon = Double.valueOf(m_lon_dec.getText().toString());
-//			m_control.m_WKTPoint.m_lat = Double.valueOf(m_lat_dec.getText().toString());
-			m_control.m_WKTPoint.m_lon = m_point.m_lon;
+//			m_control.m_WKTPoint.lat = Double.valueOf(m_lat_dec.getText().toString());
+            m_control.m_WKTPoint.m_lon = m_point.m_lon;
 			m_control.m_WKTPoint.m_lat = m_point.m_lat;
-			
-			m_control.setWKTPoint(m_control.m_WKTPoint);
+
+            m_control.setWKTPoint(m_control.m_WKTPoint);
 			//m_control.setWKTPoint(m_point);
 			GIEditLayersKeeper.Instance().m_current_geometry_editing_control.invalidate();
 			super.onCancel(dialog);
@@ -227,6 +232,7 @@ public class GILonLatInputDialog extends DialogFragment
 		catch(NumberFormatException e)
 		{}
 	}
+
     public String getCanonicalCoordString(double coord)
     {
     	int degrees = (int)Math.floor(coord);//º   ° ctrl+shift+u +code +space
@@ -240,6 +246,7 @@ public class GILonLatInputDialog extends DialogFragment
 //		getDoubleCoordFromGGMMSSString(res);
 		return res;
     }
+
     public String getGradMinCoordString(double coord)
     {
     	int degrees = (int)Math.floor(coord);//º   ° ctrl+shift+u +code +space
@@ -268,7 +275,8 @@ public class GILonLatInputDialog extends DialogFragment
 		double res = grad + (1f/60)*(min +(1f/60)*sec);
 		return res;
 	}
-	public double getDoubleCoordFromGGMMMMtring(String input){
+
+    public double getDoubleCoordFromGGMMMMtring(String input){
 
 		String s_grad = input.substring(0, 2);
 
@@ -284,10 +292,6 @@ public class GILonLatInputDialog extends DialogFragment
 
 		double res = grad + (1f/60)*(min);
 		return res;
-	}
-	static public String customFormat(String pattern, double value ) {
-		DecimalFormat myFormatter = new DecimalFormat(pattern);
-		return myFormatter.format(value);
 	}
 
 }

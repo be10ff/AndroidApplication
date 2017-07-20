@@ -1,14 +1,13 @@
 package ru.tcgeo.application.gilib.parser;
 
+import org.xmlpull.v1.XmlSerializer;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.xmlpull.v1.XmlSerializer;
-
-import ru.tcgeo.application.gilib.GITuple;
+import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.models.GIEncoding;
-import ru.tcgeo.application.gilib.GILayer;
 //import ru.tcgeo.application.gilib.models.GIIcon;
 
 public class GIPropertiesLayer implements ILayersRoot
@@ -33,7 +32,7 @@ public class GIPropertiesLayer implements ILayersRoot
 	{
         boolean present = false;
 //        for (GIPropertiesLayer l: m_Entries) {
-//            if(l.m_source.m_name.equals(layer.m_source.m_name)){
+//            if(l.m_source.name.equals(layer.m_source.name)){
 //                present = true;
 //            }
 //        }
@@ -147,21 +146,19 @@ public class GIPropertiesLayer implements ILayersRoot
 	}
 
 	public static class Builder{
-		private String name;
-		private GILayer.GILayerType type;
-		private String strType;
-        private boolean enabled;
-//		private GISource source;
-//		private GIPropertiesStyle style;
-//		private GIRange range;
-//		private GISQLDB sqldb;
-
         GISource.Builder sourceBuilder;
         GIPropertiesStyle.Builder styleBuilder;
         GIRange.Builder rangeBuilder;
         GISQLDB.Builder sqldbBuilder;
-
-		GIPropertiesLayer layer;
+        //		private GISource source;
+//		private GIPropertiesStyle style;
+//		private GIRange range;
+//		private GISQLDB sqldb;
+        GIPropertiesLayer layer;
+        private String name;
+        private GILayer.GILayerType type;
+        private String strType;
+        private boolean enabled;
 
 		public Builder(){}
 		public Builder(GIPropertiesLayer layer){

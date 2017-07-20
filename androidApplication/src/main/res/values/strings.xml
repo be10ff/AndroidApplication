@@ -32,6 +32,7 @@
     <string name="edit_layer_delete">Delete</string>
     <string name="button_gps">GPS</string>
     <string name="add_layer_header">Add...</string>
+    <string name="add_attribute">Add</string>
     <string-array name="extentions">
 		<!--<item>"track"</item>-->
 		<item>"sqlitedb"</item>

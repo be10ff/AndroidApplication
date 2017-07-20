@@ -3,16 +3,17 @@ package ru.tcgeo.application.gilib.parser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import ru.tcgeo.application.gilib.GIPList;
+import ru.tcgeo.application.gilib.models.GIPList;
+import ru.tcgeo.application.gilib.models.Marker;
 
 public class GIParserArrayItem extends GIParserArray {
-	GIPList.GIMarker m_item;
+	Marker m_item;
 	String m_looking_for_key;
 	GIParserArrayItem(XmlPullParser parent, GIPList list) 
 	{
 		super(parent, list);
 		section_name = "dict";
-		m_item = list.new GIMarker();
+		m_item = new Marker();
 		m_looking_for_key = new String();
 	}
 	@Override
@@ -49,36 +50,36 @@ public class GIParserArrayItem extends GIParserArray {
 		{
 			GIParserArrayItemValue parser_value = new GIParserArrayItemValue(m_ParserCurrent, "string", lookingFor);
 			m_ParserCurrent = parser_value.ReadSection();
-			String value = new String(lookingFor);				
-			m_item.m_name = value;
+			String value = new String(lookingFor);
+			m_item.name = value;
 		}
 		if(m_looking_for_key.equalsIgnoreCase("image") && m_ParserCurrent.getName().equalsIgnoreCase("string"))
 		{
 			GIParserArrayItemValue parser_value = new GIParserArrayItemValue(m_ParserCurrent, "string", lookingFor);
 			m_ParserCurrent = parser_value.ReadSection();
-			String value = new String(lookingFor);				
-			m_item.m_image = value;
+			String value = new String(lookingFor);
+			m_item.image = value;
 		}
 		if(m_looking_for_key.equalsIgnoreCase("description") && m_ParserCurrent.getName().equalsIgnoreCase("string"))
 		{
 			GIParserArrayItemValue parser_value = new GIParserArrayItemValue(m_ParserCurrent, "string", lookingFor);
 			m_ParserCurrent = parser_value.ReadSection();
-			String value = new String(lookingFor);				
-			m_item.m_description = value;
+			String value = new String(lookingFor);
+			m_item.description = value;
 		}
 		if(m_looking_for_key.equalsIgnoreCase("lon") && m_ParserCurrent.getName().equalsIgnoreCase("real"))
 		{
 			GIParserArrayItemValue parser_value = new GIParserArrayItemValue(m_ParserCurrent, "real", lookingFor);
 			m_ParserCurrent = parser_value.ReadSection();
-			String value = new String(lookingFor);				
-			m_item.m_lon = Double.valueOf(value);
+			String value = new String(lookingFor);
+			m_item.lon = Double.valueOf(value);
 		}
 		if(m_looking_for_key.equalsIgnoreCase("lat") && m_ParserCurrent.getName().equalsIgnoreCase("real"))
 		{
 			GIParserArrayItemValue parser_value = new GIParserArrayItemValue(m_ParserCurrent, "real", lookingFor);
 			m_ParserCurrent = parser_value.ReadSection();
-			String value = new String(lookingFor);				
-			m_item.m_lat = Double.valueOf(value);
+			String value = new String(lookingFor);
+			m_item.lat = Double.valueOf(value);
 		}
 		//if(m_looking_for_key.equalsIgnoreCase("diag") && m_ParserCurrent.getName().equalsIgnoreCase("real"))
 		if(m_looking_for_key.equalsIgnoreCase("diag"))
@@ -87,15 +88,15 @@ public class GIParserArrayItem extends GIParserArray {
 			{
 				GIParserArrayItemValue parser_value = new GIParserArrayItemValue(m_ParserCurrent, "real", lookingFor);
 				m_ParserCurrent = parser_value.ReadSection();
-				String value = new String(lookingFor);	
-				m_item.m_diag = Double.valueOf(value);
+				String value = new String(lookingFor);
+				m_item.diag = Double.valueOf(value);
 			}
 			if(m_ParserCurrent.getName().equalsIgnoreCase("integer"))
 			{
 				GIParserArrayItemValue parser_value = new GIParserArrayItemValue(m_ParserCurrent, "integer", lookingFor);
 				m_ParserCurrent = parser_value.ReadSection();
-				String value = new String(lookingFor);	
-				m_item.m_diag = (double) Integer.valueOf(value);
+				String value = new String(lookingFor);
+				m_item.diag = (double) Integer.valueOf(value);
 			}
 
 		}

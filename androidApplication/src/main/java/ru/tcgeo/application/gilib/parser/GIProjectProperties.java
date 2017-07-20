@@ -1,5 +1,14 @@
 package ru.tcgeo.application.gilib.parser;
 
+import android.os.Environment;
+import android.util.Log;
+import android.util.Xml;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlSerializer;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,18 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.ArrayList;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-import org.xmlpull.v1.XmlSerializer;
-
-import android.os.Environment;
-import android.util.Log;
-import android.util.Xml;
-
-import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIProjection;
 
 
@@ -311,14 +309,14 @@ public class GIProjectProperties
 //				for(GIPropertiesPackage pack : m_Entries)
 //				{
 //					serializer.startTag("", "Package");
-//					serializer.attribute("", "name", pack.m_name);
+//					serializer.attribute("", "name", pack.name);
 //					serializer.attribute("", "size", String.valueOf(pack.m_size));
 //					serializer.attribute("", "CRC", pack.m_crc);
 //					serializer.attribute("", "ID", String.valueOf(pack.m_id));
 //					for(GIPropertiesFile file : pack.m_Entries)
 //					{
 //						serializer.startTag("", "File");
-//						serializer.attribute("", "name", file.m_name);
+//						serializer.attribute("", "name", file.name);
 //						serializer.attribute("", "CRC", file.m_crc);
 //						serializer.endTag("", "File");
 //					}

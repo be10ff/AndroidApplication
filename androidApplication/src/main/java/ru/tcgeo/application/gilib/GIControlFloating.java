@@ -20,16 +20,15 @@ import ru.tcgeo.application.wkt.GI_WktPoint;
 
 public class GIControlFloating extends LinearLayout implements GIControl
 {
-	private GIMap m_map;
-	private RelativeLayout m_root;
-	boolean hasClosed;
-	private GILonLat m_PointOriginMap;
 	public GI_WktPoint m_WKTPoint;
-	int[] map_location = { 0, 0 };
+    boolean hasClosed;
+    int[] map_location = { 0, 0 };
 	TextView tv;
 	ToggleButton button;
-
 	int [] m_offset= { 0, 0 };
+    private GIMap m_map;
+    private RelativeLayout m_root;
+    private GILonLat m_PointOriginMap;
 
 	public GIControlFloating (Context context, AttributeSet attrs, int defStyle)
 	{
@@ -39,23 +38,6 @@ public class GIControlFloating extends LinearLayout implements GIControl
 	public GIControlFloating(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
-	}
-
-	public boolean getChecked()
-	{
-		if(button != null)
-		{
-			return button.isChecked();
-		}
-		return false;
-	}
-
-	public void setChecked(boolean checked)
-	{
-		if(button != null)
-		{
-			button.setChecked(checked);
-		}
 	}
 
 	public GIControlFloating (Context context)
@@ -85,6 +67,20 @@ public class GIControlFloating extends LinearLayout implements GIControl
 		tv = (TextView)findViewById(text_view);
 		m_offset = offset;
 	}
+
+    public boolean getChecked() {
+        if (button != null) {
+            return button.isChecked();
+        }
+        return false;
+    }
+
+    public void setChecked(boolean checked) {
+        if (button != null) {
+            button.setChecked(checked);
+        }
+    }
+
 	public void setRoot(RelativeLayout root)
 	{
 		m_root = root;
@@ -173,7 +169,7 @@ public class GIControlFloating extends LinearLayout implements GIControl
 //	public void setWKTPoint(GI_WktPoint point)
 //	{
 //		m_WKTPoint = point;
-//		m_PointOriginMap = new GILonLat(point.m_lon, point.m_lat);
+//		m_PointOriginMap = new GILonLat(point.lon, point.lat);
 //		onViewMove();
 //	}
 }

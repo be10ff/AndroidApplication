@@ -8,8 +8,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.ViewConfiguration;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
@@ -17,50 +17,28 @@ import ru.tcgeo.application.gilib.models.GILonLat;
 
 public class GITouchControl extends View implements GIControl, OnLongClickListener
 {
-	private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener 
-	{
-	    @Override
-	    public boolean onScale(ScaleGestureDetector detector) 
-	    {
-	    	m_ScaleFactor = detector.getScaleFactor();
-	        if(!m_scaled)
-	        {
-	        	m_focus.x = (int)detector.getFocusX();
-	        	m_focus.y = (int)detector.getFocusY();
-	        	m_scaled = true;
-	        }
-	        return true;
-	    }
-	}
-	
-	private ScaleGestureDetector m_ScaleDetector;
-	private GIMap m_map;
-
 	private static final int INVALID_ID = -1;
-	private int active_id = INVALID_ID;
-
-	private float previousX;
-	private float previousY;
-
-	private Point m_focus;
-	private float m_ScaleFactor;
-	private boolean m_scaled;
-
+    final int m_Radius = 5;
       float x;
 	  float y;
       float m_OriginPointX;
 	  float m_OriginPointY;
-	  final int m_Radius = 5;
 	  boolean m_IsMoveClick;
 	  boolean m_IsClick;
 	  boolean m_IsMultyClick;
 	  boolean m_IsLongClick;
-
 	  boolean m_IsRule;
 	  boolean m_IsSquare;
 	  boolean m_GotPosition;
-
 	  Context m_context;
+    private ScaleGestureDetector m_ScaleDetector;
+    private GIMap m_map;
+    private int active_id = INVALID_ID;
+    private float previousX;
+    private float previousY;
+    private Point m_focus;
+    private float m_ScaleFactor;
+    private boolean m_scaled;
 
 	public GITouchControl (Context context, AttributeSet attrs, int defStyle)
     {
@@ -97,7 +75,6 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
 		this.setOnLongClickListener(this);
 	}
 
-
 	public void SetMeasureState(boolean rule, boolean square)
 	{
 		if(!GIEditLayersKeeper.Instance().IsRunning())
@@ -121,16 +98,23 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
 	{
 		return m_map;
 	}
+
 	public void setMap(GIMap map)
 	{
 		m_map = map;
 	}
+
 	public void onMapMove(){}
-	public void onViewMove(){}
-	public void afterMapFullRedraw(GIBounds bounds, Rect view_rect){}
-	public void afterMapImageRedraw(GIBounds bounds, Rect view_rect){}
-	public void onMarkerLayerRedraw(Rect view_rect){}
-	public void afterViewRedraw(){}
+
+    public void onViewMove(){}
+
+    public void afterMapFullRedraw(GIBounds bounds, Rect view_rect){}
+
+    public void afterMapImageRedraw(GIBounds bounds, Rect view_rect){}
+
+    public void onMarkerLayerRedraw(Rect view_rect){}
+
+    public void afterViewRedraw(){}
 
 	@Override
     public boolean onTouchEvent (MotionEvent event)
@@ -282,10 +266,28 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
 			m_IsLongClick = true;
 			GILonLat lonlat = m_map.ScreenToMap(new Point((int)x, (int)y));
 			Point point = m_map.MapToScreen(lonlat);
+
+            //// TODO: 19.07.17
+            ViewConfiguration vc = ViewConfiguration.get(getContext());
+            int mTouchSlop = vc.getScaledTouchSlop();
+
 			GIDataRequestorImp requestor = new GIDataRequestorImp(this.getContext(), new Point((int)x, (int)y), m_map.ps);
 		    m_map.RequestDataInPoint(new Point((int)x, (int)y), requestor);
 		    requestor.ShowDialog(this.getContext(), new Point(point.x, point.y), m_map);
 		}
 		return false;
-	}
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            m_ScaleFactor = detector.getScaleFactor();
+            if (!m_scaled) {
+                m_focus.x = (int) detector.getFocusX();
+                m_focus.y = (int) detector.getFocusY();
+                m_scaled = true;
+            }
+            return true;
+        }
+    }
 }

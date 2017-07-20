@@ -5,20 +5,12 @@ package ru.tcgeo.application.gilib.models;
  */
 
 public class Attribute {
-    final public String name;
-    final public String value;
-    public int type;
+    public String name;
+    public String value;
 
     public Attribute(String name, String value) {
         this.name = name;
         this.value = value;
-        type = 0;
-    }
-
-    public Attribute(String name, String value, int type) {
-        this.name = name;
-        this.value = value;
-        this.type = type;
     }
 
     @Override

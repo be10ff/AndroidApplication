@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -17,13 +16,13 @@ import ru.tcgeo.application.gilib.GIControlFloating;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.GIPList;
 import ru.tcgeo.application.gilib.GITuple;
+import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
 import ru.tcgeo.application.gilib.gps.GIXMLTrack;
 import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.gilib.models.GIPList;
 import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.gilib.models.Marker;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktLinestring;
 import ru.tcgeo.application.wkt.GI_WktPoint;
@@ -33,6 +32,13 @@ import ru.tcgeo.application.wkt.GI_WktPoint;
  */
 public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
     Geoinfo mActivity;
+
+    public MarkersAdapter(Geoinfo activity, int resource,
+                          int textViewResourceId) {
+        super(activity, resource, textViewResourceId);
+        mActivity = activity;
+    }
+
     @Override
     public View getView(int position, View convertView,
                         final ViewGroup parent) {
@@ -42,13 +48,13 @@ public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
         TextView text_name = (TextView) v
                 .findViewById(R.id.markers_list_item_text);
         ImageView iv = (ImageView) v.findViewById(R.id.imageViewDirection);
-        text_name.setText(item.m_marker.m_name);
+        text_name.setText(item.m_marker.name);
         if (mActivity.getMap().ps.m_markers_source != null) {
             if (mActivity.getMap().ps.m_markers_source.equalsIgnoreCase("layer")) {
                 if (GIEditLayersKeeper.Instance().m_CurrentTarget != null) {
-                    if (item.m_marker.m_lat == ((GI_WktPoint) GIEditLayersKeeper
+                    if (item.m_marker.lat == ((GI_WktPoint) GIEditLayersKeeper
                             .Instance().m_CurrentTarget).m_lat
-                            && item.m_marker.m_lon == ((GI_WktPoint) GIEditLayersKeeper
+                            && item.m_marker.lon == ((GI_WktPoint) GIEditLayersKeeper
                             .Instance().m_CurrentTarget).m_lon) {
                         iv.setVisibility(View.VISIBLE);
                     }
@@ -60,12 +66,12 @@ public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
             @Override
             public void onClick(View v) {
                 mActivity.getMarkersDialog().dismiss();
-                GILonLat new_center = new GILonLat(item.m_marker.m_lon,
-                        item.m_marker.m_lat);
+                GILonLat new_center = new GILonLat(item.m_marker.lon,
+                        item.m_marker.lat);
                 GIControlFloating m_marker_point = mActivity.getMarkerPoint();
                 m_marker_point.setLonLat(new_center);
-                if (item.m_marker.m_diag != 0) {
-                    mActivity.getMap().SetCenter(new_center, item.m_marker.m_diag);
+                if (item.m_marker.diag != 0) {
+                    mActivity.getMap().SetCenter(new_center, item.m_marker.diag);
                 } else {
                     mActivity.getMap().SetCenter(GIProjection.ReprojectLonLat(new_center,
                             GIProjection.WGS84(), mActivity.getMap().Projection()));
@@ -81,7 +87,7 @@ public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
 
                         mActivity.getMarkersDialog().dismiss();
                         GILonLat new_center = new GILonLat(
-                                item.m_marker.m_lon, item.m_marker.m_lat);
+                                item.m_marker.lon, item.m_marker.lat);
                         GI_WktPoint poi = new GI_WktPoint(new_center);
                         GIEditLayersKeeper.Instance().m_CurrentTarget = poi;
                         //GILocator arr = new GILocator(poi);
@@ -96,18 +102,12 @@ public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
         return v;
     }
 
-    public MarkersAdapter(Geoinfo activity, int resource,
-                          int textViewResourceId) {
-        super(activity, resource, textViewResourceId);
-        mActivity = activity;
-    }
-
     public void AddMarkers(GIMap map) {
         if (map.ps.m_markers_source == null && map.ps.m_markers != null && !map.ps.m_markers.isEmpty()) {
             if (isEmpty()) {
                 GIPList PList = new GIPList();
                 PList.Load(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + map.ps.m_markers); // "/sdcard/"
-                for (GIPList.GIMarker marker : PList.m_list) {
+                for (Marker marker : PList.m_list) {
                     add(new MarkersAdapterItem(marker));
                 }
             }
@@ -117,7 +117,7 @@ public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
                 if (isEmpty()) {
                     GIPList PList = new GIPList();
                     PList.Load(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + map.ps.m_markers);// "/sdcard/"
-                    for (GIPList.GIMarker marker : PList.m_list) {
+                    for (Marker marker : PList.m_list) {
                         add(new MarkersAdapterItem(marker));
                     }
                 }
@@ -138,73 +138,73 @@ public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
                         if(geom instanceof GI_WktPoint){
                             GI_WktPoint point = (GI_WktPoint) geom;
                             if (point != null) {
-                                GIPList.GIMarker marker = list.new GIMarker();
+                                Marker marker = new Marker();
                                 if (geom.m_attributes.containsKey("Name")) {
-                                    marker.m_name = (String) geom.m_attributes.get("Name").m_value.toString();
+                                    marker.name = geom.m_attributes.get("Name").m_value.toString();
                                 } else if (!geom.m_attributes.keySet().isEmpty()) {
-                                    marker.m_name = (String) geom.m_attributes.get(geom.m_attributes.keySet().toArray()[0]).m_value;
+                                    marker.name = (String) geom.m_attributes.get(geom.m_attributes.keySet().toArray()[0]).m_value;
                                 } else {
-                                    marker.m_name = String.valueOf(geom.m_ID);
+                                    marker.name = String.valueOf(geom.m_ID);
                                 }
-                                marker.m_lon = point.m_lon;
-                                marker.m_lat = point.m_lat;
-                                marker.m_description = "";
-                                marker.m_image = "";
-                                marker.m_diag = 0;
+                                marker.lon = point.m_lon;
+                                marker.lat = point.m_lat;
+                                marker.description = "";
+                                marker.image = "";
+                                marker.diag = 0;
                                 add(new MarkersAdapterItem(marker));
                             }
                         } else if(geom instanceof GIXMLTrack){
                             GIXMLTrack track = (GIXMLTrack) geom;
                             if(track != null&&track.m_points != null && !track.m_points.isEmpty()){
-                                GIPList.GIMarker marker = list.new GIMarker();
+                                Marker marker = new Marker();
                                 if (geom.m_attributes.containsKey("Project")) {
-                                    marker.m_name = (String) geom.m_attributes.get("Project").m_value.toString();
+                                    marker.name = geom.m_attributes.get("Project").m_value.toString();
                                     if(geom.m_attributes.containsKey("Description")){
-                                        String data = GIEditLayersKeeper.getTime((String) geom.m_attributes.get("Description").m_value.toString());
+                                        String data = GIEditLayersKeeper.getTime(geom.m_attributes.get("Description").m_value.toString());
                                         if(!data.isEmpty()){
-                                            marker.m_name =  marker.m_name + " " + data;
+                                            marker.name = marker.name + " " + data;
                                         } else {
-                                            marker.m_name =  marker.m_name + " " + (String) geom.m_attributes.get("Description").m_value.toString();
+                                            marker.name = marker.name + " " + geom.m_attributes.get("Description").m_value.toString();
                                         }
 
                                     }
                                 } else if (!geom.m_attributes.keySet().isEmpty()) {
-                                    marker.m_name = (String) geom.m_attributes.get(geom.m_attributes.keySet().toArray()[0]).m_value;
+                                    marker.name = (String) geom.m_attributes.get(geom.m_attributes.keySet().toArray()[0]).m_value;
                                 } else {
-                                    marker.m_name = String.valueOf(geom.m_ID);
+                                    marker.name = String.valueOf(geom.m_ID);
                                 }
-                                marker.m_lon = ((GI_WktPoint)track.m_points.get(0)).m_lon;
-                                marker.m_lat = ((GI_WktPoint)track.m_points.get(0)).m_lat;
-                                marker.m_description = "";
-                                marker.m_image = "";
-                                marker.m_diag = 0;
+                                marker.lon = ((GI_WktPoint) track.m_points.get(0)).m_lon;
+                                marker.lat = ((GI_WktPoint) track.m_points.get(0)).m_lat;
+                                marker.description = "";
+                                marker.image = "";
+                                marker.diag = 0;
                                 add(new MarkersAdapterItem(marker));
                             }
                         } else if(geom instanceof GI_WktLinestring){
                             GI_WktLinestring line = (GI_WktLinestring) geom;
                             if(line != null&&line.m_points != null && !line.m_points.isEmpty()){
-                                GIPList.GIMarker marker = list.new GIMarker();
+                                Marker marker = new Marker();
                                 if (geom.m_attributes.containsKey("Project")) {
-                                    marker.m_name = (String) geom.m_attributes.get("Project").m_value.toString();
+                                    marker.name = geom.m_attributes.get("Project").m_value.toString();
                                     if(geom.m_attributes.containsKey("Description")){
-                                        String data = GIEditLayersKeeper.getTime((String) geom.m_attributes.get("Description").m_value.toString());
+                                        String data = GIEditLayersKeeper.getTime(geom.m_attributes.get("Description").m_value.toString());
                                         if(!data.isEmpty()){
-                                            marker.m_name =  marker.m_name + " " + data;
+                                            marker.name = marker.name + " " + data;
                                         } else {
-                                            marker.m_name =  marker.m_name + " " + (String) geom.m_attributes.get("Description").m_value.toString();
+                                            marker.name = marker.name + " " + geom.m_attributes.get("Description").m_value.toString();
                                         }
 
                                     }
                                 } else if (!geom.m_attributes.keySet().isEmpty()) {
-                                    marker.m_name = (String) geom.m_attributes.get(geom.m_attributes.keySet().toArray()[0]).m_value;
+                                    marker.name = (String) geom.m_attributes.get(geom.m_attributes.keySet().toArray()[0]).m_value;
                                 } else {
-                                    marker.m_name = String.valueOf(geom.m_ID);
+                                    marker.name = String.valueOf(geom.m_ID);
                                 }
-                                marker.m_lon = ((GI_WktPoint)line.m_points.get(0)).m_lon;
-                                marker.m_lat = ((GI_WktPoint)line.m_points.get(0)).m_lat;
-                                marker.m_description = "";
-                                marker.m_image = "";
-                                marker.m_diag = 0;
+                                marker.lon = line.m_points.get(0).m_lon;
+                                marker.lat = line.m_points.get(0).m_lat;
+                                marker.description = "";
+                                marker.image = "";
+                                marker.diag = 0;
                                 add(new MarkersAdapterItem(marker));
                             }
                         }
