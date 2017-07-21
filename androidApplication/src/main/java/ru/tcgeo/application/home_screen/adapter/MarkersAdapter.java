@@ -17,7 +17,6 @@ import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.GITuple;
-import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
 import ru.tcgeo.application.gilib.gps.GIXMLTrack;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIPList;
@@ -30,6 +29,7 @@ import ru.tcgeo.application.wkt.GI_WktPoint;
 /**
  * Created by a_belov on 06.07.15.
  */
+@Deprecated
 public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
     Geoinfo mActivity;
 
@@ -91,8 +91,8 @@ public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
                         GI_WktPoint poi = new GI_WktPoint(new_center);
                         GIEditLayersKeeper.Instance().m_CurrentTarget = poi;
                         //GILocator arr = new GILocator(poi);
-                        GIDirectionToPOIArrow arrow = new GIDirectionToPOIArrow(poi);
-                        GIEditLayersKeeper.Instance().LocatorView(poi);
+//                        GIDirectionToPOIArrow arrow = new GIDirectionToPOIArrow(poi);
+//                        GIEditLayersKeeper.Instance().LocatorView(poi);
                         //GIEditLayersKeeper.Instance().AccurancyRangeView(true);
                         return false;
                     }

@@ -18,6 +18,8 @@ import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.models.Marker;
 import ru.tcgeo.application.views.adapter.ReMarkersAdapter;
 import ru.tcgeo.application.views.callback.MarkerCallback;
+import ru.tcgeo.application.views.callback.MarkerHolderCallback;
+import ru.tcgeo.application.views.viewholder.MarkerHolder;
 
 /**
  * Created by a_belov on 23.07.15.
@@ -45,14 +47,27 @@ public class ReMarkersDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.re_markers_dialog);
-        ButterKnife.bind(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setCanceledOnTouchOutside(true);
+        setContentView(R.layout.re_markers_dialog);
+        ButterKnife.bind(this);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         adapter = new ReMarkersAdapter.Builder(context)
-                .callback(callback)
+                .callback(new MarkerHolderCallback() {
+                    @Override
+                    public void onGoToClick(MarkerHolder holder) {
+                        callback.onGoToClick(adapter.getItem(holder.getAdapterPosition()));
+                    }
+
+                    @Override
+                    public void onShowDirectiponClick(MarkerHolder holder) {
+                        callback.onShowDirectiponClick(adapter.getItem(holder.getAdapterPosition()), !adapter.getItem(holder.getAdapterPosition()).selected);
+                        adapter.setSelected(holder.getAdapterPosition(), !adapter.getItem(holder.getAdapterPosition()).selected);
+
+                        dismiss();
+                    }
+                })
                 .data(data)
                 .build();
 

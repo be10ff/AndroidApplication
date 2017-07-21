@@ -34,7 +34,7 @@ import ru.tcgeo.application.wkt.GI_WktPolygon;
 
 //import ru.tcgeo.application.gilib.gps.GIGPSDialog;
 
-
+@Deprecated
 public class GIEditLayersKeeper {
 
 	public final static String edit_layer_tag = "EDIT_LAYER_TAG";
@@ -42,7 +42,7 @@ public class GIEditLayersKeeper {
 	final public String edit_attributes_tag = "EDIT_ATTRIBUTES_TAG";
 	final public String gps_dialog_tag = "GPS_DIALOG_TAG";
 	final public String compass_view_tag = "COMPASS_TAG";
-	final public String locator_view_tag = "LOCATOR_TAG";
+	//	final public String locator_view_tag = "LOCATOR_TAG";
 	public GIMap m_Map;
     public Geoinfo activity;
 	public LocationManager m_location_manager;
@@ -60,7 +60,10 @@ public class GIEditLayersKeeper {
 	public GIEditableLayer m_POILayer;
 	public GI_WktGeometry m_CurrentTrack;
 	public GI_WktGeometry m_CurrentPOI;
+
+	@Deprecated
 	public GI_WktGeometry m_CurrentTarget;
+
 	public GI_WktGeometry m_geometry;
 	//GILonLat m_last_location;
 	public ArrayList<GIEditableLayer> m_Layers;
@@ -71,7 +74,7 @@ public class GIEditLayersKeeper {
 	GIGeometryControl m_current_geometry_editing_control;
 	ArrayList<GIGeometryControl> m_controls;
 	private GITouchControl m_TouchControl;
-	private int m_root;
+	//	private int m_root;
 	private FragmentManager m_FragmentManager;
 	private GIPositionControl m_position;
 	private GIEditingStatus m_Status;
@@ -180,10 +183,10 @@ public class GIEditLayersKeeper {
 		m_Layers.clear();
 	}
 
-	public void setRoot(int id)
-	{
-		m_root = id;
-	}
+//	public void setRoot(int id)
+//	{
+//		m_root = id;
+//	}
 
 	public boolean CreateNewObject()
 	{
@@ -302,39 +305,39 @@ public class GIEditLayersKeeper {
 		}
 	}
 
-	public void CompassView()
-	{
-		m_compass = (GICompassFragment) m_FragmentManager.findFragmentByTag(compass_view_tag);
-		if(m_compass == null)
-		{
-			m_compass = new GICompassFragment();
-			m_FragmentManager.beginTransaction().add(m_root, m_compass, compass_view_tag).commit();
-		}
-		else
-		{
-			if(m_compass.isAdded())
-			{
-				m_FragmentManager.beginTransaction().remove( m_compass).commit();
-			}
-		}
-	}
+//	public void CompassView()
+//	{
+//		m_compass = (GICompassFragment) m_FragmentManager.findFragmentByTag(compass_view_tag);
+//		if(m_compass == null)
+//		{
+//			m_compass = new GICompassFragment();
+//			m_FragmentManager.beginTransaction().add(m_root, m_compass, compass_view_tag).commit();
+//		}
+//		else
+//		{
+//			if(m_compass.isAdded())
+//			{
+//				m_FragmentManager.beginTransaction().remove( m_compass).commit();
+//			}
+//		}
+//	}
 
-	public void LocatorView(GI_WktGeometry poi)
-	{
-		m_locator = (GILocatorFragment) m_FragmentManager.findFragmentByTag(locator_view_tag);
-		if(m_locator == null)
-		{
-			m_locator = new GILocatorFragment(poi);
-			m_FragmentManager.beginTransaction().add(m_root, m_locator, locator_view_tag).commit();
-		}
-		else
-		{
-			if(m_locator.isAdded())
-			{
-				m_FragmentManager.beginTransaction().remove( m_locator).commit();
-			}
-		}
-	}
+//	public void LocatorView(GI_WktGeometry poi)
+//	{
+//		m_locator = (GILocatorFragment) m_FragmentManager.findFragmentByTag(locator_view_tag);
+//		if(m_locator == null)
+//		{
+//			m_locator = new GILocatorFragment(poi);
+//			m_FragmentManager.beginTransaction().add(m_root, m_locator, locator_view_tag).commit();
+//		}
+//		else
+//		{
+//			if(m_locator.isAdded())
+//			{
+//				m_FragmentManager.beginTransaction().remove( m_locator).commit();
+//			}
+//		}
+//	}
 
 	public void StartEditing(GIEditableLayer layer)
 	{

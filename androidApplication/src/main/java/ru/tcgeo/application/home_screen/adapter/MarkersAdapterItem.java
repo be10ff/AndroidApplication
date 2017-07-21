@@ -5,6 +5,7 @@ import ru.tcgeo.application.gilib.models.Marker;
 /**
  * Created by a_belov on 06.07.15.
  */
+@Deprecated
 public class MarkersAdapterItem {
     final public Marker m_marker;
 

@@ -11,7 +11,7 @@ import java.util.List;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.models.Marker;
-import ru.tcgeo.application.views.callback.MarkerCallback;
+import ru.tcgeo.application.views.callback.MarkerHolderCallback;
 import ru.tcgeo.application.views.viewholder.MarkerHolder;
 
 /**
@@ -21,7 +21,7 @@ public class ReMarkersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     private Geoinfo mActivity;
-    private MarkerCallback callback;
+    private MarkerHolderCallback callback;
     private Context context;
     private List<Marker> data;
 
@@ -34,7 +34,7 @@ public class ReMarkersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_edit_attriutes_header, parent, false);
+                .inflate(R.layout.item_marker_list, parent, false);
         return new MarkerHolder(v, callback);
     }
 
@@ -42,7 +42,7 @@ public class ReMarkersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MarkerHolder h = (MarkerHolder) holder;
         Marker item = data.get(position);
-        h.tvDescription.setText(item.description);
+        h.tvDescription.setText(item.name);
         if (item.selected) {
             h.ivDirecton.setVisibility(View.VISIBLE);
         } else {
@@ -55,16 +55,28 @@ public class ReMarkersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return data.size();
     }
 
+    public Marker getItem(int position) {
+        return data.get(position);
+    }
+
+    public void setSelected(int position, boolean selected) {
+        for (Marker marker : data) {
+            marker.selected = false;
+        }
+        data.get(position).selected = selected;
+        notifyDataSetChanged();
+    }
+
     public static class Builder {
         private Context context;
-        private MarkerCallback callback;
+        private MarkerHolderCallback callback;
         private List<Marker> data;
 
         public Builder(Context context) {
             this.context = context;
         }
 
-        public Builder callback(MarkerCallback callback) {
+        public Builder callback(MarkerHolderCallback callback) {
             this.callback = callback;
             return this;
         }

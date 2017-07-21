@@ -23,7 +23,6 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -34,8 +33,10 @@ import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.GITouchControl;
 import ru.tcgeo.application.gilib.gps.GICompassView;
+import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
 import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
 import ru.tcgeo.application.gilib.gps.GIGPSLocationListener;
+import ru.tcgeo.application.gilib.gps.GILocatorFragment;
 import ru.tcgeo.application.gilib.gps.GISensors;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
@@ -50,11 +51,12 @@ import ru.tcgeo.application.view.MapView;
 import ru.tcgeo.application.views.GIScaleControl;
 import ru.tcgeo.application.views.callback.MarkerCallback;
 import ru.tcgeo.application.views.dialog.ReMarkersDialog;
-import ru.tcgeo.application.views.viewholder.AttributesHolder;
+import ru.tcgeo.application.wkt.GI_WktPoint;
 
-//import android.app.DialogFragment;
 
 public class Geoinfo extends FragmentActivity implements MapView {
+
+	final static public String locator_view_tag = "LOCATOR_TAG";
 
 	final public String SAVED_PATH = "default_project_path";
 	public CheckBox btnEditCreate;
@@ -87,37 +89,78 @@ public class Geoinfo extends FragmentActivity implements MapView {
 	ImageButton fbEdit;
 
 	public void MarkersDialogClicked(final View button) {
-//		markersDialog = new MarkersDialog();
-//		markersDialog.show(getSupportFragmentManager(), "markers_dialog");
+		View v = root.findViewById(R.id.direction_to_point_arrow);
+		Marker current = null;
+		if (v != null) {
+			current = (Marker) v.getTag();
+		}
+		List<Marker> markers = map.getMarkers();
+		if (markers != null && current != null) {
+			for (Marker marker : markers) {
+				if (marker.lat == current.lat && marker.lon == current.lon) {
+					marker.selected = true;
+				}
+			}
+		}
 
 		ReMarkersDialog dialog = new ReMarkersDialog.Builder(this)
 				.callback(new MarkerCallback() {
 					@Override
-					public void onClick() {
-
+					public void onGoToClick(Marker marker) {
+						GILonLat new_center = new GILonLat(marker.lon,
+								marker.lat);
+						GIControlFloating m_marker_point = getMarkerPoint();
+						m_marker_point.setLonLat(new_center);
+						if (marker.diag != 0) {
+							map.SetCenter(new_center, marker.diag);
+						} else {
+							map.SetCenter(GIProjection.ReprojectLonLat(new_center,
+									GIProjection.WGS84(), map.Projection()));
+						}
 					}
 
 					@Override
-					public void onAddClick() {
-
-					}
-
-					@Override
-					public void onFieldChanged(AttributesHolder holder) {
-
+					public void onShowDirectiponClick(Marker marker, boolean show) {
+						View v = root.findViewById(R.id.direction_to_point_arrow);
+						if (v != null) {
+							root.removeView(v);
+						}
+						GILocatorFragment locator = (GILocatorFragment) getFragmentManager().findFragmentByTag(locator_view_tag);
+						if (locator != null && locator.isAdded()) {
+							getFragmentManager().beginTransaction().remove(locator).commit();
+						}
+						if (show) {
+							GILonLat new_center = new GILonLat(
+									marker.lon, marker.lat);
+							GI_WktPoint poi = new GI_WktPoint(new_center);
+//							GIEditLayersKeeper.Instance().m_CurrentTarget = poi;
+							GIDirectionToPOIArrow arrow = new GIDirectionToPOIArrow(root, map, marker);
+//							GIEditLayersKeeper.Instance().LocatorView(poi);
+							getFragmentManager().beginTransaction().add(R.id.root, new GILocatorFragment(poi), locator_view_tag).commit();
+						}
 					}
 				})
-				.data(getMarkers())
+				.data(markers)
 				.build();
 		dialog.show();
 	}
 
-	private List<Marker> getMarkers() {
-		List<Marker> result = new ArrayList<>();
-
-		return result;
-	}
-
+//	public void LocatorView(GI_WktGeometry poi)
+//	{
+//		m_locator = (GILocatorFragment) m_FragmentManager.findFragmentByTag(locator_view_tag);
+//		if(m_locator == null)
+//		{
+//			m_locator = new GILocatorFragment(poi);
+//			m_FragmentManager.beginTransaction().add(m_root, m_locator, locator_view_tag).commit();
+//		}
+//		else
+//		{
+//			if(m_locator.isAdded())
+//			{
+//				m_FragmentManager.beginTransaction().remove( m_locator).commit();
+//			}
+//		}
+//	}
 
 	public void EditableLayersDialogClicked(final View button) {
 		editablelayersDialog = new EditableLayersDialog();
@@ -610,7 +653,6 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		GIEditLayersKeeper.Instance().setTouchControl(touchControl);
 		GIEditLayersKeeper.Instance().setMap(map);
 		GIEditLayersKeeper.Instance().setActivity(this);
-		GIEditLayersKeeper.Instance().setRoot(R.id.root);
 
 		// Setup pixel size to let scale work properly
 		DisplayMetrics dm = new DisplayMetrics();
