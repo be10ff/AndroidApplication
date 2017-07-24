@@ -44,16 +44,18 @@ import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.Marker;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
-import ru.tcgeo.application.home_screen.SettingsDialog;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.view.MapView;
 import ru.tcgeo.application.views.GIScaleControl;
 import ru.tcgeo.application.views.callback.EditableLayerCallback;
+import ru.tcgeo.application.views.callback.LayerHolderCallback;
 import ru.tcgeo.application.views.callback.MarkerCallback;
 import ru.tcgeo.application.views.callback.ProjectsCallback;
 import ru.tcgeo.application.views.dialog.ReEditableLayersDialog;
 import ru.tcgeo.application.views.dialog.ReMarkersDialog;
 import ru.tcgeo.application.views.dialog.ReProjectDialog;
+import ru.tcgeo.application.views.dialog.ReSettingsDialog;
+import ru.tcgeo.application.views.viewholder.LayerHolder;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
 
@@ -147,23 +149,6 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		dialog.show();
 	}
 
-//	public void LocatorView(GI_WktGeometry poi)
-//	{
-//		m_locator = (GILocatorFragment) m_FragmentManager.findFragmentByTag(locator_view_tag);
-//		if(m_locator == null)
-//		{
-//			m_locator = new GILocatorFragment(poi);
-//			m_FragmentManager.beginTransaction().add(m_root, m_locator, locator_view_tag).commit();
-//		}
-//		else
-//		{
-//			if(m_locator.isAdded())
-//			{
-//				m_FragmentManager.beginTransaction().remove( m_locator).commit();
-//			}
-//		}
-//	}
-
 	public void EditableLayersDialogClicked(final View button) {
 
 		new ReEditableLayersDialog.Builder(this)
@@ -187,9 +172,6 @@ public class Geoinfo extends FragmentActivity implements MapView {
 				.show();
 	}
     public void ProjectSelectorDialogClicked(final View button) {
-//        projectsDialog = new ProjectDialog();
-//        projectsDialog.show(getSupportFragmentManager(), "project_dialog");
-
 		new ReProjectDialog.Builder(this)
 				.callback(new ProjectsCallback() {
 					@Override
@@ -217,8 +199,24 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
 
 	public void SettingsDialogClicked(final View button) {
-		DialogFragment dlg = new SettingsDialog();
-		dlg.show(getSupportFragmentManager(), "settings_dialog");
+		new ReSettingsDialog.Builder(this)
+				.callback(new LayerHolderCallback() {
+					@Override
+					public void onMarkersSourceCheckChanged(LayerHolder holder, boolean isChecked) {
+
+					}
+
+					@Override
+					public void onVisibilityCheckChanged(LayerHolder holder, boolean isChecked) {
+
+					}
+
+					@Override
+					public void onSettings(LayerHolder holder) {
+
+					}
+				})
+				.build().show();
 	}
 
 
@@ -796,10 +794,5 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		}
 		return m_marker_point;
 	}
-
-//	public DialogFragment getEditablelayersDialog() {
-//		return editablelayersDialog;
-//	}
-
 
 }

@@ -15,15 +15,23 @@ import ru.tcgeo.application.gilib.GILayer;
 /**
  * Created by a_belov on 06.07.15.
  */
+@Deprecated
 public class LayersAdapter extends ArrayAdapter<LayersAdapterItem> {
     Geoinfo mActivity;
 //    View.OnClickListener mListener;
+
+    public LayersAdapter(Geoinfo activity, int resource,
+                         int textViewResourceId/*,View.OnClickListener listener*/) {
+        super(activity, resource, textViewResourceId);
+        mActivity = activity;
+//        mListener = listener;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final LayersAdapterItem item = getItem(position);
         View v = LayoutInflater.from(getContext()).inflate(
-                R.layout.re_layers_list_item, null);
+                R.layout.layers_list_item, null);
         TextView name = ((TextView) v.findViewById(R.id.layers_list_item_text));
         name.setText(item.m_tuple.layer.getName());
 
@@ -68,12 +76,5 @@ public class LayersAdapter extends ArrayAdapter<LayersAdapterItem> {
 
 
         return v;
-    }
-
-    public LayersAdapter(Geoinfo activity, int resource,
-                         int textViewResourceId/*,View.OnClickListener listener*/) {
-        super(activity, resource, textViewResourceId);
-        mActivity = activity;
-//        mListener = listener;
     }
 }

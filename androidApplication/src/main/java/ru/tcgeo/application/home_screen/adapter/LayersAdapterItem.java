@@ -6,6 +6,7 @@ import ru.tcgeo.application.gilib.GITuple;
  * Created by a_belov on 06.07.15.
  * Class is a wrapper for GITuple to use in ArrayAdapter
  */
+@Deprecated
 public class LayersAdapterItem {
     final public GITuple m_tuple;
 

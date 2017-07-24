@@ -49,7 +49,7 @@ public class ReProjectDialog extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setCanceledOnTouchOutside(true);
-        setContentView(R.layout.re_projects_dialog);
+        setContentView(R.layout.dialog_projects);
         ButterKnife.bind(this);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         adapter = new ReProjectsAdapter.Builder(context)

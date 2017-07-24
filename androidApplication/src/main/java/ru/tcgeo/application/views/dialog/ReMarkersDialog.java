@@ -49,7 +49,7 @@ public class ReMarkersDialog extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setCanceledOnTouchOutside(true);
-        setContentView(R.layout.re_markers_dialog);
+        setContentView(R.layout.dialog_markers);
         ButterKnife.bind(this);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 

@@ -1,7 +1,6 @@
 package ru.tcgeo.application.local_project_management;
 
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -23,23 +22,16 @@ import ru.tcgeo.application.R;
 
 public class GILocalProjectManagementDialog extends DialogFragment
 {
+	final String LOG_TAG = "LOG_TAG";
 	public ArrayList<GIProjectInfo> mProjects;
-
-	TextView m_project_decsiption;
+	//	TextView m_project_decsiption;
 	TextView m_project_name;
 	ListView m_locals;
-
-
-
 	LinearLayout m_lists_panel;
 	LinearLayout m_root;
-
 	Button m_button_load;
 	Button m_button_delete;
 	Button m_button_close;
-
-
-	final String LOG_TAG = "LOG_TAG";
 	
 	@Override
 	public void onStart() {
@@ -55,7 +47,7 @@ public class GILocalProjectManagementDialog extends DialogFragment
 	  
 		LocalProjectsWorkAdapter local_adapter = new LocalProjectsWorkAdapter(getDialog().getContext(), R.layout.project_list_selected_item, R.id.project_list_item_path);
 		local_adapter.m_project_name = m_project_name;
-		local_adapter.m_project_decsiption = m_project_decsiption;
+//		local_adapter.m_project_decsiption = m_project_decsiption;
 		local_adapter.clear();
 		AddLocalProjects();
 		local_adapter.addAll(mProjects);
@@ -68,7 +60,7 @@ public class GILocalProjectManagementDialog extends DialogFragment
 		getDialog().setTitle(R.string.project_management);
 		View v = inflater.inflate(R.layout.local_project_management_dialog, container);
 		m_locals = (ListView)v.findViewById(R.id.local_projects_list);
-		m_project_decsiption = (TextView)v.findViewById(R.id.textView_project_info);
+//		m_project_decsiption = (TextView)v.findViewById(R.id.textView_project_info);
 		m_lists_panel = (LinearLayout)v.findViewById(R.id.linearLayout1);
 		m_root = (LinearLayout)v.findViewById(R.id.dialog_root);
 		m_button_close = (Button)v.findViewById(R.id.buttonClose);

@@ -83,8 +83,6 @@
     <string name="stop_poi">Finish POI</string>
     <string name="new_attribute_name">Name</string>
     <string name="new_attribute_value">Value</string>
-    <color name="dark_text">#ff0f050f</color>
-    <color name="transparent_background">#05050505</color>
     <string name="provider_available">alive</string>
     <string name="provider_temporary_unavailable">weak</string>
     <string name="provider_out_of_service">dead</string>

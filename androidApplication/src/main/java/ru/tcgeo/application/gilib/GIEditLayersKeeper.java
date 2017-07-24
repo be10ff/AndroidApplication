@@ -264,79 +264,16 @@ public class GIEditLayersKeeper {
 		{
 			m_Map.UpdateMap();
 		}
-//		if(m_EditLayerDialog != null )
-//		{
-//			if(m_EditLayerDialog.isAdded())
-//			{
-//				m_FragmentManager.beginTransaction().remove( m_EditLayerDialog).commit();
-//			}
-//
-//		}
-        activity.fbEditButton.setVisibility(View.GONE);
-        activity.fbEditButton.setActivated(false);
-//		if(m_EditAttributesFragment != null)
-//		{
-//			if(m_EditAttributesFragment.isAdded())
-//			{
-//				m_FragmentManager.beginTransaction().remove( m_EditAttributesFragment).commit();
-//			}
-//			m_EditAttributesFragment = null;
-//		}
+
+		activity.fbEditButton.setVisibility(View.GONE);
+		activity.fbEditButton.setActivated(false);
+
 		for(GIGeometryControl control : m_controls)
 		{
 			control.Disable();
 		}
 		m_controls.clear();
 	}
-
-//	public void AccurancyRangeView(boolean show)
-//	{
-//		if(show)
-//		{
-//			if(m_range == null)
-//			{
-//				m_range = new GILocatorRange();
-//			}
-//		}
-//		else
-//		{
-//			m_range.Disable();
-//		}
-//	}
-
-//	public void CompassView()
-//	{
-//		m_compass = (GICompassFragment) m_FragmentManager.findFragmentByTag(compass_view_tag);
-//		if(m_compass == null)
-//		{
-//			m_compass = new GICompassFragment();
-//			m_FragmentManager.beginTransaction().add(m_root, m_compass, compass_view_tag).commit();
-//		}
-//		else
-//		{
-//			if(m_compass.isAdded())
-//			{
-//				m_FragmentManager.beginTransaction().remove( m_compass).commit();
-//			}
-//		}
-//	}
-
-//	public void LocatorView(GI_WktGeometry poi)
-//	{
-//		m_locator = (GILocatorFragment) m_FragmentManager.findFragmentByTag(locator_view_tag);
-//		if(m_locator == null)
-//		{
-//			m_locator = new GILocatorFragment(poi);
-//			m_FragmentManager.beginTransaction().add(m_root, m_locator, locator_view_tag).commit();
-//		}
-//		else
-//		{
-//			if(m_locator.isAdded())
-//			{
-//				m_FragmentManager.beginTransaction().remove( m_locator).commit();
-//			}
-//		}
-//	}
 
 	public void StartEditing(GIEditableLayer layer)
 	{

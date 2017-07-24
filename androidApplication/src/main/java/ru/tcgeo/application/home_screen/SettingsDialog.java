@@ -1,14 +1,13 @@
 package ru.tcgeo.application.home_screen;
 
 import android.graphics.Paint;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentTransaction;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -16,7 +15,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,7 +40,6 @@ import ru.tcgeo.application.gilib.parser.GISQLDB;
 import ru.tcgeo.application.gilib.parser.GISource;
 import ru.tcgeo.application.home_screen.adapter.LayersAdapter;
 import ru.tcgeo.application.home_screen.adapter.LayersAdapterItem;
-import ru.tcgeo.application.home_screen.adapter.ProjectsAdapter;
 import ru.tcgeo.application.home_screen.adapter.ProjectsAdapterItem;
 import ru.tcgeo.application.utils.ProjectChangedEvent;
 import ru.tcgeo.application.views.OpenFileDialog;
@@ -50,13 +47,13 @@ import ru.tcgeo.application.views.OpenFileDialog;
 /**
  * Created by a_belov on 23.07.15.
  */
+@Deprecated
 public class SettingsDialog extends DialogFragment implements IFolderItemListener {
 
-    private GIMap mMap;
     ListView mLayersList;
     FrameLayout mProperties;
-    ProjectsAdapter projects_adapter;
     LayersAdapter layersAdapter;
+    private GIMap mMap;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         App.getInstance().getEventBus().register(this);
@@ -66,12 +63,9 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
         View v = inflater.inflate(R.layout.settings_dialog, container, false);
         mLayersList = (ListView)  v.findViewById(R.id.layers_list);
         mProperties = (FrameLayout)v.findViewById(R.id.content);
-        projects_adapter = new ProjectsAdapter((Geoinfo)getActivity(),
-                R.layout.project_selector_list_item,
-                R.id.project_list_item_path);
 
         layersAdapter = new LayersAdapter((Geoinfo)getActivity(),
-                R.layout.re_layers_list_item, R.id.layers_list_item_text);
+                R.layout.layers_list_item, R.id.layers_list_item_text);
 
         View header = inflater.inflate(
                 R.layout.add_layer_header_layout, null);
@@ -86,7 +80,7 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
         });
         mLayersList.addHeaderView(header);
 
-        addLayers((GIGroupLayer) mMap.m_layers, layersAdapter);
+        addLayers(mMap.m_layers, layersAdapter);
         mLayersList.setAdapter(layersAdapter);
         mLayersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -273,11 +267,8 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
     }
 
     @Subscribe  public void refresh(ProjectChangedEvent e){
-        projects_adapter.clear();
-
-        AddProjects(projects_adapter);
         layersAdapter.clear();
-        addLayers((GIGroupLayer) mMap.m_layers, layersAdapter);
+        addLayers(mMap.m_layers, layersAdapter);
         mMap.UpdateMap();
     }
 }

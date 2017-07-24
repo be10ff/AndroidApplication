@@ -75,7 +75,7 @@ public class EditAttributesDialog extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setCanceledOnTouchOutside(true);
-        setContentView(R.layout.aa_fragment_edit_attributes);
+        setContentView(R.layout.dialog_edit_attributes);
         ButterKnife.bind(this);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
