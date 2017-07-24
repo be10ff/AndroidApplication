@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlProject"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="18dp">
+
+    <!--android:descendantFocusability="blocksDescendants">-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivLoaded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/project_mark" />
+
+
+        <TextView
+            android:id="@+id/tvProjectName"
+            style="@style/Theme.Text_Small"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:text="@string/project_list_default_text" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvFilePath"
+        style="@style/Theme.Text_Normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/project_list_addition_text" />
+
+
+</LinearLayout>
