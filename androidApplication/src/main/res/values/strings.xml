@@ -117,6 +117,8 @@
     <string name="remove">Remove</string>
     <string name="file_error">File cannot be read</string>
 
+    <string name="zero_data">List is empty</string>
+
 
     <string-array name="zoom_type">
         <item>auto</item>

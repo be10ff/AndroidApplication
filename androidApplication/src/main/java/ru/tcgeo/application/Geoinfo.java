@@ -44,15 +44,16 @@ import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.Marker;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
-import ru.tcgeo.application.home_screen.ProjectDialog;
 import ru.tcgeo.application.home_screen.SettingsDialog;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.view.MapView;
 import ru.tcgeo.application.views.GIScaleControl;
 import ru.tcgeo.application.views.callback.EditableLayerCallback;
 import ru.tcgeo.application.views.callback.MarkerCallback;
+import ru.tcgeo.application.views.callback.ProjectsCallback;
 import ru.tcgeo.application.views.dialog.ReEditableLayersDialog;
 import ru.tcgeo.application.views.dialog.ReMarkersDialog;
+import ru.tcgeo.application.views.dialog.ReProjectDialog;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
 
@@ -186,9 +187,29 @@ public class Geoinfo extends FragmentActivity implements MapView {
 				.show();
 	}
     public void ProjectSelectorDialogClicked(final View button) {
-        projectsDialog = new ProjectDialog();
-        projectsDialog.show(getSupportFragmentManager(), "project_dialog");
-    }
+//        projectsDialog = new ProjectDialog();
+//        projectsDialog.show(getSupportFragmentManager(), "project_dialog");
+
+		new ReProjectDialog.Builder(this)
+				.callback(new ProjectsCallback() {
+					@Override
+					public void onClick(GIProjectProperties project) {
+						if (!project.m_path.equals(getMap().ps.m_path)) {
+							getMap().Clear();
+							LoadProject(project.m_path);
+							getMap().UpdateMap();
+							sp = getPreferences(MODE_PRIVATE);
+							SharedPreferences.Editor editor = sp.edit();
+							editor.putString(SAVED_PATH, project.m_path);
+							editor.apply();
+							editor.commit();
+//							App.getInstance().getEventBus().post(new ProjectChangedEvent());
+						}
+					}
+				})
+				.build()
+				.show();
+	}
 
     public DialogFragment getProjectsDialog(){
         return projectsDialog;

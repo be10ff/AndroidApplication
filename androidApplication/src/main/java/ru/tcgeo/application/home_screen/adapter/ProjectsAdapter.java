@@ -1,5 +1,6 @@
 package ru.tcgeo.application.home_screen.adapter;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -17,10 +18,17 @@ import ru.tcgeo.application.utils.ProjectChangedEvent;
 /**
  * Created by a_belov on 06.07.15.
  */
+@Deprecated
 public class ProjectsAdapter extends ArrayAdapter<ProjectsAdapterItem> {
 
     Geoinfo mActivity;
     SharedPreferences sp;
+
+    public ProjectsAdapter(Geoinfo activity, int resource,
+                           int textViewResourceId) {
+        super(activity, resource, textViewResourceId);
+        mActivity = activity;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -57,7 +65,7 @@ public class ProjectsAdapter extends ArrayAdapter<ProjectsAdapterItem> {
                     mActivity.getMap().Clear();
                     mActivity.LoadProject(item.m_project_settings.m_path);
                     mActivity.getMap().UpdateMap();
-                    sp = mActivity.getPreferences(mActivity.MODE_PRIVATE);
+                    sp = mActivity.getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putString(mActivity.SAVED_PATH,
                             item.m_project_settings.m_path);
@@ -71,11 +79,5 @@ public class ProjectsAdapter extends ArrayAdapter<ProjectsAdapterItem> {
         });
 
         return v;
-    }
-
-    public ProjectsAdapter(Geoinfo activity, int resource,
-                           int textViewResourceId) {
-        super(activity, resource, textViewResourceId);
-        mActivity = activity;
     }
 }

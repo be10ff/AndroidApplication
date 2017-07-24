@@ -10,4 +10,6 @@ public abstract class MarkerHolderCallback {
     public abstract void onGoToClick(MarkerHolder holder);
 
     public abstract void onShowDirectiponClick(MarkerHolder holder);
+
+    public abstract void onClose();
 }

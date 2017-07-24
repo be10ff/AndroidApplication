@@ -9,25 +9,27 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.GIEditableLayer;
-import ru.tcgeo.application.views.callback.EditableLayerHolderCallback;
+import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.views.callback.ProjectsHolderCallback;
 import ru.tcgeo.application.views.callback.ZeroDataHolderCallback;
-import ru.tcgeo.application.views.viewholder.EdiableLayerHolder;
+import ru.tcgeo.application.views.viewholder.ProjectHolder;
 import ru.tcgeo.application.views.viewholder.ZeroDataHolder;
 
 /**
  * Created by a_belov on 06.07.15.
  */
-public class ReEditableLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ReProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     private static final int TYPE_DEFAULT = 1;
     private static final int TYPE_ZERODATA = 2;
 
-    private EditableLayerHolderCallback callback;
+    private ProjectsHolderCallback callback;
     private Context context;
-    private List<GIEditableLayer> data;
+    private List<GIProjectProperties> data;
 
-    public ReEditableLayersAdapter(Builder builder) {
+    public ReProjectsAdapter(Builder builder) {
         this.context = builder.context;
         this.callback = builder.callback;
         this.data = builder.data;
@@ -49,33 +51,29 @@ public class ReEditableLayersAdapter extends RecyclerView.Adapter<RecyclerView.V
             });
         } else {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_editable_layers_list, parent, false);
-            return new EdiableLayerHolder(v, callback);
+                    .inflate(R.layout.item_projects_list, parent, false);
+            return new ProjectHolder(v, callback);
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_DEFAULT) {
-            EdiableLayerHolder h = (EdiableLayerHolder) holder;
-            GIEditableLayer item = data.get(position);
-            h.tvEditableLayerName.setText(item.getName());
-            switch (item.m_Status) {
-                case UNEDITED: {
-                    h.tvEditableLayerName.setTextColor(Color.BLACK);
-                    break;
-                }
-                case EDITED: {
-                    h.tvEditableLayerName.setTextColor(Color.BLUE);
-                    break;
-                }
-                case UNSAVED: {
-                    h.tvEditableLayerName.setTextColor(Color.RED);
-                    break;
-                }
-                default: {
-                    h.tvEditableLayerName.setTextColor(Color.BLACK);
-                    break;
+            ProjectHolder h = (ProjectHolder) holder;
+            GIProjectProperties item = data.get(position);
+            h.tvProjectName.setText(item.m_name);
+            h.tvFilePath.setText(item.m_path);
+
+            if (((Geoinfo) context).getMap() != null) {
+                if (item.m_path.equalsIgnoreCase(((Geoinfo) context).getMap().ps.m_path)) {
+                    h.ivLoaded.setImageBitmap(null);
+                    h.tvProjectName.setEnabled(true);
+                    h.tvProjectName.setTextColor(Color.DKGRAY);
+                    h.ivLoaded.setImageResource(R.drawable.project_mark);
+                } else {
+                    h.ivLoaded.setImageBitmap(null);
+                    h.tvProjectName.setEnabled(false);
+                    h.tvProjectName.setTextColor(Color.GRAY);
                 }
             }
         }
@@ -87,7 +85,7 @@ public class ReEditableLayersAdapter extends RecyclerView.Adapter<RecyclerView.V
         return data.size();
     }
 
-    public GIEditableLayer getItem(int position) {
+    public GIProjectProperties getItem(int position) {
         return data.get(position);
     }
 
@@ -102,25 +100,25 @@ public class ReEditableLayersAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public static class Builder {
         private Context context;
-        private EditableLayerHolderCallback callback;
-        private List<GIEditableLayer> data;
+        private ProjectsHolderCallback callback;
+        private List<GIProjectProperties> data;
 
         public Builder(Context context) {
             this.context = context;
         }
 
-        public Builder callback(EditableLayerHolderCallback callback) {
+        public Builder callback(ProjectsHolderCallback callback) {
             this.callback = callback;
             return this;
         }
 
-        public Builder data(List<GIEditableLayer> data) {
+        public Builder data(List<GIProjectProperties> data) {
             this.data = data;
             return this;
         }
 
-        public ReEditableLayersAdapter build() {
-            return new ReEditableLayersAdapter(this);
+        public ReProjectsAdapter build() {
+            return new ReProjectsAdapter(this);
         }
 
     }

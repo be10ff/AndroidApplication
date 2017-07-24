@@ -1,5 +1,6 @@
 package ru.tcgeo.application.home_screen.adapter;
 
+@Deprecated
 public class AddressSearchAdapterItem 
 {
 	final public String m_name;

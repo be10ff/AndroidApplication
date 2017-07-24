@@ -253,7 +253,7 @@ public class GIEditLayersKeeper {
 		boolean toRedraw = false;
 		for(GIEditableLayer layer : m_Layers)
 		{
-			if(layer.m_Status != GIEditableLayer.GIEditableLayerStatus.UNEDITED)
+			if (layer != null && layer.m_Status != GIEditableLayer.GIEditableLayerStatus.UNEDITED)
 			{
 				toRedraw = true;
 				layer.Save();

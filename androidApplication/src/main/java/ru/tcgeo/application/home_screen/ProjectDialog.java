@@ -1,59 +1,36 @@
 package ru.tcgeo.application.home_screen;
 
-import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.squareup.otto.Subscribe;
 
 import java.io.File;
 
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.Geoinfo;
-import ru.tcgeo.application.IFolderItemListener;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.GIGroupLayer;
-import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.GITuple;
-import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
-import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
-import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
-import ru.tcgeo.application.gilib.parser.GIRange;
-import ru.tcgeo.application.gilib.parser.GISQLDB;
-import ru.tcgeo.application.gilib.parser.GISource;
-import ru.tcgeo.application.home_screen.AllSettingsFragment;
 import ru.tcgeo.application.home_screen.adapter.ProjectsAdapter;
 import ru.tcgeo.application.home_screen.adapter.ProjectsAdapterItem;
-import ru.tcgeo.application.utils.ProjectChangedEvent;
-import ru.tcgeo.application.views.OpenFileDialog;
 
 /**
  * Created by a_belov on 23.07.15.
  */
+@Deprecated
 public class ProjectDialog extends DialogFragment{
 
-    private GIMap mMap;
     ListView mProjectsList;
     ProjectsAdapter projects_adapter;
+    private GIMap mMap;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         App.getInstance().getEventBus().register(this);

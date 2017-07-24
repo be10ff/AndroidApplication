@@ -8,4 +8,6 @@ import ru.tcgeo.application.views.viewholder.EdiableLayerHolder;
 
 public abstract class EditableLayerHolderCallback {
     public abstract void onStartEdit(EdiableLayerHolder holder);
+
+    public abstract void onClose();
 }

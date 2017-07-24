@@ -77,6 +77,11 @@ public class ReEditableLayersDialog extends Dialog {
                             dismiss();
                         }
                     }
+
+                    @Override
+                    public void onClose() {
+                        dismiss();
+                    }
                 })
                 .data(data)
                 .build();

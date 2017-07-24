@@ -64,7 +64,11 @@ public class ReMarkersDialog extends Dialog {
                     public void onShowDirectiponClick(MarkerHolder holder) {
                         callback.onShowDirectiponClick(adapter.getItem(holder.getAdapterPosition()), !adapter.getItem(holder.getAdapterPosition()).selected);
                         adapter.setSelected(holder.getAdapterPosition(), !adapter.getItem(holder.getAdapterPosition()).selected);
+                        dismiss();
+                    }
 
+                    @Override
+                    public void onClose() {
                         dismiss();
                     }
                 })
