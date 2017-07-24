@@ -2,37 +2,30 @@ package ru.tcgeo.application.home_screen;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import java.io.File;
 
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
-import ru.tcgeo.application.gilib.GIGroupLayer;
 import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.home_screen.adapter.EditableLayersAdapter;
-import ru.tcgeo.application.home_screen.adapter.ProjectsAdapter;
-import ru.tcgeo.application.home_screen.adapter.ProjectsAdapterItem;
 
 /**
  * Created by a_belov on 23.07.15.
  */
+@Deprecated
 public class EditableLayersDialog extends DialogFragment{
 
-    private GIMap mMap;
     ListView markers_list;
-//    EditableLayersAdapter adapter;
+    private GIMap mMap;
+//    ReEditableLayersAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         App.getInstance().getEventBus().register(this);
@@ -54,7 +47,7 @@ public class EditableLayersDialog extends DialogFragment{
 
         EditableLayersAdapter adapter = new EditableLayersAdapter((Geoinfo)getActivity(), R.layout.markers_list_item, R.id.markers_list_item_text);
 
-        adapter.AddEditableLayers((GIGroupLayer) mMap.m_layers);
+        adapter.AddEditableLayers(mMap.m_layers);
 
         markers_list.setAdapter(adapter);
 

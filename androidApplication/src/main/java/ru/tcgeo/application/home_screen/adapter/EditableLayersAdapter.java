@@ -16,8 +16,16 @@ import ru.tcgeo.application.gilib.GIGroupLayer;
 /**
  * Created by a_belov on 06.07.15.
  */
+@Deprecated
 public class EditableLayersAdapter extends ArrayAdapter<EditableLayersAdapterItem> {
     Geoinfo mActivity;
+
+    public EditableLayersAdapter(Geoinfo activity, int resource,
+                                 int textViewResourceId) {
+        super(activity, resource, textViewResourceId);
+        mActivity = activity;
+    }
+
     @Override
     public View getView(int position, View convertView,
                         final ViewGroup parent) {
@@ -29,7 +37,7 @@ public class EditableLayersAdapter extends ArrayAdapter<EditableLayersAdapterIte
 
         text_name.setText(item.m_layer.getName());
 
-        GIEditableLayer layer = (GIEditableLayer) item.m_layer;
+        GIEditableLayer layer = item.m_layer;
         switch (layer.m_Status) {
             case UNEDITED: {
                 text_name.setTextColor(Color.BLACK);
@@ -52,19 +60,13 @@ public class EditableLayersAdapter extends ArrayAdapter<EditableLayersAdapterIte
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GIEditableLayer layer = (GIEditableLayer) item.m_layer;
+                GIEditableLayer layer = item.m_layer;
                 GIEditLayersKeeper.Instance().StartEditing(layer);
-                mActivity.getEditablelayersDialog().dismiss();
+//                mActivity.getEditablelayersDialog().dismiss();
             }
         });
 
         return v;
-    }
-
-    public EditableLayersAdapter(Geoinfo activity, int resource,
-                                 int textViewResourceId) {
-        super(activity, resource, textViewResourceId);
-        mActivity = activity;
     }
 
     public void AddEditableLayers(GIGroupLayer layer) {

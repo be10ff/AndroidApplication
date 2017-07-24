@@ -3,21 +3,22 @@ package ru.tcgeo.application;
 import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 
 import com.squareup.otto.Bus;
-
-import rx.Observable;
 
 /**
  * Created by a_belov on 03.07.15.
  */
 public class App extends Application {
     private static App sInstance;
-    private Bus bus;
     public Bitmap wktPointBitmap;
+    private Bus bus;
 
 //    private Observable<Location> locationObservable;
+
+    public static App getInstance() {
+        return sInstance;
+    }
 
     @Override
     public void onCreate() {
@@ -30,10 +31,6 @@ public class App extends Application {
 
     public Bus getEventBus() {
         return bus;
-    }
-
-    public static App getInstance(){
-        return sInstance;
     }
 
 //    public Observable<Location> getLocationObservable() {

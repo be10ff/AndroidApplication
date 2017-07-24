@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import ru.tcgeo.application.data.interactors.LoadProjectInteractor;
 import ru.tcgeo.application.gilib.GIControlFloating;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
+import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.GITouchControl;
 import ru.tcgeo.application.gilib.gps.GICompassView;
@@ -43,13 +44,14 @@ import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.Marker;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
-import ru.tcgeo.application.home_screen.EditableLayersDialog;
 import ru.tcgeo.application.home_screen.ProjectDialog;
 import ru.tcgeo.application.home_screen.SettingsDialog;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.view.MapView;
 import ru.tcgeo.application.views.GIScaleControl;
+import ru.tcgeo.application.views.callback.EditableLayerCallback;
 import ru.tcgeo.application.views.callback.MarkerCallback;
+import ru.tcgeo.application.views.dialog.ReEditableLayersDialog;
 import ru.tcgeo.application.views.dialog.ReMarkersDialog;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
@@ -82,11 +84,12 @@ public class Geoinfo extends FragmentActivity implements MapView {
 	SharedPreferences sp;
 	DialogFragment projectsDialog;
 	DialogFragment markersDialog;
-	DialogFragment editablelayersDialog;
+	//	DialogFragment editablelayersDialog;
 	GIControlFloating m_marker_point;
 	GIGPSLocationListener m_location_listener;
 	GIGPSButtonView fbGPS;
 	ImageButton fbEdit;
+	FloatingActionMenu editActionMenu;
 
 	public void MarkersDialogClicked(final View button) {
 		View v = root.findViewById(R.id.direction_to_point_arrow);
@@ -133,9 +136,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 							GILonLat new_center = new GILonLat(
 									marker.lon, marker.lat);
 							GI_WktPoint poi = new GI_WktPoint(new_center);
-//							GIEditLayersKeeper.Instance().m_CurrentTarget = poi;
 							GIDirectionToPOIArrow arrow = new GIDirectionToPOIArrow(root, map, marker);
-//							GIEditLayersKeeper.Instance().LocatorView(poi);
 							getFragmentManager().beginTransaction().add(R.id.root, new GILocatorFragment(poi), locator_view_tag).commit();
 						}
 					}
@@ -163,8 +164,26 @@ public class Geoinfo extends FragmentActivity implements MapView {
 //	}
 
 	public void EditableLayersDialogClicked(final View button) {
-		editablelayersDialog = new EditableLayersDialog();
-		editablelayersDialog.show(getSupportFragmentManager(), "markers_dialog");
+
+		new ReEditableLayersDialog.Builder(this)
+				.callback(new EditableLayerCallback() {
+					@Override
+					public void onStartEdit(GIEditableLayer layer) {
+						GIEditLayersKeeper.Instance().StartEditing(layer);
+					}
+
+					@Override
+					public void onStopEdit() {
+						GIEditLayersKeeper.Instance().StopEditing();
+						if (editActionMenu != null) {
+							editActionMenu.close(true);
+						}
+
+					}
+				})
+				.data(GIEditLayersKeeper.Instance().m_Layers)
+				.build()
+				.show();
 	}
     public void ProjectSelectorDialogClicked(final View button) {
         projectsDialog = new ProjectDialog();
@@ -630,7 +649,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		edit_action_params.gravity = Gravity.CENTER_HORIZONTAL;
 		itemBuilder.setLayoutParams(edit_action_params);
 
-		FloatingActionMenu editActionMenu = new FloatingActionMenu.Builder(this)
+		editActionMenu = new FloatingActionMenu.Builder(this)
 
 				.addSubActionView(fbEditCreate)
                 .addSubActionView(fbEditGeometry)
@@ -641,6 +660,8 @@ public class Geoinfo extends FragmentActivity implements MapView {
 				.setStartAngle(180)
                 .setEndAngle(270)
 				.build();
+
+
 		//--------------------------------------------------------------------
 		// Edit buttons
 		//--------------------------------------------------------------------
@@ -755,9 +776,9 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		return m_marker_point;
 	}
 
-	public DialogFragment getEditablelayersDialog() {
-		return editablelayersDialog;
-	}
+//	public DialogFragment getEditablelayersDialog() {
+//		return editablelayersDialog;
+//	}
 
 
 }

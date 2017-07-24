@@ -19,7 +19,6 @@ import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.gps.GICompassFragment;
 import ru.tcgeo.application.gilib.gps.GILocatorFragment;
-import ru.tcgeo.application.gilib.gps.GILocatorRange;
 import ru.tcgeo.application.gilib.gps.GIXMLTrack;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
@@ -50,10 +49,10 @@ public class GIEditLayersKeeper {
 //	public GIEditLayerDialog m_EditLayerDialog;
 	public GICompassFragment m_compass;
 	public GILocatorFragment m_locator;
-	public GILocatorRange m_range;
-	//	public GIEditAttributesFragment m_EditAttributesFragment;
-	public EditAttributesDialog m_EditAttributesFragment;
-	public GIGeometryControl m_current_track_control;
+    //	public GILocatorRange m_range;
+    //	public GIEditAttributesFragment m_EditAttributesFragment;
+//	public EditAttributesDialog m_EditAttributesFragment;
+    public GIGeometryControl m_current_track_control;
 	//currents
 	public GIEditableLayer m_layer;
 	public GIEditableLayer m_TrackLayer;
@@ -83,8 +82,8 @@ public class GIEditLayersKeeper {
 	private GIEditLayersKeeper()
 	{
 //		m_EditLayerDialog = null;
-		m_EditAttributesFragment = null;
-		m_TrackingStatus = GITrackingStatus.STOP;
+//		m_EditAttributesFragment = null;
+        m_TrackingStatus = GITrackingStatus.STOP;
 		m_layer = null;
 		m_geometry = null;
 		m_Status = GIEditingStatus.STOPPED;
@@ -290,20 +289,20 @@ public class GIEditLayersKeeper {
 		m_controls.clear();
 	}
 
-	public void AccurancyRangeView(boolean show)
-	{
-		if(show)
-		{
-			if(m_range == null)
-			{
-				m_range = new GILocatorRange();
-			}
-		}
-		else
-		{
-			m_range.Disable();
-		}
-	}
+//	public void AccurancyRangeView(boolean show)
+//	{
+//		if(show)
+//		{
+//			if(m_range == null)
+//			{
+//				m_range = new GILocatorRange();
+//			}
+//		}
+//		else
+//		{
+//			m_range.Disable();
+//		}
+//	}
 
 //	public void CompassView()
 //	{

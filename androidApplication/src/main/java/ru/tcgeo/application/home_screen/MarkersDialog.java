@@ -2,30 +2,24 @@ package ru.tcgeo.application.home_screen;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import java.io.File;
 
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.home_screen.adapter.MarkersAdapter;
-import ru.tcgeo.application.home_screen.adapter.ProjectsAdapter;
-import ru.tcgeo.application.home_screen.adapter.ProjectsAdapterItem;
 
 /**
  * Created by a_belov on 23.07.15.
  */
+@Deprecated
 public class MarkersDialog extends DialogFragment{
 
 //    private GIMap mMap;

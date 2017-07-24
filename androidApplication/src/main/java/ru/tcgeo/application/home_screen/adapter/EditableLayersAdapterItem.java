@@ -5,6 +5,7 @@ import ru.tcgeo.application.gilib.GIEditableLayer;
 /**
  * Created by a_belov on 06.07.15.
  */
+@Deprecated
 public class EditableLayersAdapterItem {
     final public GIEditableLayer m_layer;
 
