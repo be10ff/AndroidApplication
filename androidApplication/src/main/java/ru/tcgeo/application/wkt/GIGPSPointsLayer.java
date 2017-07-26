@@ -21,6 +21,7 @@ import ru.tcgeo.application.gilib.models.GIVectorStyle;
 
 public class GIGPSPointsLayer  extends GIEditableLayer
 {
+    private boolean isMarkersSource = false;
 
 	public GIGPSPointsLayer(String path) 
 	{
@@ -50,6 +51,15 @@ public class GIGPSPointsLayer  extends GIEditableLayer
 		geometry.m_ID = m_shapes.size();
 		m_shapes.add(geometry);
 	}
+
+    public boolean isMarkersSource() {
+        return isMarkersSource;
+    }
+
+    public void setMarkersSource(boolean markersSource) {
+        isMarkersSource = markersSource;
+    }
+
 	public void Load()
 	{
 		try

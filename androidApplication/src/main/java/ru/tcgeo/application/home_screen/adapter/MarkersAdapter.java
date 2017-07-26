@@ -65,7 +65,7 @@ public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mActivity.getMarkersDialog().dismiss();
+//                mActivity.getMarkersDialog().dismiss();
                 GILonLat new_center = new GILonLat(item.m_marker.lon,
                         item.m_marker.lat);
                 GIControlFloating m_marker_point = mActivity.getMarkerPoint();
@@ -85,7 +85,7 @@ public class MarkersAdapter extends ArrayAdapter<MarkersAdapterItem> {
                     @Override
                     public boolean onLongClick(View v) {
 
-                        mActivity.getMarkersDialog().dismiss();
+//                        mActivity.getMarkersDialog().dismiss();
                         GILonLat new_center = new GILonLat(
                                 item.m_marker.lon, item.m_marker.lat);
                         GI_WktPoint poi = new GI_WktPoint(new_center);

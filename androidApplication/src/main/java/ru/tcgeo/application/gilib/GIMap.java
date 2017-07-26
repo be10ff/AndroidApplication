@@ -36,8 +36,12 @@ import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.gilib.parser.GIPropertiesGroup;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayerRef;
+import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
+import ru.tcgeo.application.gilib.parser.GIRange;
 import ru.tcgeo.application.gilib.parser.GISQLDB;
+import ru.tcgeo.application.gilib.parser.GISource;
 import ru.tcgeo.application.utils.MapUtils;
+import ru.tcgeo.application.wkt.GIGPSPointsLayer;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktLinestring;
 import ru.tcgeo.application.wkt.GI_WktPoint;
@@ -293,22 +297,160 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		
 	}
 
-	
-	public void AddLayer (GILayer layer)
-	{
-		m_layers.AddLayer(layer);
-	}
 
-	public void AddLayer (GILayer layer, GIScaleRange range, boolean enabled)
-	{
-		m_layers.AddLayer(layer, range, enabled);
-	}
-	public void InsertLayerAt (GILayer layer, int position)
-	{
-		m_layers.InsertLayerAt(layer, position);
-	}
-	
-	public GIProjection Projection ()
+    public GITuple AddLayer(GILayer layer) {
+        return m_layers.AddLayer(layer);
+    }
+
+    public GITuple AddLayer(GILayer layer, GIScaleRange range, boolean enabled) {
+        return m_layers.AddLayer(layer, range, enabled);
+    }
+
+    public GITuple InsertLayerAt(GILayer layer, int position) {
+        return m_layers.InsertLayerAt(layer, position);
+    }
+
+    public GITuple addLayer(File file) {
+
+        GITuple result = null;
+        String filenameArray[] = file.getName().split("\\.");
+        String extention = filenameArray[filenameArray.length - 1];
+        if (extention.equalsIgnoreCase("sqlitedb")) {
+            result = addSQLLayer(file);
+        } else if (extention.equalsIgnoreCase("xml")) {
+            result = addXMLLayer(file);
+        } else if (extention.equalsIgnoreCase("yandex") || extention.equalsIgnoreCase("traffic")) {
+            result = addYandexTraffic(file);
+        }
+        UpdateMap();
+        return result;
+    }
+
+    public GITuple addSQLLayer(File file) {
+        GIPropertiesLayer properties_layer = new GIPropertiesLayer();
+        properties_layer.m_enabled = true;
+        properties_layer.m_name = file.getName();
+        properties_layer.m_range = new GIRange();
+        properties_layer.m_source = new GISource("absolute", file.getAbsolutePath()); //getName()
+        properties_layer.m_type = GILayer.GILayerType.SQL_YANDEX_LAYER;
+        properties_layer.m_strType = "SQL_YANDEX_LAYER";
+        GILayer layer;
+        //TODO
+        layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.SQL_YANDEX_LAYER);
+        properties_layer.m_sqldb = new GISQLDB();//"auto";
+        properties_layer.m_sqldb.m_zoom_type = "auto";
+
+        properties_layer.m_sqldb.m_min_z = 1;
+        properties_layer.m_sqldb.m_max_z = 19;
+
+        int min = 1;
+        int max = 19;
+
+        properties_layer.m_range = new GIRange();
+        double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
+        properties_layer.m_range.m_from = (int) (1 / (Math.pow(2, min) * con));
+        properties_layer.m_range.m_to = (int) (1 / (Math.pow(2, max) * con));
+
+        ps.m_Group.addEntry(properties_layer);
+        layer.setName(file.getName());
+        layer.m_layer_properties = properties_layer;
+//        mMap.InsertLayerAt(layer, 0);
+        return AddLayer(layer);
+    }
+
+    public GITuple addYandexTraffic(File file) {
+        GIPropertiesLayer properties_layer = new GIPropertiesLayer();
+        properties_layer.m_enabled = true;
+        properties_layer.m_name = file.getName();
+        properties_layer.m_range = new GIRange();
+        properties_layer.m_source = new GISource("text", "yandex"); //getName()
+        properties_layer.m_type = GILayer.GILayerType.ON_LINE;
+        properties_layer.m_strType = "ON_LINE";
+        GILayer layer;
+        layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.ON_LINE);
+        ps.m_Group.addEntry(properties_layer);
+        layer.setName(file.getName());
+        layer.m_layer_properties = properties_layer;
+        return AddLayer(layer);
+    }
+
+    public GITuple addXMLLayer(File file) {
+        GIPropertiesLayer properties_layer = new GIPropertiesLayer();
+        properties_layer.m_enabled = true;
+        properties_layer.m_name = file.getName();
+        properties_layer.m_range = new GIRange();
+        properties_layer.m_source = new GISource("absolute", file.getAbsolutePath());
+        properties_layer.m_type = GILayer.GILayerType.XML;
+        properties_layer.m_strType = "XML";
+        GILayer layer;
+        //
+        Paint fill = new Paint();
+        Paint line = new Paint();
+
+        GIColor color_fill = new GIColor.Builder().description("fill").name("gray").build();
+        GIColor color_line = new GIColor.Builder().description("line").name("gray").build();
+
+        line.setColor(color_line.Get());
+        line.setStyle(Paint.Style.STROKE);
+        line.setStrokeWidth(2);
+
+        fill.setColor(color_fill.Get());
+        fill.setStrokeWidth(2);
+        fill.setStyle(Paint.Style.FILL);
+
+        GIVectorStyle vstyle = new GIVectorStyle(line, fill, 1);
+
+        properties_layer.m_style = new GIPropertiesStyle.Builder()
+                .type("vector")
+                .lineWidth(2)
+                .opacity(1)
+                .color(color_line)
+                .color(color_fill)
+                .build();
+
+        layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.XML, vstyle);
+        ps.m_Group.addEntry(properties_layer);
+        layer.setName(file.getName());
+        layer.m_layer_properties = properties_layer;
+
+        return AddLayer(layer);
+    }
+
+    public List<GITuple> getLayers() {
+        return getLayers(m_layers);
+    }
+
+    private List<GITuple> getLayers(GIGroupLayer layer) {
+        List<GITuple> result = new ArrayList<>();
+        for (GITuple tuple : layer.m_list) {
+            if (GILayer.GILayerType.LAYER_GROUP == tuple.layer.type_)
+                result.addAll(getLayers((GIGroupLayer) tuple.layer));
+            else {
+                result.add(tuple);
+            }
+        }
+        return result;
+    }
+
+    public void setMarkersSource(GITuple giTuple, boolean set) {
+        if (giTuple.layer instanceof GIGPSPointsLayer) {
+            GIGPSPointsLayer layer = (GIGPSPointsLayer) giTuple.layer;
+            ps.m_markers = null;
+            for (GITuple t : getLayers()) {
+                if (t.layer instanceof GIGPSPointsLayer) {
+                    if (((GIGPSPointsLayer) t.layer).m_path.equalsIgnoreCase(layer.m_path) && set) {
+                        ((GIGPSPointsLayer) t.layer).setMarkersSource(true);
+                        ps.m_markers = giTuple.layer.getName();
+                        ps.m_markers_source = "layer";
+                    } else {
+                        ((GIGPSPointsLayer) t.layer).setMarkersSource(false);
+                    }
+                }
+            }
+        }
+    }
+
+    public GIProjection Projection ()
 	{
 		return m_bounds.projection();
 	}

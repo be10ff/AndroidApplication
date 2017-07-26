@@ -1,8 +1,8 @@
-package ru.tcgeo.application.home_screen;
+package ru.tcgeo.application.views.fragment;
 
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -27,16 +27,15 @@ import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIEditableRenderer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.home_screen.adapter.LayersAdapterItem;
 import ru.tcgeo.application.utils.ProjectChangedEvent;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
  * Created by a_belov on 22.07.15.
  */
-@Deprecated
-public class AllSettingsFragment extends Fragment implements IFolderItemListener {
+public class ReAllSettingsFragment extends Fragment implements IFolderItemListener {
 
     @Bind(R.id.layer_name_edit)
     EditText mName;
@@ -82,39 +81,39 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
     View mFillColor;
     @Bind(R.id.stroke_color)
     View mStrokeColor;
-    LayersAdapterItem mItem;
+    GITuple mItem;
     GIMap mMap;
     GILayer.Builder builder;
 
-    public AllSettingsFragment() {
+    public ReAllSettingsFragment() {
     }
 
-    public AllSettingsFragment(GIMap map, LayersAdapterItem item) {
+    public ReAllSettingsFragment(GIMap map, GITuple item) {
         mItem = item;
         mMap = map;
-        builder = new GILayer.Builder(item.m_tuple.layer);
+        builder = new GILayer.Builder(item.layer);
     }
 
     @OnClick(R.id.fill_color)
-    public void OnFillColor(){
-        if(mItem.m_tuple.layer.m_layer_properties.m_style != null && mItem.m_tuple.layer.m_layer_properties.m_style.m_colors != null) {
-            for (final GIColor color : mItem.m_tuple.layer.m_layer_properties.m_style.m_colors) {
-                 if (color.m_description.equalsIgnoreCase("fill")) {
-                     new AmbilWarnaDialog(getActivity(), color.Get(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
-                         @Override
-                         public void onOk(AmbilWarnaDialog dialog, int new_color) {
-                             color.set(new_color);
+    public void OnFillColor() {
+        if (mItem.layer.m_layer_properties.m_style != null && mItem.layer.m_layer_properties.m_style.m_colors != null) {
+            for (final GIColor color : mItem.layer.m_layer_properties.m_style.m_colors) {
+                if (color.m_description.equalsIgnoreCase("fill")) {
+                    new AmbilWarnaDialog(getActivity(), color.Get(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                        @Override
+                        public void onOk(AmbilWarnaDialog dialog, int new_color) {
+                            color.set(new_color);
 //                             GIVectorStyle vstyle = new GIVectorStyle(line, fill, 1);
-                             mFillColor.setBackgroundColor(new_color);
-                             ((GIEditableRenderer)mItem.m_tuple.layer.renderer()).m_style.m_paint_brush.setColor(new_color);
+                            mFillColor.setBackgroundColor(new_color);
+                            ((GIEditableRenderer) mItem.layer.renderer()).m_style.m_paint_brush.setColor(new_color);
 
 
-                         }
+                        }
 
-                         @Override
-                         public void onCancel(AmbilWarnaDialog dialog) {
-                         }
-                     }).show();
+                        @Override
+                        public void onCancel(AmbilWarnaDialog dialog) {
+                        }
+                    }).show();
                 }
             }
         }
@@ -122,16 +121,16 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
     }
 
     @OnClick(R.id.stroke_color)
-    public void OnStrokeColor(){
-        if(mItem.m_tuple.layer.m_layer_properties.m_style != null && mItem.m_tuple.layer.m_layer_properties.m_style.m_colors != null) {
-            for (final GIColor color : mItem.m_tuple.layer.m_layer_properties.m_style.m_colors) {
+    public void OnStrokeColor() {
+        if (mItem.layer.m_layer_properties.m_style != null && mItem.layer.m_layer_properties.m_style.m_colors != null) {
+            for (final GIColor color : mItem.layer.m_layer_properties.m_style.m_colors) {
                 if (color.m_description.equalsIgnoreCase("line")) {
                     new AmbilWarnaDialog(getActivity(), color.Get(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
                         @Override
                         public void onOk(AmbilWarnaDialog dialog, int new_color) {
                             color.set(new_color);
                             mStrokeColor.setBackgroundColor(new_color);
-                            ((GIEditableRenderer)mItem.m_tuple.layer.renderer()).m_style.m_paint_pen.setColor(new_color);
+                            ((GIEditableRenderer) mItem.layer.renderer()).m_style.m_paint_pen.setColor(new_color);
                         }
 
                         @Override
@@ -145,7 +144,7 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layer_settings, container, false);
         ButterKnife.bind(this, view);
 
@@ -186,7 +185,7 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
             }
         });
 
-        mZoomType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mZoomType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String zoom_type = mZoomType.getSelectedItem().toString();
@@ -199,7 +198,7 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
             }
         });
 
-        mRatio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mRatio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 int ratio = Integer.valueOf(mRatio.getSelectedItem().toString());
@@ -220,7 +219,7 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
                 double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
                 int from = (int) (1 / (Math.pow(2, Integer.valueOf(mZoomMin.getSelectedItem().toString())) * con));
                 builder.rangeFrom(from);
-                mItem.m_tuple.scale_range.setMin(1 / ((double) from));
+                mItem.scale_range.setMin(1 / ((double) from));
             }
 
             @Override
@@ -237,7 +236,7 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
                 double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
                 int to = (int) (1 / (Math.pow(2, Integer.valueOf(mZoomMax.getSelectedItem().toString())) * con));
                 builder.rangeTo(to);
-                mItem.m_tuple.scale_range.setMax(1 / (double) to);
+                mItem.scale_range.setMax(1 / (double) to);
             }
 
             @Override
@@ -247,22 +246,21 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
         });
 
 
-
         return view;
     }
 
     @OnClick(R.id.button_apply)
-    public void apply(){
-        mItem.m_tuple.layer = builder.build();
-        ((Geoinfo)getActivity()).getMap().UpdateMap();
+    public void apply() {
+        mItem.layer = builder.build();
+        ((Geoinfo) getActivity()).getMap().UpdateMap();
     }
 
-    public void reset(){
-        mName.setText(mItem.m_tuple.layer.getName());
-        mLocation.setText(mItem.m_tuple.layer.m_layer_properties.m_source.m_name);
+    public void reset() {
+        mName.setText(mItem.layer.getName());
+        mLocation.setText(mItem.layer.m_layer_properties.m_source.m_name);
 
-        File file = new File(mItem.m_tuple.layer.m_layer_properties.m_source.m_name);
-        if(file.exists()){
+        File file = new File(mItem.layer.m_layer_properties.m_source.m_name);
+        if (file.exists()) {
             mFileOk.setImageResource(R.drawable.project_mark);
         } else {
             mFileOk.setImageResource(R.drawable.project_mark_fail);
@@ -283,8 +281,8 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
         layer_type_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mType.setAdapter(layer_type_adapter);
 
-        for(int i = 0; i < getResources().getStringArray(R.array.layer_type).length; i++){
-            if(getResources().getStringArray(R.array.layer_type)[i].equals( mItem.m_tuple.layer.m_layer_properties.m_type.name())){
+        for (int i = 0; i < getResources().getStringArray(R.array.layer_type).length; i++) {
+            if (getResources().getStringArray(R.array.layer_type)[i].equals(mItem.layer.m_layer_properties.m_type.name())) {
                 mType.setSelection(i);
             }
         }
@@ -298,15 +296,15 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
         source_type_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mLocationType.setAdapter(source_type_adapter);
 
-        String layer_type = mItem.m_tuple.layer.m_layer_properties.m_source.m_location;
-        for(int i = 0; i < getResources().getStringArray(R.array.source_type).length; i++){
-            if(getResources().getStringArray(R.array.source_type)[i].equals(layer_type)){
+        String layer_type = mItem.layer.m_layer_properties.m_source.m_location;
+        for (int i = 0; i < getResources().getStringArray(R.array.source_type).length; i++) {
+            if (getResources().getStringArray(R.array.source_type)[i].equals(layer_type)) {
                 mLocationType.setSelection(i);
             }
         }
 
         //zoom type
-        if(mItem.m_tuple.layer.m_layer_properties.m_sqldb != null) {
+        if (mItem.layer.m_layer_properties.m_sqldb != null) {
             ArrayAdapter<String> zoom_type_adapter = new ArrayAdapter<String>(
                     getActivity(),
                     R.layout.item_spinner,
@@ -315,7 +313,7 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
             zoom_type_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
             mZoomType.setAdapter(zoom_type_adapter);
             for (int i = 0; i < getResources().getStringArray(R.array.zoom_type).length; i++) {
-                if (getResources().getStringArray(R.array.zoom_type)[i].equals(mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_zoom_type)) {
+                if (getResources().getStringArray(R.array.zoom_type)[i].equals(mItem.layer.m_layer_properties.m_sqldb.m_zoom_type)) {
                     mZoomType.setSelection(i);
                 }
             }
@@ -328,7 +326,7 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
             ratio_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
             mRatio.setAdapter(ratio_adapter);
             for (int i = 0; i < getResources().getStringArray(R.array.zoom_type).length; i++) {
-                if (getResources().getStringArray(R.array.ratio)[i].equals(String.valueOf(mItem.m_tuple.layer.m_layer_properties.m_sqldb.mRatio))) {
+                if (getResources().getStringArray(R.array.ratio)[i].equals(String.valueOf(mItem.layer.m_layer_properties.m_sqldb.mRatio))) {
                     mRatio.setSelection(i);
                 }
             }
@@ -342,7 +340,7 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
             zoom_max_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
             mZoomMax.setAdapter(zoom_max_adapter);
             for (int i = 0; i < getResources().getStringArray(R.array.zoom_levels).length; i++) {
-                if (getResources().getStringArray(R.array.zoom_levels)[i].equals(String.valueOf(mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_max_z))) {
+                if (getResources().getStringArray(R.array.zoom_levels)[i].equals(String.valueOf(mItem.layer.m_layer_properties.m_sqldb.m_max_z))) {
                     mZoomMax.setSelection(i);
                 }
             }
@@ -355,7 +353,7 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
             zoom_min_adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
             mZoomMin.setAdapter(zoom_min_adapter);
             for (int i = 0; i < getResources().getStringArray(R.array.zoom_levels).length; i++) {
-                if (getResources().getStringArray(R.array.zoom_levels)[i].equals(String.valueOf(mItem.m_tuple.layer.m_layer_properties.m_sqldb.m_min_z))) {
+                if (getResources().getStringArray(R.array.zoom_levels)[i].equals(String.valueOf(mItem.layer.m_layer_properties.m_sqldb.m_min_z))) {
                     mZoomMin.setSelection(i);
                 }
             }
@@ -384,36 +382,37 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
         rangeToAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
         mRangeTo.setAdapter(rangeToAdapter);
         //colors\
-        if(mItem.m_tuple.layer.m_layer_properties.m_style != null && mItem.m_tuple.layer.m_layer_properties.m_style.m_colors != null) {
-            for (GIColor color : mItem.m_tuple.layer.m_layer_properties.m_style.m_colors) {
+        if (mItem.layer.m_layer_properties.m_style != null && mItem.layer.m_layer_properties.m_style.m_colors != null) {
+            for (GIColor color : mItem.layer.m_layer_properties.m_style.m_colors) {
                 if (color.m_description.equalsIgnoreCase("line")) {
                     mStrokeColor.setBackgroundColor(color.Get());
-                }else if (color.m_description.equalsIgnoreCase("fill")){
+                } else if (color.m_description.equalsIgnoreCase("fill")) {
                     mFillColor.setBackgroundColor(color.Get());
                 }
-        }
+            }
 
         }
     }
 
     @OnClick(R.id.move_down)
-    public void onDown(View v){
-        mMap.m_layers.moveDown(mItem.m_tuple);
-        mMap.ps.m_Group.moveDown(mItem.m_tuple.layer.m_layer_properties);
+    public void onDown(View v) {
+        mMap.m_layers.moveDown(mItem);
+        mMap.ps.m_Group.moveDown(mItem.layer.m_layer_properties);
         App.getInstance().getEventBus().post(new ProjectChangedEvent());
 
     }
+
     @OnClick(R.id.move_up)
-    public void onUp(View v){
-        mMap.m_layers.moveUp(mItem.m_tuple);
-        mMap.ps.m_Group.moveUp(mItem.m_tuple.layer.m_layer_properties);
+    public void onUp(View v) {
+        mMap.m_layers.moveUp(mItem);
+        mMap.ps.m_Group.moveUp(mItem.layer.m_layer_properties);
         App.getInstance().getEventBus().post(new ProjectChangedEvent());
     }
 
     @OnClick(R.id.remove)
-    public void onRemove(View v){
-        mMap.m_layers.m_list.remove(mItem.m_tuple);
-        mMap.ps.m_Group.m_Entries.remove(mItem.m_tuple.layer.m_layer_properties);
+    public void onRemove(View v) {
+        mMap.m_layers.m_list.remove(mItem);
+        mMap.ps.m_Group.m_Entries.remove(mItem.layer.m_layer_properties);
         App.getInstance().getEventBus().post(new ProjectChangedEvent());
     }
 

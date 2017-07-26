@@ -1,5 +1,6 @@
 package ru.tcgeo.application.gilib.parser;
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 
+import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.models.GIProjection;
 
 
@@ -41,18 +43,21 @@ public class GIProjectProperties
 //	public ArrayList<GIPropertiesPackage> m_Entries;
 	public GIPropertiesGroup m_Group;
 	public GIPropertiesEdit m_Edit;
+
+	private Context context;
 	
 //	public GIScriptParser m_scriptparser_info;
 //	public GIScriptParser m_scriptparser_search;
-	public GIProjectProperties()
+public GIProjectProperties(Context context)
 	{
-        m_name = "Empty";
-        m_id = 0;
-        m_decription = "Empty";
-        m_SaveAs = "Empty.pro";
-        m_path = "Empty.pro";
-        m_str_projection = "WGS84";
-        m_markers = "";	
+		this.context = context;
+		m_name = context.getString(R.string.default_project_path);
+		m_id = 0;
+		m_decription = context.getString(R.string.default_project_path);
+//        m_SaveAs = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + context.getString(R.string.default_project_path);
+		m_path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + context.getString(R.string.default_project_path);
+		m_str_projection = "WGS84";
+		m_markers = "";
 //        m_markers_source = "file";
 //        m_search_file = "";
 //        m_search_body = "";
@@ -240,11 +245,13 @@ public class GIProjectProperties
 		return res;
 	}
 	//----------------------------------------------------------------------------------------
-	public void SavePro(String name)
+	public void SavePro(String path)
 	{
 		try
 		{
-			String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + name;
+
+//			SaveAsPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + map.ps.m_SaveAs;
+//			String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + name;
 			//File file = new File(getFilesDir(), path)
 			FileOutputStream xmlFile = new FileOutputStream(path);
 			XmlSerializer serializer = Xml.newSerializer();
@@ -261,7 +268,9 @@ public class GIProjectProperties
 			serializer.startDocument("UTF-8", true);
 			serializer.startTag("", "Project");
 			serializer.attribute("", "name", m_name);
-			serializer.attribute("", "SaveAs", m_SaveAs);
+			if (m_SaveAs != null && !m_SaveAs.isEmpty()) {
+				serializer.attribute("", "SaveAs", m_SaveAs);
+			}
 			serializer.attribute("", "ID", String.valueOf(m_id));	
 			
 			serializer.startTag("", "Map");

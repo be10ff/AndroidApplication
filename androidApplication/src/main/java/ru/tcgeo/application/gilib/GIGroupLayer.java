@@ -1,10 +1,10 @@
 package ru.tcgeo.application.gilib;
 
-import java.util.ArrayList;
-
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIScaleRange;
@@ -71,33 +71,41 @@ public class GIGroupLayer extends GILayer
 		}
 	}
 
-	public void AddLayer(GILayer layer)
-	{
-		if(!m_list.contains(layer))
-		{
-			if(layer.type_ == GILayerType.SQL_LAYER )
-			{
-				m_list.add(0, new GITuple(layer, true, new GIScaleRange()));
-			}
-			m_list.add(new GITuple(layer, true, new GIScaleRange()));
+	public GITuple AddLayer(GILayer layer) {
+		GITuple result = null;
+		if (!m_list.contains(layer)) {
+
+//			if(layer.type_ == GILayerType.SQL_LAYER )
+//			{
+//				m_list.add(0, new GITuple(layer, true, new GIScaleRange()));
+//			}
+			result = new GITuple(layer, true, new GIScaleRange());
+			m_list.add(result);
+			result.position = m_list.indexOf(result);
 		}
+		return result;
 	}
 
-	public int AddLayer(GILayer layer, GIScaleRange range, boolean visible)
-	{
-		if(!m_list.contains(layer))
+	public GITuple AddLayer(GILayer layer, GIScaleRange range, boolean visible) {
+		GITuple result = null;
+		if (!m_list.contains(layer))
 		{
-			m_list.add(new GITuple(layer, visible, range));
+			result = new GITuple(layer, visible, range);
+			m_list.add(result);
+			result.position = m_list.indexOf(result);
 		}
-		return 0;
+		return result;
 	}
-	public int InsertLayerAt(GILayer layer, int position)
-	{
-		if(!m_list.contains(layer))
+
+	public GITuple InsertLayerAt(GILayer layer, int position) {
+		GITuple result = null;
+		if (!m_list.contains(layer))
 		{
-			m_list.add(position, new GITuple(layer, true, new GIScaleRange()));
+			result = new GITuple(layer, true, new GIScaleRange());
+			m_list.add(position, result);
+			result.position = m_list.indexOf(result);
 		}
-		return 0;
+		return result;
 	}
 	@Override
 	GIDataRequestor RequestDataIn (GIBounds point, GIDataRequestor requestor, double scale)

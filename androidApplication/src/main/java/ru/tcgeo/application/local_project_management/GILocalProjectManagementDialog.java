@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import ru.tcgeo.application.R;
 
+@Deprecated
 public class GILocalProjectManagementDialog extends DialogFragment
 {
 	final String LOG_TAG = "LOG_TAG";

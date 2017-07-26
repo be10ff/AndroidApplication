@@ -6,8 +6,9 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -33,6 +34,7 @@ import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.GITouchControl;
+import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.gps.GICompassView;
 import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
 import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
@@ -48,26 +50,28 @@ import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.view.MapView;
 import ru.tcgeo.application.views.GIScaleControl;
 import ru.tcgeo.application.views.callback.EditableLayerCallback;
-import ru.tcgeo.application.views.callback.LayerHolderCallback;
+import ru.tcgeo.application.views.callback.LayerCallback;
 import ru.tcgeo.application.views.callback.MarkerCallback;
 import ru.tcgeo.application.views.callback.ProjectsCallback;
 import ru.tcgeo.application.views.dialog.ReEditableLayersDialog;
 import ru.tcgeo.application.views.dialog.ReMarkersDialog;
 import ru.tcgeo.application.views.dialog.ReProjectDialog;
 import ru.tcgeo.application.views.dialog.ReSettingsDialog;
-import ru.tcgeo.application.views.viewholder.LayerHolder;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
 
 public class Geoinfo extends FragmentActivity implements MapView {
-
 	final static public String locator_view_tag = "LOCATOR_TAG";
 
+	static {
+		AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+	}
+
 	final public String SAVED_PATH = "default_project_path";
-	public CheckBox btnEditCreate;
-	public CheckBox btnEditGeometry;
-	public CheckBox btnEditAttributes;
-	public CheckBox btnEditDelete;
+	public AppCompatCheckBox btnEditCreate;
+	public AppCompatCheckBox btnEditGeometry;
+	public AppCompatCheckBox btnEditAttributes;
+	public AppCompatCheckBox btnEditDelete;
 	public SubActionButton fbEditCreate;
 	public SubActionButton fbEditGeometry;
 	public SubActionButton fbEditAttributes;
@@ -76,18 +80,22 @@ public class Geoinfo extends FragmentActivity implements MapView {
 	//
 	@Bind(R.id.root)
 	RelativeLayout root;
+
 	@Bind(R.id.map)
 	GIMap map;
+
 	@Bind(R.id.touchcontrol)
 	GITouchControl touchControl;
+
 	@Bind(R.id.scale_control_screen)
 	GIScaleControl scaleControl;
+
 	@Bind(R.id.pbProgress)
 	View pbProgress;
+
 	SharedPreferences sp;
-	DialogFragment projectsDialog;
-	DialogFragment markersDialog;
-	//	DialogFragment editablelayersDialog;
+	//	DialogFragment projectsDialog;
+//	DialogFragment markersDialog;
 	GIControlFloating m_marker_point;
 	GIGPSLocationListener m_location_listener;
 	GIGPSButtonView fbGPS;
@@ -193,29 +201,36 @@ public class Geoinfo extends FragmentActivity implements MapView {
 				.show();
 	}
 
-    public DialogFragment getProjectsDialog(){
-        return projectsDialog;
-    }
+//    public DialogFragment getProjectsDialog(){
+//        return projectsDialog;
+//    }
 
 
 	public void SettingsDialogClicked(final View button) {
 		new ReSettingsDialog.Builder(this)
-				.callback(new LayerHolderCallback() {
+				.callback(new LayerCallback() {
 					@Override
-					public void onMarkersSourceCheckChanged(LayerHolder holder, boolean isChecked) {
-
+					public void onMarkersSourceCheckChanged(GITuple tuple, boolean isChecked) {
+						map.setMarkersSource(tuple, isChecked);
 					}
 
 					@Override
-					public void onVisibilityCheckChanged(LayerHolder holder, boolean isChecked) {
-
+					public void onVisibilityCheckChanged(GITuple tuple, boolean isChecked) {
+						tuple.visible = isChecked;
+						map.UpdateMap();
 					}
 
 					@Override
-					public void onSettings(LayerHolder holder) {
+					public void onSettings(GITuple tuple) {
+//                        getFragmentManager().beginTransaction().replace(R.id.content, new ReAllSettingsFragment(map, tuple)).commit();
+					}
 
+					@Override
+					public GITuple onAddLayer(File file) {
+						return map.addLayer(file);
 					}
 				})
+				.data(map.getLayers())
 				.build().show();
 	}
 
@@ -260,10 +275,10 @@ public class Geoinfo extends FragmentActivity implements MapView {
     @Override
     public void onError() {
 
-		map.ps = new GIProjectProperties();
+		map.ps = new GIProjectProperties(this);
 		sp = getPreferences(MODE_PRIVATE);
 		SharedPreferences.Editor editor = sp.edit();
-		editor.putString(SAVED_PATH, Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + map.ps.m_SaveAs);
+		editor.putString(SAVED_PATH, Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + map.ps.m_path);
 		editor.apply();
 		editor.commit();
 		touchControl.InitMap(map);
@@ -536,29 +551,30 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		//--------------------------------------------------------------------
 		// Edit buttons
 		//--------------------------------------------------------------------
-        btnEditCreate = new CheckBox(this);
-        btnEditCreate.setTextSize(0);
-        btnEditCreate.setButtonDrawable(R.drawable.edit_create_bg);
-        btnEditCreate.setBackgroundDrawable(null);
+		btnEditCreate = new AppCompatCheckBox(this);
+		btnEditCreate.setTextSize(0);
+//		Drawable d = AppCompatDrawableManager.get().getDrawable(this, R.drawable.edit_create_bg);
+		btnEditCreate.setButtonDrawable(R.drawable.edit_create_bg);
+		btnEditCreate.setBackgroundDrawable(null);
         fbEditCreate = itemBuilder.setContentView(btnEditCreate).build();
 
 
-        btnEditGeometry = new CheckBox(this);
-        btnEditGeometry.setTextSize(0);
-        btnEditGeometry.setButtonDrawable(R.drawable.edit_geometry_bg);
+		btnEditGeometry = new AppCompatCheckBox(this);
+		btnEditGeometry.setTextSize(0);
+		btnEditGeometry.setButtonDrawable(R.drawable.edit_geometry_bg);
         btnEditGeometry.setBackgroundDrawable(null);
         fbEditGeometry = itemBuilder.setContentView(btnEditGeometry).build();
 
 
-        btnEditAttributes = new CheckBox(this);
-        btnEditAttributes.setTextSize(0);
-        btnEditAttributes.setButtonDrawable(R.drawable.edit_attributes_bg);
+		btnEditAttributes = new AppCompatCheckBox(this);
+		btnEditAttributes.setTextSize(0);
+		btnEditAttributes.setButtonDrawable(R.drawable.edit_attributes_bg);
         btnEditAttributes.setBackgroundDrawable(null);
         fbEditAttributes = itemBuilder.setContentView(btnEditAttributes).build();
 
-        btnEditDelete = new CheckBox(this);
-        btnEditDelete.setTextSize(0);
-        btnEditDelete.setButtonDrawable(R.drawable.edit_delete_bg);
+		btnEditDelete = new AppCompatCheckBox(this);
+		btnEditDelete.setTextSize(0);
+		btnEditDelete.setButtonDrawable(R.drawable.edit_delete_bg);
         btnEditDelete.setBackgroundDrawable(null);
         fbEditDelete = itemBuilder.setContentView(btnEditDelete).build();
 
@@ -687,7 +703,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
 
 		sp = getPreferences(MODE_PRIVATE);
-		String path = sp.getString(SAVED_PATH, getResources().getString(R.string.default_project_path));
+		String path = sp.getString(SAVED_PATH, Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getResources().getString(R.string.default_project_path));
 		LoadProject(path);
 		GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
 		GIEditLayersKeeper.Instance().setTouchControl(touchControl);
@@ -737,9 +753,9 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		GISensors.Instance(this).run(false);
 		fbGPS.onPause();
 		map.Synhronize();
-        String SaveAsPath = getResources().getString(R.string.default_project_path);
-        if(map!=null && map.ps!= null && map.ps.m_path!= null && !map.ps.m_path.isEmpty()){
-            SaveAsPath = map.ps.m_path;
+		String SaveAsPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getResources().getString(R.string.default_project_path);
+		if (map != null && map.ps != null && map.ps.m_path != null && !map.ps.m_path.isEmpty()) {
+			SaveAsPath = map.ps.m_path;
         }
 		if (map.ps.m_SaveAs != null) {
 			if (map.ps.m_SaveAs.length() > 0) {
@@ -781,9 +797,9 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		return map;
 	}
 
-	public DialogFragment getMarkersDialog() {
-		return markersDialog;
-	}
+//	public DialogFragment getMarkersDialog() {
+//		return markersDialog;
+//	}
 
 	public GIControlFloating getMarkerPoint() {
 

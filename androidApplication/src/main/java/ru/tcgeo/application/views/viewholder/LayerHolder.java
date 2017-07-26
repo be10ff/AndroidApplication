@@ -41,16 +41,12 @@ public class LayerHolder extends RecyclerView.ViewHolder {
 
     @OnCheckedChanged(R.id.cbMarkersSource)
     public void onMarkersSourceCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            callback.onMarkersSourceCheckChanged(this, isChecked);
-        }
+        callback.onMarkersSourceCheckChanged(this, isChecked);
     }
 
     @OnCheckedChanged(R.id.cbLayerVisibility)
     public void onLayerVisibilityCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            callback.onVisibilityCheckChanged(this, isChecked);
-        }
+        callback.onVisibilityCheckChanged(this, isChecked);
     }
 
     @OnClick(R.id.tvLayerName)
