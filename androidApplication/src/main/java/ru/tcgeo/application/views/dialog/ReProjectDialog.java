@@ -50,7 +50,8 @@ public class ReProjectDialog extends Dialog {
 
     @OnClick(R.id.fabAdd)
     public void onNewProject() {
-
+        callback.onNewProject();
+        dismiss();
     }
 
     @Override

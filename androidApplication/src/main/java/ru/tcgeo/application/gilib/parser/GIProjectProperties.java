@@ -1,7 +1,6 @@
 package ru.tcgeo.application.gilib.parser;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
 
@@ -10,7 +9,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -18,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 
+import ru.tcgeo.application.App;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.models.GIProjection;
 
@@ -51,11 +50,15 @@ public class GIProjectProperties
 public GIProjectProperties(Context context)
 	{
 		this.context = context;
+
+
 		m_name = context.getString(R.string.default_project_name);
 		m_id = 0;
 		m_decription = context.getString(R.string.default_project_name);
 //        m_SaveAs = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + context.getString(R.string.default_project_path);
-		m_path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + context.getString(R.string.default_project_name);
+
+		m_path = App.getInstance().getPreference().getNewProjectName();
+
 		m_str_projection = "WGS84";
 		m_markers = "";
 //        m_markers_source = "file";

@@ -41,11 +41,27 @@ public class SPUtils {
     }
 
     public String getLastProjectPath() {
-        return preferences.getString(SAVED_PATH, Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + context.getResources().getString(R.string.default_project_name));
+        return preferences.getString(SAVED_PATH, getNewProjectName());
     }
 
     public void setLastProjectPath(String path) {
         preferences.edit().putString(SAVED_PATH, path).apply();
+    }
+
+    public String getNewProjectName() {
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()
+                + File.separator
+                + context.getString(R.string.default_project_name)
+                + context.getString(R.string.project_file_extention);
+        int i = 1;
+        while (new File(path).exists()) {
+            path = Environment.getExternalStorageDirectory().getAbsolutePath()
+                    + File.separator
+                    + context.getString(R.string.default_project_name) + i
+                    + context.getString(R.string.project_file_extention);
+            i++;
+        }
+        return path;
     }
 
 }

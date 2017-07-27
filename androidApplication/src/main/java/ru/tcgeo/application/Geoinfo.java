@@ -4,7 +4,6 @@ import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -194,7 +193,13 @@ public class Geoinfo extends FragmentActivity implements MapView {
 					public void onNewProject() {
 						onSaveProject();
 						getMap().Clear();
-					}
+
+                        map.ps = new GIProjectProperties(Geoinfo.this);
+                        App.getInstance().getPreference().setLastProjectPath(map.ps.m_path);
+                        GIBounds temp = new GIBounds(GIProjection.WGS84(), 28, 65, 48, 46);
+                        map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
+                        SettingsDialogClicked(null);
+                    }
 				})
 				.build()
 				.show();
@@ -727,8 +732,9 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
 	public void onSaveProject() {
 		map.Synhronize();
-		String SaveAsPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getResources().getString(R.string.default_project_name);
-		if (map != null && map.ps != null && map.ps.m_path != null && !map.ps.m_path.isEmpty()) {
+        String SaveAsPath = App.getInstance().getPreference().getNewProjectName();
+//		String SaveAsPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getResources().getString(R.string.default_project_full_name);
+        if (map != null && map.ps != null && map.ps.m_path != null && !map.ps.m_path.isEmpty()) {
 			SaveAsPath = map.ps.m_path;
 		}
 		if (map.ps.m_SaveAs != null) {

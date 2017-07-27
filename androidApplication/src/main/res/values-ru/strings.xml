@@ -10,7 +10,7 @@
     <string name="project_selector_button">Проекты</string>
     <string name="project_list_default_text">Проект</string>
     <string name="project_list_addition_text">Project_info</string>
-    <string name="default_project_name">newProject.pro</string>
+    <string name="default_project_full_name">newProject.pro</string>
     <string name="markers_button">Метки</string>
     <string name="scale_info_default_text">1 000 m</string>
     <string name="button_square_tool">button_square_tool</string>
