@@ -9,6 +9,7 @@
 
     <TextView
         android:id="@+id/tvEmpty"
+        style="@style/Theme.Item_text.light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/zero_data" />

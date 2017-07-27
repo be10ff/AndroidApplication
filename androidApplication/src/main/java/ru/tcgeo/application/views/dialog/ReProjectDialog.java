@@ -10,6 +10,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Window;
+import android.view.WindowManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,9 +18,11 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.views.adapter.ReProjectsAdapter;
 import ru.tcgeo.application.views.callback.ProjectsCallback;
 import ru.tcgeo.application.views.callback.ProjectsHolderCallback;
@@ -33,15 +36,21 @@ public class ReProjectDialog extends Dialog {
     @Bind(R.id.rvProjects)
     RecyclerView rvProjects;
 
+    @Bind(R.id.fabAdd)
+    android.support.v7.widget.AppCompatImageView fabAdd;
     private ReProjectsAdapter adapter;
     private Context context;
-
     private ProjectsCallback callback;
 
     public ReProjectDialog(Builder builder) {
         super(builder.context);
         this.callback = builder.callback;
         this.context = builder.context;
+    }
+
+    @OnClick(R.id.fabAdd)
+    public void onNewProject() {
+
     }
 
     @Override
@@ -77,23 +86,20 @@ public class ReProjectDialog extends Dialog {
         rvProjects.setAdapter(adapter);
     }
 
-//
-//    @Override public void onStart() {
-//        super.onStart();
-//
-//        Window window = getDialog().getWindow();
-////        window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        WindowManager.LayoutParams windowParams = window.getAttributes();
-//        windowParams.dimAmount = 0.0f;
-//        windowParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-//        window.setAttributes(windowParams);
-//
-//        int dialogWidth = getActivity().getWindowManager().getDefaultDisplay().getWidth();
-//        int dialogHeight = (int)(getActivity().getWindowManager().getDefaultDisplay().getHeight()*0.9f);
-//
-//        getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Window window = getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        WindowManager.LayoutParams windowParams = window.getAttributes();
+        windowParams.dimAmount = 0.0f;
+        windowParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        window.setAttributes(windowParams);
+        int dialogWidth = (int) (ScreenUtils.getScreenWidth(context) * 0.7f);
+        int dialogHeight = (int) (ScreenUtils.getScreenHeight(context) * 0.7f);
+        getWindow().setLayout(dialogWidth, dialogHeight);
+    }
 
 
     public List<GIProjectProperties> getProjects() {

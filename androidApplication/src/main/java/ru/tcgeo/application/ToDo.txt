@@ -1,1 +1,5 @@
-Empty data in dialog
+Empty data in dialog - done
+
+todo layer settings
+todo create new project
+todo text color in recyclers

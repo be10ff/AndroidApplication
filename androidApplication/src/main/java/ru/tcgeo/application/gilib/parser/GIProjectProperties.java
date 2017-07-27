@@ -51,11 +51,11 @@ public class GIProjectProperties
 public GIProjectProperties(Context context)
 	{
 		this.context = context;
-		m_name = context.getString(R.string.default_project_path);
+		m_name = context.getString(R.string.default_project_name);
 		m_id = 0;
-		m_decription = context.getString(R.string.default_project_path);
+		m_decription = context.getString(R.string.default_project_name);
 //        m_SaveAs = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + context.getString(R.string.default_project_path);
-		m_path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + context.getString(R.string.default_project_path);
+		m_path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + context.getString(R.string.default_project_name);
 		m_str_projection = "WGS84";
 		m_markers = "";
 //        m_markers_source = "file";

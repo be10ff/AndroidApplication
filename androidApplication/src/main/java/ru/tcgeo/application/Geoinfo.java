@@ -1,6 +1,5 @@
 package ru.tcgeo.application;
 
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationManager;
@@ -93,9 +92,6 @@ public class Geoinfo extends FragmentActivity implements MapView {
 	@Bind(R.id.pbProgress)
 	View pbProgress;
 
-	SharedPreferences sp;
-	//	DialogFragment projectsDialog;
-//	DialogFragment markersDialog;
 	GIControlFloating m_marker_point;
 	GIGPSLocationListener m_location_listener;
 	GIGPSButtonView fbGPS;
@@ -185,25 +181,24 @@ public class Geoinfo extends FragmentActivity implements MapView {
 					@Override
 					public void onClick(GIProjectProperties project) {
 						if (!project.m_path.equals(getMap().ps.m_path)) {
+							onSaveProject();
 							getMap().Clear();
 							LoadProject(project.m_path);
 							getMap().UpdateMap();
-							sp = getPreferences(MODE_PRIVATE);
-							SharedPreferences.Editor editor = sp.edit();
-							editor.putString(SAVED_PATH, project.m_path);
-							editor.apply();
-							editor.commit();
+							App.getInstance().getPreference().setLastProjectPath(project.m_path);
 //							App.getInstance().getEventBus().post(new ProjectChangedEvent());
 						}
+					}
+
+					@Override
+					public void onNewProject() {
+						onSaveProject();
+						getMap().Clear();
 					}
 				})
 				.build()
 				.show();
 	}
-
-//    public DialogFragment getProjectsDialog(){
-//        return projectsDialog;
-//    }
 
 
 	public void SettingsDialogClicked(final View button) {
@@ -276,11 +271,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
     public void onError() {
 
 		map.ps = new GIProjectProperties(this);
-		sp = getPreferences(MODE_PRIVATE);
-		SharedPreferences.Editor editor = sp.edit();
-		editor.putString(SAVED_PATH, Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + map.ps.m_path);
-		editor.apply();
-		editor.commit();
+		App.getInstance().getPreference().setLastProjectPath(map.ps.m_path);
 		touchControl.InitMap(map);
         pbProgress.setVisibility(View.INVISIBLE);
 		GIBounds temp = new GIBounds(GIProjection.WGS84(), 28, 65, 48, 46);
@@ -298,26 +289,6 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		setContentView(R.layout.main);
 		ButterKnife.bind(this);
 
-
-//		sp = getPreferences(MODE_PRIVATE);
-//		String path = sp.getString(SAVED_PATH, getResources().getString(R.string.default_project_path));
-//		LoadProject(path);
-//
-//		GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
-//		GIEditLayersKeeper.Instance().setTouchControl(touchControl);
-//		GIEditLayersKeeper.Instance().setMap(map);
-//        GIEditLayersKeeper.Instance().setActivity(this);
-//		GIEditLayersKeeper.Instance().setRoot(R.id.root);
-//
-//		// Setup pixel size to let scale work properly
-//		DisplayMetrics dm = new DisplayMetrics();
-//		getWindowManager().getDefaultDisplay().getMetrics(dm);
-//		double screenPixels = Math.hypot(dm.widthPixels, dm.heightPixels);
-//		double screenInches = Math.hypot(dm.widthPixels / dm.xdpi,
-//				dm.heightPixels / dm.ydpi);
-//		GIMap.inches_per_pixel = screenInches / screenPixels;
-//
-//
 //		/**/
 //
 //		//TODO uncomment
@@ -702,8 +673,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		//--------------------------------------------------------------------
 
 
-		sp = getPreferences(MODE_PRIVATE);
-		String path = sp.getString(SAVED_PATH, Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getResources().getString(R.string.default_project_path));
+		String path = App.getInstance().getPreference().getLastProjectPath();
 		LoadProject(path);
 		GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
 		GIEditLayersKeeper.Instance().setTouchControl(touchControl);
@@ -752,11 +722,15 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		GIEditLayersKeeper.Instance().onPause();
 		GISensors.Instance(this).run(false);
 		fbGPS.onPause();
+		onSaveProject();
+	}
+
+	public void onSaveProject() {
 		map.Synhronize();
-		String SaveAsPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getResources().getString(R.string.default_project_path);
+		String SaveAsPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getResources().getString(R.string.default_project_name);
 		if (map != null && map.ps != null && map.ps.m_path != null && !map.ps.m_path.isEmpty()) {
 			SaveAsPath = map.ps.m_path;
-        }
+		}
 		if (map.ps.m_SaveAs != null) {
 			if (map.ps.m_SaveAs.length() > 0) {
 				SaveAsPath = map.ps.m_SaveAs;
@@ -764,8 +738,6 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		}
 		map.ps.SavePro(SaveAsPath);
 	}
-
-	//
 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -796,10 +768,6 @@ public class Geoinfo extends FragmentActivity implements MapView {
     public GIMap getMap() {
 		return map;
 	}
-
-//	public DialogFragment getMarkersDialog() {
-//		return markersDialog;
-//	}
 
 	public GIControlFloating getMarkerPoint() {
 

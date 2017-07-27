@@ -6,10 +6,10 @@ import ru.tcgeo.application.views.viewholder.MarkerHolder;
  * Created by artem on 14.07.17.
  */
 
-public abstract class MarkerHolderCallback {
-    public abstract void onGoToClick(MarkerHolder holder);
+public interface MarkerHolderCallback {
+    void onGoToClick(MarkerHolder holder);
 
-    public abstract void onShowDirectiponClick(MarkerHolder holder);
+    void onShowDirectiponClick(MarkerHolder holder);
 
-    public abstract void onClose();
+    void onClose();
 }

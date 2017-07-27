@@ -50,4 +50,46 @@
         <!--<item name="android:background">@drawable/oorraa_illuminated_edit_text_background</item>-->
         <item name="android:dropDownSelector">@drawable/arrow_drop</item>
     </style>
+
+    <style name="Theme.Text" parent="android:Theme">
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Theme.Text_Normal" parent="android:Theme">
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="Theme.Text_Small" parent="android:Theme">
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Theme.Layer_Dialog_Padding" parent="android:Theme">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="Theme.Item_text" parent="android:Theme">
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Theme.Item_text.light" parent="android:Theme">
+        <item name="android:textColor">@color/sub_text</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>
