@@ -63,6 +63,7 @@ public class ReProjectsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             GIProjectProperties item = data.get(position);
             h.tvProjectName.setText(item.m_name);
             h.tvFilePath.setText(item.m_path);
+            h.tvDescription.setText(item.m_decription);
 
             if (((Geoinfo) context).getMap() != null) {
                 if (item.m_path.equalsIgnoreCase(((Geoinfo) context).getMap().ps.m_path)) {

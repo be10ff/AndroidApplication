@@ -417,15 +417,18 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
     }
 
     public List<GITuple> getLayers() {
-        return getLayers(m_layers);
+        List<GITuple> result = new ArrayList<>();
+        result.add(null);
+        result.addAll(getLayers(m_layers));
+        return result;
     }
 
     private List<GITuple> getLayers(GIGroupLayer layer) {
         List<GITuple> result = new ArrayList<>();
         for (GITuple tuple : layer.m_list) {
-            if (GILayer.GILayerType.LAYER_GROUP == tuple.layer.type_)
+            if (GILayer.GILayerType.LAYER_GROUP == tuple.layer.type_) {
                 result.addAll(getLayers((GIGroupLayer) tuple.layer));
-            else {
+            } else {
                 result.add(tuple);
             }
         }

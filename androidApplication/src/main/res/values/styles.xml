@@ -92,4 +92,26 @@
         <item name="android:typeface">serif</item>
         <item name="android:textSize">12sp</item>
     </style>
+
+    <style name="Theme.Text_Normal_Gray" parent="android:Theme">
+        <item name="android:textColor">@color/gray_text</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="Theme.EditText" parent="android:Theme">
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Theme.Item_text.light_small" parent="android:Theme">
+        <item name="android:textColor">@color/sub_text</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
 </resources>

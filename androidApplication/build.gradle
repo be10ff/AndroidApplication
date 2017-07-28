@@ -46,4 +46,6 @@ dependencies {
     compile 'com.pubnub:pubnub-android:3.7.4'
 
     compile 'com.github.yukuku:ambilwarna:2.0.1'
+
+    compile 'com.shawnlin:number-picker:2.4.4'
 }

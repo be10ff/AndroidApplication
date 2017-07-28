@@ -118,7 +118,20 @@
     <string name="file_error">File cannot be read</string>
 
     <string name="zero_data">List is empty</string>
+    <string name="project_name_hint">Enter new project name</string>
+    <string name="project_name">Project name</string>
+    <string name="project_description_hint">description…</string>
+    <string name="project_description">Description</string>
+    <string name="project_path">Path</string>
 
+    <string name="layer_projection">Projection</string>
+    <string name="yandex_layer">Yandex</string>
+    <string name="google_layer">Google</string>
+
+    <string name="zoom_type">Zoom type</string>
+    <string name="zoom_type_auto">Auto</string>
+    <string name="zoom_type_smart">Smart</string>
+    <string name="zoom_type_adaptive">Adaptive</string>
 
     <string-array name="zoom_type">
         <item>auto</item>

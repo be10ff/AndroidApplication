@@ -26,6 +26,9 @@ public class ProjectHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.tvProjectName)
     public TextView tvProjectName;
 
+    @Bind(R.id.tvDescription)
+    public TextView tvDescription;
+
     @Bind(R.id.rlProject)
     public View rlProject;
 

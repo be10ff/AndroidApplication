@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/settings_section_bg"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/llLayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvLayerName"
+            style="@style/Theme.Text_Normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="@string/layers_list_default_text" />
+
+        <CheckBox
+            android:id="@+id/cbLayerDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:button="@drawable/drop_down_arrow"
+            android:padding="4dp" />
+
+        <CheckBox
+            android:id="@+id/cbLayerVisibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/layers_list_item_button" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llLayerSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/layers_dialog_dividers" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/Theme.Text_Normal_Gray"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/project_path" />
+
+            <ImageView
+                android:id="@+id/ivFileExsist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/project_mark" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/layers_dialog_dividers" />
+
+        <RadioGroup
+            android:id="@+id/rgProjection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation='horizontal'>
+
+            <TextView
+                style="@style/Theme.Text_Normal_Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/layer_projection" />
+
+            <RadioButton
+                android:id="@+id/rbYandex"
+                style="@style/Theme.Item_text.light_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yandex_layer" />
+
+            <RadioButton
+                android:id="@+id/rbGoogle"
+                style="@style/Theme.Item_text.light_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/google_layer" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/layers_dialog_dividers" />
+
+        <RadioGroup
+            android:id="@+id/rgZoomType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation='horizontal'>
+
+            <TextView
+                style="@style/Theme.Text_Normal_Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zoom_type" />
+
+            <RadioButton
+                android:id="@+id/rbAuto"
+                style="@style/Theme.Item_text.light_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zoom_type_auto" />
+
+            <RadioButton
+                android:id="@+id/rbSmart"
+                style="@style/Theme.Item_text.light_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zoom_type_smart" />
+
+            <RadioButton
+                android:id="@+id/rbAdaptive"
+                style="@style/Theme.Item_text.light_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zoom_type_adaptive" />
+        </RadioGroup>
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:progress="3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Theme.Text_Normal_Gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/zoom_type" />
+            </NumberPicker>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

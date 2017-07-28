@@ -231,8 +231,9 @@ public class Geoinfo extends FragmentActivity implements MapView {
 					}
 				})
 				.data(map.getLayers())
-				.build().show();
-	}
+                .project(map.ps)
+                .build().show();
+    }
 
 
 	public void LoadProject(String path) {

@@ -10,4 +10,5 @@
     <color name="control">#a7f827</color>
     <color name="dark_text">#2d2d2d</color>
     <color name="sub_text">#8a000000</color>
+    <color name="gray_text">#4a000000</color>
 </resources>

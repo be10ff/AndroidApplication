@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llLayer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/settings_section_bg"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        style="@style/Theme.Text_Normal_Gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/project_name" />
+
+    <EditText
+        android:id="@+id/etProjectName"
+        style="@style/Theme.EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_attribute"
+        android:singleLine="true"
+        android:text="@string/layers_list_default_text" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/layers_dialog_dividers" />
+
+    <TextView
+        style="@style/Theme.Text_Normal_Gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/project_path" />
+
+    <TextView
+        android:id="@+id/tvFilePath"
+        style="@style/Theme.Text_Normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/project_list_default_text" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/layers_dialog_dividers" />
+
+    <TextView
+        style="@style/Theme.Text_Normal_Gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/project_description" />
+
+    <EditText
+        android:id="@+id/etDescription"
+        style="@style/Theme.EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/project_description_hint"
+        android:text="@string/layers_list_default_text" />
+
+</LinearLayout>
