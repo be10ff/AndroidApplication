@@ -48,4 +48,6 @@ dependencies {
     compile 'com.github.yukuku:ambilwarna:2.0.1'
 
     compile 'com.shawnlin:number-picker:2.4.4'
+
+    compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
 }

@@ -133,6 +133,8 @@
     <string name="zoom_type_smart">Smart</string>
     <string name="zoom_type_adaptive">Adaptive</string>
 
+    <string name="scale_range">Scale range</string>
+
     <string-array name="zoom_type">
         <item>auto</item>
         <item>smart</item>

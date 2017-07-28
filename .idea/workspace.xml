@@ -35,30 +35,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa8c29bb-4d7a-43e8-80fa-51877adc9ddf" name="Default" comment="new layer settings dialog. Project header done,  sqlite layer disign in progress&#10;&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/LayerHeaderHolder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/SqliteLayerHolder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_arrow_drop_down.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_arrow_drop_up.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/settings_details_button.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/settings_section_bg.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_header.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_sqlite_layers_list.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/drop_down_arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_arrow_downward.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_arrow_upward.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_delete.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/androidApplication.iml" afterPath="$PROJECT_DIR$/androidApplication/androidApplication.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/build.gradle" afterPath="$PROJECT_DIR$/androidApplication/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/utils/SPUtils.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/utils/SPUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/adapter/ReLayersAdapter.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/adapter/ReLayersAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/adapter/ReProjectsAdapter.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/adapter/ReProjectsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/callback/LayerHolderCallback.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/callback/LayerHolderCallback.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReSettingsDialog.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReSettingsDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/ProjectHolder.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/ProjectHolder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_projects_list.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_projects_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/re_item_layers_list.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/re_item_layers_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/res/values/color.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/values/color.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_sqlite_layers_list.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_sqlite_layers_list.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/res/values/digits.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/values/digits.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/androidApplication/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/values/styles.xml" />
     </list>
     <ignored path="AndroidApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -83,14 +69,9 @@
                   <state />
                 </provider>
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="330">
+                  <state relative-caret-position="360">
                     <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="28" selection-end-column="61" />
-                    <folding>
-                      <element signature="e#548#570#0" expanded="false" />
-                      <element signature="e#777#800#0" expanded="false" />
-                      <element signature="e#1218#1240#0" expanded="false" />
-                      <element signature="e#1810#1839#0" expanded="false" />
-                    </folding>
+                    <folding />
                   </state>
                 </provider>
               </entry>
@@ -98,7 +79,7 @@
             <file leaf-file-name="styles.xml" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/styles.xml">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="407">
+                  <state relative-caret-position="1635">
                     <caret line="109" column="44" selection-start-line="109" selection-start-column="33" selection-end-line="109" selection-end-column="44" />
                     <folding />
                   </state>
@@ -118,8 +99,8 @@
             <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/strings.xml">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="295">
-                    <caret line="133" column="36" selection-start-line="133" selection-start-column="18" selection-end-line="133" selection-end-column="36" />
+                  <state relative-caret-position="370">
+                    <caret line="135" column="29" selection-start-line="135" selection-start-column="18" selection-end-line="135" selection-end-column="29" />
                     <folding />
                   </state>
                 </provider>
@@ -131,7 +112,7 @@
                   <state />
                 </provider>
                 <provider editor-type-id="text-editor">
-                  <state relative-caret-position="109">
+                  <state relative-caret-position="1590">
                     <caret line="106" column="18" selection-start-line="106" selection-start-column="18" selection-end-line="106" selection-end-column="18" />
                     <folding />
                   </state>
@@ -168,6 +149,14 @@
               <caret line="33" column="31" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="false" />
+                <element signature="e#3291#3292#0" expanded="false" />
+                <element signature="e#3325#3326#0" expanded="false" />
+                <element signature="e#3659#3660#0" expanded="false" />
+                <element signature="e#3700#3701#0" expanded="false" />
+                <element signature="e#4193#4194#0" expanded="false" />
+                <element signature="e#4239#4240#0" expanded="false" />
+                <element signature="e#4669#4670#0" expanded="false" />
+                <element signature="e#4725#4726#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -178,7 +167,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
               <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -196,22 +187,10 @@
       <file leaf-file-name="GIGroupLayer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIGroupLayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
+            <state relative-caret-position="450">
               <caret line="37" column="54" selection-start-line="37" selection-start-column="54" selection-end-line="37" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LayerHolder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/LayerHolder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="35" column="11" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="false" />
-                <element signature="e#1498#1499#0" expanded="false" />
-                <element signature="e#1539#1540#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -220,10 +199,12 @@
       <file leaf-file-name="SqliteLayerHolder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/SqliteLayerHolder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
+            <state relative-caret-position="1035">
               <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="false" />
+                <element signature="e#3935#3936#0" expanded="false" />
+                <element signature="e#3976#3977#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -231,12 +212,27 @@
       </file>
       <file leaf-file-name="item_sqlite_layers_list.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_sqlite_layers_list.xml">
-          <provider selected="true" editor-type-id="android-designer2">
+          <provider editor-type-id="android-designer2">
             <state />
           </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="168" column="0" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="725">
+              <caret line="204" column="50" selection-start-line="204" selection-start-column="50" selection-end-line="204" selection-end-column="50" />
+              <folding>
+                <element signature="e#6559#6580#0" expanded="true" />
+                <element signature="e#6926#6947#0" expanded="true" />
+                <element signature="e#7162#7181#0" expanded="true" />
+                <element signature="e#7215#7234#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="digits.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/digits.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -245,8 +241,8 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="49" column="46" selection-start-line="49" selection-start-column="46" selection-end-line="49" selection-end-column="46" />
+            <state relative-caret-position="765">
+              <caret line="51" column="74" selection-start-line="51" selection-start-column="74" selection-end-line="51" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -255,9 +251,17 @@
       <file leaf-file-name="AllSettingsFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/AllSettingsFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
+            <state relative-caret-position="2865">
               <caret line="222" column="30" selection-start-line="222" selection-start-column="30" selection-end-line="222" selection-end-column="30" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#6161#6162#0" expanded="false" />
+                <element signature="e#6211#6212#0" expanded="false" />
+                <element signature="e#8058#8059#0" expanded="false" />
+                <element signature="e#8111#8112#0" expanded="false" />
+                <element signature="e#8933#8934#0" expanded="false" />
+                <element signature="e#8986#8987#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -265,9 +269,17 @@
       <file leaf-file-name="ReAllSettingsFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/fragment/ReAllSettingsFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
+            <state relative-caret-position="2850">
               <caret line="221" column="22" selection-start-line="221" selection-start-column="22" selection-end-line="221" selection-end-column="22" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#6024#6025#0" expanded="false" />
+                <element signature="e#6074#6075#0" expanded="false" />
+                <element signature="e#7915#7916#0" expanded="false" />
+                <element signature="e#7968#7969#0" expanded="false" />
+                <element signature="e#8782#8783#0" expanded="false" />
+                <element signature="e#8835#8836#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -865,6 +877,11 @@
                 <option name="description" value="Runs all checks." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareOrgFlorescuAndroidRangeseekbarRangeseekbarLibrary030Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -1587,6 +1604,11 @@
                 <option name="name" value="check" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/androidApplication" />
+                <option name="name" value="prepareOrgFlorescuAndroidRangeseekbarRangeseekbarLibrary030Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/androidApplication" />
                 <option name="name" value="javaPreCompileDebug" />
               </ExternalTaskPojo>
@@ -1790,7 +1812,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4501912977295" />
+        <entry key="$PROJECT_DIR$" value="4501932078429" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2005,7 +2027,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/androidApplication/src/main/res/color/gradient.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/color/gr.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_add_layer.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/color/gg.xml" />
@@ -2052,9 +2073,10 @@
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_arrow_drop_down.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/settings_details_button.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/SqliteLayerHolder.java" />
         <option value="$PROJECT_DIR$/androidApplication/build.gradle" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/res/values/digits.xml" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_sqlite_layers_list.xml" />
       </list>
     </option>
@@ -2097,9 +2119,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2196,6 +2216,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2552,6 +2573,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2583,8 +2605,8 @@
     <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/androidApplication" />
     <property name="ExportApk.Flavors" value="" />
     <property name="ExportApk.BuildType" value="release" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AndroidProjects/android-support-23.2-sample" />
-    <property name="VectorAssetImportPath" value="$PROJECT_DIR$/../../.." />
+    <property name="last_opened_file_path" value="$USER_HOME$/AndroidProjects/android-range-seek-bar" />
+    <property name="VectorAssetImportPath" value="$PROJECT_DIR$/.." />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -3329,7 +3351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1501139177661</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="new layer settings dialog. Project header done,  sqlite layer disign in progress&#10;&#10;">
+      <created>1501232468274</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1501232468274</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3346,21 +3375,20 @@
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32943678" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28494623" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28494623" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26359144" sideWeight="0.183391" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35053763" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23272526" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23106688" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32837406" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41290322" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2039801" sideWeight="0.816609" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0827957" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2039801" sideWeight="0.816609" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1641791" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -3381,6 +3409,7 @@
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="3586" y="805" width="74" height="30" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0827957" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -3658,13 +3687,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/callback/LayerCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/callback/MarkerCallback.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -3866,334 +3888,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93480">
           <caret line="6388" column="0" selection-start-line="6388" selection-start-column="0" selection-end-line="6388" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#554055#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#23365#23366#0" expanded="false" />
-            <element signature="e#23400#23401#0" expanded="false" />
-            <element signature="e#23474#23475#0" expanded="false" />
-            <element signature="e#23513#23514#0" expanded="false" />
-            <element signature="e#30782#30783#0" expanded="false" />
-            <element signature="e#30854#30855#0" expanded="false" />
-            <element signature="e#31343#31344#0" expanded="false" />
-            <element signature="e#31418#31419#0" expanded="false" />
-            <element signature="e#32034#32035#0" expanded="false" />
-            <element signature="e#32109#32110#0" expanded="false" />
-            <element signature="e#32504#32505#0" expanded="false" />
-            <element signature="e#32570#32571#0" expanded="false" />
-            <element signature="e#36469#36470#0" expanded="false" />
-            <element signature="e#36519#36520#0" expanded="false" />
-            <element signature="e#37526#37527#0" expanded="false" />
-            <element signature="e#37576#37577#0" expanded="false" />
-            <element signature="e#38861#38862#0" expanded="false" />
-            <element signature="e#38905#38906#0" expanded="false" />
-            <element signature="e#39093#39094#0" expanded="false" />
-            <element signature="e#39129#39130#0" expanded="false" />
-            <element signature="e#40093#40094#0" expanded="false" />
-            <element signature="e#40130#40131#0" expanded="false" />
-            <element signature="e#45346#45347#0" expanded="false" />
-            <element signature="e#45377#45378#0" expanded="false" />
-            <element signature="e#45908#45909#0" expanded="false" />
-            <element signature="e#45952#45953#0" expanded="false" />
-            <element signature="e#50805#50806#0" expanded="false" />
-            <element signature="e#50844#50845#0" expanded="false" />
-            <element signature="e#54276#54277#0" expanded="false" />
-            <element signature="e#54306#54307#0" expanded="false" />
-            <element signature="e#54766#54767#0" expanded="false" />
-            <element signature="e#54820#54821#0" expanded="false" />
-            <element signature="e#55358#55359#0" expanded="false" />
-            <element signature="e#55409#55410#0" expanded="false" />
-            <element signature="e#56397#56398#0" expanded="false" />
-            <element signature="e#56445#56446#0" expanded="false" />
-            <element signature="e#56681#56682#0" expanded="false" />
-            <element signature="e#56716#56717#0" expanded="false" />
-            <element signature="e#59095#59096#0" expanded="false" />
-            <element signature="e#59139#59140#0" expanded="false" />
-            <element signature="e#61261#61262#0" expanded="false" />
-            <element signature="e#61303#61304#0" expanded="false" />
-            <element signature="e#79953#79954#0" expanded="false" />
-            <element signature="e#79989#79990#0" expanded="false" />
-            <element signature="e#80227#80228#0" expanded="false" />
-            <element signature="e#80271#80272#0" expanded="false" />
-            <element signature="e#84189#84190#0" expanded="false" />
-            <element signature="e#84229#84230#0" expanded="false" />
-            <element signature="e#84431#84432#0" expanded="false" />
-            <element signature="e#84471#84472#0" expanded="false" />
-            <element signature="e#89307#89308#0" expanded="false" />
-            <element signature="e#89377#89378#0" expanded="false" />
-            <element signature="e#103847#103848#0" expanded="false" />
-            <element signature="e#103881#103882#0" expanded="false" />
-            <element signature="e#127160#127161#0" expanded="false" />
-            <element signature="e#127201#127202#0" expanded="false" />
-            <element signature="e#129464#129465#0" expanded="false" />
-            <element signature="e#129513#129514#0" expanded="false" />
-            <element signature="e#131224#131225#0" expanded="false" />
-            <element signature="e#131260#131261#0" expanded="false" />
-            <element signature="e#166202#166203#0" expanded="false" />
-            <element signature="e#166275#166276#0" expanded="false" />
-            <element signature="e#175621#175622#0" expanded="false" />
-            <element signature="e#175669#175670#0" expanded="false" />
-            <element signature="e#178899#178900#0" expanded="false" />
-            <element signature="e#178952#178953#0" expanded="false" />
-            <element signature="e#203315#203316#0" expanded="false" />
-            <element signature="e#203367#203368#0" expanded="false" />
-            <element signature="e#213902#213903#0" expanded="false" />
-            <element signature="e#213940#213941#0" expanded="false" />
-            <element signature="e#213965#213966#0" expanded="false" />
-            <element signature="e#214003#214004#0" expanded="false" />
-            <element signature="e#219897#219898#0" expanded="false" />
-            <element signature="e#219954#219955#0" expanded="false" />
-            <element signature="e#228067#228068#0" expanded="false" />
-            <element signature="e#228133#228134#0" expanded="false" />
-            <element signature="e#250415#250416#0" expanded="false" />
-            <element signature="e#250467#250468#0" expanded="false" />
-            <element signature="e#250509#250510#0" expanded="false" />
-            <element signature="e#250574#250575#0" expanded="false" />
-            <element signature="e#274905#274906#0" expanded="false" />
-            <element signature="e#274937#274938#0" expanded="false" />
-            <element signature="e#276042#276043#0" expanded="false" />
-            <element signature="e#276078#276079#0" expanded="false" />
-            <element signature="e#276718#276719#0" expanded="false" />
-            <element signature="e#276762#276763#0" expanded="false" />
-            <element signature="e#280391#280392#0" expanded="false" />
-            <element signature="e#280427#280428#0" expanded="false" />
-            <element signature="e#281734#281735#0" expanded="false" />
-            <element signature="e#281791#281792#0" expanded="false" />
-            <element signature="e#285775#285776#0" expanded="false" />
-            <element signature="e#285826#285827#0" expanded="false" />
-            <element signature="e#297653#297654#0" expanded="false" />
-            <element signature="e#297742#297743#0" expanded="false" />
-            <element signature="e#297819#297820#0" expanded="false" />
-            <element signature="e#297887#297888#0" expanded="false" />
-            <element signature="e#298146#298147#0" expanded="false" />
-            <element signature="e#298236#298237#0" expanded="false" />
-            <element signature="e#299527#299528#0" expanded="false" />
-            <element signature="e#299616#299617#0" expanded="false" />
-            <element signature="e#299693#299694#0" expanded="false" />
-            <element signature="e#299761#299762#0" expanded="false" />
-            <element signature="e#300020#300021#0" expanded="false" />
-            <element signature="e#300109#300110#0" expanded="false" />
-            <element signature="e#316276#316277#0" expanded="false" />
-            <element signature="e#316322#316323#0" expanded="false" />
-            <element signature="e#316699#316700#0" expanded="false" />
-            <element signature="e#316742#316743#0" expanded="false" />
-            <element signature="e#318153#318154#0" expanded="false" />
-            <element signature="e#318189#318190#0" expanded="false" />
-            <element signature="e#320033#320034#0" expanded="false" />
-            <element signature="e#320084#320085#0" expanded="false" />
-            <element signature="e#323612#323613#0" expanded="false" />
-            <element signature="e#323662#323663#0" expanded="false" />
-            <element signature="e#333878#333879#0" expanded="false" />
-            <element signature="e#333919#333920#0" expanded="false" />
-            <element signature="e#336710#336711#0" expanded="false" />
-            <element signature="e#336742#336743#0" expanded="false" />
-            <element signature="e#337612#337613#0" expanded="false" />
-            <element signature="e#337644#337645#0" expanded="false" />
-            <element signature="e#337938#337939#0" expanded="false" />
-            <element signature="e#337974#337975#0" expanded="false" />
-            <element signature="e#338262#338263#0" expanded="false" />
-            <element signature="e#338298#338299#0" expanded="false" />
-            <element signature="e#340752#340753#0" expanded="false" />
-            <element signature="e#340827#340828#0" expanded="false" />
-            <element signature="e#342139#342140#0" expanded="false" />
-            <element signature="e#342193#342194#0" expanded="false" />
-            <element signature="e#343099#343100#0" expanded="false" />
-            <element signature="e#343153#343154#0" expanded="false" />
-            <element signature="e#343493#343494#0" expanded="false" />
-            <element signature="e#343535#343536#0" expanded="false" />
-            <element signature="e#343932#343933#0" expanded="false" />
-            <element signature="e#343987#343988#0" expanded="false" />
-            <element signature="e#347264#347265#0" expanded="false" />
-            <element signature="e#347318#347319#0" expanded="false" />
-            <element signature="e#348711#348712#0" expanded="false" />
-            <element signature="e#348744#348745#0" expanded="false" />
-            <element signature="e#353969#353970#0" expanded="false" />
-            <element signature="e#354037#354038#0" expanded="false" />
-            <element signature="e#356207#356208#0" expanded="false" />
-            <element signature="e#356252#356253#0" expanded="false" />
-            <element signature="e#360420#360421#0" expanded="false" />
-            <element signature="e#360461#360462#0" expanded="false" />
-            <element signature="e#361095#361096#0" expanded="false" />
-            <element signature="e#361137#361138#0" expanded="false" />
-            <element signature="e#361295#361296#0" expanded="false" />
-            <element signature="e#361332#361333#0" expanded="false" />
-            <element signature="e#361493#361494#0" expanded="false" />
-            <element signature="e#361531#361532#0" expanded="false" />
-            <element signature="e#363393#363394#0" expanded="false" />
-            <element signature="e#363474#363475#0" expanded="false" />
-            <element signature="e#363742#363743#0" expanded="false" />
-            <element signature="e#363822#363823#0" expanded="false" />
-            <element signature="e#374427#374428#0" expanded="false" />
-            <element signature="e#374482#374483#0" expanded="false" />
-            <element signature="e#398506#398507#0" expanded="false" />
-            <element signature="e#398541#398542#0" expanded="false" />
-            <element signature="e#414490#414491#0" expanded="false" />
-            <element signature="e#414522#414523#0" expanded="false" />
-            <element signature="e#415077#415078#0" expanded="false" />
-            <element signature="e#415109#415110#0" expanded="false" />
-            <element signature="e#415679#415680#0" expanded="false" />
-            <element signature="e#415711#415712#0" expanded="false" />
-            <element signature="e#416222#416223#0" expanded="false" />
-            <element signature="e#416254#416255#0" expanded="false" />
-            <element signature="e#416801#416802#0" expanded="false" />
-            <element signature="e#416833#416834#0" expanded="false" />
-            <element signature="e#417395#417396#0" expanded="false" />
-            <element signature="e#417427#417428#0" expanded="false" />
-            <element signature="e#418881#418882#0" expanded="false" />
-            <element signature="e#418953#418954#0" expanded="false" />
-            <element signature="e#419093#419094#0" expanded="false" />
-            <element signature="e#419166#419167#0" expanded="false" />
-            <element signature="e#419888#419889#0" expanded="false" />
-            <element signature="e#419923#419924#0" expanded="false" />
-            <element signature="e#428609#428610#0" expanded="false" />
-            <element signature="e#428666#428667#0" expanded="false" />
-            <element signature="e#432006#432007#0" expanded="false" />
-            <element signature="e#432042#432043#0" expanded="false" />
-            <element signature="e#437647#437648#0" expanded="false" />
-            <element signature="e#437683#437684#0" expanded="false" />
-            <element signature="e#439983#439984#0" expanded="false" />
-            <element signature="e#440024#440025#0" expanded="false" />
-            <element signature="e#445799#445800#0" expanded="false" />
-            <element signature="e#445835#445836#0" expanded="false" />
-            <element signature="e#457024#457025#0" expanded="false" />
-            <element signature="e#457082#457083#0" expanded="false" />
-            <element signature="e#461345#461346#0" expanded="false" />
-            <element signature="e#461388#461389#0" expanded="false" />
-            <element signature="e#461634#461635#0" expanded="false" />
-            <element signature="e#461672#461673#0" expanded="false" />
-            <element signature="e#461795#461796#0" expanded="false" />
-            <element signature="e#461839#461840#0" expanded="false" />
-            <element signature="e#461868#461869#0" expanded="false" />
-            <element signature="e#461922#461923#0" expanded="false" />
-            <element signature="e#461948#461949#0" expanded="false" />
-            <element signature="e#462005#462006#0" expanded="false" />
-            <element signature="e#462047#462048#0" expanded="false" />
-            <element signature="e#462118#462119#0" expanded="false" />
-            <element signature="e#462163#462164#0" expanded="false" />
-            <element signature="e#462230#462231#0" expanded="false" />
-            <element signature="e#462267#462268#0" expanded="false" />
-            <element signature="e#462327#462328#0" expanded="false" />
-            <element signature="e#462358#462359#0" expanded="false" />
-            <element signature="e#462412#462413#0" expanded="false" />
-            <element signature="e#462613#462614#0" expanded="false" />
-            <element signature="e#462672#462673#0" expanded="false" />
-            <element signature="e#462705#462706#0" expanded="false" />
-            <element signature="e#462763#462764#0" expanded="false" />
-            <element signature="e#462792#462793#0" expanded="false" />
-            <element signature="e#462849#462850#0" expanded="false" />
-            <element signature="e#462880#462881#0" expanded="false" />
-            <element signature="e#462939#462940#0" expanded="false" />
-            <element signature="e#462986#462987#0" expanded="false" />
-            <element signature="e#463038#463039#0" expanded="false" />
-            <element signature="e#463073#463074#0" expanded="false" />
-            <element signature="e#463137#463138#0" expanded="false" />
-            <element signature="e#463320#463321#0" expanded="false" />
-            <element signature="e#463386#463387#0" expanded="false" />
-            <element signature="e#463422#463423#0" expanded="false" />
-            <element signature="e#463461#463462#0" expanded="false" />
-            <element signature="e#469567#469568#0" expanded="false" />
-            <element signature="e#469633#469634#0" expanded="false" />
-            <element signature="e#470021#470022#0" expanded="false" />
-            <element signature="e#470079#470080#0" expanded="false" />
-            <element signature="e#472424#472425#0" expanded="false" />
-            <element signature="e#472484#472485#0" expanded="false" />
-            <element signature="e#474462#474463#0" expanded="false" />
-            <element signature="e#474501#474502#0" expanded="false" />
-            <element signature="e#474555#474556#0" expanded="false" />
-            <element signature="e#474599#474600#0" expanded="false" />
-            <element signature="e#474657#474658#0" expanded="false" />
-            <element signature="e#474694#474695#0" expanded="false" />
-            <element signature="e#474756#474757#0" expanded="false" />
-            <element signature="e#474793#474794#0" expanded="false" />
-            <element signature="e#474845#474846#0" expanded="false" />
-            <element signature="e#474907#474908#0" expanded="false" />
-            <element signature="e#475200#475201#0" expanded="false" />
-            <element signature="e#475256#475257#0" expanded="false" />
-            <element signature="e#475547#475548#0" expanded="false" />
-            <element signature="e#475601#475602#0" expanded="false" />
-            <element signature="e#476041#476042#0" expanded="false" />
-            <element signature="e#476095#476096#0" expanded="false" />
-            <element signature="e#476515#476516#0" expanded="false" />
-            <element signature="e#476569#476570#0" expanded="false" />
-            <element signature="e#476750#476751#0" expanded="false" />
-            <element signature="e#476806#476807#0" expanded="false" />
-            <element signature="e#477108#477109#0" expanded="false" />
-            <element signature="e#477170#477171#0" expanded="false" />
-            <element signature="e#477607#477608#0" expanded="false" />
-            <element signature="e#477670#477671#0" expanded="false" />
-            <element signature="e#479341#479342#0" expanded="false" />
-            <element signature="e#479400#479401#0" expanded="false" />
-            <element signature="e#480788#480789#0" expanded="false" />
-            <element signature="e#480844#480845#0" expanded="false" />
-            <element signature="e#481094#481095#0" expanded="false" />
-            <element signature="e#481139#481140#0" expanded="false" />
-            <element signature="e#482413#482414#0" expanded="false" />
-            <element signature="e#482462#482463#0" expanded="false" />
-            <element signature="e#482587#482588#0" expanded="false" />
-            <element signature="e#482626#482627#0" expanded="false" />
-            <element signature="e#482890#482891#0" expanded="false" />
-            <element signature="e#482936#482937#0" expanded="false" />
-            <element signature="e#484723#484724#0" expanded="false" />
-            <element signature="e#484791#484792#0" expanded="false" />
-            <element signature="e#488639#488640#0" expanded="false" />
-            <element signature="e#488709#488710#0" expanded="false" />
-            <element signature="e#488993#488994#0" expanded="false" />
-            <element signature="e#489053#489054#0" expanded="false" />
-            <element signature="e#490622#490623#0" expanded="false" />
-            <element signature="e#490686#490687#0" expanded="false" />
-            <element signature="e#490725#490726#0" expanded="false" />
-            <element signature="e#490784#490785#0" expanded="false" />
-            <element signature="e#492775#492776#0" expanded="false" />
-            <element signature="e#492817#492818#0" expanded="false" />
-            <element signature="e#492964#492965#0" expanded="false" />
-            <element signature="e#493006#493007#0" expanded="false" />
-            <element signature="e#493159#493160#0" expanded="false" />
-            <element signature="e#493207#493208#0" expanded="false" />
-            <element signature="e#493397#493398#0" expanded="false" />
-            <element signature="e#493449#493450#0" expanded="false" />
-            <element signature="e#495885#495886#0" expanded="false" />
-            <element signature="e#495937#495938#0" expanded="false" />
-            <element signature="e#499285#499286#0" expanded="false" />
-            <element signature="e#499326#499327#0" expanded="false" />
-            <element signature="e#499555#499556#0" expanded="false" />
-            <element signature="e#499612#499613#0" expanded="false" />
-            <element signature="e#500060#500061#0" expanded="false" />
-            <element signature="e#500135#500136#0" expanded="false" />
-            <element signature="e#505836#505837#0" expanded="false" />
-            <element signature="e#505879#505880#0" expanded="false" />
-            <element signature="e#505989#505990#0" expanded="false" />
-            <element signature="e#506032#506033#0" expanded="false" />
-            <element signature="e#506370#506371#0" expanded="false" />
-            <element signature="e#506425#506426#0" expanded="false" />
-            <element signature="e#506751#506752#0" expanded="false" />
-            <element signature="e#506802#506803#0" expanded="false" />
-            <element signature="e#508775#508776#0" expanded="false" />
-            <element signature="e#508821#508822#0" expanded="false" />
-            <element signature="e#509378#509379#0" expanded="false" />
-            <element signature="e#509426#509427#0" expanded="false" />
-            <element signature="e#518302#518303#0" expanded="false" />
-            <element signature="e#518346#518347#0" expanded="false" />
-            <element signature="e#518557#518558#0" expanded="false" />
-            <element signature="e#518609#518610#0" expanded="false" />
-            <element signature="e#518804#518805#0" expanded="false" />
-            <element signature="e#518847#518848#0" expanded="false" />
-            <element signature="e#519053#519054#0" expanded="false" />
-            <element signature="e#519103#519104#0" expanded="false" />
-            <element signature="e#519307#519308#0" expanded="false" />
-            <element signature="e#519353#519354#0" expanded="false" />
-            <element signature="e#519574#519575#0" expanded="false" />
-            <element signature="e#519630#519631#0" expanded="false" />
-            <element signature="e#519834#519835#0" expanded="false" />
-            <element signature="e#519880#519881#0" expanded="false" />
-            <element signature="e#520101#520102#0" expanded="false" />
-            <element signature="e#520157#520158#0" expanded="false" />
-            <element signature="e#520571#520572#0" expanded="false" />
-            <element signature="e#520615#520616#0" expanded="false" />
-            <element signature="e#545705#545706#0" expanded="false" />
-            <element signature="e#545740#545741#0" expanded="false" />
-            <element signature="e#548557#548558#0" expanded="false" />
-            <element signature="e#548608#548609#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4211,11 +3905,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="35" column="11" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1498#1499#0" expanded="false" />
-            <element signature="e#1539#1540#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4254,14 +3944,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/color.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/settings_details_button.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -4286,22 +3968,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_header.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="28" selection-end-column="61" />
-          <folding>
-            <element signature="e#548#570#0" expanded="false" />
-            <element signature="e#777#800#0" expanded="false" />
-            <element signature="e#1218#1240#0" expanded="false" />
-            <element signature="e#1810#1839#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_zero_data.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -4313,28 +3979,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="109" column="44" selection-start-line="109" selection-start-column="33" selection-end-line="109" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="133" column="36" selection-start-line="133" selection-start-column="18" selection-end-line="133" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/adapter/ReLayersAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="33" column="31" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="false" />
+            <element signature="e#3291#3292#0" expanded="false" />
+            <element signature="e#3325#3326#0" expanded="false" />
+            <element signature="e#3659#3660#0" expanded="false" />
+            <element signature="e#3700#3701#0" expanded="false" />
+            <element signature="e#4193#4194#0" expanded="false" />
+            <element signature="e#4239#4240#0" expanded="false" />
+            <element signature="e#4669#4670#0" expanded="false" />
+            <element signature="e#4725#4726#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -4343,7 +4001,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -4357,24 +4017,105 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIGroupLayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
+        <state relative-caret-position="450">
           <caret line="37" column="54" selection-start-line="37" selection-start-column="54" selection-end-line="37" selection-end-column="54" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/home_screen/AllSettingsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
+        <state relative-caret-position="2865">
           <caret line="222" column="30" selection-start-line="222" selection-start-column="30" selection-end-line="222" selection-end-column="30" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#6161#6162#0" expanded="false" />
+            <element signature="e#6211#6212#0" expanded="false" />
+            <element signature="e#8058#8059#0" expanded="false" />
+            <element signature="e#8111#8112#0" expanded="false" />
+            <element signature="e#8933#8934#0" expanded="false" />
+            <element signature="e#8986#8987#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/fragment/ReAllSettingsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
+        <state relative-caret-position="2850">
           <caret line="221" column="22" selection-start-line="221" selection-start-column="22" selection-end-line="221" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#6024#6025#0" expanded="false" />
+            <element signature="e#6074#6075#0" expanded="false" />
+            <element signature="e#7915#7916#0" expanded="false" />
+            <element signature="e#7968#7969#0" expanded="false" />
+            <element signature="e#8782#8783#0" expanded="false" />
+            <element signature="e#8835#8836#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/SqliteLayerHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#3935#3936#0" expanded="false" />
+            <element signature="e#3976#3977#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_header.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="28" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1635">
+          <caret line="109" column="44" selection-start-line="109" selection-start-column="33" selection-end-line="109" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/color.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="51" column="74" selection-start-line="51" selection-start-column="74" selection-end-line="51" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/digits.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="135" column="29" selection-start-line="135" selection-start-column="18" selection-end-line="135" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -4384,38 +4125,25 @@
         <state />
       </provider>
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="109">
+        <state relative-caret-position="1590">
           <caret line="106" column="18" selection-start-line="106" selection-start-column="18" selection-end-line="106" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/SqliteLayerHolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="49" column="46" selection-start-line="49" selection-start-column="46" selection-end-line="49" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_sqlite_layers_list.xml">
-      <provider selected="true" editor-type-id="android-designer2">
+      <provider editor-type-id="android-designer2">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="168" column="0" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
-          <folding />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="725">
+          <caret line="204" column="50" selection-start-line="204" selection-start-column="50" selection-end-line="204" selection-end-column="50" />
+          <folding>
+            <element signature="e#6559#6580#0" expanded="true" />
+            <element signature="e#6926#6947#0" expanded="true" />
+            <element signature="e#7162#7181#0" expanded="true" />
+            <element signature="e#7215#7234#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
