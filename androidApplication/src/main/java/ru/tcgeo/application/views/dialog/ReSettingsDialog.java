@@ -87,8 +87,8 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener {
 
                     @Override
                     public void onSettings(RecyclerView.ViewHolder holder) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
-                        callback.onSettings(tuple);
+//                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+//                        callback.onSettings(tuple);
                     }
                 })
                 .data(data)

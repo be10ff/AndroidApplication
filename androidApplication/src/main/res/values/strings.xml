@@ -107,7 +107,7 @@
     <string name="layer_range">Range </string>
     <string name="from">from</string>
     <string name="to">to</string>
-    <string name="ratio">ratio</string>
+    <string name="ratio">Ratio</string>
     <string name="layer_colors">Colors </string>
     <string name="fill_color">Fill</string>
     <string name="stroke_color">Stroke</string>
@@ -134,6 +134,7 @@
     <string name="zoom_type_adaptive">Adaptive</string>
 
     <string name="scale_range">Scale range</string>
+    <string name="scale_range_format" formatted="false">1:%d…1:%d</string>
 
     <string-array name="zoom_type">
         <item>auto</item>

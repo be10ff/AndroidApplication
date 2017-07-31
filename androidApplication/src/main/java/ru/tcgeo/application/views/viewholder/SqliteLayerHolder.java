@@ -2,14 +2,19 @@ package ru.tcgeo.application.views.viewholder;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,6 +29,7 @@ import ru.tcgeo.application.views.callback.LayerHolderCallback;
 
 public class SqliteLayerHolder extends RecyclerView.ViewHolder {
 
+    // common layer settings
     @Bind(R.id.tvLayerName)
     public TextView tvLayerName;
 
@@ -38,9 +44,42 @@ public class SqliteLayerHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.cbLayerDetails)
     public CheckBox cbLayerDetails;
+
+    @Bind(R.id.tvFilePath)
+    TextView tvFilePath;
+
+    @Bind(R.id.ivFileExsist)
+    ImageView ivFileExsist;
+
+    @Bind(R.id.tvScaleRange)
+    TextView tvScaleRange;
+
+    @Bind(R.id.rsbScaleRange)
+    org.florescu.android.rangeseekbar.RangeSeekBar rsbScaleRange;
+
+    @Bind(R.id.rsbRatio)
+    org.florescu.android.rangeseekbar.RangeSeekBar rsbRatio;
+
+    @Bind(R.id.ivMoveUp)
+    android.support.v7.widget.AppCompatImageView ivMoveUp;
+
+    @Bind(R.id.ivMoveDown)
+    android.support.v7.widget.AppCompatImageView ivMoveDown;
+
+    @Bind(R.id.ivRemove)
+    android.support.v7.widget.AppCompatImageView ivRemove;
+
+    //sqlite layer settings
+
+    @Bind(R.id.rgProjection)
+    RadioGroup rgProjection;
+
+    @Bind(R.id.rgZoomType)
+    RadioGroup rgZoomType;
+
+
     ValueAnimator mAnimator;
     private LayerHolderCallback callback;
-
 
     public SqliteLayerHolder(View itemView, LayerHolderCallback callback) {
         super(itemView);
@@ -95,18 +134,79 @@ public class SqliteLayerHolder extends RecyclerView.ViewHolder {
                         return true;
                     }
                 });
+        initListeners();
     }
-
 
     @OnCheckedChanged(R.id.cbLayerVisibility)
     public void onLayerVisibilityCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         callback.onVisibilityCheckChanged(this, isChecked);
     }
 
-    @OnClick(R.id.tvLayerName)
-    public void onSettings() {
-        callback.onSettings(this);
+    @OnClick(R.id.ivMoveUp)
+    public void onMoveUp() {
+
     }
+
+    @OnClick(R.id.ivMoveDown)
+    public void onMoveDown() {
+
+    }
+
+    @OnClick(R.id.ivRemove)
+    public void onMoveRemove() {
+
+    }
+
+    private void initListeners() {
+        cbLayerVisibility.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            }
+        });
+
+        rsbScaleRange.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+                double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
+                int min = (int) (1 / (Math.pow(2, (Integer) minValue) * con));
+                int max = (int) (1 / (Math.pow(2, (Integer) maxValue) * con));
+//                builder.rangeFrom(from);
+//                mItem.m_tuple.scale_range.setMin(1 / ((double) from));
+                tvScaleRange.setText(tvScaleRange.getContext().getString(R.string.scale_range_format, min, max));
+            }
+        });
+
+
+        rsbRatio.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+
+            }
+        });
+
+        rgProjection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+
+            }
+        });
+
+        rgZoomType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+
+            }
+        });
+
+
+    }
+
+//    public void apply() {
+//        mItem.m_tuple.layer = builder.build();
+//        ((Geoinfo) getActivity()).getMap().UpdateMap();
+//    }
+
 
     private void expand() {
         llLayerSettings.setVisibility(View.VISIBLE);

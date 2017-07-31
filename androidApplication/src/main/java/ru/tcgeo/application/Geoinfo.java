@@ -222,7 +222,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
 					@Override
 					public void onSettings(GITuple tuple) {
-//                        getFragmentManager().beginTransaction().replace(R.id.content, new ReAllSettingsFragment(map, tuple)).commit();
+
 					}
 
 					@Override
