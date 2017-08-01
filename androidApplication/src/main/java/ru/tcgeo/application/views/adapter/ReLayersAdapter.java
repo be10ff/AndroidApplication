@@ -6,16 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.File;
 import java.util.List;
 
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 import ru.tcgeo.application.views.viewholder.LayerHeaderHolder;
 import ru.tcgeo.application.views.viewholder.LayerHolder;
 import ru.tcgeo.application.views.viewholder.SqliteLayerHolder;
-import ru.tcgeo.application.wkt.GIGPSPointsLayer;
 
 import static ru.tcgeo.application.gilib.GILayer.GILayerType.XML;
 
@@ -58,23 +59,39 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_GROUP) {
-            LayerHeaderHolder ph = (LayerHeaderHolder) holder;
-            ph.etProjectName.setText(project.m_name);
-            ph.tvFilePath.setText(project.m_path);
-            ph.etDescription.setText(project.m_decription);
-        } else if (getItemViewType(position) == TYPE_XML) {
+            LayerHeaderHolder headerHolder = (LayerHeaderHolder) holder;
+            headerHolder.etProjectName.setText(project.m_name);
+            headerHolder.tvFilePath.setText(project.m_path);
+            headerHolder.etDescription.setText(project.m_decription);
+        } else {
             LayerHolder h = (LayerHolder) holder;
             GITuple item = data.get(position);
             h.tvLayerName.setText(item.layer.getName());
             h.cbLayerVisibility.setChecked(item.visible);
-            h.cbMarkersSource.setVisibility(View.VISIBLE);
-            h.cbMarkersSource.setChecked(((GIGPSPointsLayer) item.layer).isMarkersSource());
-        } else if (getItemViewType(position) == TYPE_DEFAULT) {
-            SqliteLayerHolder h = (SqliteLayerHolder) holder;
-            GITuple item = data.get(position);
-            h.tvLayerName.setText(item.layer.getName());
-            h.cbLayerVisibility.setChecked(item.visible);
+            h.tvFilePath.setText(item.layer.m_layer_properties.m_source.GetAbsolutePath());
+            if (new File(item.layer.m_layer_properties.m_source.GetAbsolutePath()).exists()) {
+                h.ivFileExsist.setImageResource(R.drawable.project_mark);
+            } else {
+                h.ivFileExsist.setImageResource(R.drawable.project_mark_fail);
+            }
+            h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(context, item.scale_range.getMin()));
+            h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(context, item.scale_range.getMax()));
+
+            if (getItemViewType(position) == TYPE_XML) {
+//                OldXMLLayerHolder xh = (OldXMLLayerHolder) holder;
+//                GITuple xitem = data.get(position);
+//                h.tvLayerName.setText(item.layer.getName());
+//                h.cbLayerVisibility.setChecked(item.visible);
+//                h.cbMarkersSource.setVisibility(View.VISIBLE);
+//                h.cbMarkersSource.setChecked(((GIGPSPointsLayer) item.layer).isMarkersSource());
+            } else if (getItemViewType(position) == TYPE_DEFAULT) {
+//                SqliteLayerHolder sh = (SqliteLayerHolder) holder;
+//                GITuple sitem = data.get(position);
+//                h.tvLayerName.setText(item.layer.getName());
+//                h.cbLayerVisibility.setChecked(item.visible);
+            }
         }
+
     }
 
     @Override

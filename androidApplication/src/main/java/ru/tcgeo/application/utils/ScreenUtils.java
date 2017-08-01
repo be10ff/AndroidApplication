@@ -47,4 +47,6 @@ public class ScreenUtils {
 
         return screenWidth;
     }
+
+
 }
