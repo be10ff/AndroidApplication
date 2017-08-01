@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rsb="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/settings_section_bg"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/llLayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvLayerName"
+            style="@style/Theme.Text_Normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="@string/layers_list_default_text" />
+
+        <CheckBox
+            android:id="@+id/cbLayerDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:button="@drawable/drop_down_arrow"
+            android:padding="4dp" />
+
+        <CheckBox
+            android:id="@+id/cbLayerVisibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/layers_list_item_button" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llLayerSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/layers_dialog_dividers" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/Theme.Text_Normal_Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/project_path" />
+
+            <TextView
+                android:id="@+id/tvFilePath"
+                style="@style/Theme.Text_Normal_Gray"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:text="@string/project_path" />
+
+            <ImageView
+                android:id="@+id/ivFileExsist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/project_mark" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/layers_dialog_dividers" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/layers_dialog_dividers" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Theme.Text_Normal_Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scale_range" />
+
+            <TextView
+                android:id="@+id/tvScaleRange"
+                style="@style/Theme.Text_Normal_Gray"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/scale_range" />
+        </LinearLayout>
+
+        <org.florescu.android.rangeseekbar.RangeSeekBar
+            android:id="@+id/rsbScaleRange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            rsb:absoluteMaxValue="@integer/zoom_max"
+            rsb:absoluteMinValue="@integer/zoom_min"
+            rsb:textAboveThumbsColor="@color/black_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/layers_dialog_dividers" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/CaptionText"
+                android:layout_width="72dp"
+                android:layout_height="match_parent"
+                android:gravity="left|top"
+                android:text="@string/layer_colors" />
+
+            <TextView
+                style="@style/CaptionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/fill_color" />
+
+            <View
+                android:id="@+id/vFillColor"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+
+                android:layout_marginRight="24dp" />
+
+            <TextView
+                style="@style/CaptionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/stroke_color" />
+
+            <View
+                android:id="@+id/vStrokeColor"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/Theme.Text_Normal_Gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stroke_width" />
+
+        <org.florescu.android.rangeseekbar.RangeSeekBar
+            android:id="@+id/rsbStrokeWidth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            rsb:absoluteMaxValue="@integer/stroke_width_max"
+            rsb:absoluteMinValue="@integer/zoom_min"
+            rsb:singleThumb="true"
+            rsb:textAboveThumbsColor="@color/black_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/layers_dialog_dividers" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/ivMoveUp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:tint="@color/black_text"
+                app:srcCompat="@drawable/ic_arrow_upward" />/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/ivMoveDown"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="12dp"
+                app:srcCompat="@drawable/ic_arrow_downward" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/ivRemove"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="12dp"
+                app:srcCompat="@drawable/ic_delete" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

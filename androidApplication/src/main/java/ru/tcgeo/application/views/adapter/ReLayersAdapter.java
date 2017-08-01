@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.List;
 
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.MapUtils;
@@ -18,7 +19,6 @@ import ru.tcgeo.application.views.viewholder.LayerHeaderHolder;
 import ru.tcgeo.application.views.viewholder.LayerHolder;
 import ru.tcgeo.application.views.viewholder.SqliteLayerHolder;
 
-import static ru.tcgeo.application.gilib.GILayer.GILayerType.XML;
 
 /**
  * Created by a_belov on 06.07.15.
@@ -28,6 +28,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int TYPE_ZERODATA = 2;
     private static final int TYPE_XML = 3;
     private static final int TYPE_GROUP = 4;
+    private static final int TYPE_SQL = 5;
 
     private LayerHolderCallback callback;
     private Context context;
@@ -48,10 +49,13 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layers_header, parent, false);
             return new LayerHeaderHolder(v, callback);
         } else if (viewType == TYPE_XML) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.re_item_layers_list, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layers_xml_list, parent, false);
+            return new SqliteLayerHolder(v, callback);
+        } else if (viewType == TYPE_SQL) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layers_sqlite_list, parent, false);
             return new LayerHolder(v, callback);
         } else {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sqlite_layers_list, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layers_list, parent, false);
             return new SqliteLayerHolder(v, callback);
         }
     }
@@ -66,6 +70,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else {
             LayerHolder h = (LayerHolder) holder;
             GITuple item = data.get(position);
+
             h.tvLayerName.setText(item.layer.getName());
             h.cbLayerVisibility.setChecked(item.visible);
             h.tvFilePath.setText(item.layer.m_layer_properties.m_source.GetAbsolutePath());
@@ -74,9 +79,14 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             } else {
                 h.ivFileExsist.setImageResource(R.drawable.project_mark_fail);
             }
-            h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(context, item.scale_range.getMin()));
-            h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(context, item.scale_range.getMax()));
+            h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.scale_range.getMax()));
+            h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.scale_range.getMin()));
+            h.tvScaleRange.setText(context.getString(R.string.scale_range_format, (int) Math.round(1 / item.scale_range.getMin()), (int) Math.round(1 / item.scale_range.getMax())));
 
+            if (getItemViewType(position) == TYPE_SQL) {
+                SqliteLayerHolder sqlHolder = (SqliteLayerHolder) holder;
+
+            }
             if (getItemViewType(position) == TYPE_XML) {
 //                OldXMLLayerHolder xh = (OldXMLLayerHolder) holder;
 //                GITuple xitem = data.get(position);
@@ -103,8 +113,10 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemViewType(int position) {
         if (data.get(position) == null) {
             return TYPE_GROUP;
-        } else if (data.get(position).layer.type_ == XML) {
+        } else if (data.get(position).layer.type_ == GILayer.GILayerType.XML) {
             return TYPE_XML;
+        } else if (data.get(position).layer.type_ == GILayer.GILayerType.SQL_LAYER || data.get(position).layer.type_ == GILayer.GILayerType.SQL_YANDEX_LAYER) {
+            return TYPE_SQL;
         } else {
             return TYPE_DEFAULT;
         }

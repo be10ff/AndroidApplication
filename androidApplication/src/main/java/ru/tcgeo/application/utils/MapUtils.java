@@ -1,7 +1,5 @@
 package ru.tcgeo.application.utils;
 
-import android.content.Context;
-
 import ru.tcgeo.application.gilib.models.GILonLat;
 
 /**
@@ -136,25 +134,15 @@ public class MapUtils {
         return angle;
     }
 
-    public static int scale2Z(Context context, double scale) {
-        double Width_px = ScreenUtils.getScreenWidth(context) /** GIMap.inches_per_pixel * GIMap.meters_per_inch*/;
-
-        double kf = 360.0f / (256.0f * scale);
-
-//        double left = area.left();
-//        double top= area.top();
-//        double right = area.right();
-//        double bottom = area.bottom();
-
+    public static int scale2Z(double scale) {
         double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
-//        int from = (int) (1 / (Math.pow(2, Integer.valueOf(mZoomMin.getSelectedItem().toString())) * con));
+        int zz = (int) Math.round(Math.log(scale / (/*scale**/con)) / Math.log(2f));
+        return zz;
+    }
 
-
-        double width = /*Width_px*/1 / scale;
-        double dz = Math.log(1 / scale) / Math.log(2);
-        int z = (int) Math.round(dz);
-
-        double zz = Math.log(1 / scale) / (Math.log(2) * con);
-        return z;
+    public static double z2scale(int z) {
+        double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
+        int scale = (int) (1 / (Math.pow(2, 1 / z) * con));
+        return scale;
     }
 }
