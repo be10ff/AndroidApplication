@@ -4,14 +4,14 @@ package ru.tcgeo.application.gilib;
  * в проекте прописывается как DBase
  */
 
-import java.io.File;
-import java.util.HashMap;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import android.util.Log;
+
+import java.io.File;
+import java.util.HashMap;
 
 import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
@@ -20,6 +20,8 @@ import ru.tcgeo.application.wkt.GIWKTParser;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktUserTrack;
 
+@Deprecated
+//todo this class for PList and DB layers. to  remove as unesessary && legacy
 public class GIEditableSQLiteLayer extends GIEditableLayer
 {
 
@@ -268,8 +270,8 @@ public class GIEditableSQLiteLayer extends GIEditableLayer
 		    		}
 		    		for(String key : geom.m_attributes.keySet())
 		    		{
-		    			geom.m_attributes.get(key).m_value = (Object) c.getString(c.getColumnIndex(key));
-		    		}
+						geom.m_attributes.get(key).m_value = c.getString(c.getColumnIndex(key));
+					}
 		    		if(geom.m_type == GI_WktGeometry.GIWKTGeometryType.TRACK)
 		    		{
 		    			GI_WktUserTrack track = (GI_WktUserTrack)geom;

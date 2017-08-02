@@ -120,9 +120,9 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
 
-            } else if (getItemViewType(position) == TYPE_DEFAULT) {
-                SqliteLayerHolder sqlHolder = (SqliteLayerHolder) holder;
             }
+
+
         }
 
     }

@@ -2,5 +2,9 @@ Empty data in dialog - done
 create new project - done
 text color in recyclers - done
 todo layer settings
+    todo Folder, Traffic, Points/Lines editables (is possible, seems dont)
+
+todo ps.m_Edit.m_Entries ???!!!!???? is nesessary? !!!!!!
+
 
 todo add yandex_traffic, editable layers from dialog

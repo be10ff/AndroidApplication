@@ -238,14 +238,10 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
 	public void LoadProject(String path) {
 
-//		GIBounds temp = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
-//		map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
 		pbProgress.setVisibility(View.VISIBLE);
 		LoadProjectInteractor interactor = new LoadProjectInteractor();
 		interactor.setView(this);
 		interactor.loadProject(path);
-
-//		map.LoadProject(path);
 
 	}
 

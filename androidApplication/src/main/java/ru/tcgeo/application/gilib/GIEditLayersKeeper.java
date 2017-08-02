@@ -31,7 +31,6 @@ import ru.tcgeo.application.wkt.GI_WktLinestring;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 import ru.tcgeo.application.wkt.GI_WktPolygon;
 
-//import ru.tcgeo.application.gilib.gps.GIGPSDialog;
 
 @Deprecated
 public class GIEditLayersKeeper {
@@ -55,8 +54,11 @@ public class GIEditLayersKeeper {
     public GIGeometryControl m_current_track_control;
 	//currents
 	public GIEditableLayer m_layer;
+	//todo find TRACK in Map.layers.ps. editable
 	public GIEditableLayer m_TrackLayer;
+	//todo find POI in Map.layers.ps. editable
 	public GIEditableLayer m_POILayer;
+
 	public GI_WktGeometry m_CurrentTrack;
 	public GI_WktGeometry m_CurrentPOI;
 
@@ -65,6 +67,7 @@ public class GIEditLayersKeeper {
 
 	public GI_WktGeometry m_geometry;
 	//GILonLat m_last_location;
+	//todo find not null in Map.layers.ps.editable
 	public ArrayList<GIEditableLayer> m_Layers;
 	//statuses
 	public GITrackingStatus m_TrackingStatus;
@@ -192,7 +195,7 @@ public class GIEditLayersKeeper {
 		boolean res = false;
 		switch (m_layer.m_Type)
 		{
-			case POINT:
+			case POI:
 			{
 				m_geometry = new GI_WktPoint();
 				res =  true;
@@ -729,7 +732,7 @@ public class GIEditLayersKeeper {
 //			GIEditableLayer  m_TrackLayer = (GIEditableLayer)m_Map.find(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + m_Map.ps.name + File.separator + m_Map.ps.name + "_" + date + "_track.xml");
 //			if(m_TrackLayer == null) {
 				m_TrackLayer = GILayer.createTrack(m_Map.ps.m_name, date);
-				m_TrackLayer.setType(GIEditableLayer.GIEditableLayerType.TRACK);
+			m_TrackLayer.setType(GILayer.EditableType.TRACK);
 				m_TrackLayer.Save();
 
 				m_Map.ps.m_Group.addEntry(m_TrackLayer.m_layer_properties);

@@ -10,24 +10,18 @@ import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GIEditableSQLiteLayer;
 import ru.tcgeo.application.gilib.GILayer;
-import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.GISQLLayer;
-import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIScaleRange;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.gilib.parser.GIPropertiesGroup;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
-import ru.tcgeo.application.gilib.parser.GIPropertiesLayerRef;
 import ru.tcgeo.application.gilib.parser.GISQLDB;
 import ru.tcgeo.application.view.MapView;
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -93,21 +87,6 @@ public class LoadProjectInteractor {
                 });
 
     }
-
-    public class Layer{
-        public GILayer giLayer;
-        public GIScaleRange giRange;
-        public boolean enabled;
-
-        public Layer(GILayer giLayer, GIScaleRange giRange, boolean enabled){
-            this.giLayer = giLayer;
-            this.giRange = giRange;
-            this.enabled = enabled;
-
-        }
-    }
-
-
 
     private void loadGroup(GIProjectProperties ps, GIPropertiesGroup current_layer2, Subscriber<? super Layer>  subscriber)
     {
@@ -330,30 +309,35 @@ public class LoadProjectInteractor {
                     layer.m_layer_properties = current_layer;
                     layer.AddStyle(vstyle_editing);
 					/**/
-                    for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {
-                        if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
-                            GIEditableSQLiteLayer l = (GIEditableSQLiteLayer) layer;
-                            if (ref.m_type.equalsIgnoreCase("POINT")) {
-                                l.setType(GIEditableLayer.GIEditableLayerType.POINT);
-                                continue;
-                            }
-                            if (ref.m_type.equalsIgnoreCase("LINE")) {
-                                l.setType(GIEditableLayer.GIEditableLayerType.LINE);
-                                continue;
-                            }
-                            if (ref.m_type.equalsIgnoreCase("POLYGON")) {
-                                l.setType(GIEditableLayer.GIEditableLayerType.POLYGON);
-                                continue;
-                            }
-                            if (ref.m_type.equalsIgnoreCase("TRACK")) {
-                                l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
-                                continue;
-                            }
-                        }
-                    }
+//                    if(ps.m_Edit != null && ps.m_Edit.m_Entries != null) {
+//                        for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {
+//                            if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
+//                                GIEditableSQLiteLayer l = (GIEditableSQLiteLayer) layer;
+//                                if (ref.m_type.equalsIgnoreCase("POINT")) {
+//                                    l.setType(GIEditableLayer.GIEditableLayerType.POINT);
+//                                    continue;
+//                                }
+//                                if (ref.m_type.equalsIgnoreCase("LINE")) {
+//                                    l.setType(GIEditableLayer.GIEditableLayerType.LINE);
+//                                    continue;
+//                                }
+//                                if (ref.m_type.equalsIgnoreCase("POLYGON")) {
+//                                    l.setType(GIEditableLayer.GIEditableLayerType.POLYGON);
+//                                    continue;
+//                                }
+//                                if (ref.m_type.equalsIgnoreCase("TRACK")) {
+//                                    l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
+//                                    continue;
+//                                }
+//                            }
+//                        }
+//                    }
                     subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
-                    GIEditLayersKeeper.Instance().AddLayer(
-                            (GIEditableSQLiteLayer) layer);
+                    GIEditableSQLiteLayer l = (GIEditableSQLiteLayer) layer;
+                    if (l != null && l.m_layer_properties.editable != null) {
+                        l.setType(l.m_layer_properties.editable.enumType);
+                        GIEditLayersKeeper.Instance().AddLayer((GIEditableSQLiteLayer) layer);
+                    }
                 }
 
                 else {
@@ -422,33 +406,44 @@ public class LoadProjectInteractor {
 
                     layer.AddStyle(vstyle_editing);
 					/**/
-                    for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {
-                        if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
-                            GIEditableLayer l = (GIEditableLayer) layer;
-                            if (ref.m_type.equalsIgnoreCase("POINT")) {
-                                l.setType(GIEditableLayer.GIEditableLayerType.POINT);
-                                GIEditLayersKeeper.Instance().m_POILayer = l;
-                                continue;
-                            }
-                            if (ref.m_type.equalsIgnoreCase("LINE")) {
-                                l.setType(GIEditableLayer.GIEditableLayerType.LINE);
-                                continue;
-                            }
-                            if (ref.m_type.equalsIgnoreCase("POLYGON")) {
-                                l.setType(GIEditableLayer.GIEditableLayerType.POLYGON);
-                                continue;
-                            }
-                            if (ref.m_type.equalsIgnoreCase("TRACK")) {
-                                GIEditLayersKeeper.Instance().m_TrackLayer = l;
-                                l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
-                                continue;
-                            }
-                        }
-                    }
+//					if(ps.m_Edit != null && ps.m_Edit.m_Entries != null) {
+//                        for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {
+//                            if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
+//                                GIEditableLayer l = (GIEditableLayer) layer;
+//                                if (ref.m_type.equalsIgnoreCase("POINT")) {
+//                                    l.setType(GIEditableLayer.GIEditableLayerType.POINT);
+//                                    GIEditLayersKeeper.Instance().m_POILayer = l;
+//                                    continue;
+//                                }
+//                                if (ref.m_type.equalsIgnoreCase("LINE")) {
+//                                    l.setType(GIEditableLayer.GIEditableLayerType.LINE);
+//                                    continue;
+//                                }
+//                                if (ref.m_type.equalsIgnoreCase("POLYGON")) {
+//                                    l.setType(GIEditableLayer.GIEditableLayerType.POLYGON);
+//                                    continue;
+//                                }
+//                                if (ref.m_type.equalsIgnoreCase("TRACK")) {
+//                                    GIEditLayersKeeper.Instance().m_TrackLayer = l;
+//                                    l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
+//                                    continue;
+//                                }
+//                            }
+//                        }
+//                    }
                     subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
 
-                    GIEditLayersKeeper.Instance().AddLayer(
-                            (GIEditableLayer) layer);
+                    //todo remove with EditLayersKeeper
+                    GIEditableLayer l = (GIEditableLayer) layer;
+                    if (l != null && l.m_layer_properties.editable != null) {
+                        l.setType(l.m_layer_properties.editable.enumType);
+                        if (l.m_Type == GILayer.EditableType.TRACK && l.m_layer_properties.editable.active) {
+                            GIEditLayersKeeper.Instance().m_TrackLayer = l;
+                        } else if (l.m_Type == GILayer.EditableType.POI && l.m_layer_properties.editable.active) {
+                            GIEditLayersKeeper.Instance().m_POILayer = l;
+                        }
+                        GIEditLayersKeeper.Instance().AddLayer(l);
+                    }
                 }
 
                 else {
@@ -499,10 +494,22 @@ public class LoadProjectInteractor {
                     layer.m_layer_properties = current_layer;
 
                     subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
-                    GIEditLayersKeeper.Instance().AddLayer(
-                            (GIEditableLayer) layer);
+                    GIEditLayersKeeper.Instance().AddLayer((GIEditableLayer) layer);
                 }
             }
+
+        }
+    }
+
+    public class Layer {
+        public GILayer giLayer;
+        public GIScaleRange giRange;
+        public boolean enabled;
+
+        public Layer(GILayer giLayer, GIScaleRange giRange, boolean enabled) {
+            this.giLayer = giLayer;
+            this.giRange = giRange;
+            this.enabled = enabled;
 
         }
     }

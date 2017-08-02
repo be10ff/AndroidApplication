@@ -3,6 +3,9 @@ package ru.tcgeo.application.gilib.parser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+
+@Deprecated
+
 public class GIParserEdit extends GIParser
 {
 	//GIPropertiesEdit m_current;

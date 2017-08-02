@@ -32,10 +32,7 @@ import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIScaleRange;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.models.Marker;
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
-import ru.tcgeo.application.gilib.parser.GIPropertiesGroup;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
-import ru.tcgeo.application.gilib.parser.GIPropertiesLayerRef;
 import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
 import ru.tcgeo.application.gilib.parser.GIRange;
 import ru.tcgeo.application.gilib.parser.GISQLDB;
@@ -858,418 +855,418 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 		return displayMetrics.heightPixels - getMeasuredHeight();
 	}
 
-	public void LoadProject(String path) {
-		ps = new GIProjectProperties(path);
-		GIBounds temp = new GIBounds(ps.m_projection, ps.m_left,
-				ps.m_top, ps.m_right, ps.m_bottom);
-		InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
-		GIPropertiesGroup current_group = ps.m_Group;
-		GIEditLayersKeeper.Instance().ClearLayers();
-		loadGroup(current_group);
-	}
-
-	private void loadGroup(GIPropertiesGroup current_layer2)
-	{
-		for (GIPropertiesLayer current_layer : current_layer2.m_Entries)
-		{
-			if (current_layer.m_type == GILayer.GILayerType.LAYER_GROUP) {
-				loadGroup((GIPropertiesGroup) current_layer);
-			}
-			if (current_layer.m_type == GILayer.GILayerType.TILE_LAYER) {
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
-					layer = GILayer.CreateLayer(
-							current_layer.m_source.GetLocalPath(),
-							GILayer.GILayerType.TILE_LAYER);
-					layer.setName(current_layer.m_name);
-					layer.m_layer_properties = current_layer;
-					AddLayer(layer,
-							new GIScaleRange(current_layer.m_range),
-							current_layer.m_enabled);
-				} else {
-					continue;
-				}
-
-			}
-			if (current_layer.m_type == GILayer.GILayerType.ON_LINE) {
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("text")) {
-					layer = GILayer.CreateLayer(
-							current_layer.m_source.GetRemotePath(),
-							GILayer.GILayerType.ON_LINE);
-					layer.setName(current_layer.m_name);
-					layer.m_layer_properties = current_layer;
-					AddLayer(layer,
-							new GIScaleRange(current_layer.m_range),
-							current_layer.m_enabled);
-				} else {
-					continue;
-				}
-
-			}
-			if (current_layer.m_type == GILayer.GILayerType.SQL_LAYER)
-			{
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("text"))
-				{
-					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.SQL_LAYER);
-					layer.setName(current_layer.m_name);
-					if (current_layer.m_sqldb != null) {
-						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
-						{
-							((GISQLLayer) layer).getAvalibleLevels();
-						}
-						current_layer.m_sqldb = builder.build();
-					}
-					layer.m_layer_properties = current_layer;
-					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
-				}
-				else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
-				{
-					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayer.GILayerType.SQL_LAYER);
-
-					layer.setName(current_layer.m_name);
-					if (current_layer.m_sqldb != null) {
-						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-
-						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE")) {
-							((GISQLLayer) layer).getAvalibleLevels();
-						}
-						current_layer.m_sqldb = builder.build();
-					}
-					layer.m_layer_properties = current_layer;
-					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
-				}
-				else
-				{
-					continue;
-				}
-
-			}
-
-			if (current_layer.m_type == GILayer.GILayerType.SQL_YANDEX_LAYER) {
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("text"))
-				{
-					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.SQL_YANDEX_LAYER);
-					layer.setName(current_layer.m_name);
-					if (current_layer.m_sqldb != null) {
-						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
-						{
-							((GISQLLayer) layer).getAvalibleLevels();
-						}
-						current_layer.m_sqldb = builder.build();
-					}
-					layer.m_layer_properties = current_layer;
-					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
-				}
-				else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
-				{
-					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayer.GILayerType.SQL_YANDEX_LAYER);
-					layer.setName(current_layer.m_name);
-					if (current_layer.m_sqldb != null) {
-						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-						if (current_layer.m_sqldb.m_zoom_type
-								.equalsIgnoreCase("ADAPTIVE")) {
-							((GISQLLayer) layer).getAvalibleLevels();
-						}
-						current_layer.m_sqldb = builder.build();
-					}
-					layer.m_layer_properties = current_layer;
-					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
-				}
-				else
-				{
-					continue;
-				}
-
-			}
-			if (current_layer.m_type == GILayer.GILayerType.FOLDER)
-			{
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("text"))
-				{
-					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.FOLDER);
-					layer.setName(current_layer.m_name);
-					if (current_layer.m_sqldb != null) {
-						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
-						{
-							((GISQLLayer) layer).getAvalibleLevels();
-						}
-						current_layer.m_sqldb = builder.build();
-					}
-					layer.m_layer_properties = current_layer;
-					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
-				}
-				else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
-				{
-					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayer.GILayerType.FOLDER);
-
-					layer.setName(current_layer.m_name);
-					if (current_layer.m_sqldb != null) {
-						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-
-						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE")) {
-							((GISQLLayer) layer).getAvalibleLevels();
-						}
-						current_layer.m_sqldb = builder.build();
-					}
-					layer.m_layer_properties = current_layer;
-					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
-				}
-				else
-				{
-					continue;
-				}
-
-			}
-			if (current_layer.m_type == GILayer.GILayerType.DBASE) {
-				Paint fill = new Paint();
-				Paint line = new Paint();
-				for (GIColor color : current_layer.m_style.m_colors) {
-					if (color.m_description.equalsIgnoreCase("line")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						line.setStyle(Paint.Style.STROKE);
-						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-					} else if (color.m_description.equalsIgnoreCase("fill")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-						fill.setStyle(Paint.Style.FILL);
-					}
-				}
-
-				Paint editing_fill = new Paint();
-				editing_fill.setColor(Color.CYAN);
-				editing_fill.setAlpha(96);
-				editing_fill.setStyle(Paint.Style.FILL);
-
-				Paint editing_stroke = new Paint();
-				editing_stroke.setColor(Color.CYAN);
-				editing_stroke.setStrokeWidth(2);
-				editing_fill.setAlpha(128);
-				editing_stroke.setStyle(Paint.Style.STROKE);
-				GIVectorStyle vstyle_editing = new GIVectorStyle(
-						editing_stroke, editing_fill,
-						(int) current_layer2.m_opacity);
-
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
-					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
-							(int) current_layer2.m_opacity);
-					layer = GILayer
-							.CreateLayer(current_layer.m_source.GetLocalPath(),
-									GILayer.GILayerType.DBASE, vstyle,
-									current_layer.m_encoding);
-
-					layer.setName(current_layer.m_name);
-
-					layer.m_layer_properties = current_layer;
-					layer.AddStyle(vstyle_editing);
-					/**/
-					for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {
-						if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
-							GIEditableSQLiteLayer l = (GIEditableSQLiteLayer) layer;
-							if (ref.m_type.equalsIgnoreCase("POINT")) {
-								l.setType(GIEditableLayer.GIEditableLayerType.POINT);
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("LINE")) {
-								l.setType(GIEditableLayer.GIEditableLayerType.LINE);
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("POLYGON")) {
-								l.setType(GIEditableLayer.GIEditableLayerType.POLYGON);
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("TRACK")) {
-								l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
-								continue;
-							}
-						}
-					}
-					AddLayer(layer,
-							new GIScaleRange(current_layer.m_range),
-							current_layer.m_enabled);
-					GIEditLayersKeeper.Instance().AddLayer(
-							(GIEditableSQLiteLayer) layer);
-				}
-
-				else {
-					continue;
-				}
-			}
-			//
-			if (current_layer.m_type == GILayer.GILayerType.XML) {
-				Paint fill = new Paint();
-				Paint line = new Paint();
-				for (GIColor color : current_layer.m_style.m_colors) {
-					if (color.m_description.equalsIgnoreCase("line")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						line.setStyle(Paint.Style.STROKE);
-						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-					} else if (color.m_description.equalsIgnoreCase("fill")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-						fill.setStyle(Paint.Style.FILL);
-					}
-				}
-
-				Paint editing_fill = new Paint();
-				editing_fill.setColor(Color.CYAN);
-				editing_fill.setAlpha(96);
-				editing_fill.setStyle(Paint.Style.FILL);
-
-				Paint editing_stroke = new Paint();
-				editing_stroke.setColor(Color.CYAN);
-				editing_stroke.setStrokeWidth(2);
-				editing_fill.setAlpha(128);
-				editing_stroke.setStyle(Paint.Style.STROKE);
-				GIVectorStyle vstyle_editing = new GIVectorStyle(
-						editing_stroke, editing_fill,
-						(int) current_layer2.m_opacity);
-
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("local") || current_layer.m_source.m_location.equalsIgnoreCase("absolute")) {
-					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
-							(int) current_layer2.m_opacity);
-
-					String path = current_layer.m_source.GetLocalPath();
-					if(current_layer.m_source.m_location.equalsIgnoreCase("absolute")){
-						path = current_layer.m_source.GetAbsolutePath();
-					}
-					layer = GILayer.CreateLayer(
-							path,
-							GILayer.GILayerType.XML, vstyle, current_layer.m_encoding);
-
-					layer.setName(current_layer.m_name);
-					layer.m_layer_properties = current_layer;
-
-					layer.AddStyle(vstyle_editing);
-					/**/
-					for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {
-						if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
-							GIEditableLayer l = (GIEditableLayer) layer;
-							if (ref.m_type.equalsIgnoreCase("POINT")) {
-								l.setType(GIEditableLayer.GIEditableLayerType.POINT);
-								GIEditLayersKeeper.Instance().m_POILayer = l;
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("LINE")) {
-								l.setType(GIEditableLayer.GIEditableLayerType.LINE);
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("POLYGON")) {
-								l.setType(GIEditableLayer.GIEditableLayerType.POLYGON);
-								continue;
-							}
-							if (ref.m_type.equalsIgnoreCase("TRACK")) {
-								GIEditLayersKeeper.Instance().m_TrackLayer = l;
-								l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
-								continue;
-							}
-						}
-					}
-					AddLayer(layer,
-							new GIScaleRange(current_layer.m_range),
-							current_layer.m_enabled);
-					GIEditLayersKeeper.Instance().AddLayer(
-							(GIEditableLayer) layer);
-				}
-
-				else {
-					continue;
-				}
-			}
-
-			if (current_layer.m_type == GILayer.GILayerType.PLIST)
-			{
-				Paint fill = new Paint();
-				Paint line = new Paint();
-				for (GIColor color : current_layer.m_style.m_colors) {
-					if (color.m_description.equalsIgnoreCase("line")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							line.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						line.setStyle(Paint.Style.STROKE);
-						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-					} else if (color.m_description.equalsIgnoreCase("fill")) {
-						if (color.m_name.equalsIgnoreCase("custom")) {
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						} else {
-							color.setFromName();
-							fill.setARGB(color.m_alpha, color.m_red,
-									color.m_green, color.m_blue);
-						}
-						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-						fill.setStyle(Paint.Style.FILL);
-					}
-				}
-
-
-				GILayer layer;
-				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
-					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
-							(int) current_layer2.m_opacity);
-					layer = GILayer.CreateLayer(
-							current_layer.m_source.GetLocalPath(),
-							GILayer.GILayerType.PLIST, vstyle, current_layer.m_encoding);
-
-					layer.setName(current_layer.m_name);
-					layer.m_layer_properties = current_layer;
-
-					AddLayer(layer,
-							new GIScaleRange(current_layer.m_range),
-							current_layer.m_enabled);
-					GIEditLayersKeeper.Instance().AddLayer(
-							(GIEditableLayer) layer);
-				}
-			}
-
-		}
-    }
+//	public void LoadProject(String path) {
+//		ps = new GIProjectProperties(path);
+//		GIBounds temp = new GIBounds(ps.m_projection, ps.m_left,
+//				ps.m_top, ps.m_right, ps.m_bottom);
+//		InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
+//		GIPropertiesGroup current_group = ps.m_Group;
+//		GIEditLayersKeeper.Instance().ClearLayers();
+//		loadGroup(current_group);
+//	}
+//
+//	private void loadGroup(GIPropertiesGroup current_layer2)
+//	{
+//		for (GIPropertiesLayer current_layer : current_layer2.m_Entries)
+//		{
+//			if (current_layer.m_type == GILayer.GILayerType.LAYER_GROUP) {
+//				loadGroup((GIPropertiesGroup) current_layer);
+//			}
+//			if (current_layer.m_type == GILayer.GILayerType.TILE_LAYER) {
+//				GILayer layer;
+//				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
+//					layer = GILayer.CreateLayer(
+//							current_layer.m_source.GetLocalPath(),
+//							GILayer.GILayerType.TILE_LAYER);
+//					layer.setName(current_layer.m_name);
+//					layer.m_layer_properties = current_layer;
+//					AddLayer(layer,
+//							new GIScaleRange(current_layer.m_range),
+//							current_layer.m_enabled);
+//				} else {
+//					continue;
+//				}
+//
+//			}
+//			if (current_layer.m_type == GILayer.GILayerType.ON_LINE) {
+//				GILayer layer;
+//				if (current_layer.m_source.m_location.equalsIgnoreCase("text")) {
+//					layer = GILayer.CreateLayer(
+//							current_layer.m_source.GetRemotePath(),
+//							GILayer.GILayerType.ON_LINE);
+//					layer.setName(current_layer.m_name);
+//					layer.m_layer_properties = current_layer;
+//					AddLayer(layer,
+//							new GIScaleRange(current_layer.m_range),
+//							current_layer.m_enabled);
+//				} else {
+//					continue;
+//				}
+//
+//			}
+//			if (current_layer.m_type == GILayer.GILayerType.SQL_LAYER)
+//			{
+//				GILayer layer;
+//				if (current_layer.m_source.m_location.equalsIgnoreCase("text"))
+//				{
+//					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.SQL_LAYER);
+//					layer.setName(current_layer.m_name);
+//					if (current_layer.m_sqldb != null) {
+//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
+//						{
+//							((GISQLLayer) layer).getAvalibleLevels();
+//						}
+//						current_layer.m_sqldb = builder.build();
+//					}
+//					layer.m_layer_properties = current_layer;
+//					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+//				}
+//				else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
+//				{
+//					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayer.GILayerType.SQL_LAYER);
+//
+//					layer.setName(current_layer.m_name);
+//					if (current_layer.m_sqldb != null) {
+//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//
+//						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE")) {
+//							((GISQLLayer) layer).getAvalibleLevels();
+//						}
+//						current_layer.m_sqldb = builder.build();
+//					}
+//					layer.m_layer_properties = current_layer;
+//					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+//				}
+//				else
+//				{
+//					continue;
+//				}
+//
+//			}
+//
+//			if (current_layer.m_type == GILayer.GILayerType.SQL_YANDEX_LAYER) {
+//				GILayer layer;
+//				if (current_layer.m_source.m_location.equalsIgnoreCase("text"))
+//				{
+//					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.SQL_YANDEX_LAYER);
+//					layer.setName(current_layer.m_name);
+//					if (current_layer.m_sqldb != null) {
+//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
+//						{
+//							((GISQLLayer) layer).getAvalibleLevels();
+//						}
+//						current_layer.m_sqldb = builder.build();
+//					}
+//					layer.m_layer_properties = current_layer;
+//					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+//				}
+//				else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
+//				{
+//					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayer.GILayerType.SQL_YANDEX_LAYER);
+//					layer.setName(current_layer.m_name);
+//					if (current_layer.m_sqldb != null) {
+//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//						if (current_layer.m_sqldb.m_zoom_type
+//								.equalsIgnoreCase("ADAPTIVE")) {
+//							((GISQLLayer) layer).getAvalibleLevels();
+//						}
+//						current_layer.m_sqldb = builder.build();
+//					}
+//					layer.m_layer_properties = current_layer;
+//					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+//				}
+//				else
+//				{
+//					continue;
+//				}
+//
+//			}
+//			if (current_layer.m_type == GILayer.GILayerType.FOLDER)
+//			{
+//				GILayer layer;
+//				if (current_layer.m_source.m_location.equalsIgnoreCase("text"))
+//				{
+//					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.FOLDER);
+//					layer.setName(current_layer.m_name);
+//					if (current_layer.m_sqldb != null) {
+//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
+//						{
+//							((GISQLLayer) layer).getAvalibleLevels();
+//						}
+//						current_layer.m_sqldb = builder.build();
+//					}
+//					layer.m_layer_properties = current_layer;
+//					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+//				}
+//				else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
+//				{
+//					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayer.GILayerType.FOLDER);
+//
+//					layer.setName(current_layer.m_name);
+//					if (current_layer.m_sqldb != null) {
+//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//
+//						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE")) {
+//							((GISQLLayer) layer).getAvalibleLevels();
+//						}
+//						current_layer.m_sqldb = builder.build();
+//					}
+//					layer.m_layer_properties = current_layer;
+//					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
+//				}
+//				else
+//				{
+//					continue;
+//				}
+//
+//			}
+//			if (current_layer.m_type == GILayer.GILayerType.DBASE) {
+//				Paint fill = new Paint();
+//				Paint line = new Paint();
+//				for (GIColor color : current_layer.m_style.m_colors) {
+//					if (color.m_description.equalsIgnoreCase("line")) {
+//						if (color.m_name.equalsIgnoreCase("custom")) {
+//							line.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						} else {
+//							color.setFromName();
+//							line.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						}
+//						line.setStyle(Paint.Style.STROKE);
+//						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+//					} else if (color.m_description.equalsIgnoreCase("fill")) {
+//						if (color.m_name.equalsIgnoreCase("custom")) {
+//							fill.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						} else {
+//							color.setFromName();
+//							fill.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						}
+//						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+//						fill.setStyle(Paint.Style.FILL);
+//					}
+//				}
+//
+//				Paint editing_fill = new Paint();
+//				editing_fill.setColor(Color.CYAN);
+//				editing_fill.setAlpha(96);
+//				editing_fill.setStyle(Paint.Style.FILL);
+//
+//				Paint editing_stroke = new Paint();
+//				editing_stroke.setColor(Color.CYAN);
+//				editing_stroke.setStrokeWidth(2);
+//				editing_fill.setAlpha(128);
+//				editing_stroke.setStyle(Paint.Style.STROKE);
+//				GIVectorStyle vstyle_editing = new GIVectorStyle(
+//						editing_stroke, editing_fill,
+//						(int) current_layer2.m_opacity);
+//
+//				GILayer layer;
+//				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
+//					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
+//							(int) current_layer2.m_opacity);
+//					layer = GILayer
+//							.CreateLayer(current_layer.m_source.GetLocalPath(),
+//									GILayer.GILayerType.DBASE, vstyle,
+//									current_layer.m_encoding);
+//
+//					layer.setName(current_layer.m_name);
+//
+//					layer.m_layer_properties = current_layer;
+//					layer.AddStyle(vstyle_editing);
+//					/**/
+//					for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {
+//						if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
+//							GIEditableSQLiteLayer l = (GIEditableSQLiteLayer) layer;
+//							if (ref.m_type.equalsIgnoreCase("POINT")) {
+//								l.setType(GIEditableLayer.GIEditableLayerType.POINT);
+//								continue;
+//							}
+//							if (ref.m_type.equalsIgnoreCase("LINE")) {
+//								l.setType(GIEditableLayer.GIEditableLayerType.LINE);
+//								continue;
+//							}
+//							if (ref.m_type.equalsIgnoreCase("POLYGON")) {
+//								l.setType(GIEditableLayer.GIEditableLayerType.POLYGON);
+//								continue;
+//							}
+//							if (ref.m_type.equalsIgnoreCase("TRACK")) {
+//								l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
+//								continue;
+//							}
+//						}
+//					}
+//					AddLayer(layer,
+//							new GIScaleRange(current_layer.m_range),
+//							current_layer.m_enabled);
+//					GIEditLayersKeeper.Instance().AddLayer(
+//							(GIEditableSQLiteLayer) layer);
+//				}
+//
+//				else {
+//					continue;
+//				}
+//			}
+//			//
+//			if (current_layer.m_type == GILayer.GILayerType.XML) {
+//				Paint fill = new Paint();
+//				Paint line = new Paint();
+//				for (GIColor color : current_layer.m_style.m_colors) {
+//					if (color.m_description.equalsIgnoreCase("line")) {
+//						if (color.m_name.equalsIgnoreCase("custom")) {
+//							line.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						} else {
+//							color.setFromName();
+//							line.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						}
+//						line.setStyle(Paint.Style.STROKE);
+//						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+//					} else if (color.m_description.equalsIgnoreCase("fill")) {
+//						if (color.m_name.equalsIgnoreCase("custom")) {
+//							fill.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						} else {
+//							color.setFromName();
+//							fill.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						}
+//						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+//						fill.setStyle(Paint.Style.FILL);
+//					}
+//				}
+//
+//				Paint editing_fill = new Paint();
+//				editing_fill.setColor(Color.CYAN);
+//				editing_fill.setAlpha(96);
+//				editing_fill.setStyle(Paint.Style.FILL);
+//
+//				Paint editing_stroke = new Paint();
+//				editing_stroke.setColor(Color.CYAN);
+//				editing_stroke.setStrokeWidth(2);
+//				editing_fill.setAlpha(128);
+//				editing_stroke.setStyle(Paint.Style.STROKE);
+//				GIVectorStyle vstyle_editing = new GIVectorStyle(
+//						editing_stroke, editing_fill,
+//						(int) current_layer2.m_opacity);
+//
+//				GILayer layer;
+//				if (current_layer.m_source.m_location.equalsIgnoreCase("local") || current_layer.m_source.m_location.equalsIgnoreCase("absolute")) {
+//					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
+//							(int) current_layer2.m_opacity);
+//
+//					String path = current_layer.m_source.GetLocalPath();
+//					if(current_layer.m_source.m_location.equalsIgnoreCase("absolute")){
+//						path = current_layer.m_source.GetAbsolutePath();
+//					}
+//					layer = GILayer.CreateLayer(
+//							path,
+//							GILayer.GILayerType.XML, vstyle, current_layer.m_encoding);
+//
+//					layer.setName(current_layer.m_name);
+//					layer.m_layer_properties = current_layer;
+//
+//					layer.AddStyle(vstyle_editing);
+//					/**/
+//					for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {
+//						if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
+//							GIEditableLayer l = (GIEditableLayer) layer;
+//							if (ref.m_type.equalsIgnoreCase("POINT")) {
+//								l.setType(GIEditableLayer.GIEditableLayerType.POINT);
+//								GIEditLayersKeeper.Instance().m_POILayer = l;
+//								continue;
+//							}
+//							if (ref.m_type.equalsIgnoreCase("LINE")) {
+//								l.setType(GIEditableLayer.GIEditableLayerType.LINE);
+//								continue;
+//							}
+//							if (ref.m_type.equalsIgnoreCase("POLYGON")) {
+//								l.setType(GIEditableLayer.GIEditableLayerType.POLYGON);
+//								continue;
+//							}
+//							if (ref.m_type.equalsIgnoreCase("TRACK")) {
+//								GIEditLayersKeeper.Instance().m_TrackLayer = l;
+//								l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
+//								continue;
+//							}
+//						}
+//					}
+//					AddLayer(layer,
+//							new GIScaleRange(current_layer.m_range),
+//							current_layer.m_enabled);
+//					GIEditLayersKeeper.Instance().AddLayer(
+//							(GIEditableLayer) layer);
+//				}
+//
+//				else {
+//					continue;
+//				}
+//			}
+//
+//			if (current_layer.m_type == GILayer.GILayerType.PLIST)
+//			{
+//				Paint fill = new Paint();
+//				Paint line = new Paint();
+//				for (GIColor color : current_layer.m_style.m_colors) {
+//					if (color.m_description.equalsIgnoreCase("line")) {
+//						if (color.m_name.equalsIgnoreCase("custom")) {
+//							line.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						} else {
+//							color.setFromName();
+//							line.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						}
+//						line.setStyle(Paint.Style.STROKE);
+//						line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+//					} else if (color.m_description.equalsIgnoreCase("fill")) {
+//						if (color.m_name.equalsIgnoreCase("custom")) {
+//							fill.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						} else {
+//							color.setFromName();
+//							fill.setARGB(color.m_alpha, color.m_red,
+//									color.m_green, color.m_blue);
+//						}
+//						fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
+//						fill.setStyle(Paint.Style.FILL);
+//					}
+//				}
+//
+//
+//				GILayer layer;
+//				if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
+//					GIVectorStyle vstyle = new GIVectorStyle(line, fill,
+//							(int) current_layer2.m_opacity);
+//					layer = GILayer.CreateLayer(
+//							current_layer.m_source.GetLocalPath(),
+//							GILayer.GILayerType.PLIST, vstyle, current_layer.m_encoding);
+//
+//					layer.setName(current_layer.m_name);
+//					layer.m_layer_properties = current_layer;
+//
+//					AddLayer(layer,
+//							new GIScaleRange(current_layer.m_range),
+//							current_layer.m_enabled);
+//					GIEditLayersKeeper.Instance().AddLayer(
+//							(GIEditableLayer) layer);
+//				}
+//			}
+//
+//		}
+//    }
 
     public List<Marker> getMarkers() {
         List<Marker> result = new ArrayList<>();

@@ -292,9 +292,8 @@ public GIProjectProperties(Context context)
 			serializer.attribute("", "left", String.valueOf(m_left));
 			serializer.attribute("", "right", String.valueOf(m_right));
 			serializer.endTag("", "Bounds");
-			
-			if(m_Edit != null)
-			{
+
+			if (m_Edit != null) {
 				serializer = m_Edit.Save(serializer);
 			}
 			

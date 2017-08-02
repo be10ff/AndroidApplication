@@ -23,7 +23,9 @@ public class GIPropertiesLayer implements ILayersRoot
 	public GIPropertiesStyle m_style;
 	public GIRange m_range;
 	public GISQLDB m_sqldb;
-	public GIPropertiesLayer()
+    public GIEditable editable;
+
+    public GIPropertiesLayer()
 	{
 		m_Entries = new ArrayList<GIPropertiesLayer>();
 	}

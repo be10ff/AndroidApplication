@@ -3,9 +3,10 @@ package ru.tcgeo.application.gilib.parser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import ru.tcgeo.application.gilib.models.GIEncoding;
-//import ru.tcgeo.application.gilib.models.GIIcon;
 import ru.tcgeo.application.gilib.GILayer;
+import ru.tcgeo.application.gilib.models.GIEncoding;
+
+//import ru.tcgeo.application.gilib.models.GIIcon;
 
 
 public class GIParserLayer extends GIParser
@@ -116,6 +117,11 @@ public class GIParserLayer extends GIParser
 			GIParserRange parser = new GIParserRange(m_ParserCurrent, m_current.m_range);
 			m_ParserCurrent = parser.ReadSection();	
 		}
+        if (CurrentSectionName.equalsIgnoreCase("Editable")) {
+            m_current.editable = new GIEditable();
+            GIParserEditable parser = new GIParserEditable(m_ParserCurrent, m_current.editable);
+            m_ParserCurrent = parser.ReadSection();
+        }
 //		if(CurrentSectionName.equalsIgnoreCase("Icon"))
 //		{
 //			m_current.m_icon = new GIIcon();
