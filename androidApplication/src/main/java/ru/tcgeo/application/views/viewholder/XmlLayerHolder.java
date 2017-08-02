@@ -1,7 +1,6 @@
 package ru.tcgeo.application.views.viewholder;
 
 import android.view.View;
-import android.widget.RadioGroup;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
@@ -18,20 +17,20 @@ import ru.tcgeo.application.views.callback.LayerHolderCallback;
 public class XmlLayerHolder extends LayerHolder {
 
     @Bind(R.id.rsbStrokeWidth)
-    RangeSeekBar rsbStrokeWidth;
+    public RangeSeekBar rsbStrokeWidth;
 
     @Bind(R.id.vFillColor)
-    RadioGroup vFillColor;
+    public View vFillColor;
 
     @Bind(R.id.vStrokeColor)
-    RadioGroup vStrokeColor;
+    public View vStrokeColor;
 
     public XmlLayerHolder(View itemView, LayerHolderCallback callback) {
         super(itemView, callback);
         ButterKnife.bind(this, itemView);
     }
 
-    @OnClick(R.id.fill_color)
+    @OnClick(R.id.vFillColor)
     public void OnFillColor() {
 //            new AmbilWarnaDialog(getActivity(), color.Get(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
 //                @Override
@@ -47,7 +46,7 @@ public class XmlLayerHolder extends LayerHolder {
 //            }).show();
     }
 
-    @OnClick(R.id.stroke_color)
+    @OnClick(R.id.vStrokeColor)
     public void OnStrokeColor() {
 
     }

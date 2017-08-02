@@ -1,5 +1,6 @@
 Empty data in dialog - done
-
+create new project - done
+text color in recyclers - done
 todo layer settings
-todo create new project
-todo text color in recyclers
+
+todo add yandex_traffic, editable layers from dialog

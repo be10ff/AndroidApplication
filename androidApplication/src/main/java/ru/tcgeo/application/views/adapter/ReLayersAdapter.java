@@ -11,13 +11,16 @@ import java.util.List;
 
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GILayer;
+import ru.tcgeo.application.gilib.GISQLLayer;
 import ru.tcgeo.application.gilib.GITuple;
+import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 import ru.tcgeo.application.views.viewholder.LayerHeaderHolder;
 import ru.tcgeo.application.views.viewholder.LayerHolder;
 import ru.tcgeo.application.views.viewholder.SqliteLayerHolder;
+import ru.tcgeo.application.views.viewholder.XmlLayerHolder;
 
 
 /**
@@ -50,13 +53,13 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return new LayerHeaderHolder(v, callback);
         } else if (viewType == TYPE_XML) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layers_xml_list, parent, false);
-            return new SqliteLayerHolder(v, callback);
+            return new XmlLayerHolder(v, callback);
         } else if (viewType == TYPE_SQL) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layers_sqlite_list, parent, false);
-            return new LayerHolder(v, callback);
+            return new SqliteLayerHolder(v, callback);
         } else {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layers_list, parent, false);
-            return new SqliteLayerHolder(v, callback);
+            return new LayerHolder(v, callback);
         }
     }
 
@@ -86,19 +89,39 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (getItemViewType(position) == TYPE_SQL) {
                 SqliteLayerHolder sqlHolder = (SqliteLayerHolder) holder;
 
+                if (item.layer.m_layer_properties.m_type == GILayer.GILayerType.SQL_YANDEX_LAYER) {
+                    sqlHolder.rbYandex.toggle();
+                } else if (item.layer.m_layer_properties.m_type == GILayer.GILayerType.SQL_LAYER) {
+                    sqlHolder.rbGoogle.toggle();
+                }
+
+
+                if (item.layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.AUTO) {
+                    sqlHolder.rbAuto.toggle();
+                } else if (item.layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.SMART) {
+                    sqlHolder.rbSmart.toggle();
+                } else if (item.layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.ADAPTIVE) {
+                    sqlHolder.rbAdaptive.toggle();
+                }
+                sqlHolder.rsbRatio.setSelectedMaxValue(item.layer.m_layer_properties.m_sqldb.mRatio);
             }
+
             if (getItemViewType(position) == TYPE_XML) {
-//                OldXMLLayerHolder xh = (OldXMLLayerHolder) holder;
-//                GITuple xitem = data.get(position);
-//                h.tvLayerName.setText(item.layer.getName());
-//                h.cbLayerVisibility.setChecked(item.visible);
-//                h.cbMarkersSource.setVisibility(View.VISIBLE);
-//                h.cbMarkersSource.setChecked(((GIGPSPointsLayer) item.layer).isMarkersSource());
+                XmlLayerHolder xmlHolder = (XmlLayerHolder) holder;
+                xmlHolder.rsbStrokeWidth.setSelectedMaxValue(item.layer.m_layer_properties.m_style.m_lineWidth);
+
+                if (item.layer.m_layer_properties.m_style != null && item.layer.m_layer_properties.m_style.m_colors != null) {
+                    for (GIColor color : item.layer.m_layer_properties.m_style.m_colors) {
+                        if (color.m_description.equalsIgnoreCase("line")) {
+                            xmlHolder.vStrokeColor.setBackgroundColor(color.Get());
+                        } else if (color.m_description.equalsIgnoreCase("fill")) {
+                            xmlHolder.vFillColor.setBackgroundColor(color.Get());
+                        }
+                    }
+                }
+
             } else if (getItemViewType(position) == TYPE_DEFAULT) {
-//                SqliteLayerHolder sh = (SqliteLayerHolder) holder;
-//                GITuple sitem = data.get(position);
-//                h.tvLayerName.setText(item.layer.getName());
-//                h.cbLayerVisibility.setChecked(item.visible);
+                SqliteLayerHolder sqlHolder = (SqliteLayerHolder) holder;
             }
         }
 

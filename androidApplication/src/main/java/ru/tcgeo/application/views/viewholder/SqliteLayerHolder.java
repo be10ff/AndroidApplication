@@ -2,13 +2,13 @@ package ru.tcgeo.application.views.viewholder;
 
 import android.support.annotation.IdRes;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 
@@ -19,32 +19,32 @@ import ru.tcgeo.application.views.callback.LayerHolderCallback;
 public class SqliteLayerHolder extends LayerHolder {
 
     @Bind(R.id.rsbRatio)
-    org.florescu.android.rangeseekbar.RangeSeekBar rsbRatio;
+    public org.florescu.android.rangeseekbar.RangeSeekBar rsbRatio;
 
     @Bind(R.id.rgProjection)
-    RadioGroup rgProjection;
+    public RadioGroup rgProjection;
 
     @Bind(R.id.rgZoomType)
-    RadioGroup rgZoomType;
+    public RadioGroup rgZoomType;
+
+    @Bind(R.id.rbYandex)
+    public RadioButton rbYandex;
+
+    @Bind(R.id.rbGoogle)
+    public RadioButton rbGoogle;
+
+    @Bind(R.id.rbAuto)
+    public RadioButton rbAuto;
+
+    @Bind(R.id.rbSmart)
+    public RadioButton rbSmart;
+
+    @Bind(R.id.rbAdaptive)
+    public RadioButton rbAdaptive;
 
     public SqliteLayerHolder(View itemView, LayerHolderCallback callback) {
         super(itemView, callback);
         ButterKnife.bind(this, itemView);
-    }
-
-    @OnClick(R.id.ivMoveUp)
-    public void onMoveUp() {
-        callback.onMoveUp(this);
-    }
-
-    @OnClick(R.id.ivMoveDown)
-    public void onMoveDown() {
-        callback.onMoveDown(this);
-    }
-
-    @OnClick(R.id.ivRemove)
-    public void onMoveRemove() {
-        callback.onMoveRemove(this);
     }
 
     @Override
