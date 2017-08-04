@@ -1,12 +1,15 @@
 package ru.tcgeo.application.views.adapter;
 
 import android.content.Context;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import ru.tcgeo.application.R;
@@ -17,23 +20,26 @@ import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
-import ru.tcgeo.application.views.viewholder.LayerHeaderHolder;
 import ru.tcgeo.application.views.viewholder.LayerHolder;
+import ru.tcgeo.application.views.viewholder.ProjectLayerHeaderHolder;
 import ru.tcgeo.application.views.viewholder.SqliteLayerHolder;
 import ru.tcgeo.application.views.viewholder.XmlLayerHolder;
+import ru.tcgeo.application.views.viewholder.helper.ItemTouchHelperAdapter;
+import ru.tcgeo.application.views.viewholder.helper.OnStartDragListener;
 
 
 /**
  * Created by a_belov on 06.07.15.
  */
-public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final int TYPE_DEFAULT = 1;
-    private static final int TYPE_ZERODATA = 2;
-    private static final int TYPE_XML = 3;
-    private static final int TYPE_GROUP = 4;
-    private static final int TYPE_SQL = 5;
+public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
+    public static final int TYPE_DEFAULT = 1;
+    public static final int TYPE_ZERODATA = 2;
+    public static final int TYPE_XML = 3;
+    public static final int TYPE_GROUP = 4;
+    public static final int TYPE_SQL = 5;
 
     private LayerHolderCallback callback;
+    private OnStartDragListener listener;
     private Context context;
     private List<GITuple> data;
     private GIProjectProperties project;
@@ -41,6 +47,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public ReLayersAdapter(Builder builder) {
         this.context = builder.context;
         this.callback = builder.callback;
+        this.listener = builder.listener;
         this.data = builder.data;
         this.project = builder.project;
     }
@@ -49,8 +56,8 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (viewType == TYPE_GROUP) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layers_header, parent, false);
-            return new LayerHeaderHolder(v, callback);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layers_project_holder, parent, false);
+            return new ProjectLayerHeaderHolder(v, callback);
         } else if (viewType == TYPE_XML) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layers_xml_list, parent, false);
             return new XmlLayerHolder(v, callback);
@@ -64,15 +71,25 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_GROUP) {
-            LayerHeaderHolder headerHolder = (LayerHeaderHolder) holder;
+            ProjectLayerHeaderHolder headerHolder = (ProjectLayerHeaderHolder) holder;
             headerHolder.etProjectName.setText(project.m_name);
             headerHolder.tvFilePath.setText(project.m_path);
             headerHolder.etDescription.setText(project.m_decription);
         } else {
             LayerHolder h = (LayerHolder) holder;
             GITuple item = data.get(position);
+
+            h.flReOrder.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                        listener.onStartDrag(holder);
+                    }
+                    return false;
+                }
+            });
 
             h.tvLayerName.setText(item.layer.getName());
             h.cbLayerVisibility.setChecked(item.visible);
@@ -88,6 +105,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             if (getItemViewType(position) == TYPE_SQL) {
                 SqliteLayerHolder sqlHolder = (SqliteLayerHolder) holder;
+                h.flMore.setVisibility(View.VISIBLE);
 
                 if (item.layer.m_layer_properties.m_type == GILayer.GILayerType.SQL_YANDEX_LAYER) {
                     sqlHolder.rbYandex.toggle();
@@ -104,9 +122,8 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     sqlHolder.rbAdaptive.toggle();
                 }
                 sqlHolder.rsbRatio.setSelectedMaxValue(item.layer.m_layer_properties.m_sqldb.mRatio);
-            }
-
-            if (getItemViewType(position) == TYPE_XML) {
+            } else if (getItemViewType(position) == TYPE_XML) {
+                h.flMore.setVisibility(View.VISIBLE);
                 XmlLayerHolder xmlHolder = (XmlLayerHolder) holder;
                 xmlHolder.rsbStrokeWidth.setSelectedMaxValue(item.layer.m_layer_properties.m_style.m_lineWidth);
 
@@ -120,6 +137,8 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
 
+            } else {
+                h.flMore.setVisibility(View.GONE);
             }
 
 
@@ -159,8 +178,23 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyItemInserted(data.size() - 1);
     }
 
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        Collections.swap(data, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        //todo
+        data.remove(position);
+        notifyItemRemoved(position);
+    }
+
 
     public static class Builder {
+        OnStartDragListener listener;
         private Context context;
         private LayerHolderCallback callback;
         private List<GITuple> data;
@@ -172,6 +206,11 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public Builder callback(LayerHolderCallback callback) {
             this.callback = callback;
+            return this;
+        }
+
+        public Builder dragListener(OnStartDragListener listener) {
+            this.listener = listener;
             return this;
         }
 

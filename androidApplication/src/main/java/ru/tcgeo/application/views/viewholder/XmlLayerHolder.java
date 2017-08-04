@@ -1,6 +1,10 @@
 package ru.tcgeo.application.views.viewholder;
 
+import android.support.annotation.IdRes;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
@@ -24,6 +28,24 @@ public class XmlLayerHolder extends LayerHolder {
 
     @Bind(R.id.vStrokeColor)
     public View vStrokeColor;
+
+    @Bind(R.id.rgEditableType)
+    public RadioGroup rgEditableType;
+
+    @Bind(R.id.rbPOI)
+    public RadioButton rbPOI;
+
+    @Bind(R.id.rbTrack)
+    public RadioButton rbTrack;
+
+    @Bind(R.id.rbLine)
+    public RadioButton rbLine;
+
+    @Bind(R.id.rbPolygon)
+    public RadioButton rbPolygon;
+
+    @Bind(R.id.cbActive)
+    public CheckBox cbActive;
 
     public XmlLayerHolder(View itemView, LayerHolderCallback callback) {
         super(itemView, callback);
@@ -59,6 +81,13 @@ public class XmlLayerHolder extends LayerHolder {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
 
+            }
+        });
+
+        rgEditableType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                cbActive.setEnabled(checkedId == R.id.rbTrack || checkedId == R.id.rbPOI);
             }
         });
 

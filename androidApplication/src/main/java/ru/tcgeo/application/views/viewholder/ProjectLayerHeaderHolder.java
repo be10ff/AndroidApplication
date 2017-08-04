@@ -14,7 +14,7 @@ import ru.tcgeo.application.views.callback.LayerHolderCallback;
  * Created by artem on 14.07.17.
  */
 
-public class LayerHeaderHolder extends RecyclerView.ViewHolder {
+public class ProjectLayerHeaderHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.tvFilePath)
     public TextView tvFilePath;
@@ -27,7 +27,7 @@ public class LayerHeaderHolder extends RecyclerView.ViewHolder {
 
     private LayerHolderCallback callback;
 
-    public LayerHeaderHolder(View itemView, LayerHolderCallback callback) {
+    public ProjectLayerHeaderHolder(View itemView, LayerHolderCallback callback) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         this.callback = callback;

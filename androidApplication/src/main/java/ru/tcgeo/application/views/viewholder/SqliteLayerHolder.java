@@ -51,6 +51,7 @@ public class SqliteLayerHolder extends LayerHolder {
     public void initListeners() {
         super.initListeners();
 
+
         rsbRatio.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {

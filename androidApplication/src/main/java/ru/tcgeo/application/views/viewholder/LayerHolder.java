@@ -18,7 +18,6 @@ import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 
@@ -35,14 +34,17 @@ public class LayerHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.cbLayerVisibility)
     public CheckBox cbLayerVisibility;
 
-    @Bind(R.id.llLayer)
-    public LinearLayout llLayer;
+//    @Bind(R.id.llLayer)
+//    public LinearLayout llLayer;
 
     @Bind(R.id.llLayerSettings)
     public LinearLayout llLayerSettings;
 
-    @Bind(R.id.cbLayerDetails)
-    public CheckBox cbLayerDetails;
+//    @Bind(R.id.cbLayerDetails)
+//    public CheckBox cbLayerDetails;
+
+    @Bind(R.id.flMore)
+    public View flMore;
 
     @Bind(R.id.tvFilePath)
     public TextView tvFilePath;
@@ -56,15 +58,13 @@ public class LayerHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.rsbScaleRange)
     public RangeSeekBar rsbScaleRange;
 
-    @Bind(R.id.ivMoveUp)
-    public android.support.v7.widget.AppCompatImageView ivMoveUp;
-
-    @Bind(R.id.ivMoveDown)
-    public android.support.v7.widget.AppCompatImageView ivMoveDown;
-
-    @Bind(R.id.ivRemove)
-    public android.support.v7.widget.AppCompatImageView ivRemove;
-
+    @Bind(R.id.flReOrder)
+    public View flReOrder;
+    @Bind(R.id.flRemove)
+    public View ivRemove;
+    //
+//    @Bind(R.id.ivMoveDown)
+//    public android.support.v7.widget.AppCompatImageView ivMoveDown;
     //sqlite layer settings
 //    @Bind(R.id.rsbRatio)
 //    RangeSeekBar rsbRatio;
@@ -76,6 +76,7 @@ public class LayerHolder extends RecyclerView.ViewHolder {
 //    RadioGroup rgZoomType;
     protected LayerHolderCallback callback;
     ValueAnimator mAnimator;
+    private boolean expanded;
 
     public LayerHolder(View itemView, LayerHolderCallback callback) {
         super(itemView);
@@ -101,8 +102,10 @@ public class LayerHolder extends RecyclerView.ViewHolder {
                             @Override
                             public void onAnimationEnd(Animator animator) {
                                 llLayerSettings.setVisibility(View.VISIBLE);
-                                cbLayerDetails.setChecked(true);
-                                cbLayerDetails.setEnabled(true);
+//                                cbLayerDetails.setChecked(true);
+                                expanded = true;
+                                flMore.setEnabled(true);
+//                                cbLayerDetails.setEnabled(true);
                             }
 
                             @Override
@@ -115,11 +118,23 @@ public class LayerHolder extends RecyclerView.ViewHolder {
 
                             }
                         });
-                        cbLayerDetails.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                        cbLayerDetails.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                            @Override
+//                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                                cbLayerDetails.setEnabled(false);
+//                                if (!isChecked) {
+//                                    collapse();
+//                                } else {
+//                                    expand();
+//                                }
+//                            }
+//                        });
+                        flMore.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                cbLayerDetails.setEnabled(false);
-                                if (!isChecked) {
+                            public void onClick(View v) {
+                                flMore.setEnabled(false);
+                                expanded = !expanded;
+                                if (!expanded) {
                                     collapse();
                                 } else {
                                     expand();
@@ -132,21 +147,23 @@ public class LayerHolder extends RecyclerView.ViewHolder {
                 });
         initListeners();
     }
+//
+//    @OnClick(R.id.ivMoveUp)
+//    public void onMoveUp() {
+//        callback.onMoveUp(this);
+//    }
+//
+//    @OnClick(R.id.ivMoveDown)
+//    public void onMoveDown() {
+//        callback.onMoveDown(this);
+//    }
+//
+//    @OnClick(R.id.ivRemove)
+//    public void onMoveRemove() {
+//        callback.onMoveRemove(this);
+//    }
 
-    @OnClick(R.id.ivMoveUp)
-    public void onMoveUp() {
-        callback.onMoveUp(this);
-    }
 
-    @OnClick(R.id.ivMoveDown)
-    public void onMoveDown() {
-        callback.onMoveDown(this);
-    }
-
-    @OnClick(R.id.ivRemove)
-    public void onMoveRemove() {
-        callback.onMoveRemove(this);
-    }
 
     public void initListeners() {
         cbLayerVisibility.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -231,7 +248,8 @@ public class LayerHolder extends RecyclerView.ViewHolder {
             @Override
             public void onAnimationEnd(Animator animator) {
                 llLayerSettings.setVisibility(View.GONE);
-                cbLayerDetails.setEnabled(true);
+//                cbLayerDetails.setEnabled(true);
+                flMore.setEnabled(true);
             }
 
             @Override

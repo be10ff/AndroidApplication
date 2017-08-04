@@ -114,4 +114,16 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="FieldsTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/layers_dialog_dividers</item>
+        <item name="colorControlActivated">@color/measure_line_color</item>
+        <item name="colorControlHighlight">@color/control</item>
+    </style>
+
+    <style name="BodyTheme" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/control</item>
+        <item name="android:editTextBackground">@null</item>
+
+    </style>
+
 </resources>

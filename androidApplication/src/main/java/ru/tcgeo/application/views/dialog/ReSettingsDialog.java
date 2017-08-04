@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -28,11 +29,13 @@ import ru.tcgeo.application.views.OpenFileDialog;
 import ru.tcgeo.application.views.adapter.ReLayersAdapter;
 import ru.tcgeo.application.views.callback.LayerCallback;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
+import ru.tcgeo.application.views.viewholder.helper.OnStartDragListener;
+import ru.tcgeo.application.views.viewholder.helper.SimpleItemTouchHelperCallback;
 
 /**
  * Created by a_belov on 23.07.15.
  */
-public class ReSettingsDialog extends Dialog implements IFolderItemListener {
+public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnStartDragListener {
 
     @Bind(R.id.rvLayers)
     RecyclerView rvLayers;
@@ -46,6 +49,9 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener {
     private GIProjectProperties project;
 
     private Context context;
+
+    private ItemTouchHelper mItemTouchHelper;
+
 
     public ReSettingsDialog(Builder builder) {
         super(builder.context);
@@ -111,6 +117,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener {
 ////                        callback.onSettings(tuple);
 //                    }
                 })
+                .dragListener(this)
                 .data(data)
                 .project(project)
                 .build();
@@ -120,6 +127,10 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener {
         rvLayers.setLayoutManager(layoutManager);
         rvLayers.addItemDecoration(dividerItemDecoration);
         rvLayers.setAdapter(adapter);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(rvLayers);
     }
 
 
@@ -152,6 +163,11 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener {
             adapter.addItemAt(result);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
     }
 
     public static class Builder {

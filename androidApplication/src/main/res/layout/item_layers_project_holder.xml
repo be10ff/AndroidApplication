@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llLayer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/settings_section_bg"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/Theme.Text_Normal_Gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/project_name" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etProjectName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/add_attribute"
+            android:singleLine="true"
+            android:text="@string/layers_list_default_text"
+            android:theme="@style/FieldsTheme" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/layers_dialog_dividers" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            style="@style/Theme.Text_Normal_Gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/project_path" />
+
+        <TextView
+            android:id="@+id/tvFilePath"
+            style="@style/Theme.Text_Normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/project_list_default_text" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/layers_dialog_dividers" />
+
+    <TextView
+        style="@style/Theme.Text_Normal_Gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/project_description" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/etDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/project_description_hint"
+        android:text="@string/layers_list_default_text"
+        android:theme="@style/FieldsTheme" />
+
+</LinearLayout>

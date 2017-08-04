@@ -53,4 +53,7 @@ dependencies {
     compile 'com.shawnlin:number-picker:2.4.4'
 
     compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
+
+    //todo interesting library
+    //compile 'com.kingfisherphuoc:easy-file-folder-picker-dialog:1.3'
 }
