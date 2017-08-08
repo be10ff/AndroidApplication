@@ -26,6 +26,7 @@ import ru.tcgeo.application.views.viewholder.SqliteLayerHolder;
 import ru.tcgeo.application.views.viewholder.XmlLayerHolder;
 import ru.tcgeo.application.views.viewholder.helper.ItemTouchHelperAdapter;
 import ru.tcgeo.application.views.viewholder.helper.OnStartDragListener;
+import ru.tcgeo.application.wkt.GIGPSPointsLayer;
 
 
 /**
@@ -43,15 +44,20 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Context context;
     private List<GITuple> data;
     private GIProjectProperties project;
+    private boolean header;
 
     public ReLayersAdapter(Builder builder) {
         this.context = builder.context;
         this.callback = builder.callback;
         this.listener = builder.listener;
         this.data = builder.data;
+        this.header = builder.header;
+        if (header) {
+            data.add(0, null);
+        }
         this.project = builder.project;
-    }
 
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -91,6 +97,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             });
 
+
             h.tvLayerName.setText(item.layer.getName());
             h.cbLayerVisibility.setChecked(item.visible);
             h.tvFilePath.setText(item.layer.m_layer_properties.m_source.GetAbsolutePath());
@@ -106,6 +113,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (getItemViewType(position) == TYPE_SQL) {
                 SqliteLayerHolder sqlHolder = (SqliteLayerHolder) holder;
                 h.flMore.setVisibility(View.VISIBLE);
+                h.flMarkers.setVisibility(View.GONE);
 
                 if (item.layer.m_layer_properties.m_type == GILayer.GILayerType.SQL_YANDEX_LAYER) {
                     sqlHolder.rbYandex.toggle();
@@ -124,7 +132,25 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 sqlHolder.rsbRatio.setSelectedMaxValue(item.layer.m_layer_properties.m_sqldb.mRatio);
             } else if (getItemViewType(position) == TYPE_XML) {
                 h.flMore.setVisibility(View.VISIBLE);
+                h.flMarkers.setVisibility(View.VISIBLE);
+
+
+//                if(item.layer.getName().equalsIgnoreCase(project.m_markers)){
+//                    h.ivMarkersSource.setImageResource(R.drawable.ic_markers_enable);
+//                } else {
+//
+//                }
+
                 XmlLayerHolder xmlHolder = (XmlLayerHolder) holder;
+                if (item.layer instanceof GIGPSPointsLayer) {
+                    xmlHolder.isMarkersSource = ((GIGPSPointsLayer) item.layer).isMarkersSource();
+                    if (xmlHolder.isMarkersSource) {
+                        xmlHolder.ivMarkersSource.setImageResource(R.drawable.ic_markers_enable);
+
+                    } else {
+                        xmlHolder.ivMarkersSource.setImageResource(R.drawable.ic_markers_disable);
+                    }
+                }
                 xmlHolder.rsbStrokeWidth.setSelectedMaxValue(item.layer.m_layer_properties.m_style.m_lineWidth);
 
                 if (item.layer.m_layer_properties.m_style != null && item.layer.m_layer_properties.m_style.m_colors != null) {
@@ -139,6 +165,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             } else {
                 h.flMore.setVisibility(View.GONE);
+                h.flMarkers.setVisibility(View.GONE);
             }
 
 
@@ -157,7 +184,9 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return TYPE_GROUP;
         } else if (data.get(position).layer.type_ == GILayer.GILayerType.XML) {
             return TYPE_XML;
-        } else if (data.get(position).layer.type_ == GILayer.GILayerType.SQL_LAYER || data.get(position).layer.type_ == GILayer.GILayerType.SQL_YANDEX_LAYER) {
+        } else if (data.get(position).layer.type_ == GILayer.GILayerType.SQL_LAYER
+                || data.get(position).layer.type_ == GILayer.GILayerType.SQL_YANDEX_LAYER
+                || data.get(position).layer.type_ == GILayer.GILayerType.FOLDER) {
             return TYPE_SQL;
         } else {
             return TYPE_DEFAULT;
@@ -174,7 +203,11 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void addItemAt(GITuple tuple) {
-        data.add(tuple.position, tuple);
+        int position = tuple.position;
+        if (getItemViewType(0) == TYPE_GROUP) {
+            position++;
+        }
+        data.add(position, tuple);
         notifyItemInserted(data.size() - 1);
     }
 
@@ -199,6 +232,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private LayerHolderCallback callback;
         private List<GITuple> data;
         private GIProjectProperties project;
+        private boolean header;
 
         public Builder(Context context) {
             this.context = context;
@@ -221,6 +255,11 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public Builder project(GIProjectProperties project) {
             this.project = project;
+            return this;
+        }
+
+        public Builder header(boolean header) {
+            this.header = header;
             return this;
         }
 
