@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.IFolderItemListener;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.ScreenUtils;
@@ -29,6 +30,7 @@ import ru.tcgeo.application.views.OpenFileDialog;
 import ru.tcgeo.application.views.adapter.ReLayersAdapter;
 import ru.tcgeo.application.views.callback.LayerCallback;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
+import ru.tcgeo.application.views.viewholder.LayerHolder;
 import ru.tcgeo.application.views.viewholder.helper.OnStartDragListener;
 import ru.tcgeo.application.views.viewholder.helper.SimpleItemTouchHelperCallback;
 
@@ -82,12 +84,17 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                     public void onMarkersSourceCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked) {
                         GITuple tuple = adapter.getItem(holder.getAdapterPosition());
                         callback.onMarkersSourceCheckChanged(tuple, isChecked);
-//                        adapter.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
                     public void onVisibilityCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked) {
                         GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        LayerHolder h = (LayerHolder) holder;
+                        GITuple.Builder builder = new GITuple.Builder(tuple);
+                        builder.visibility(h.cbLayerVisibility.isChecked());
+                        builder.build();
+
                         callback.onVisibilityCheckChanged(tuple, isChecked);
                     }
 
@@ -111,6 +118,28 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
                     }
 
+                    @Override
+                    public void onImmediatelyReact(RecyclerView.ViewHolder holder) {
+
+                    }
+
+                    @Override
+                    public void onLaterReact(RecyclerView.ViewHolder holder) {
+//                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+//                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+//                        builder.
+                    }
+
+                    @Override
+                    public void onLayername(RecyclerView.ViewHolder holder) {
+                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+
+                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        LayerHolder h = (LayerHolder) holder;
+                        builder.name(h.etLayerName.getText().toString());
+                        builder.build();
+                    }
+
 //                    @Override
 //                    public void onSettings(RecyclerView.ViewHolder holder) {
 ////                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
@@ -119,6 +148,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                 })
                 .dragListener(this)
                 .data(data)
+                .header(true)
                 .project(project)
                 .build();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

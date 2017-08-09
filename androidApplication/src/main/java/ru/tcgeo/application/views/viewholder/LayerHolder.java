@@ -28,8 +28,8 @@ import ru.tcgeo.application.views.callback.LayerHolderCallback;
 public class LayerHolder extends RecyclerView.ViewHolder {
 
     // common layer settings
-    @Bind(R.id.tvLayerName)
-    public TextView tvLayerName;
+    @Bind(R.id.etLayerName)
+    public android.support.v7.widget.AppCompatEditText etLayerName;
 
     @Bind(R.id.cbLayerVisibility)
     public CheckBox cbLayerVisibility;
@@ -60,21 +60,18 @@ public class LayerHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.flReOrder)
     public View flReOrder;
+
     @Bind(R.id.flRemove)
     public View ivRemove;
-    //
-//    @Bind(R.id.ivMoveDown)
-//    public android.support.v7.widget.AppCompatImageView ivMoveDown;
-    //sqlite layer settings
-//    @Bind(R.id.rsbRatio)
-//    RangeSeekBar rsbRatio;
-//
-//    @Bind(R.id.rgProjection)
-//    RadioGroup rgProjection;
-//
-//    @Bind(R.id.rgZoomType)
-//    RadioGroup rgZoomType;
+
+    @Bind(R.id.flMarkers)
+    public View flMarkers;
+
+    @Bind(R.id.ivMarkersSource)
+    public android.support.v7.widget.AppCompatImageView ivMarkersSource;
+
     protected LayerHolderCallback callback;
+
     ValueAnimator mAnimator;
     private boolean expanded;
 
@@ -102,10 +99,8 @@ public class LayerHolder extends RecyclerView.ViewHolder {
                             @Override
                             public void onAnimationEnd(Animator animator) {
                                 llLayerSettings.setVisibility(View.VISIBLE);
-//                                cbLayerDetails.setChecked(true);
                                 expanded = true;
                                 flMore.setEnabled(true);
-//                                cbLayerDetails.setEnabled(true);
                             }
 
                             @Override
@@ -118,17 +113,7 @@ public class LayerHolder extends RecyclerView.ViewHolder {
 
                             }
                         });
-//                        cbLayerDetails.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                            @Override
-//                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                                cbLayerDetails.setEnabled(false);
-//                                if (!isChecked) {
-//                                    collapse();
-//                                } else {
-//                                    expand();
-//                                }
-//                            }
-//                        });
+
                         flMore.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -147,22 +132,6 @@ public class LayerHolder extends RecyclerView.ViewHolder {
                 });
         initListeners();
     }
-//
-//    @OnClick(R.id.ivMoveUp)
-//    public void onMoveUp() {
-//        callback.onMoveUp(this);
-//    }
-//
-//    @OnClick(R.id.ivMoveDown)
-//    public void onMoveDown() {
-//        callback.onMoveDown(this);
-//    }
-//
-//    @OnClick(R.id.ivRemove)
-//    public void onMoveRemove() {
-//        callback.onMoveRemove(this);
-//    }
-
 
 
     public void initListeners() {
@@ -207,7 +176,7 @@ public class LayerHolder extends RecyclerView.ViewHolder {
 //            }
 //        });
 
-        tvLayerName.addTextChangedListener(new TextWatcher() {
+        etLayerName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -218,7 +187,7 @@ public class LayerHolder extends RecyclerView.ViewHolder {
 
             @Override
             public void afterTextChanged(Editable editable) {
-//                builder.name(tvLayerName.getText().toString());
+                callback.onLaterReact(LayerHolder.this);
             }
         });
     }

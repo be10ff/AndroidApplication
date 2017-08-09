@@ -98,7 +98,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             });
 
 
-            h.tvLayerName.setText(item.layer.getName());
+            h.etLayerName.setText(item.layer.getName());
             h.cbLayerVisibility.setChecked(item.visible);
             h.tvFilePath.setText(item.layer.m_layer_properties.m_source.GetAbsolutePath());
             if (new File(item.layer.m_layer_properties.m_source.GetAbsolutePath()).exists()) {
@@ -134,12 +134,6 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 h.flMore.setVisibility(View.VISIBLE);
                 h.flMarkers.setVisibility(View.VISIBLE);
 
-
-//                if(item.layer.getName().equalsIgnoreCase(project.m_markers)){
-//                    h.ivMarkersSource.setImageResource(R.drawable.ic_markers_enable);
-//                } else {
-//
-//                }
 
                 XmlLayerHolder xmlHolder = (XmlLayerHolder) holder;
                 if (item.layer instanceof GIGPSPointsLayer) {

@@ -216,7 +216,7 @@ public class Geoinfo extends FragmentActivity implements MapView {
 
 					@Override
 					public void onVisibilityCheckChanged(GITuple tuple, boolean isChecked) {
-						tuple.visible = isChecked;
+//						tuple.visible = isChecked;
 						map.UpdateMap();
 					}
 
@@ -734,11 +734,11 @@ public class Geoinfo extends FragmentActivity implements MapView {
         if (map != null && map.ps != null && map.ps.m_path != null && !map.ps.m_path.isEmpty()) {
 			SaveAsPath = map.ps.m_path;
 		}
-		if (map.ps.m_SaveAs != null) {
-			if (map.ps.m_SaveAs.length() > 0) {
-				SaveAsPath = map.ps.m_SaveAs;
-			}
-		}
+//		if (map.ps.m_SaveAs != null) {
+//			if (map.ps.m_SaveAs.length() > 0) {
+//				SaveAsPath = map.ps.m_SaveAs;
+//			}
+//		}
 		map.ps.SavePro(SaveAsPath);
 	}
 

@@ -18,4 +18,10 @@ public interface LayerHolderCallback {
     void onMoveDown(RecyclerView.ViewHolder holder);
 
     void onMoveRemove(RecyclerView.ViewHolder holder);
+
+    void onImmediatelyReact(RecyclerView.ViewHolder holder);
+
+    void onLaterReact(RecyclerView.ViewHolder holder);
+
+    void onLayername(RecyclerView.ViewHolder holder);
 }

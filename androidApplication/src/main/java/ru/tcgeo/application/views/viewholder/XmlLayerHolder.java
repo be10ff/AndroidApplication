@@ -47,6 +47,8 @@ public class XmlLayerHolder extends LayerHolder {
     @Bind(R.id.cbActive)
     public CheckBox cbActive;
 
+    public boolean isMarkersSource;
+
     public XmlLayerHolder(View itemView, LayerHolderCallback callback) {
         super(itemView, callback);
         ButterKnife.bind(this, itemView);
@@ -88,6 +90,14 @@ public class XmlLayerHolder extends LayerHolder {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 cbActive.setEnabled(checkedId == R.id.rbTrack || checkedId == R.id.rbPOI);
+            }
+        });
+
+        flMarkers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isMarkersSource = !isMarkersSource;
+                callback.onMarkersSourceCheckChanged(XmlLayerHolder.this, isMarkersSource);
             }
         });
 

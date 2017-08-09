@@ -415,7 +415,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 
     public List<GITuple> getLayers() {
         List<GITuple> result = new ArrayList<>();
-        result.add(null);
+//        result.add(null);
         result.addAll(getLayers(m_layers));
         return result;
     }
@@ -437,7 +437,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
             GIGPSPointsLayer layer = (GIGPSPointsLayer) giTuple.layer;
             ps.m_markers = null;
             for (GITuple t : getLayers()) {
-                if (t.layer instanceof GIGPSPointsLayer) {
+                if (t != null && t.layer instanceof GIGPSPointsLayer) {
                     if (((GIGPSPointsLayer) t.layer).m_path.equalsIgnoreCase(layer.m_path) && set) {
                         ((GIGPSPointsLayer) t.layer).setMarkersSource(true);
                         ps.m_markers = giTuple.layer.getName();
@@ -912,13 +912,13 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 //					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.SQL_LAYER);
 //					layer.setName(current_layer.m_name);
 //					if (current_layer.m_sqldb != null) {
-//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//						GISQLDB.Builder layerBuilder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						layerBuilder.zoomType(current_layer.m_sqldb.m_zoom_type);
 //						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
 //						{
 //							((GISQLLayer) layer).getAvalibleLevels();
 //						}
-//						current_layer.m_sqldb = builder.build();
+//						current_layer.m_sqldb = layerBuilder.build();
 //					}
 //					layer.m_layer_properties = current_layer;
 //					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
@@ -929,13 +929,13 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 //
 //					layer.setName(current_layer.m_name);
 //					if (current_layer.m_sqldb != null) {
-//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//						GISQLDB.Builder layerBuilder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						layerBuilder.zoomType(current_layer.m_sqldb.m_zoom_type);
 //
 //						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE")) {
 //							((GISQLLayer) layer).getAvalibleLevels();
 //						}
-//						current_layer.m_sqldb = builder.build();
+//						current_layer.m_sqldb = layerBuilder.build();
 //					}
 //					layer.m_layer_properties = current_layer;
 //					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
@@ -954,13 +954,13 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 //					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.SQL_YANDEX_LAYER);
 //					layer.setName(current_layer.m_name);
 //					if (current_layer.m_sqldb != null) {
-//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//						GISQLDB.Builder layerBuilder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						layerBuilder.zoomType(current_layer.m_sqldb.m_zoom_type);
 //						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
 //						{
 //							((GISQLLayer) layer).getAvalibleLevels();
 //						}
-//						current_layer.m_sqldb = builder.build();
+//						current_layer.m_sqldb = layerBuilder.build();
 //					}
 //					layer.m_layer_properties = current_layer;
 //					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
@@ -970,13 +970,13 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 //					layer = GILayer.CreateLayer(current_layer.m_source.GetAbsolutePath(),	GILayer.GILayerType.SQL_YANDEX_LAYER);
 //					layer.setName(current_layer.m_name);
 //					if (current_layer.m_sqldb != null) {
-//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//						GISQLDB.Builder layerBuilder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						layerBuilder.zoomType(current_layer.m_sqldb.m_zoom_type);
 //						if (current_layer.m_sqldb.m_zoom_type
 //								.equalsIgnoreCase("ADAPTIVE")) {
 //							((GISQLLayer) layer).getAvalibleLevels();
 //						}
-//						current_layer.m_sqldb = builder.build();
+//						current_layer.m_sqldb = layerBuilder.build();
 //					}
 //					layer.m_layer_properties = current_layer;
 //					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
@@ -995,13 +995,13 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 //					layer = GILayer.CreateLayer(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + current_layer.m_source.GetRemotePath(),	GILayer.GILayerType.FOLDER);
 //					layer.setName(current_layer.m_name);
 //					if (current_layer.m_sqldb != null) {
-//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//						GISQLDB.Builder layerBuilder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						layerBuilder.zoomType(current_layer.m_sqldb.m_zoom_type);
 //						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
 //						{
 //							((GISQLLayer) layer).getAvalibleLevels();
 //						}
-//						current_layer.m_sqldb = builder.build();
+//						current_layer.m_sqldb = layerBuilder.build();
 //					}
 //					layer.m_layer_properties = current_layer;
 //					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);
@@ -1012,13 +1012,13 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 //
 //					layer.setName(current_layer.m_name);
 //					if (current_layer.m_sqldb != null) {
-//						GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-//						builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+//						GISQLDB.Builder layerBuilder = new GISQLDB.Builder(current_layer.m_sqldb);
+//						layerBuilder.zoomType(current_layer.m_sqldb.m_zoom_type);
 //
 //						if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE")) {
 //							((GISQLLayer) layer).getAvalibleLevels();
 //						}
-//						current_layer.m_sqldb = builder.build();
+//						current_layer.m_sqldb = layerBuilder.build();
 //					}
 //					layer.m_layer_properties = current_layer;
 //					AddLayer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled);

@@ -15,10 +15,10 @@ import ru.tcgeo.application.views.callback.LayerHolderCallback;
 /**
  * Created by artem on 14.07.17.
  */
-
+@Deprecated
 public class OldXMLLayerHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.tvLayerName)
+    @Bind(R.id.etLayerName)
     public TextView tvLayerName;
 
     @Bind(R.id.cbMarkersSource)

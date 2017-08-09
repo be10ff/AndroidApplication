@@ -330,131 +330,87 @@ public abstract class GILayer
 		private String name;
 		private GILayerType type;
 
-		Builder(){}
-
 		public Builder(GILayer layer){
 			this.layer = layer;
+			name = layer.m_name;
+			type = layer.type_;
+			builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
 		}
 
 
         public Builder name(String name) {
 			this.name = name;
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.name(name);
 			return this;
 		}
 
         public Builder type(GILayer.GILayerType type) {
 			this.type = type;
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.type(type);
 			return this;
 		}
 
         public Builder enabled(boolean enabled) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.enabled(enabled);
 			return this;
 		}
 
         public Builder sourceLocation(String location) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.sourceLocation(location);
 			return this;
 		}
 
         public Builder sourceName(String name) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.name(name);
 			return this;
 		}
 
         public Builder styleType(String type) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.styleType(type);
 			return this;
 		}
 
         public Builder styleLineWidth(double width) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.styleLineWidth(width);
 			return this;
 		}
 
         public Builder styleOpacity(double opacity) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.styleOpacity(opacity);
 			return this;
 		}
 
         public Builder styleColor(GIColor color) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.styleColor(color);
 			return this;
 		}
 
         public Builder rangeFrom(int from) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.rangeFrom(from);
 			return this;
 		}
 
         public Builder rangeTo(int to) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.rangeTo(to);
 			return this;
 		}
 
         public Builder sqldbMaxZ(int maxZ) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.sqldbMaxZ(maxZ);
 			return this;
 		}
 
         public Builder sqldbMinZ(int minZ) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.sqldbMinZ(minZ);
 			return this;
 		}
 
         public Builder sqldbZoomType(String zoomType) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.sqldbZoomType(zoomType);
 			return this;
 		}
 
         public Builder sqldbRatio(int ratio) {
-			if (builder == null) {
-				builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-			}
 			builder.sqldbRatio(ratio);
 			return this;
 		}
@@ -463,16 +419,10 @@ public abstract class GILayer
         public GILayer build(){
             if(name != null){
                 layer.m_name = name;
-                if(builder == null){
-                    builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-                }
                 builder.name(name);
 
             }
             if(type != null){
-                if(builder == null){
-                    builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
-                }
                 builder.type(type);
             }
             if(builder!= null){

@@ -17,7 +17,7 @@
         android:button="@drawable/markers_source_selector" />
 
     <TextView
-        android:id="@+id/tvLayerName"
+        android:id="@+id/etLayerName"
         style="@style/Theme.Text_Normal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

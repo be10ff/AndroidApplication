@@ -4,11 +4,13 @@ import android.content.Context;
 import android.util.Log;
 import android.util.Xml;
 
+import org.apache.commons.io.FileUtils;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -250,24 +252,16 @@ public GIProjectProperties(Context context)
 	//----------------------------------------------------------------------------------------
 	public void SavePro(String path)
 	{
-		try
-		{
+		try {
 
-//			SaveAsPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + map.ps.m_SaveAs;
-//			String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + name;
-			//File file = new File(getFilesDir(), path)
-			FileOutputStream xmlFile = new FileOutputStream(path);
+			String sourcePath = new File(path).getParent() + "/temp.pro";
+			FileOutputStream tmpFile = new FileOutputStream(sourcePath);
 			XmlSerializer serializer = Xml.newSerializer();
-			// indentation as 3 spaces
-			//serializer.setProperty("http://xmlpull.org/v1/doc/properties.html#serializer-indentation", "\t");
-			// also set the line separator
-			//serializer.setProperty("http://xmlpull.org/v1/doc/properties.html#serializer-line-separator", "\n");
-			
+
 			serializer.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
 			StringWriter writer = new StringWriter();
 			
 			serializer.setOutput(writer);
-			//
 			serializer.startDocument("UTF-8", true);
 			serializer.startTag("", "Project");
 			serializer.attribute("", "name", m_name);
@@ -303,48 +297,23 @@ public GIProjectProperties(Context context)
 				serializer.attribute("", "source", m_markers_source);
 				serializer.endTag("", "Markers");
 			}
-			
-			if(m_point_info != null)
-			{
+
+			if (m_point_info != null) {
 				serializer.startTag("", "PointInfo");
 				serializer.text(m_point_info);
 				serializer.endTag("", "PointInfo");
 			}
-			
-//			serializer.startTag("", "Search");
-//			serializer.attribute("", "file", m_search_file);
-//			serializer.text(m_search_body);
-//			serializer.endTag("", "Search");
-//			if(m_Entries != null)
-//			{
-//				for(GIPropertiesPackage pack : m_Entries)
-//				{
-//					serializer.startTag("", "Package");
-//					serializer.attribute("", "name", pack.name);
-//					serializer.attribute("", "size", String.valueOf(pack.m_size));
-//					serializer.attribute("", "CRC", pack.m_crc);
-//					serializer.attribute("", "ID", String.valueOf(pack.m_id));
-//					for(GIPropertiesFile file : pack.m_Entries)
-//					{
-//						serializer.startTag("", "File");
-//						serializer.attribute("", "name", file.name);
-//						serializer.attribute("", "CRC", file.m_crc);
-//						serializer.endTag("", "File");
-//					}
-//					serializer.endTag("", "Package");
-//				}
-//			}
 
 			serializer.endTag("", "Project");
 			serializer.endDocument();
-			//
 			writer.toString();
-			xmlFile.write(writer.toString().getBytes());
-			xmlFile.flush();
-			xmlFile.close();
-		}
-		catch(Exception e)
-		{
+			tmpFile.write(writer.toString().getBytes());
+			tmpFile.flush();
+			tmpFile.close();
+
+			FileUtils.copyFile(new File(sourcePath), new File(path));
+
+		} catch (Exception e) {
 			Log.d("LOG_TAG", e.toString());
 		}
 		
