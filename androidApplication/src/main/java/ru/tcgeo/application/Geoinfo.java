@@ -215,15 +215,14 @@ public class Geoinfo extends FragmentActivity implements MapView {
 					}
 
 					@Override
-					public void onVisibilityCheckChanged(GITuple tuple, boolean isChecked) {
-//						tuple.visible = isChecked;
+					public void onImmediatelyChange() {
 						map.UpdateMap();
 					}
-
-					@Override
-					public void onSettings(GITuple tuple) {
-
-					}
+//
+//					@Override
+//					public void onLaterChange() {
+//
+//					}
 
 					@Override
 					public GITuple onAddLayer(File file) {

@@ -108,6 +108,8 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
             h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.scale_range.getMax()));
             h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.scale_range.getMin()));
+
+
             h.tvScaleRange.setText(context.getString(R.string.scale_range_format, (int) Math.round(1 / item.scale_range.getMin()), (int) Math.round(1 / item.scale_range.getMax())));
 
             if (getItemViewType(position) == TYPE_SQL) {
@@ -129,6 +131,10 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 } else if (item.layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.ADAPTIVE) {
                     sqlHolder.rbAdaptive.toggle();
                 }
+
+                h.rsbScaleRange.setSelectedMaxValue(item.layer.m_layer_properties.m_sqldb.m_max_z);
+                h.rsbScaleRange.setSelectedMinValue(item.layer.m_layer_properties.m_sqldb.m_min_z);
+
                 sqlHolder.rsbRatio.setSelectedMaxValue(item.layer.m_layer_properties.m_sqldb.mRatio);
             } else if (getItemViewType(position) == TYPE_XML) {
                 h.flMore.setVisibility(View.VISIBLE);

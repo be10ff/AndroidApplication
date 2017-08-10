@@ -49,16 +49,15 @@ public class GIScaleRange
 		m_min = min;
 		m_max = max;
 	}
-	
+
+
 	public boolean IsWithinRange (double scale)
 	{
 		if (scale > m_max && -1.0f != m_max)
 			return false;
-		
-		if (scale < m_min) // scale can't be negative
-			return false;
-			
-		return true;
+
+		return scale >= m_min;
+
 	}
 
 

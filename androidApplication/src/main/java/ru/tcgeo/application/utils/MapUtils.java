@@ -140,9 +140,9 @@ public class MapUtils {
         return zz;
     }
 
-    public static double z2scale(int z) {
+    public static int z2scale(int z) {
         double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
-        int scale = (int) (1 / (Math.pow(2, 1 / z) * con));
+        int scale = (int) (1 / (Math.pow(2, z) * con));
         return scale;
     }
 }

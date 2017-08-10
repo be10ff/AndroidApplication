@@ -11,9 +11,9 @@ import ru.tcgeo.application.gilib.GITuple;
 public interface LayerCallback {
     void onMarkersSourceCheckChanged(GITuple tuple, boolean isChecked);
 
-    void onVisibilityCheckChanged(GITuple tuple, boolean isChecked);
+    void onImmediatelyChange();
 
-    void onSettings(GITuple tuple);
+//    void onLaterChange();
 
     GITuple onAddLayer(File file);
 }

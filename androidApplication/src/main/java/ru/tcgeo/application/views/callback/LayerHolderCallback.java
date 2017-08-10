@@ -7,11 +7,12 @@ import android.support.v7.widget.RecyclerView;
  */
 
 public interface LayerHolderCallback {
-    void onMarkersSourceCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked);
 
     void onVisibilityCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked);
 
-    void onSettingsChanged(RecyclerView.ViewHolder holder);
+    void onLayerName(RecyclerView.ViewHolder holder);
+
+    void onScaleRange(RecyclerView.ViewHolder holder);
 
     void onMoveUp(RecyclerView.ViewHolder holder);
 
@@ -19,9 +20,6 @@ public interface LayerHolderCallback {
 
     void onMoveRemove(RecyclerView.ViewHolder holder);
 
-    void onImmediatelyReact(RecyclerView.ViewHolder holder);
+    void onMarkersSourceCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked);
 
-    void onLaterReact(RecyclerView.ViewHolder holder);
-
-    void onLayername(RecyclerView.ViewHolder holder);
 }

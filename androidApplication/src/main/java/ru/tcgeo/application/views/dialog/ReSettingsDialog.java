@@ -25,6 +25,7 @@ import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.views.OpenFileDialog;
 import ru.tcgeo.application.views.adapter.ReLayersAdapter;
@@ -94,13 +95,33 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                         GITuple.Builder builder = new GITuple.Builder(tuple);
                         builder.visibility(h.cbLayerVisibility.isChecked());
                         builder.build();
-
-                        callback.onVisibilityCheckChanged(tuple, isChecked);
+                        callback.onImmediatelyChange();
                     }
 
                     @Override
-                    public void onSettingsChanged(RecyclerView.ViewHolder holder) {
+                    public void onLayerName(RecyclerView.ViewHolder holder) {
+                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        LayerHolder h = (LayerHolder) holder;
+                        builder.name(h.etLayerName.getText().toString());
+                        builder.build();
+                    }
 
+                    @Override
+                    public void onScaleRange(RecyclerView.ViewHolder holder) {
+                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        LayerHolder h = (LayerHolder) holder;
+//                builder.rangeFrom(from);
+//                mItem.m_tuple.scale_range.setMin(1 / ((double) from));
+                        builder.sqldbMaxZ((int) h.rsbScaleRange.getSelectedMaxValue());
+                        builder.sqldbMinZ((int) h.rsbScaleRange.getSelectedMinValue());
+//                        h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.scale_range.getMax()));
+//                        h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.scale_range.getMin()));
+                        builder.rangeFrom(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMaxValue()));
+                        builder.rangeTo(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMinValue()));
+                        builder.build();
+                        callback.onImmediatelyChange();
                     }
 
                     @Override
@@ -118,33 +139,8 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
                     }
 
-                    @Override
-                    public void onImmediatelyReact(RecyclerView.ViewHolder holder) {
 
-                    }
 
-                    @Override
-                    public void onLaterReact(RecyclerView.ViewHolder holder) {
-//                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
-//                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
-//                        builder.
-                    }
-
-                    @Override
-                    public void onLayername(RecyclerView.ViewHolder holder) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
-
-                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
-                        LayerHolder h = (LayerHolder) holder;
-                        builder.name(h.etLayerName.getText().toString());
-                        builder.build();
-                    }
-
-//                    @Override
-//                    public void onSettings(RecyclerView.ViewHolder holder) {
-////                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
-////                        callback.onSettings(tuple);
-//                    }
                 })
                 .dragListener(this)
                 .data(data)
@@ -177,6 +173,12 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
         int dialogWidth = (int) (ScreenUtils.getScreenWidth(context) * 0.9f);
         int dialogHeight = (int) (ScreenUtils.getScreenHeight(context) * 0.9f);
         getWindow().setLayout(dialogWidth, dialogHeight);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        callback.onImmediatelyChange();
     }
 
     @Override

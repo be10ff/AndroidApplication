@@ -1,13 +1,14 @@
 package ru.tcgeo.application.gilib;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Locale;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIITile;
@@ -17,22 +18,14 @@ import ru.tcgeo.application.gilib.models.GIProjection;
 public class GISQLLayer extends GILayer {
 
 	//String m_site;
-	String m_path; 
-	public enum GISQLiteZoomingType
-	{
-		SMART,		// при выходе за указанный диапазон отрисовываются ближайшие доступные
-		ADAPTIVE,	// подходящие тайлы ищутся рекурсией по дереву
-		AUTO;		// тайлы отрисовываются по факту нахождения в базе
-	}
+	String m_path;
+	ArrayList<Integer> m_levels;
 	//min & max zoom in *.sqldb see getMinMaxLevels()
 	private int max;
 	private int min;
 
 
-	ArrayList<Integer> m_levels;
-
-	public GISQLLayer(String path) 
-	{
+	public GISQLLayer(String path) {
 		m_path = path;
 		type_ = GILayerType.ON_LINE;
 		m_renderer = new GISQLRenderer();
@@ -41,6 +34,7 @@ public class GISQLLayer extends GILayer {
 		min = 0;
 		getMinMaxLevels();
 	}
+
 	@Override
 	public void Redraw(GIBounds area, Bitmap bitmap, Integer opacity,
 			double scale)
@@ -79,6 +73,7 @@ public class GISQLLayer extends GILayer {
 		Collections.sort(m_levels);
 
 	}
+
 	public void getMinMaxLevels()
 	{
 		SQLiteDatabase db;
@@ -105,7 +100,6 @@ public class GISQLLayer extends GILayer {
 			//Log.d("LOG_TAG", e.toString());
 		}
 	}
-
 
 	//только при одинаковом покрытии для всех level
 	public int getLevel(int lvl) {
@@ -138,8 +132,6 @@ public class GISQLLayer extends GILayer {
 		}
 		return lvl;
 	}
-
-
 
 	/***
 	 *
@@ -231,6 +223,7 @@ public class GISQLLayer extends GILayer {
 		return tiles;
 
 	}
+
 	public ArrayList<GITileInfoOSM> GetTiles(GIBounds area, int actual)
 	{
 		ArrayList<GITileInfoOSM> tiles = new ArrayList<GITileInfoOSM>();
@@ -246,6 +239,7 @@ public class GISQLLayer extends GILayer {
     	}
     	return tiles;
 	}
+
 	public ArrayList<GITileInfoOSM> GetTiles(SQLiteDatabase db, GIBounds area, int actual)
 	{
 		ArrayList<GITileInfoOSM> tiles = new ArrayList<GITileInfoOSM>();
@@ -283,11 +277,17 @@ public class GISQLLayer extends GILayer {
 		return tiles;
 	}
 
-	public int getMax() {
-		return max;
+	public enum GISQLiteZoomingType {
+		SMART,        // при выходе за указанный диапазон отрисовываются ближайшие доступные
+		ADAPTIVE,    // подходящие тайлы ищутся рекурсией по дереву
+		AUTO        // тайлы отрисовываются по факту нахождения в базе
 	}
 
-	public int getMin() {
-		return min;
-	}
+//	public int getMax() {
+//		return max;
+//	}
+//
+//	public int getMin() {
+//		return min;
+//	}
 }

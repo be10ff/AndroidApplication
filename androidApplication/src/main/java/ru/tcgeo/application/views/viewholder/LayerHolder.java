@@ -19,6 +19,7 @@ import org.florescu.android.rangeseekbar.RangeSeekBar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 
 /**
@@ -34,14 +35,8 @@ public class LayerHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.cbLayerVisibility)
     public CheckBox cbLayerVisibility;
 
-//    @Bind(R.id.llLayer)
-//    public LinearLayout llLayer;
-
     @Bind(R.id.llLayerSettings)
     public LinearLayout llLayerSettings;
-
-//    @Bind(R.id.cbLayerDetails)
-//    public CheckBox cbLayerDetails;
 
     @Bind(R.id.flMore)
     public View flMore;
@@ -145,12 +140,13 @@ public class LayerHolder extends RecyclerView.ViewHolder {
         rsbScaleRange.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
-                int min = (int) (1 / (Math.pow(2, (Integer) minValue) * con));
-                int max = (int) (1 / (Math.pow(2, (Integer) maxValue) * con));
+//                double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
+//                int min = (int) (1 / (Math.pow(2, (Integer) minValue) * con));
+//                int max = (int) (1 / (Math.pow(2, (Integer) maxValue) * con));
 //                builder.rangeFrom(from);
 //                mItem.m_tuple.scale_range.setMin(1 / ((double) from));
-                tvScaleRange.setText(tvScaleRange.getContext().getString(R.string.scale_range_format, min, max));
+                tvScaleRange.setText(tvScaleRange.getContext().getString(R.string.scale_range_format, MapUtils.z2scale((Integer) minValue), maxValue));
+                callback.onScaleRange(LayerHolder.this);
             }
         });
 
@@ -187,7 +183,7 @@ public class LayerHolder extends RecyclerView.ViewHolder {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                callback.onLaterReact(LayerHolder.this);
+                callback.onLayerName(LayerHolder.this);
             }
         });
     }

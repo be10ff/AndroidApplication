@@ -1,9 +1,5 @@
 package ru.tcgeo.application.gilib;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
-
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -11,6 +7,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIStyle;
@@ -45,8 +44,8 @@ public class GISQLRenderer extends GIRenderer {
 
 
         z = ((GISQLLayer)layer).getLevel(z);
-        if(layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.AUTO && (((GISQLLayer)layer).getMin() > z || ((GISQLLayer)layer).getMax() < z))
-        {
+//        if(layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.AUTO && (((GISQLLayer)layer).getMin() > z || ((GISQLLayer)layer).getMax() < z))
+		if (layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.AUTO && (layer.m_layer_properties.m_sqldb.m_min_z > z || layer.m_layer_properties.m_sqldb.m_max_z < z)) {
         	return;
         }
         if((layer.m_layer_properties.m_sqldb.m_zooming_type  == GISQLLayer.GISQLiteZoomingType.SMART
@@ -110,7 +109,7 @@ public class GISQLRenderer extends GIRenderer {
         }
         finally
         {
-        };
+		}
 	}
 
 	@Override
