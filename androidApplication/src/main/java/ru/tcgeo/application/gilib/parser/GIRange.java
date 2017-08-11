@@ -1,8 +1,8 @@
 package ru.tcgeo.application.gilib.parser;
 
-import java.io.IOException;
-
 import org.xmlpull.v1.XmlSerializer;
+
+import java.io.IOException;
 
 public class GIRange 
 {
@@ -50,11 +50,20 @@ public class GIRange
 		return new GIScaleRange(1/m_from, 1/m_to);
 	}*/
 
+	public boolean IsWithinRange(double scale) {
+		double m_min = 1 / ((double) m_to);
+		double m_max = 1 / ((double) m_from);
+
+		if (scale > m_max && -1.0f != m_max)
+			return false;
+
+		return scale >= m_min;
+	}
+
 	public static class Builder{
+		GIRange source;
 		private int from;
 		private int to;
-		GIRange source;
-		Builder(){}
 		Builder(GIRange source){
 			this.source = source;
 		}
@@ -68,10 +77,7 @@ public class GIRange
 			return this;
 		}
 
-		GIRange build(){
-			if(source == null){
-				source = new GIRange();
-			}
+		public GIRange build() {
 			if(from != -1 && from != 0){
 				source.m_from = from;
 			}
@@ -79,6 +85,21 @@ public class GIRange
 				source.m_to = to;
 			}
 			return source;
+		}
+	}
+
+	public static class ScaleRange {
+		private double m_min;
+		private double m_max;
+
+		public ScaleRange(GIRange range) {
+			if (range == null) {
+				m_min = -1.0f;
+				m_max = -1.0f;
+			} else {
+				m_min = 1 / ((double) range.m_from);
+				m_max = 1 / ((double) range.m_to);
+			}
 		}
 	}
 }

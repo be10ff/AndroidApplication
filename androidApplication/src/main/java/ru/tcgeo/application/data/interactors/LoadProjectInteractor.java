@@ -12,11 +12,11 @@ import ru.tcgeo.application.gilib.GIEditableSQLiteLayer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GISQLLayer;
 import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.models.GIScaleRange;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.gilib.parser.GIPropertiesGroup;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
+import ru.tcgeo.application.gilib.parser.GIRange;
 import ru.tcgeo.application.gilib.parser.GISQLDB;
 import ru.tcgeo.application.view.MapView;
 import rx.Observable;
@@ -104,7 +104,7 @@ public class LoadProjectInteractor {
                     layer.setName(current_layer.m_name);
                     layer.m_layer_properties = current_layer;
                     subscriber.onNext(new Layer(layer,
-                            new GIScaleRange(current_layer.m_range),
+                            current_layer.m_range,
                             current_layer.m_enabled));
                 } else {
                     continue;
@@ -120,7 +120,7 @@ public class LoadProjectInteractor {
                     layer.setName(current_layer.m_name);
                     layer.m_layer_properties = current_layer;
                     subscriber.onNext(new Layer(layer,
-                            new GIScaleRange(current_layer.m_range),
+                            current_layer.m_range,
                             current_layer.m_enabled));
                 } else {
                     continue;
@@ -145,7 +145,7 @@ public class LoadProjectInteractor {
                     }
                     layer.m_layer_properties = current_layer;
                     subscriber.onNext(new Layer(layer,
-                            new GIScaleRange(current_layer.m_range),
+                            current_layer.m_range,
                             current_layer.m_enabled));
                 }
                 else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
@@ -163,7 +163,7 @@ public class LoadProjectInteractor {
                         current_layer.m_sqldb = builder.build();
                     }
                     layer.m_layer_properties = current_layer;
-                    subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
+                    subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
                 }
                 else
                 {
@@ -187,7 +187,7 @@ public class LoadProjectInteractor {
                         current_layer.m_sqldb = builder.build();
                     }
                     layer.m_layer_properties = current_layer;
-                    subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
+                    subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
                 }
                 else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
                 {
@@ -203,7 +203,7 @@ public class LoadProjectInteractor {
                         current_layer.m_sqldb = builder.build();
                     }
                     layer.m_layer_properties = current_layer;
-                    subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
+                    subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
                 }
                 else
                 {
@@ -227,7 +227,7 @@ public class LoadProjectInteractor {
                         current_layer.m_sqldb = builder.build();
                     }
                     layer.m_layer_properties = current_layer;
-                    subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
+                    subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
                 }
                 else if(current_layer.m_source.m_location.equalsIgnoreCase("absolute"))
                 {
@@ -243,7 +243,7 @@ public class LoadProjectInteractor {
                         current_layer.m_sqldb = builder.build();
                     }
                     layer.m_layer_properties = current_layer;
-                    subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
+                    subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
                 }
                 else
                 {
@@ -332,7 +332,7 @@ public class LoadProjectInteractor {
 //                            }
 //                        }
 //                    }
-                    subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
+                    subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
                     GIEditableSQLiteLayer l = (GIEditableSQLiteLayer) layer;
                     if (l != null && l.m_layer_properties.editable != null) {
                         l.setType(l.m_layer_properties.editable.enumType);
@@ -431,7 +431,7 @@ public class LoadProjectInteractor {
 //                            }
 //                        }
 //                    }
-                    subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
+                    subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
 
                     //todo remove with EditLayersKeeper
                     GIEditableLayer l = (GIEditableLayer) layer;
@@ -493,7 +493,7 @@ public class LoadProjectInteractor {
                     layer.setName(current_layer.m_name);
                     layer.m_layer_properties = current_layer;
 
-                    subscriber.onNext(new Layer(layer, new GIScaleRange(current_layer.m_range), current_layer.m_enabled));
+                    subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
                     GIEditLayersKeeper.Instance().AddLayer((GIEditableLayer) layer);
                 }
             }
@@ -503,10 +503,10 @@ public class LoadProjectInteractor {
 
     public class Layer {
         public GILayer giLayer;
-        public GIScaleRange giRange;
+        public GIRange giRange;
         public boolean enabled;
 
-        public Layer(GILayer giLayer, GIScaleRange giRange, boolean enabled) {
+        public Layer(GILayer giLayer, GIRange giRange, boolean enabled) {
             this.giLayer = giLayer;
             this.giRange = giRange;
             this.enabled = enabled;

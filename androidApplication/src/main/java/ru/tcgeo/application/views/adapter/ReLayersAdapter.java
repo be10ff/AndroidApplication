@@ -106,11 +106,11 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             } else {
                 h.ivFileExsist.setImageResource(R.drawable.project_mark_fail);
             }
-            h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.scale_range.getMax()));
-            h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.scale_range.getMin()));
+            h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.layer.m_layer_properties.m_range.m_to));
+            h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.layer.m_layer_properties.m_range.m_from));
 
 
-            h.tvScaleRange.setText(context.getString(R.string.scale_range_format, (int) Math.round(1 / item.scale_range.getMin()), (int) Math.round(1 / item.scale_range.getMax())));
+            h.tvScaleRange.setText(context.getString(R.string.scale_range_format, Math.round(item.layer.m_layer_properties.m_range.m_to), Math.round(item.layer.m_layer_properties.m_range.m_from)));
 
             if (getItemViewType(position) == TYPE_SQL) {
                 SqliteLayerHolder sqlHolder = (SqliteLayerHolder) holder;

@@ -7,7 +7,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIScaleRange;
+import ru.tcgeo.application.gilib.parser.GIRange;
 
 
 public class GIGroupLayer extends GILayer
@@ -35,10 +35,12 @@ public class GIGroupLayer extends GILayer
 				//Log.d("LogsThreads", "Thread " + Thread.currentThread().getId() + "Redraw canceled at " + i + " of " + m_list.size());
 				return;
 			}
-			if(m_list.get(i).visible && m_list.get(i).scale_range.IsWithinRange(_scale/scale_factor)) //_scale/scale_factor
+			if (m_list.get(i).visible)
 			{
-				m_list.get(i).layer.Redraw(area, bitmap, opacity, scale);
-				Log.d("LogsThreads", "Redraw " + m_list.get(i).layer.m_name);
+				if (m_list.get(i).layer.m_layer_properties.m_range.IsWithinRange(_scale / scale_factor)) {//_scale/scale_factor)
+					m_list.get(i).layer.Redraw(area, bitmap, opacity, scale);
+					Log.d("LogsThreads", "Redraw " + m_list.get(i).layer.m_name);
+				}
 			}
 
 		}
@@ -61,7 +63,7 @@ public class GIGroupLayer extends GILayer
 				}
 				if(m_list.get(i).layer.getType() == type)
 				{
-					if(m_list.get(i).visible && m_list.get(i).scale_range.IsWithinRange(_scale/scale_factor))
+					if (m_list.get(i).visible && m_list.get(i).layer.m_layer_properties.m_range.IsWithinRange(_scale / scale_factor))
 					{
 						m_list.get(i).layer.RedrawLabels(area, bitmap, scale_factor, scale);//Redraw(area, bitmap, opacity, scale);
 						Log.d("LogsThreads", "Redraw labels of " + i);
@@ -79,18 +81,18 @@ public class GIGroupLayer extends GILayer
 //			{
 //				m_list.add(0, new GITuple(layer, true, new GIScaleRange()));
 //			}
-			result = new GITuple(layer, true, new GIScaleRange());
+			result = new GITuple(layer, true);
 			m_list.add(result);
 			result.position = m_list.indexOf(result);
 		}
 		return result;
 	}
 
-	public GITuple AddLayer(GILayer layer, GIScaleRange range, boolean visible) {
+	public GITuple AddLayer(GILayer layer, GIRange range, boolean visible) {
 		GITuple result = null;
 		if (!m_list.contains(layer))
 		{
-			result = new GITuple(layer, visible, range);
+			result = new GITuple(layer, visible);
 			m_list.add(result);
 			result.position = m_list.indexOf(result);
 		}
@@ -101,7 +103,7 @@ public class GIGroupLayer extends GILayer
 		GITuple result = null;
 		if (!m_list.contains(layer))
 		{
-			result = new GITuple(layer, true, new GIScaleRange());
+			result = new GITuple(layer, true);
 			m_list.add(position, result);
 			result.position = m_list.indexOf(result);
 		}
@@ -114,7 +116,7 @@ public class GIGroupLayer extends GILayer
 		{
 			if (!tuple.visible)
 				continue;
-			if (!tuple.scale_range.IsWithinRange(scale))
+			if (!tuple.layer.m_layer_properties.m_range.IsWithinRange(scale))
 				continue;
 			
 			requestor = tuple.layer.RequestDataIn(point, requestor, scale);			

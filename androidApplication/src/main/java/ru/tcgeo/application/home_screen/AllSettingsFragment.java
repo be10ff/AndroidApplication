@@ -220,7 +220,7 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
                 double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
                 int from = (int) (1 / (Math.pow(2, Integer.valueOf(mZoomMin.getSelectedItem().toString())) * con));
                 builder.rangeFrom(from);
-                mItem.m_tuple.scale_range.setMin(1 / ((double) from));
+//                mItem.m_tuple.scale_range.setMin(1 / ((double) from));
             }
 
             @Override
@@ -237,7 +237,7 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
                 double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
                 int to = (int) (1 / (Math.pow(2, Integer.valueOf(mZoomMax.getSelectedItem().toString())) * con));
                 builder.rangeTo(to);
-                mItem.m_tuple.scale_range.setMax(1 / (double) to);
+//                mItem.m_tuple.scale_range.setMax(1 / (double) to);
             }
 
             @Override

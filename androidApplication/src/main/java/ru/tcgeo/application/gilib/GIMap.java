@@ -29,7 +29,6 @@ import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIPList;
 import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.models.GIScaleRange;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.models.Marker;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
@@ -299,8 +298,8 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         return m_layers.AddLayer(layer);
     }
 
-    public GITuple AddLayer(GILayer layer, GIScaleRange range, boolean enabled) {
-        return m_layers.AddLayer(layer, range, enabled);
+	public GITuple AddLayer(GILayer layer, GIRange range, boolean enabled) {
+		return m_layers.AddLayer(layer, range, enabled);
     }
 
     public GITuple InsertLayerAt(GILayer layer, int position) {

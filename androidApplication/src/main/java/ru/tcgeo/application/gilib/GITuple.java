@@ -1,33 +1,32 @@
 package ru.tcgeo.application.gilib;
 
 import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.models.GIScaleRange;
 
 public class GITuple
 {
     public GILayer layer;
     public boolean visible;
-    public GIScaleRange scale_range;
+//    public GIScaleRange scale_range;
 
     public int position = -1;
 
-    GITuple(GILayer layer_, boolean visible_, GIScaleRange scale_range_) {
-        layer = layer_;
-        visible = visible_;
-		scale_range = scale_range_;
-	}
+    GITuple(GILayer layer, boolean visible) {
+        this.layer = layer;
+        this.visible = visible;
+//		scale_range = scale_range_;
+    }
 
     public static class Builder {
         GILayer.Builder layerBuilder;
         GITuple tuple;
         boolean visibility;
-        GIScaleRange scaleRange;
+//        GIScaleRange scaleRange;
 
         public Builder(GITuple tuple) {
             this.tuple = tuple;
             layerBuilder = new GILayer.Builder(tuple.layer);
             visibility = tuple.visible;
-            scaleRange = tuple.scale_range;
+//            scaleRange = tuple.scale_range;
         }
 
         //tuple
@@ -35,11 +34,11 @@ public class GITuple
             this.visibility = visibility;
             return this;
         }
-
-        public Builder scaleRange(GIScaleRange scaleRange) {
-            this.scaleRange = scaleRange;
-            return this;
-        }
+//
+//        public Builder scaleRange(GIScaleRange scaleRange) {
+//            this.scaleRange = scaleRange;
+//            return this;
+//        }
 
         //layer
         public Builder name(String name) {
@@ -89,11 +88,13 @@ public class GITuple
 
         public Builder rangeFrom(int from) {
             layerBuilder.rangeFrom(from);
+//            this.scaleRange = new GIScaleRange(layerBuilder.builder.rangeBuilder.build());
             return this;
         }
 
         public Builder rangeTo(int to) {
             layerBuilder.rangeTo(to);
+//            this.scaleRange = new GIScaleRange(layerBuilder.builder.rangeBuilder.build());
             return this;
         }
 
@@ -119,7 +120,7 @@ public class GITuple
 
         public GITuple build() {
             tuple.visible = visibility;
-            tuple.scale_range = scaleRange;
+//            tuple.scale_range = scaleRange;
             tuple.layer = layerBuilder.build();
             return tuple;
         }

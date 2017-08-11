@@ -148,10 +148,10 @@ public class GIPropertiesLayer implements ILayersRoot
 	}
 
 	public static class Builder{
-        GISource.Builder sourceBuilder;
-        GIPropertiesStyle.Builder styleBuilder;
-        GIRange.Builder rangeBuilder;
-        GISQLDB.Builder sqldbBuilder;
+        public GISource.Builder sourceBuilder;
+        public GIPropertiesStyle.Builder styleBuilder;
+        public GIRange.Builder rangeBuilder;
+        public GISQLDB.Builder sqldbBuilder;
         //		private GISource source;
 //		private GIPropertiesStyle style;
 //		private GIRange range;
