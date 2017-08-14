@@ -16,4 +16,7 @@ todo editable layers
 
 TODO LAYERS SETTINGS CALLBACKS!!
 
+todo remove GITuple!
+
+
 

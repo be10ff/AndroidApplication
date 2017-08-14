@@ -83,6 +83,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             headerHolder.etProjectName.setText(project.m_name);
             headerHolder.tvFilePath.setText(project.m_path);
             headerHolder.etDescription.setText(project.m_decription);
+
         } else {
             LayerHolder h = (LayerHolder) holder;
             GITuple item = data.get(position);
@@ -106,11 +107,22 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             } else {
                 h.ivFileExsist.setImageResource(R.drawable.project_mark_fail);
             }
-            h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.layer.m_layer_properties.m_range.m_to));
-            h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.layer.m_layer_properties.m_range.m_from));
+            h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.layer.m_layer_properties.m_range.m_to));
+            h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.layer.m_layer_properties.m_range.m_from));
 
 
             h.tvScaleRange.setText(context.getString(R.string.scale_range_format, Math.round(item.layer.m_layer_properties.m_range.m_to), Math.round(item.layer.m_layer_properties.m_range.m_from)));
+
+//            h.ivRemove.setOnTouchListener(new View.OnTouchListener() {
+//                @Override
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    if (MotionEventCompat.getActionMasked(event) ==
+//                            MotionEvent.ACTION_DOWN) {
+//                        listener.onStartDrag(holder);
+//                    }
+//                    return false;
+//                }
+//            });
 
             if (getItemViewType(position) == TYPE_SQL) {
                 SqliteLayerHolder sqlHolder = (SqliteLayerHolder) holder;

@@ -87,19 +87,19 @@ public class GIRange
 			return source;
 		}
 	}
-
-	public static class ScaleRange {
-		private double m_min;
-		private double m_max;
-
-		public ScaleRange(GIRange range) {
-			if (range == null) {
-				m_min = -1.0f;
-				m_max = -1.0f;
-			} else {
-				m_min = 1 / ((double) range.m_from);
-				m_max = 1 / ((double) range.m_to);
-			}
-		}
-	}
+//
+//	public static class ScaleRange {
+//		private double m_min;
+//		private double m_max;
+//
+//		public ScaleRange(GIRange range) {
+//			if (range == null) {
+//				m_min = -1.0f;
+//				m_max = -1.0f;
+//			} else {
+//				m_min = 1 / ((double) range.m_from);
+//				m_max = 1 / ((double) range.m_to);
+//			}
+//		}
+//	}
 }

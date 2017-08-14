@@ -136,7 +136,7 @@ public class MapUtils {
 
     public static int scale2Z(double scale) {
         double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
-        int zz = (int) Math.round(Math.log(scale / (/*scale**/con)) / Math.log(2f));
+        int zz = (int) Math.round(Math.log(1 / (scale * con)) / Math.log(2f));
         return zz;
     }
 
