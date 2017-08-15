@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import ru.tcgeo.application.IFolderItemListener;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GILayer;
+import ru.tcgeo.application.gilib.GISQLLayer;
 import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.MapUtils;
@@ -32,6 +33,7 @@ import ru.tcgeo.application.views.adapter.ReLayersAdapter;
 import ru.tcgeo.application.views.callback.LayerCallback;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 import ru.tcgeo.application.views.viewholder.LayerHolder;
+import ru.tcgeo.application.views.viewholder.SqliteLayerHolder;
 import ru.tcgeo.application.views.viewholder.helper.OnStartDragListener;
 import ru.tcgeo.application.views.viewholder.helper.SimpleItemTouchHelperCallback;
 
@@ -112,12 +114,8 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                         GITuple tuple = adapter.getItem(holder.getAdapterPosition());
                         GILayer.Builder builder = new GILayer.Builder(tuple.layer);
                         LayerHolder h = (LayerHolder) holder;
-//                builder.rangeFrom(from);
-//                mItem.m_tuple.scale_range.setMin(1 / ((double) from));
                         builder.sqldbMaxZ((int) h.rsbScaleRange.getSelectedMaxValue());
                         builder.sqldbMinZ((int) h.rsbScaleRange.getSelectedMinValue());
-//                        h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.scale_range.getMax()));
-//                        h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.scale_range.getMin()));
                         builder.rangeFrom(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMaxValue()));
                         builder.rangeTo(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMinValue()));
                         builder.build();
@@ -125,21 +123,43 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                     }
 
                     @Override
-                    public void onMoveUp(RecyclerView.ViewHolder holder) {
-
+                    public void onRemove(RecyclerView.ViewHolder holder) {
+                        callback.onRemoveLayer(data.get(holder.getAdapterPosition()));
+                        adapter.onItemDismiss(holder.getAdapterPosition());
                     }
 
                     @Override
-                    public void onMoveDown(RecyclerView.ViewHolder holder) {
-
+                    public void onMove(GITuple fromPosition, GITuple toPosition) {
+                        callback.onMoveLayer(fromPosition, toPosition);
                     }
 
                     @Override
-                    public void onMoveRemove(RecyclerView.ViewHolder holder) {
-
+                    public void onZoomType(RecyclerView.ViewHolder holder, GISQLLayer.GISQLiteZoomingType type) {
+                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        builder.sqldbZoomType(type.name());
+                        builder.build();
+                        callback.onImmediatelyChange();
                     }
 
+                    @Override
+                    public void onProjection(RecyclerView.ViewHolder holder, GISQLLayer.GILayerType type) {
+                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GITuple.Builder builder = new GITuple.Builder(tuple);
+                        builder.type(type);
+                        builder.build();
+                        callback.onImmediatelyChange();
+                    }
 
+                    @Override
+                    public void onRatio(RecyclerView.ViewHolder holder) {
+                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        SqliteLayerHolder h = (SqliteLayerHolder) holder;
+                        builder.sqldbRatio((int) h.rsbRatio.getSelectedMaxValue());
+                        builder.build();
+                        callback.onImmediatelyChange();
+                    }
 
                 })
                 .dragListener(this)

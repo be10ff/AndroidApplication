@@ -26,18 +26,18 @@ public class GIGPSPointsLayer  extends GIEditableLayer
 	public GIGPSPointsLayer(String path) 
 	{
 		super(path);
-		type_ = GILayerType.XML;
+		type = GILayerType.XML;
 	}
 	public GIGPSPointsLayer(String path, GIVectorStyle style)
 	{
 		super(path, style);
-		type_ = GILayerType.XML;
+		type = GILayerType.XML;
 	}
 
 	public GIGPSPointsLayer(String path, GIVectorStyle style, GIEncoding encoding)
 	{
 		super(path, style, encoding);
-		type_ = GILayerType.XML;
+		type = GILayerType.XML;
 	}
 
 	public void DeleteObject(GI_WktGeometry geometry)

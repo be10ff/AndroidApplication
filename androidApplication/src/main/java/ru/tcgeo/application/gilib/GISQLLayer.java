@@ -27,7 +27,7 @@ public class GISQLLayer extends GILayer {
 
 	public GISQLLayer(String path) {
 		m_path = path;
-		type_ = GILayerType.ON_LINE;
+		type = GILayerType.ON_LINE;
 		m_renderer = new GISQLRenderer();
 		m_projection = GIProjection.WGS84();
 		max = 19;
@@ -182,20 +182,16 @@ public class GISQLLayer extends GILayer {
 	 */
 	public ArrayList<GITileInfoOSM> GetTilesIteration (SQLiteDatabase db, ArrayList<GITileInfoOSM> tiles, GITileInfoOSM root, GIBounds area, GIBounds bounds, int z, int to, int actual)
 	{
-    	GITileInfoOSM left_top_tile = GIITile.CreateTile(z, bounds.left(), bounds.top(), type_);
-        GITileInfoOSM right_bottom_tile = GIITile.CreateTile(z, bounds.right(), bounds.bottom(), type_);
-        boolean present = true;
-    	for(int x = left_top_tile.m_xtile; x <= right_bottom_tile.m_xtile; x++)
-    	{
-    		for(int y = left_top_tile.m_ytile; y <= right_bottom_tile.m_ytile; y++)
-    		{
-    			GITileInfoOSM tile =  GIITile.CreateTile(z, x, y, type_);
-    			if(IsTilePresent(db, tile))
-    			{
-    				tiles.add(tile);
-    				if(z < actual)
-    				{
-    					GIBounds bo = tile.getBounds().Intersect(area);
+		GITileInfoOSM left_top_tile = GIITile.CreateTile(z, bounds.left(), bounds.top(), type);
+		GITileInfoOSM right_bottom_tile = GIITile.CreateTile(z, bounds.right(), bounds.bottom(), type);
+		boolean present = true;
+		for (int x = left_top_tile.m_xtile; x <= right_bottom_tile.m_xtile; x++) {
+			for (int y = left_top_tile.m_ytile; y <= right_bottom_tile.m_ytile; y++) {
+				GITileInfoOSM tile = GIITile.CreateTile(z, x, y, type);
+				if (IsTilePresent(db, tile)) {
+					tiles.add(tile);
+					if (z < actual) {
+						GIBounds bo = tile.getBounds().Intersect(area);
     					if(bo != null)
     					{
     						tiles = GetTilesIteration(db, tiles, tile, area, bo, z+1, to, actual);
@@ -227,13 +223,11 @@ public class GISQLLayer extends GILayer {
 	public ArrayList<GITileInfoOSM> GetTiles(GIBounds area, int actual)
 	{
 		ArrayList<GITileInfoOSM> tiles = new ArrayList<GITileInfoOSM>();
-    	GITileInfoOSM left_top_tile = GIITile.CreateTile(actual, area.left(), area.top(), type_);
-        GITileInfoOSM right_bottom_tile = GIITile.CreateTile(actual, area.right(), area.bottom(), type_);
-    	for(int x = left_top_tile.m_xtile; x <= right_bottom_tile.m_xtile; x++)
-    	{
-    		for(int y = left_top_tile.m_ytile; y <= right_bottom_tile.m_ytile; y++)
-    		{
-    			GITileInfoOSM tile = GIITile.CreateTile(actual, x, y, type_);
+		GITileInfoOSM left_top_tile = GIITile.CreateTile(actual, area.left(), area.top(), type);
+		GITileInfoOSM right_bottom_tile = GIITile.CreateTile(actual, area.right(), area.bottom(), type);
+		for (int x = left_top_tile.m_xtile; x <= right_bottom_tile.m_xtile; x++) {
+			for (int y = left_top_tile.m_ytile; y <= right_bottom_tile.m_ytile; y++) {
+				GITileInfoOSM tile = GIITile.CreateTile(actual, x, y, type);
 				tiles.add(tile);
     		}
     	}

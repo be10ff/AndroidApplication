@@ -18,6 +18,7 @@ import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
@@ -64,12 +65,9 @@ public class LayerHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.ivMarkersSource)
     public android.support.v7.widget.AppCompatImageView ivMarkersSource;
-
     protected LayerHolderCallback callback;
-
     ValueAnimator mAnimator;
     private boolean expanded;
-
     public LayerHolder(View itemView, LayerHolderCallback callback) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -128,6 +126,10 @@ public class LayerHolder extends RecyclerView.ViewHolder {
         initListeners();
     }
 
+    @OnClick(R.id.flRemove)
+    public void onRemove() {
+        callback.onRemove(this);
+    }
 
     public void initListeners() {
         cbLayerVisibility.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -140,37 +142,11 @@ public class LayerHolder extends RecyclerView.ViewHolder {
         rsbScaleRange.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-//                double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
-//                int min = (int) (1 / (Math.pow(2, (Integer) minValue) * con));
-//                int max = (int) (1 / (Math.pow(2, (Integer) maxValue) * con));
-//                builder.rangeFrom(from);
-//                mItem.m_tuple.scale_range.setMin(1 / ((double) from));
+
                 tvScaleRange.setText(tvScaleRange.getContext().getString(R.string.scale_range_format, MapUtils.z2scale((Integer) minValue), maxValue));
                 callback.onScaleRange(LayerHolder.this);
             }
         });
-
-//
-//        rsbRatio.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
-//            @Override
-//            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-//
-//            }
-//        });
-//
-//        rgProjection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-//
-//            }
-//        });
-//
-//        rgZoomType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-//
-//            }
-//        });
 
         etLayerName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -187,12 +163,6 @@ public class LayerHolder extends RecyclerView.ViewHolder {
             }
         });
     }
-
-//    public void apply() {
-//        mItem.m_tuple.layer = builder.build();
-//        ((Geoinfo) getActivity()).getMap().UpdateMap();
-//    }
-
 
     private void expand() {
         llLayerSettings.setVisibility(View.VISIBLE);
@@ -213,7 +183,6 @@ public class LayerHolder extends RecyclerView.ViewHolder {
             @Override
             public void onAnimationEnd(Animator animator) {
                 llLayerSettings.setVisibility(View.GONE);
-//                cbLayerDetails.setEnabled(true);
                 flMore.setEnabled(true);
             }
 

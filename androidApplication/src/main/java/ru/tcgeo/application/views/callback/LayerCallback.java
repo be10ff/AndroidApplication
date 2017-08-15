@@ -16,4 +16,10 @@ public interface LayerCallback {
 //    void onLaterChange();
 
     GITuple onAddLayer(File file);
+
+    void onRemoveLayer(GITuple tuple);
+
+    void onMoveLayer(GITuple fromPosition, GITuple toPosition);
+
+//    void onLayerChanged(GITuple fromPosition, GITuple toPosition);
 }

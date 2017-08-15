@@ -113,16 +113,16 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             h.tvScaleRange.setText(context.getString(R.string.scale_range_format, Math.round(item.layer.m_layer_properties.m_range.m_to), Math.round(item.layer.m_layer_properties.m_range.m_from)));
 
-//            h.ivRemove.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View v, MotionEvent event) {
-//                    if (MotionEventCompat.getActionMasked(event) ==
-//                            MotionEvent.ACTION_DOWN) {
-//                        listener.onStartDrag(holder);
-//                    }
-//                    return false;
-//                }
-//            });
+            h.ivRemove.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (MotionEventCompat.getActionMasked(event) ==
+                            MotionEvent.ACTION_DOWN) {
+                        listener.onStartDrag(holder);
+                    }
+                    return false;
+                }
+            });
 
             if (getItemViewType(position) == TYPE_SQL) {
                 SqliteLayerHolder sqlHolder = (SqliteLayerHolder) holder;
@@ -194,11 +194,11 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemViewType(int position) {
         if (data.get(position) == null) {
             return TYPE_GROUP;
-        } else if (data.get(position).layer.type_ == GILayer.GILayerType.XML) {
+        } else if (data.get(position).layer.type == GILayer.GILayerType.XML) {
             return TYPE_XML;
-        } else if (data.get(position).layer.type_ == GILayer.GILayerType.SQL_LAYER
-                || data.get(position).layer.type_ == GILayer.GILayerType.SQL_YANDEX_LAYER
-                || data.get(position).layer.type_ == GILayer.GILayerType.FOLDER) {
+        } else if (data.get(position).layer.type == GILayer.GILayerType.SQL_LAYER
+                || data.get(position).layer.type == GILayer.GILayerType.SQL_YANDEX_LAYER
+                || data.get(position).layer.type == GILayer.GILayerType.FOLDER) {
             return TYPE_SQL;
         } else {
             return TYPE_DEFAULT;
@@ -227,14 +227,15 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public boolean onItemMove(int fromPosition, int toPosition) {
         Collections.swap(data, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
+        callback.onMove(data.get(fromPosition), data.get(toPosition));
         return true;
     }
 
     @Override
     public void onItemDismiss(int position) {
-        //todo
         data.remove(position);
         notifyItemRemoved(position);
+
     }
 
 

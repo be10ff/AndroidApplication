@@ -17,9 +17,9 @@ public class GIGroupLayer extends GILayer
 
 	public GIGroupLayer ()
     {
-		type_ = GILayerType.LAYER_GROUP;
-	    m_list = new ArrayList<GITuple>();
-    }
+		type = GILayerType.LAYER_GROUP;
+		m_list = new ArrayList<GITuple>();
+	}
 
 	@Override
 	public void Redraw (GIBounds area, Bitmap bitmap, Integer opacity, double scale)
@@ -77,7 +77,7 @@ public class GIGroupLayer extends GILayer
 		GITuple result = null;
 		if (!m_list.contains(layer)) {
 
-//			if(layer.type_ == GILayerType.SQL_LAYER )
+//			if(layer.type == GILayerType.SQL_LAYER )
 //			{
 //				m_list.add(0, new GITuple(layer, true, new GIScaleRange()));
 //			}

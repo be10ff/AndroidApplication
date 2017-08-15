@@ -18,5 +18,10 @@ TODO LAYERS SETTINGS CALLBACKS!!
 
 todo remove GITuple!
 
+todo remover string m_zoom_type  from GISQLDB
+
+
+!!! remove unnesessary UPDATES while settings dialog initiating!!!@!
+
 
 

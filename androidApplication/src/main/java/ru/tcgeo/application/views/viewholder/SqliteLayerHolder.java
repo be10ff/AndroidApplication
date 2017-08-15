@@ -10,6 +10,7 @@ import org.florescu.android.rangeseekbar.RangeSeekBar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.GISQLLayer;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 
 /**
@@ -55,21 +56,38 @@ public class SqliteLayerHolder extends LayerHolder {
         rsbRatio.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-
+                callback.onRatio(SqliteLayerHolder.this);
             }
         });
 
         rgProjection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-
+                switch (checkedId) {
+                    case R.id.rbYandex:
+                        callback.onProjection(SqliteLayerHolder.this, GISQLLayer.GILayerType.SQL_YANDEX_LAYER);
+                        break;
+                    case R.id.rbGoogle:
+                        callback.onProjection(SqliteLayerHolder.this, GISQLLayer.GILayerType.SQL_LAYER);
+                        break;
+                }
             }
         });
 
         rgZoomType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-
+                switch (checkedId) {
+                    case R.id.rbAuto:
+                        callback.onZoomType(SqliteLayerHolder.this, GISQLLayer.GISQLiteZoomingType.AUTO);
+                        break;
+                    case R.id.rbSmart:
+                        callback.onZoomType(SqliteLayerHolder.this, GISQLLayer.GISQLiteZoomingType.SMART);
+                        break;
+                    case R.id.rbAdaptive:
+                        callback.onZoomType(SqliteLayerHolder.this, GISQLLayer.GISQLiteZoomingType.ADAPTIVE);
+                        break;
+                }
             }
         });
     }

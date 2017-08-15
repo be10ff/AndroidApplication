@@ -422,13 +422,13 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
     private List<GITuple> getLayers(GIGroupLayer layer) {
         List<GITuple> result = new ArrayList<>();
         for (GITuple tuple : layer.m_list) {
-            if (GILayer.GILayerType.LAYER_GROUP == tuple.layer.type_) {
-                result.addAll(getLayers((GIGroupLayer) tuple.layer));
-            } else {
-                result.add(tuple);
-            }
-        }
-        return result;
+			if (GILayer.GILayerType.LAYER_GROUP == tuple.layer.type) {
+				result.addAll(getLayers((GIGroupLayer) tuple.layer));
+			} else {
+				result.add(tuple);
+			}
+		}
+		return result;
     }
 
     public void setMarkersSource(GITuple giTuple, boolean set) {

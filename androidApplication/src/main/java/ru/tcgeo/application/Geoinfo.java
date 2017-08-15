@@ -22,6 +22,7 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -228,6 +229,22 @@ public class Geoinfo extends FragmentActivity implements MapView {
 					public GITuple onAddLayer(File file) {
 						return map.addLayer(file);
 					}
+
+					@Override
+					public void onRemoveLayer(GITuple tuple) {
+						map.m_layers.m_list.remove(tuple);
+						map.ps.m_Group.m_Entries.remove(tuple.layer.m_layer_properties);
+						map.UpdateMap();
+					}
+
+					@Override
+					public void onMoveLayer(GITuple from, GITuple to) {
+						Collections.swap(map.m_layers.m_list, map.m_layers.m_list.indexOf(from), map.m_layers.m_list.indexOf(to));
+						Collections.swap(map.ps.m_Group.m_Entries, map.ps.m_Group.m_Entries.indexOf(from.layer.m_layer_properties), map.ps.m_Group.m_Entries.indexOf(to.layer.m_layer_properties));
+						map.UpdateMap();
+					}
+
+
 				})
 				.data(map.getLayers())
                 .project(map.ps)

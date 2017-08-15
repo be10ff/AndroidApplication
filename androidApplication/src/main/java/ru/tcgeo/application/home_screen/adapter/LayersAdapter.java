@@ -37,7 +37,7 @@ public class LayersAdapter extends ArrayAdapter<LayersAdapterItem> {
 
 
         CheckBox cbMarkers = (CheckBox)v.findViewById(R.id.cbMarkersSource);
-        if(item.m_tuple.layer.type_== GILayer.GILayerType.XML) {
+        if (item.m_tuple.layer.type == GILayer.GILayerType.XML) {
             cbMarkers.setVisibility(View.VISIBLE);
             cbMarkers.setChecked(item.m_tuple.layer.getName().equalsIgnoreCase(mActivity.getMap().ps.m_markers));
             cbMarkers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -56,7 +56,7 @@ public class LayersAdapter extends ArrayAdapter<LayersAdapterItem> {
 //        name.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                if(item.m_tuple.layer.type_== GILayer.GILayerType.XML){
+//                if(item.m_tuple.layer.type== GILayer.GILayerType.XML){
 //                    mActivity.getMap().ps.m_markers = item.m_tuple.layer.getName();
 //                    notifyDataSetChanged();
 //                }

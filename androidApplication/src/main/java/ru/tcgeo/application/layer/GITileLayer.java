@@ -16,7 +16,7 @@
 //
 //	public GITileLayer(String path)
 //	{
-//		type_ = GILayerType.TILE_LAYER;
+//		type = GILayerType.TILE_LAYER;
 //		m_renderer = new GITileRenderer();
 //		m_tiles = new ArrayList<GICustomTile>();
 ////		m_id = initTileLayer(path);

@@ -46,12 +46,11 @@ public class GIEditAttributesFragment extends Fragment implements
 		adapter = new LayersAttributeAdapter(this.getActivity(), R.layout.edit_attriute_item, R.id.field_name);
 		AddAttributes(GIEditLayersKeeper.Instance().m_geometry, adapter);
 		/**/
-		if(GIEditLayersKeeper.Instance().m_layer.type_ == GILayer.GILayerType.XML)
-		{
-			View header = inflater.inflate(R.layout.edit_attributes_header, null);
-			new_attribute_name = (EditText) header.findViewById(R.id.new_attribute_field_name);
-			new_attribute_value = (EditText) header.findViewById(R.id.new_attribute_field_value);
-			m_attributes_list.addFooterView(header);
+        if (GIEditLayersKeeper.Instance().m_layer.type == GILayer.GILayerType.XML) {
+            View header = inflater.inflate(R.layout.edit_attributes_header, null);
+            new_attribute_name = (EditText) header.findViewById(R.id.new_attribute_field_name);
+            new_attribute_value = (EditText) header.findViewById(R.id.new_attribute_field_value);
+            m_attributes_list.addFooterView(header);
 
 			if(!GIEditLayersKeeper.Instance().m_geometry.m_attributes.containsKey("Name"))
 			{
@@ -84,12 +83,10 @@ public class GIEditAttributesFragment extends Fragment implements
 				{
 					GIEditLayersKeeper.Instance().m_geometry.m_attributes.get(String.valueOf(name_text.getText())).m_value = String.valueOf(value_text.getText().toString());
 				}
-				if(GIEditLayersKeeper.Instance().m_layer.type_ == GILayer.GILayerType.XML)
-				{
-					if(new_attribute_value.getText().length() > 0)
-					{
-						GIDBaseField new_field = new GIDBaseField();
-						new_field.m_value = new_attribute_value.getText().toString();
+                if (GIEditLayersKeeper.Instance().m_layer.type == GILayer.GILayerType.XML) {
+                    if (new_attribute_value.getText().length() > 0) {
+                        GIDBaseField new_field = new GIDBaseField();
+                        new_field.m_value = new_attribute_value.getText().toString();
 						//TODO
 						new_field.m_name = new_attribute_name.getText().toString();
 						GIEditLayersKeeper.Instance().m_geometry.m_attributes.put(new_attribute_name.getText().toString(), new_field);

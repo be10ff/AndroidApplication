@@ -125,7 +125,7 @@ public class SettingsDialog extends DialogFragment implements IFolderItemListene
     public void addLayers(GIGroupLayer layer,
                           ArrayAdapter<LayersAdapterItem> adapter) {
         for (GITuple tuple : layer.m_list) {
-            if (GILayer.GILayerType.LAYER_GROUP == tuple.layer.type_)
+            if (GILayer.GILayerType.LAYER_GROUP == tuple.layer.type)
                 addLayers((GIGroupLayer) tuple.layer, adapter);
             else {
                 adapter.add(new LayersAdapterItem(tuple));

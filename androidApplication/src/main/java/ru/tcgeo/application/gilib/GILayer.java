@@ -21,7 +21,7 @@ import ru.tcgeo.application.wkt.GIGPSPointsLayer;
 
 public abstract class GILayer
 {
-	public GILayerType type_;
+	public GILayerType type;
 	public long m_id;
 	public GIPropertiesLayer m_layer_properties;
 	protected GIBounds     m_maxExtent;
@@ -47,13 +47,13 @@ public abstract class GILayer
 			case SQL_LAYER:
 			{
 				GISQLLayer layer = new GISQLLayer(path);
-				layer.type_ = type;
+				layer.type = type;
 				return layer;
 			}
 			case SQL_YANDEX_LAYER:
 			{
 				GISQLLayer layer = new GISQLLayer(path);
-				layer.type_ = type;
+				layer.type = type;
 				return layer;
 			}
 			case DBASE:
@@ -71,7 +71,7 @@ public abstract class GILayer
 			case FOLDER:
 			{
 				GIFolderLayer layer = new GIFolderLayer(path);
-				layer.type_ = type;
+				layer.type = type;
 				return layer;
 			}
 //			case PLIST:
@@ -105,19 +105,19 @@ public abstract class GILayer
 			case SQL_LAYER:
 			{
 				GISQLLayer layer = new GISQLLayer(path);
-				layer.type_ = type;
+				layer.type = type;
 				return layer;
 			}
 			case SQL_YANDEX_LAYER:
 			{
 				GISQLLayer layer = new GISQLLayer(path);
-				layer.type_ = type;
+				layer.type = type;
 				return layer;
 			}
 			case FOLDER:
 			{
 				GIFolderLayer layer = new GIFolderLayer(path);
-				layer.type_ = type;
+				layer.type = type;
 				return layer;
 			}
 			case DBASE:
@@ -162,7 +162,7 @@ public abstract class GILayer
 			case FOLDER:
 			{
 				GIFolderLayer layer = new GIFolderLayer(path);
-				layer.type_ = type;
+				layer.type = type;
 				return layer;
 			}
 			case DBASE:
@@ -333,7 +333,7 @@ public abstract class GILayer
 		public Builder(GILayer layer){
 			this.layer = layer;
 			name = layer.m_name;
-			type = layer.type_;
+			type = layer.type;
 			builder = new GIPropertiesLayer.Builder(layer.m_layer_properties);
 		}
 
@@ -423,11 +423,12 @@ public abstract class GILayer
 
             }
             if(type != null){
-                builder.type(type);
-            }
-            if(builder!= null){
-                layer.m_layer_properties = builder.build();
-            }
+				layer.type = type;
+				builder.type(type);
+			}
+			if (builder != null) {
+				layer.m_layer_properties = builder.build();
+			}
             return layer;
         }
 	}

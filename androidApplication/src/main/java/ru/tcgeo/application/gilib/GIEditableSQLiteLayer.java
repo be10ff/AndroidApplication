@@ -28,19 +28,19 @@ public class GIEditableSQLiteLayer extends GIEditableLayer
 	public GIEditableSQLiteLayer(String path) 
 	{
 		super(path);
-		type_ = GILayerType.DBASE;
-	}
-	public GIEditableSQLiteLayer(String path, GIVectorStyle style)
-	{
-		super(path, style);
-		type_ = GILayerType.DBASE;
-	}
+        type = GILayerType.DBASE;
+    }
+
+    public GIEditableSQLiteLayer(String path, GIVectorStyle style) {
+        super(path, style);
+        type = GILayerType.DBASE;
+    }
 
 	public GIEditableSQLiteLayer(String path, GIVectorStyle style, GIEncoding encoding)
 	{
 		super(path, style, encoding);
-		type_ = GILayerType.DBASE;
-	}
+        type = GILayerType.DBASE;
+    }
 
 	/*
 	GIDataRequestor RequestDataIn_old(GIBounds point, GIDataRequestor requestor, double scale) 
