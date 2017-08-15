@@ -49,6 +49,14 @@ public class SqliteLayerHolder extends LayerHolder {
     }
 
     @Override
+    public void removeListeners() {
+        super.removeListeners();
+        rsbRatio.setOnRangeSeekBarChangeListener(null);
+        rgProjection.setOnCheckedChangeListener(null);
+        rgZoomType.setOnCheckedChangeListener(null);
+    }
+
+    @Override
     public void initListeners() {
         super.initListeners();
 
@@ -91,10 +99,5 @@ public class SqliteLayerHolder extends LayerHolder {
             }
         });
     }
-
-//    public void apply() {
-//        mItem.m_tuple.layer = builder.build();
-//        ((Geoinfo) getActivity()).getMap().UpdateMap();
-//    }
 
 }

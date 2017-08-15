@@ -86,6 +86,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         } else {
             LayerHolder h = (LayerHolder) holder;
+            h.removeListeners();
             GITuple item = data.get(position);
 
             h.flReOrder.setOnTouchListener(new View.OnTouchListener() {
@@ -180,7 +181,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 h.flMarkers.setVisibility(View.GONE);
             }
 
-
+            h.initListeners();
         }
 
     }

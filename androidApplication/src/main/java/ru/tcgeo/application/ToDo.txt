@@ -2,6 +2,7 @@ Empty data in dialog - done
 create new project - done
 text color in recyclers - done
 test save project - done. crash on saving fixed
+!!! remove unnesessary UPDATES while settings dialog initiating!!!@!
 todo layer settings
     todo Folder, Traffic, Points/Lines editables (is possible, seems dont)
 
@@ -21,7 +22,7 @@ todo remove GITuple!
 todo remover string m_zoom_type  from GISQLDB
 
 
-!!! remove unnesessary UPDATES while settings dialog initiating!!!@!
+
 
 
 

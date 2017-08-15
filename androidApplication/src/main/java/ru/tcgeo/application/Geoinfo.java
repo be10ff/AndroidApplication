@@ -219,11 +219,6 @@ public class Geoinfo extends FragmentActivity implements MapView {
 					public void onImmediatelyChange() {
 						map.UpdateMap();
 					}
-//
-//					@Override
-//					public void onLaterChange() {
-//
-//					}
 
 					@Override
 					public GITuple onAddLayer(File file) {

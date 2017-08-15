@@ -76,6 +76,13 @@ public class XmlLayerHolder extends LayerHolder {
     }
 
     @Override
+    public void removeListeners() {
+        super.removeListeners();
+        rsbStrokeWidth.setOnRangeSeekBarChangeListener(null);
+        rgEditableType.setOnCheckedChangeListener(null);
+    }
+
+    @Override
     public void initListeners() {
         super.initListeners();
 
@@ -85,7 +92,6 @@ public class XmlLayerHolder extends LayerHolder {
 
             }
         });
-
         rgEditableType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {

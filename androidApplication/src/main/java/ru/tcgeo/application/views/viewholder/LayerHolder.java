@@ -65,9 +65,26 @@ public class LayerHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.ivMarkersSource)
     public android.support.v7.widget.AppCompatImageView ivMarkersSource;
+
     protected LayerHolderCallback callback;
+
     ValueAnimator mAnimator;
+    TextWatcher etLayerNameTextChangedListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            callback.onLayerName(LayerHolder.this);
+        }
+    };
     private boolean expanded;
+
     public LayerHolder(View itemView, LayerHolderCallback callback) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -131,6 +148,12 @@ public class LayerHolder extends RecyclerView.ViewHolder {
         callback.onRemove(this);
     }
 
+    public void removeListeners() {
+        cbLayerVisibility.setOnCheckedChangeListener(null);
+        etLayerName.removeTextChangedListener(etLayerNameTextChangedListener);
+        rsbScaleRange.setOnRangeSeekBarChangeListener(null);
+    }
+
     public void initListeners() {
         cbLayerVisibility.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -148,20 +171,7 @@ public class LayerHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        etLayerName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                callback.onLayerName(LayerHolder.this);
-            }
-        });
+        etLayerName.addTextChangedListener(etLayerNameTextChangedListener);
     }
 
     private void expand() {
