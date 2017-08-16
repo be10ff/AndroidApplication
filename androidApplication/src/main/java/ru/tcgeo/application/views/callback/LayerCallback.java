@@ -21,5 +21,7 @@ public interface LayerCallback {
 
     void onMoveLayer(GITuple fromPosition, GITuple toPosition);
 
+    void onEditablesChanged();
+
 //    void onLayerChanged(GITuple fromPosition, GITuple toPosition);
 }

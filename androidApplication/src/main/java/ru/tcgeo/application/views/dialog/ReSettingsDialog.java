@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.IFolderItemListener;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GISQLLayer;
 import ru.tcgeo.application.gilib.GITuple;
@@ -34,6 +35,7 @@ import ru.tcgeo.application.views.callback.LayerCallback;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 import ru.tcgeo.application.views.viewholder.LayerHolder;
 import ru.tcgeo.application.views.viewholder.SqliteLayerHolder;
+import ru.tcgeo.application.views.viewholder.XmlLayerHolder;
 import ru.tcgeo.application.views.viewholder.helper.OnStartDragListener;
 import ru.tcgeo.application.views.viewholder.helper.SimpleItemTouchHelperCallback;
 
@@ -159,6 +161,32 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                         builder.sqldbRatio((int) h.rsbRatio.getSelectedMaxValue());
                         builder.build();
                         callback.onImmediatelyChange();
+                    }
+
+                    @Override
+                    public void onEditable(RecyclerView.ViewHolder holder, GISQLLayer.EditableType type) {
+                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        XmlLayerHolder h = (XmlLayerHolder) holder;
+                        GIEditableLayer layer = (GIEditableLayer) tuple.layer;
+                        if (layer != null) {
+                            GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                            builder.editable(type);
+                            builder.build();
+                            callback.onEditablesChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onActive(RecyclerView.ViewHolder holder, boolean active) {
+                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        XmlLayerHolder h = (XmlLayerHolder) holder;
+                        GIEditableLayer layer = (GIEditableLayer) tuple.layer;
+                        if (layer != null) {
+                            GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                            builder.active(active);
+                            builder.build();
+                            callback.onEditablesChanged();
+                        }
                     }
 
                 })

@@ -3,6 +3,7 @@ package ru.tcgeo.application.views.viewholder;
 import android.support.annotation.IdRes;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -12,6 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 
 /**
@@ -80,6 +82,7 @@ public class XmlLayerHolder extends LayerHolder {
         super.removeListeners();
         rsbStrokeWidth.setOnRangeSeekBarChangeListener(null);
         rgEditableType.setOnCheckedChangeListener(null);
+        cbActive.setOnCheckedChangeListener(null);
     }
 
     @Override
@@ -104,6 +107,36 @@ public class XmlLayerHolder extends LayerHolder {
             public void onClick(View v) {
                 isMarkersSource = !isMarkersSource;
                 callback.onMarkersSourceCheckChanged(XmlLayerHolder.this, isMarkersSource);
+            }
+        });
+
+        rgEditableType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId) {
+                    case R.id.rbPOI:
+                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.POI);
+                        break;
+                    case R.id.rbTrack:
+                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.TRACK);
+                        break;
+                    case R.id.rbLine:
+                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.LINE);
+                        break;
+                    case R.id.rbPolygon:
+                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.POLYGON);
+                        break;
+                    default:
+                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.UNSET);
+                        break;
+                }
+            }
+        });
+
+        cbActive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                callback.onActive(XmlLayerHolder.this, isChecked);
             }
         });
 

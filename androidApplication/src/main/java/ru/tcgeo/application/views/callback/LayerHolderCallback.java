@@ -29,4 +29,8 @@ public interface LayerHolderCallback {
 
     void onRatio(RecyclerView.ViewHolder holder);
 
+    void onEditable(RecyclerView.ViewHolder holder, GISQLLayer.EditableType type);
+
+    void onActive(RecyclerView.ViewHolder holder, boolean active);
+
 }

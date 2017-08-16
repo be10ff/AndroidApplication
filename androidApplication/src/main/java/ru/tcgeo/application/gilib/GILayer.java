@@ -329,6 +329,7 @@ public abstract class GILayer
 		GILayer layer;
 		private String name;
 		private GILayerType type;
+        private EditableType editable;
 
 		public Builder(GILayer layer){
 			this.layer = layer;
@@ -369,6 +370,17 @@ public abstract class GILayer
 			builder.styleType(type);
 			return this;
 		}
+
+        public Builder editable(EditableType editable) {
+            this.editable = editable;
+            builder.editable(editable);
+            return this;
+        }
+
+        public Builder active(boolean active) {
+            builder.active(active);
+            return this;
+        }
 
         public Builder styleLineWidth(double width) {
 			builder.styleLineWidth(width);

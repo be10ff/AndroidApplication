@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GISQLLayer;
 import ru.tcgeo.application.gilib.GITuple;
@@ -175,6 +176,23 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         }
                     }
                 }
+                if (item.layer instanceof GIEditableLayer) {
+                    if (item.layer.m_layer_properties.editable != null) {
+                        xmlHolder.cbActive.setChecked(item.layer.m_layer_properties.editable.active);
+                        if (item.layer.m_layer_properties.editable.enumType == GISQLLayer.EditableType.POI) {
+                            xmlHolder.rbPOI.toggle();
+                        } else if (item.layer.m_layer_properties.editable.enumType == GISQLLayer.EditableType.TRACK) {
+                            xmlHolder.rbTrack.toggle();
+                        } else if (item.layer.m_layer_properties.editable.enumType == GISQLLayer.EditableType.LINE) {
+                            xmlHolder.rbLine.toggle();
+                        } else if (item.layer.m_layer_properties.editable.enumType == GISQLLayer.EditableType.POLYGON) {
+                            xmlHolder.rbPolygon.toggle();
+                        } else {
+                            xmlHolder.rgEditableType.clearCheck();
+                        }
+                    }
+                }
+
 
             } else {
                 h.flMore.setVisibility(View.GONE);

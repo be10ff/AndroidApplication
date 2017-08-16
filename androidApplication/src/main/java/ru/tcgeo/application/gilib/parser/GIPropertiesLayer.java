@@ -157,15 +157,22 @@ public class GIPropertiesLayer implements ILayersRoot
 //		private GIRange range;
 //		private GISQLDB sqldb;
         GIPropertiesLayer layer;
+        private GIEditable.Builder editableBuilder;
         private String name;
         private GILayer.GILayerType type;
         private String strType;
         private boolean enabled;
+        private GILayer.EditableType editable;
 
 		public Builder(){}
 		public Builder(GIPropertiesLayer layer){
 			this.layer = layer;
-		}
+            sourceBuilder = new GISource.Builder(layer.m_source);
+            styleBuilder = new GIPropertiesStyle.Builder(layer.m_style);
+            rangeBuilder = new GIRange.Builder(layer.m_range);
+            sqldbBuilder = new GISQLDB.Builder(layer.m_sqldb);
+            editableBuilder = new GIEditable.Builder(layer.editable);
+        }
 
         public Builder name(String name){
 			this.name = name;
@@ -184,98 +191,73 @@ public class GIPropertiesLayer implements ILayersRoot
         }
 
         public Builder sourceLocation(String location){
-            if(sourceBuilder == null){
-                sourceBuilder = new GISource.Builder(layer.m_source);
-            }
             sourceBuilder.location(location);
             return this;
         }
 
         public Builder sourceName(String name){
-            if(sourceBuilder == null){
-                sourceBuilder = new GISource.Builder(layer.m_source);
-            }
             sourceBuilder.name(name);
             return this;
         }
 
         public Builder styleType(String type){
-            if(styleBuilder == null){
-                styleBuilder = new GIPropertiesStyle.Builder(layer.m_style);
-            }
             styleBuilder.type(type);
             return this;
         }
 
         public Builder styleLineWidth(double width){
-            if(styleBuilder == null){
-                styleBuilder = new GIPropertiesStyle.Builder(layer.m_style);
-            }
             styleBuilder.lineWidth(width);
             return this;
         }
 
         public Builder styleOpacity(double opacity){
-            if(styleBuilder == null){
-                styleBuilder = new GIPropertiesStyle.Builder(layer.m_style);
-            }
             styleBuilder.opacity(opacity);
             return this;
         }
 
         public Builder styleColor(GIColor color){
-            if(styleBuilder == null){
-                styleBuilder = new GIPropertiesStyle.Builder(layer.m_style);
-            }
             styleBuilder.color(color);
             return this;
         }
 
         public Builder rangeFrom(int from){
-            if(rangeBuilder == null){
-                rangeBuilder = new GIRange.Builder(layer.m_range);
-            }
             rangeBuilder.from(from);
             return this;
         }
 
         public Builder rangeTo(int to){
-            if(rangeBuilder == null){
-                rangeBuilder = new GIRange.Builder(layer.m_range);
-            }
             rangeBuilder.to(to);
             return this;
         }
 
         public Builder sqldbMaxZ(int maxZ){
-            if(sqldbBuilder == null){
-                sqldbBuilder = new GISQLDB.Builder(layer.m_sqldb);
-            }
             sqldbBuilder.maxZ(maxZ);
             return this;
         }
 
         public Builder sqldbMinZ(int minZ){
-            if(sqldbBuilder == null){
-                sqldbBuilder = new GISQLDB.Builder(layer.m_sqldb);
-            }
             sqldbBuilder.minZ(minZ);
             return this;
         }
 
         public Builder sqldbZoomType(String zoomType){
-            if(sqldbBuilder == null){
-                sqldbBuilder = new GISQLDB.Builder(layer.m_sqldb);
-            }
             sqldbBuilder.zoomType(zoomType);
             return this;
         }
 
         public Builder sqldbRatio(int ratio){
-            if(sqldbBuilder == null){
-                sqldbBuilder = new GISQLDB.Builder(layer.m_sqldb);
-            }
             sqldbBuilder.ratio(ratio);
+            return this;
+        }
+
+        public Builder editable(GILayer.EditableType editable) {
+            editableBuilder.editable(editable);
+            this.editable = editable;
+            return this;
+        }
+
+        public Builder active(boolean active) {
+            editableBuilder.active(active);
             return this;
         }
 
@@ -292,20 +274,22 @@ public class GIPropertiesLayer implements ILayersRoot
             if(strType != null){
                 layer.m_strType = strType;
             }
-            if(sourceBuilder!= null){
-                layer.m_source = sourceBuilder.build();
-            }
-            if(styleBuilder!= null){
-                layer.m_style = styleBuilder.build();
-            }
-            if(rangeBuilder!= null){
-                layer.m_range = rangeBuilder.build();
-            }
-            if(sqldbBuilder!= null){
-                layer.m_sqldb = sqldbBuilder.build();
-            }
+
+//
+//            if(editable != null){
+//
+//                layer.editable.enumType = editable;
+//            }
+
+            layer.m_source = sourceBuilder.build();
+            layer.m_style = styleBuilder.build();
+            layer.m_range = rangeBuilder.build();
+            layer.m_sqldb = sqldbBuilder.build();
+            layer.editable = editableBuilder.build();
+
             return layer;
         }
 
-	}
+
+    }
 }

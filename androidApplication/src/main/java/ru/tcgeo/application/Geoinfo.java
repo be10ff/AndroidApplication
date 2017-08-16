@@ -239,6 +239,11 @@ public class Geoinfo extends FragmentActivity implements MapView {
 						map.UpdateMap();
 					}
 
+					@Override
+					public void onEditablesChanged() {
+
+					}
+
 
 				})
 				.data(map.getLayers())

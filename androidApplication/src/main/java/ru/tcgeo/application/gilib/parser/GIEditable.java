@@ -34,20 +34,22 @@ public class GIEditable {
 
 
     public static class Builder {
-        public GILayer.EditableType type;
+        public GILayer.EditableType editable;
         public boolean active;
 
         GIEditable source;
 
-        Builder() {
-        }
-
         Builder(GIEditable source) {
+            if (source == null) {
+                source = new GIEditable();
+            }
             this.source = source;
+            editable = source.enumType;
+            active = source.active;
         }
 
-        Builder type(GILayer.EditableType type) {
-            this.type = type;
+        Builder editable(GILayer.EditableType editable) {
+            this.editable = editable;
             return this;
         }
 
@@ -57,11 +59,8 @@ public class GIEditable {
         }
 
         GIEditable build() {
-            if (source == null) {
-                source = new GIEditable();
-            }
-
-            source.enumType = type;
+            source.enumType = editable;
+            source.active = active;
 
             return source;
         }
