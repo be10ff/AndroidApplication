@@ -110,9 +110,12 @@ public class GIPropertiesLayer implements ILayersRoot
 		if(m_encoding != null)
 		{
 			serializer.startTag("", "Encoding");
-			serializer.attribute("", "name", m_encoding.m_encoding);
-			serializer.endTag("", "Encoding");
-		}
+            serializer.attribute("", "type", m_encoding.m_encoding);
+            serializer.endTag("", "Encoding");
+        }
+        if (editable != null) {
+            serializer = editable.Save(serializer);
+        }
 
 		
 //		if(m_icon != null)
@@ -127,24 +130,6 @@ public class GIPropertiesLayer implements ILayersRoot
 
 		serializer.endTag("", "Layer");
 		return serializer;
-	}
-
-	public void moveUp(GIPropertiesLayer layer){
-		int index = m_Entries.indexOf(layer);
-		if(index != -1 && index > 0 ){
-			GIPropertiesLayer tmp = m_Entries.get(index - 1);
-			m_Entries.set(index - 1 ,m_Entries.get(index));
-			m_Entries.set(index, tmp);
-		}
-	}
-
-	public void moveDown(GIPropertiesLayer layer){
-		int index = m_Entries.indexOf(layer);
-		if(index != -1 && index < m_Entries.size() - 1 ){
-			GIPropertiesLayer tmp = m_Entries.get(index + 1);
-			m_Entries.set(index + 1 ,m_Entries.get(index));
-			m_Entries.set(index, tmp);
-		}
 	}
 
 	public static class Builder{

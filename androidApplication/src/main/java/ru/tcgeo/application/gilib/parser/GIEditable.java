@@ -25,7 +25,6 @@ public class GIEditable {
 
     public XmlSerializer Save(XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
         serializer.startTag("", "Editable");
-//		serializer.attribute("", "type", type);
         serializer.attribute("", "type", enumType.name());
         serializer.attribute("", "active", String.valueOf(active));
         serializer.endTag("", "Editable");

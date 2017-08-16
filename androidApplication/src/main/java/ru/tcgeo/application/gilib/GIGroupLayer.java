@@ -144,21 +144,21 @@ public class GIGroupLayer extends GILayer
 		return true;
 	}
 
-	public void moveUp(GITuple tuple){
-		int index = m_list.indexOf(tuple);
-		if(index != -1 && index > 0 ){
-			GITuple tmp = m_list.get(index - 1);
-			m_list.set(index - 1 ,m_list.get(index));
-			m_list.set(index, tmp);
-		}
-	}
-
-	public void moveDown(GITuple tuple){
-		int index = m_list.indexOf(tuple);
-		if(index != -1 && index < m_list.size() - 1 ){
-			GITuple tmp = m_list.get(index + 1);
-			m_list.set(index + 1 ,m_list.get(index));
-			m_list.set(index, tmp);
-		}
-	}
+//	public void moveUp(GITuple tuple){
+//		int index = m_list.indexOf(tuple);
+//		if(index != -1 && index > 0 ){
+//			GITuple tmp = m_list.get(index - 1);
+//			m_list.set(index - 1 ,m_list.get(index));
+//			m_list.set(index, tmp);
+//		}
+//	}
+//
+//	public void moveDown(GITuple tuple){
+//		int index = m_list.indexOf(tuple);
+//		if(index != -1 && index < m_list.size() - 1 ){
+//			GITuple tmp = m_list.get(index + 1);
+//			m_list.set(index + 1 ,m_list.get(index));
+//			m_list.set(index, tmp);
+//		}
+//	}
 }

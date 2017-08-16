@@ -398,15 +398,15 @@ public class AllSettingsFragment extends Fragment implements IFolderItemListener
 
     @OnClick(R.id.move_down)
     public void onDown(View v){
-        mMap.m_layers.moveDown(mItem.m_tuple);
-        mMap.ps.m_Group.moveDown(mItem.m_tuple.layer.m_layer_properties);
+//        mMap.m_layers.moveDown(mItem.m_tuple);
+//        mMap.ps.m_Group.moveDown(mItem.m_tuple.layer.m_layer_properties);
         App.getInstance().getEventBus().post(new ProjectChangedEvent());
 
     }
     @OnClick(R.id.move_up)
     public void onUp(View v){
-        mMap.m_layers.moveUp(mItem.m_tuple);
-        mMap.ps.m_Group.moveUp(mItem.m_tuple.layer.m_layer_properties);
+//        mMap.m_layers.moveUp(mItem.m_tuple);
+//        mMap.ps.m_Group.moveUp(mItem.m_tuple.layer.m_layer_properties);
         App.getInstance().getEventBus().post(new ProjectChangedEvent());
     }
 

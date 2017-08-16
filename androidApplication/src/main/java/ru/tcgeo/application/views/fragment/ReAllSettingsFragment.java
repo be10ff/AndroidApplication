@@ -396,16 +396,16 @@ public class ReAllSettingsFragment extends Fragment implements IFolderItemListen
 
     @OnClick(R.id.move_down)
     public void onDown(View v) {
-        mMap.m_layers.moveDown(mItem);
-        mMap.ps.m_Group.moveDown(mItem.layer.m_layer_properties);
+//        mMap.m_layers.moveDown(mItem);
+//        mMap.ps.m_Group.moveDown(mItem.layer.m_layer_properties);
         App.getInstance().getEventBus().post(new ProjectChangedEvent());
 
     }
 
     @OnClick(R.id.move_up)
     public void onUp(View v) {
-        mMap.m_layers.moveUp(mItem);
-        mMap.ps.m_Group.moveUp(mItem.layer.m_layer_properties);
+//        mMap.m_layers.moveUp(mItem);
+//        mMap.ps.m_Group.moveUp(mItem.layer.m_layer_properties);
         App.getInstance().getEventBus().post(new ProjectChangedEvent());
     }
 

@@ -12,6 +12,7 @@ import android.widget.ToggleButton;
 
 import ru.tcgeo.application.R;
 
+@Deprecated
 public class GIEditLayerDialog extends Fragment implements
 		OnClickListener 
 {
