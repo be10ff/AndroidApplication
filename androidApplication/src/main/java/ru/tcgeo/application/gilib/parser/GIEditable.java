@@ -12,7 +12,8 @@ public class GIEditable {
     public boolean active;
 
     public GIEditable() {
-
+        enumType = GILayer.EditableType.POINT;
+        active = false;
     }
 
     public String ToString() {

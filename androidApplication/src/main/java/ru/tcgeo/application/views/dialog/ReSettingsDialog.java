@@ -172,21 +172,18 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                             GILayer.Builder builder = new GILayer.Builder(tuple.layer);
                             builder.editable(type);
                             builder.build();
-                            callback.onEditablesChanged();
                         }
                     }
 
                     @Override
-                    public void onActive(RecyclerView.ViewHolder holder, boolean active) {
+                    public void onSetPoiLayer(RecyclerView.ViewHolder holder, boolean active) {
                         GITuple tuple = adapter.getItem(holder.getAdapterPosition());
                         XmlLayerHolder h = (XmlLayerHolder) holder;
                         GIEditableLayer layer = (GIEditableLayer) tuple.layer;
                         if (layer != null) {
-                            GILayer.Builder builder = new GILayer.Builder(tuple.layer);
-                            builder.active(active);
-                            builder.build();
-                            callback.onEditablesChanged();
+                            callback.onPOILayer(layer);
                         }
+                        adapter.notifyDataSetChanged();
                     }
 
                 })

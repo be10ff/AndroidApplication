@@ -178,11 +178,9 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
                 if (item.layer instanceof GIEditableLayer) {
                     if (item.layer.m_layer_properties.editable != null) {
-                        xmlHolder.cbActive.setChecked(item.layer.m_layer_properties.editable.active);
+                        xmlHolder.cbPoiLayer.setChecked(item.layer.m_layer_properties.editable.active);
                         if (item.layer.m_layer_properties.editable.enumType == GISQLLayer.EditableType.POI) {
-                            xmlHolder.rbPOI.toggle();
-                        } else if (item.layer.m_layer_properties.editable.enumType == GISQLLayer.EditableType.TRACK) {
-                            xmlHolder.rbTrack.toggle();
+                            xmlHolder.rbPoint.toggle();
                         } else if (item.layer.m_layer_properties.editable.enumType == GISQLLayer.EditableType.LINE) {
                             xmlHolder.rbLine.toggle();
                         } else if (item.layer.m_layer_properties.editable.enumType == GISQLLayer.EditableType.POLYGON) {

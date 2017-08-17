@@ -321,7 +321,7 @@ public abstract class GILayer
 	}
 
 	public enum EditableType {
-		TRACK, POI, LINE, POLYGON, UNSET
+		TRACK, POI, POINT, LINE, POLYGON, UNSET
 	}
 
 	public static class Builder {

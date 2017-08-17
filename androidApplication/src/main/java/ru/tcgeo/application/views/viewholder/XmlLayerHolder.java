@@ -34,11 +34,8 @@ public class XmlLayerHolder extends LayerHolder {
     @Bind(R.id.rgEditableType)
     public RadioGroup rgEditableType;
 
-    @Bind(R.id.rbPOI)
-    public RadioButton rbPOI;
-
-    @Bind(R.id.rbTrack)
-    public RadioButton rbTrack;
+    @Bind(R.id.rbPoint)
+    public RadioButton rbPoint;
 
     @Bind(R.id.rbLine)
     public RadioButton rbLine;
@@ -46,8 +43,8 @@ public class XmlLayerHolder extends LayerHolder {
     @Bind(R.id.rbPolygon)
     public RadioButton rbPolygon;
 
-    @Bind(R.id.cbActive)
-    public CheckBox cbActive;
+    @Bind(R.id.cbPoiLayer)
+    public CheckBox cbPoiLayer;
 
     public boolean isMarkersSource;
 
@@ -82,7 +79,7 @@ public class XmlLayerHolder extends LayerHolder {
         super.removeListeners();
         rsbStrokeWidth.setOnRangeSeekBarChangeListener(null);
         rgEditableType.setOnCheckedChangeListener(null);
-        cbActive.setOnCheckedChangeListener(null);
+        cbPoiLayer.setOnCheckedChangeListener(null);
     }
 
     @Override
@@ -93,12 +90,6 @@ public class XmlLayerHolder extends LayerHolder {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
 
-            }
-        });
-        rgEditableType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                cbActive.setEnabled(checkedId == R.id.rbTrack || checkedId == R.id.rbPOI);
             }
         });
 
@@ -114,11 +105,8 @@ public class XmlLayerHolder extends LayerHolder {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
-                    case R.id.rbPOI:
-                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.POI);
-                        break;
-                    case R.id.rbTrack:
-                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.TRACK);
+                    case R.id.rbPoint:
+                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.POINT);
                         break;
                     case R.id.rbLine:
                         callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.LINE);
@@ -127,16 +115,16 @@ public class XmlLayerHolder extends LayerHolder {
                         callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.POLYGON);
                         break;
                     default:
-                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.UNSET);
+                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.POINT);
                         break;
                 }
             }
         });
 
-        cbActive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        cbPoiLayer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                callback.onActive(XmlLayerHolder.this, isChecked);
+                callback.onSetPoiLayer(XmlLayerHolder.this, isChecked);
             }
         });
 

@@ -195,19 +195,20 @@
             android:layout_height="wrap_content"
             android:orientation='horizontal'>
 
+            <CheckBox
+                android:id="@+id/cbPoiLayer"
+                style="@style/Theme.Item_text.light_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/active_source" />
+
             <RadioButton
-                android:id="@+id/rbPOI"
+                android:id="@+id/rbPoint"
                 style="@style/Theme.Item_text.light_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/editable_poi" />
 
-            <RadioButton
-                android:id="@+id/rbTrack"
-                style="@style/Theme.Item_text.light_small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/editable_track" />
 
             <RadioButton
                 android:id="@+id/rbLine"
@@ -224,12 +225,6 @@
                 android:text="@string/editable_polygon" />
         </RadioGroup>
 
-        <CheckBox
-            android:id="@+id/cbActive"
-            style="@style/Theme.Item_text.light_small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/active_source" />
 
         <View
             android:layout_width="match_parent"

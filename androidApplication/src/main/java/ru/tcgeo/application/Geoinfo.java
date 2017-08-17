@@ -31,6 +31,7 @@ import ru.tcgeo.application.data.interactors.LoadProjectInteractor;
 import ru.tcgeo.application.gilib.GIControlFloating;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIEditableLayer;
+import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.GITouchControl;
 import ru.tcgeo.application.gilib.GITuple;
@@ -240,8 +241,19 @@ public class Geoinfo extends FragmentActivity implements MapView {
 					}
 
 					@Override
-					public void onEditablesChanged() {
-
+					public void onPOILayer(GIEditableLayer layer) {
+						for (GITuple tuple : map.m_layers.m_list) {
+							if (tuple.layer instanceof GIEditableLayer) {
+								GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+								builder.active(false);
+								builder.build();
+							}
+						}
+						GILayer.Builder builder = new GILayer.Builder(layer);
+						builder.active(false);
+						builder.build();
+						layer.m_layer_properties.editable.active = true;
+						GIEditLayersKeeper.Instance().m_POILayer = layer;
 					}
 
 

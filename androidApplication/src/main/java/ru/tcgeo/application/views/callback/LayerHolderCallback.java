@@ -31,6 +31,6 @@ public interface LayerHolderCallback {
 
     void onEditable(RecyclerView.ViewHolder holder, GISQLLayer.EditableType type);
 
-    void onActive(RecyclerView.ViewHolder holder, boolean active);
+    void onSetPoiLayer(RecyclerView.ViewHolder holder, boolean active);
 
 }

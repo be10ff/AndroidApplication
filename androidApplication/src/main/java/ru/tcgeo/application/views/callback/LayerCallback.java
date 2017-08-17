@@ -2,6 +2,7 @@ package ru.tcgeo.application.views.callback;
 
 import java.io.File;
 
+import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GITuple;
 
 /**
@@ -21,7 +22,7 @@ public interface LayerCallback {
 
     void onMoveLayer(GITuple fromPosition, GITuple toPosition);
 
-    void onEditablesChanged();
+    void onPOILayer(GIEditableLayer layer);
 
 //    void onLayerChanged(GITuple fromPosition, GITuple toPosition);
 }
