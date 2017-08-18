@@ -62,19 +62,12 @@ public class GIParserLayer extends GIParser
 				{
 					m_current.m_type = GILayer.GILayerType.FOLDER;
 				}
-				if(m_current.m_strType.equalsIgnoreCase("DBASE"))
-				{
-					m_current.m_type = GILayer.GILayerType.DBASE;
-				}
 				if(m_current.m_strType.equalsIgnoreCase("XML"))
 				{
 					m_current.m_type = GILayer.GILayerType.XML;
 				}
-				if(m_current.m_strType.equalsIgnoreCase("PLIST"))
-				{
-					m_current.m_type = GILayer.GILayerType.PLIST;
-				}
-			}
+
+            }
 			if(m_ParserCurrent.getAttributeName(i).equalsIgnoreCase("enabled"))
 			{
 				m_current.m_enabled = Boolean.getBoolean(m_ParserCurrent.getAttributeValue(i));

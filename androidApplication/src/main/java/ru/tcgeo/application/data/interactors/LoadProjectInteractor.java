@@ -8,7 +8,6 @@ import java.io.File;
 
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIEditableLayer;
-import ru.tcgeo.application.gilib.GIEditableSQLiteLayer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GISQLLayer;
 import ru.tcgeo.application.gilib.models.GIColor;
@@ -25,6 +24,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+
+//import ru.tcgeo.application.gilib.GIEditableSQLiteLayer;
 
 /**
  * Created by abelov on 28.04.16.
@@ -252,98 +253,6 @@ public class LoadProjectInteractor {
 
             }
 
-            if (current_layer.m_type == GILayer.GILayerType.DBASE) {
-                Paint fill = new Paint();
-                Paint line = new Paint();
-                for (GIColor color : current_layer.m_style.m_colors) {
-                    if (color.m_description.equalsIgnoreCase("line")) {
-                        if (color.m_name.equalsIgnoreCase("custom")) {
-                            line.setARGB(color.m_alpha, color.m_red,
-                                    color.m_green, color.m_blue);
-                        } else {
-                            color.setFromName();
-                            line.setARGB(color.m_alpha, color.m_red,
-                                    color.m_green, color.m_blue);
-                        }
-                        line.setStyle(Paint.Style.STROKE);
-                        line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-                    } else if (color.m_description.equalsIgnoreCase("fill")) {
-                        if (color.m_name.equalsIgnoreCase("custom")) {
-                            fill.setARGB(color.m_alpha, color.m_red,
-                                    color.m_green, color.m_blue);
-                        } else {
-                            color.setFromName();
-                            fill.setARGB(color.m_alpha, color.m_red,
-                                    color.m_green, color.m_blue);
-                        }
-                        fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-                        fill.setStyle(Paint.Style.FILL);
-                    }
-                }
-
-                Paint editing_fill = new Paint();
-                editing_fill.setColor(Color.CYAN);
-                editing_fill.setAlpha(96);
-                editing_fill.setStyle(Paint.Style.FILL);
-
-                Paint editing_stroke = new Paint();
-                editing_stroke.setColor(Color.CYAN);
-                editing_stroke.setStrokeWidth(2);
-                editing_fill.setAlpha(128);
-                editing_stroke.setStyle(Paint.Style.STROKE);
-                GIVectorStyle vstyle_editing = new GIVectorStyle(
-                        editing_stroke, editing_fill,
-                        (int) current_layer2.m_opacity);
-
-                GILayer layer;
-                if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
-                    GIVectorStyle vstyle = new GIVectorStyle(line, fill,
-                            (int) current_layer2.m_opacity);
-                    layer = GILayer
-                            .CreateLayer(current_layer.m_source.GetLocalPath(),
-                                    GILayer.GILayerType.DBASE, vstyle,
-                                    current_layer.m_encoding);
-
-                    layer.setName(current_layer.m_name);
-
-                    layer.m_layer_properties = current_layer;
-                    layer.AddStyle(vstyle_editing);
-					/**/
-//                    if(ps.m_Edit != null && ps.m_Edit.m_Entries != null) {
-//                        for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {
-//                            if (ref.m_name.equalsIgnoreCase(current_layer.m_name)) {
-//                                GIEditableSQLiteLayer l = (GIEditableSQLiteLayer) layer;
-//                                if (ref.m_type.equalsIgnoreCase("POINT")) {
-//                                    l.setType(GIEditableLayer.GIEditableLayerType.POINT);
-//                                    continue;
-//                                }
-//                                if (ref.m_type.equalsIgnoreCase("LINE")) {
-//                                    l.setType(GIEditableLayer.GIEditableLayerType.LINE);
-//                                    continue;
-//                                }
-//                                if (ref.m_type.equalsIgnoreCase("POLYGON")) {
-//                                    l.setType(GIEditableLayer.GIEditableLayerType.POLYGON);
-//                                    continue;
-//                                }
-//                                if (ref.m_type.equalsIgnoreCase("TRACK")) {
-//                                    l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
-//                                    continue;
-//                                }
-//                            }
-//                        }
-//                    }
-                    subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
-                    GIEditableSQLiteLayer l = (GIEditableSQLiteLayer) layer;
-                    if (l != null && l.m_layer_properties.editable != null) {
-                        l.setType(l.m_layer_properties.editable.enumType);
-                        GIEditLayersKeeper.Instance().AddLayer((GIEditableSQLiteLayer) layer);
-                    }
-                }
-
-                else {
-                    continue;
-                }
-            }
             //
             if (current_layer.m_type == GILayer.GILayerType.XML) {
                 Paint fill = new Paint();
@@ -449,53 +358,6 @@ public class LoadProjectInteractor {
 
                 else {
                     continue;
-                }
-            }
-
-            if (current_layer.m_type == GILayer.GILayerType.PLIST)
-            {
-                Paint fill = new Paint();
-                Paint line = new Paint();
-                for (GIColor color : current_layer.m_style.m_colors) {
-                    if (color.m_description.equalsIgnoreCase("line")) {
-                        if (color.m_name.equalsIgnoreCase("custom")) {
-                            line.setARGB(color.m_alpha, color.m_red,
-                                    color.m_green, color.m_blue);
-                        } else {
-                            color.setFromName();
-                            line.setARGB(color.m_alpha, color.m_red,
-                                    color.m_green, color.m_blue);
-                        }
-                        line.setStyle(Paint.Style.STROKE);
-                        line.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-                    } else if (color.m_description.equalsIgnoreCase("fill")) {
-                        if (color.m_name.equalsIgnoreCase("custom")) {
-                            fill.setARGB(color.m_alpha, color.m_red,
-                                    color.m_green, color.m_blue);
-                        } else {
-                            color.setFromName();
-                            fill.setARGB(color.m_alpha, color.m_red,
-                                    color.m_green, color.m_blue);
-                        }
-                        fill.setStrokeWidth((float) current_layer.m_style.m_lineWidth);
-                        fill.setStyle(Paint.Style.FILL);
-                    }
-                }
-
-
-                GILayer layer;
-                if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
-                    GIVectorStyle vstyle = new GIVectorStyle(line, fill,
-                            (int) current_layer2.m_opacity);
-                    layer = GILayer.CreateLayer(
-                            current_layer.m_source.GetLocalPath(),
-                            GILayer.GILayerType.PLIST, vstyle, current_layer.m_encoding);
-
-                    layer.setName(current_layer.m_name);
-                    layer.m_layer_properties = current_layer;
-
-                    subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
-                    GIEditLayersKeeper.Instance().AddLayer((GIEditableLayer) layer);
                 }
             }
 

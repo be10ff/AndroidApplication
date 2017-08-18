@@ -7,10 +7,10 @@ import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.script.GIScriptQueue;
 
 
-public class GIWKTParser 
+public class GIWKTParser
 {
-	String m_text;
 	static GIWKTDescription m_geometry_description;
+	String m_text;
 
 	public static GI_WktGeometry CreateGeometryFromWKT(String wkt_text)
 	{
@@ -108,18 +108,44 @@ public class GIWKTParser
 			//
 			else
 			{
-				GI_WktUserTrack track = new GI_WktUserTrack();
-				track.m_status = GI_WktGeometry.GIWKTGeometryStatus.SAVED;
-				track.m_file = m_geometry_description.m_file; //  "/sdcard/" +
-				return track;
+//				GI_WktUserTrack track = new GI_WktUserTrack();
+//				track.m_status = GI_WktGeometry.GIWKTGeometryStatus.SAVED;
+//				track.m_file = m_geometry_description.m_file; //  "/sdcard/" +
+//				return track;
+				GI_WktPoint point = new GI_WktPoint();
+				point.m_status = GI_WktGeometry.GIWKTGeometryStatus.SAVED;
+				GIWKTBlock block = (GIWKTBlock) m_geometry_description.m_block;
+				ArrayList<GIWKTDescription> array = block.m_points;
+				GIWKTVertex vertex = (GIWKTVertex) array.get(0);
+				GIWKTDigit lon = (GIWKTDigit) vertex.m_data.get(0);
+				GIWKTDigit lat = (GIWKTDigit) vertex.m_data.get(1);
+				point.m_lon = lon.m_value;
+				point.m_lat = lat.m_value;
+				GILonLat in_map = GIProjection.ReprojectLonLat(point.LonLat(), GIProjection.WGS84(), GIProjection.WorldMercator());
+				point.m_lon_in_map_projection = in_map.lon();
+				point.m_lat_in_map_projection = in_map.lat();
+				return point;
 			}
 		}
 		else
 		{
-			GI_WktUserTrack track = new GI_WktUserTrack();
-			track.m_status = GI_WktGeometry.GIWKTGeometryStatus.SAVED;
-			track.m_file =m_geometry_description.m_file; //  "/sdcard/" +
-			return track;
+//			GI_WktUserTrack track = new GI_WktUserTrack();
+//			track.m_status = GI_WktGeometry.GIWKTGeometryStatus.SAVED;
+//			track.m_file =m_geometry_description.m_file; //  "/sdcard/" +
+//			return track;
+			GI_WktPoint point = new GI_WktPoint();
+			point.m_status = GI_WktGeometry.GIWKTGeometryStatus.SAVED;
+			GIWKTBlock block = (GIWKTBlock) m_geometry_description.m_block;
+			ArrayList<GIWKTDescription> array = block.m_points;
+			GIWKTVertex vertex = (GIWKTVertex) array.get(0);
+			GIWKTDigit lon = (GIWKTDigit) vertex.m_data.get(0);
+			GIWKTDigit lat = (GIWKTDigit) vertex.m_data.get(1);
+			point.m_lon = lon.m_value;
+			point.m_lat = lat.m_value;
+			GILonLat in_map = GIProjection.ReprojectLonLat(point.LonLat(), GIProjection.WGS84(), GIProjection.WorldMercator());
+			point.m_lon_in_map_projection = in_map.lon();
+			point.m_lat_in_map_projection = in_map.lat();
+			return point;
 		}
 	}
 
@@ -221,17 +247,17 @@ public class GIWKTParser
 		while(!text.Empty())
 		{
 			char current = text.Look();
-			
+
 			if(current == '(')
 			{
 				text.Pop();
-				
+
 				GIWKTBlock block = new GIWKTBlock();
 				while((text.Look() != ')') && (!text.Empty()) )
 				{
 					block.m_points.add(Read(text));
 				}
-				text.Pop();	
+				text.Pop();
 				return block;
 			}
 			else if(current == '\"')
@@ -256,5 +282,5 @@ public class GIWKTParser
 		}
 		return null;
 	}
-	
+
 }

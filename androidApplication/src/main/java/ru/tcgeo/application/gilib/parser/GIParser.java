@@ -1,9 +1,9 @@
 package ru.tcgeo.application.gilib.parser;
 
-import java.io.IOException;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 
 
 
@@ -89,12 +89,12 @@ public class GIParser
 //			GIParserPackage parser = new GIParserPackage(m_ParserCurrent, m_ps);
 //			m_ParserCurrent = parser.ReadSection();
 //		}
-		if(CurrentSectionName.equalsIgnoreCase("Edit"))
-		{
-			GIParserEdit parser = new GIParserEdit(m_ParserCurrent, m_ps);
-			m_ParserCurrent = parser.ReadSection();
-		}
-	}
+//		if(CurrentSectionName.equalsIgnoreCase("Edit"))
+//		{
+//			GIParserEdit parser = new GIParserEdit(m_ParserCurrent, m_ps);
+//			m_ParserCurrent = parser.ReadSection();
+//		}
+    }
 	protected void FinishSection()
 	{
 		return;

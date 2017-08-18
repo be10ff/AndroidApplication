@@ -1,7 +1,5 @@
 package ru.tcgeo.application.gilib;
 
-import ru.tcgeo.application.gilib.models.GIColor;
-
 public class GITuple
 {
     public GILayer layer;
@@ -16,7 +14,7 @@ public class GITuple
 //		scale_range = scale_range_;
     }
 
-    public static class Builder {
+/*    public static class Builder {
         GILayer.Builder layerBuilder;
         GITuple tuple;
         boolean visibility;
@@ -124,5 +122,5 @@ public class GITuple
             tuple.layer = layerBuilder.build();
             return tuple;
         }
-    }
+    }*/
 }

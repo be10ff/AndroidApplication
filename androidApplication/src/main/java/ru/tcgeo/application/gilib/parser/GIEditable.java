@@ -7,7 +7,7 @@ import java.io.IOException;
 import ru.tcgeo.application.gilib.GILayer;
 
 public class GIEditable {
-    //	public String type;
+
     public GILayer.EditableType enumType;
     public boolean active;
 
@@ -18,7 +18,6 @@ public class GIEditable {
 
     public String ToString() {
         String Res = "Editable \n";
-//		Res += "type=" + type + "\n";
         Res += "enumType=" + enumType.name() + "\n";
         Res += "active=" + active + "\n";
         return Res;

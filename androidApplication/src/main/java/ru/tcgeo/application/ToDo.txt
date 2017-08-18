@@ -16,6 +16,8 @@ todo remove GITuple!
 
 todo remover string m_zoom_type  from GISQLDB
 
+todo clearing
+
 
 
 

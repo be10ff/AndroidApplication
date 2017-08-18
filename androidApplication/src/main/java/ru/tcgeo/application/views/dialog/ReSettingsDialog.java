@@ -100,8 +100,8 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                     public void onVisibilityCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked) {
                         GITuple tuple = adapter.getItem(holder.getAdapterPosition());
                         LayerHolder h = (LayerHolder) holder;
-                        GITuple.Builder builder = new GITuple.Builder(tuple);
-                        builder.visibility(h.cbLayerVisibility.isChecked());
+                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        builder.enabled(h.cbLayerVisibility.isChecked());
                         builder.build();
                         callback.onImmediatelyChange();
                     }
@@ -151,7 +151,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                     @Override
                     public void onProjection(RecyclerView.ViewHolder holder, GISQLLayer.GILayerType type) {
                         GITuple tuple = adapter.getItem(holder.getAdapterPosition());
-                        GITuple.Builder builder = new GITuple.Builder(tuple);
+                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
                         builder.type(type);
                         builder.build();
                         callback.onImmediatelyChange();

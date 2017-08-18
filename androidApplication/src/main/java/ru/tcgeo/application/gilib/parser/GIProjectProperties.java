@@ -43,7 +43,7 @@ public class GIProjectProperties
 	public double m_right;
 //	public ArrayList<GIPropertiesPackage> m_Entries;
 	public GIPropertiesGroup m_Group;
-	public GIPropertiesEdit m_Edit;
+//	public GIPropertiesEdit m_Edit;
 
 	private Context context;
 	
@@ -287,9 +287,9 @@ public GIProjectProperties(Context context)
 			serializer.attribute("", "right", String.valueOf(m_right));
 			serializer.endTag("", "Bounds");
 
-			if (m_Edit != null) {
-				serializer = m_Edit.Save(serializer);
-			}
+//			if (m_Edit != null) {
+//				serializer = m_Edit.Save(serializer);
+//			}
 			
 			if(m_markers_source != null) {
 				serializer.startTag("", "Markers");

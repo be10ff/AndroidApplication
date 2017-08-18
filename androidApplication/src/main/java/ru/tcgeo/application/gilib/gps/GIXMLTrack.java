@@ -1,14 +1,5 @@
 package ru.tcgeo.application.gilib.gps;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.PointF;
@@ -16,8 +7,15 @@ import android.graphics.RectF;
 import android.os.Environment;
 import android.util.Log;
 
-import ru.tcgeo.application.gilib.models.GIBounds;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
+import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
@@ -25,7 +23,6 @@ import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.planimetry.Edge;
 import ru.tcgeo.application.gilib.planimetry.Vertex;
 import ru.tcgeo.application.utils.MapUtils;
-import ru.tcgeo.application.wkt.GIWKTParser;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
@@ -36,8 +33,11 @@ public class GIXMLTrack extends GI_WktGeometry {
 	public String m_name_wo_extention;
 	public ArrayList<GI_WktGeometry> m_points;
 	Path m_path;
-	
-	public GIXMLTrack() 
+	/**/
+	FileOutputStream m_output;
+	BufferedWriter m_writer;
+
+	public GIXMLTrack()
 	{
 		m_type = GIWKTGeometryType.TRACK;
 		m_status = GIWKTGeometryStatus.NEW;
@@ -47,9 +47,9 @@ public class GIXMLTrack extends GI_WktGeometry {
 	}
 
 	@Override
-	public String toWKT() 
+	public String toWKT()
 	{
-		
+
 		File f = new File(m_file);
 		String res = f.getName();
 		return "FILE\"" + res + "\"";
@@ -135,12 +135,12 @@ public class GIXMLTrack extends GI_WktGeometry {
 //				Point first = GIEditLayersKeeper.Instance().getMap().MercatorMapToScreen(new GILonLat(((GI_WktPoint)m_points.get(i-1)).m_lon_in_map_projection, ((GI_WktPoint)m_points.get(i-1)).m_lat_in_map_projection));
 //				Point second = GIEditLayersKeeper.Instance().getMap().MercatorMapToScreen(new GILonLat(((GI_WktPoint)m_points.get(i)).m_lon_in_map_projection, ((GI_WktPoint)m_points.get(i)).m_lat_in_map_projection));
 //				canvas.drawLine(first.x, first.y, second.x, second.y, style.m_paint_pen);
-				
+
 				PointF point_prev = ((GI_WktPoint)m_points.get(i-1)).MapToScreen(canvas, area);
 				PointF point_current = ((GI_WktPoint)m_points.get(i)).MapToScreen(canvas, area);
 				//canvas.drawLine(point_prev.x - offset[0], point_prev.y - offset[1], point_current.x - offset[0], point_current.y - offset[1], style.m_paint_pen);
 				canvas.drawLine(point_prev.x, point_prev.y, point_current.x, point_current.y, style.m_paint_pen);
-				
+
 				if(this != GIEditLayersKeeper.Instance().m_CurrentTrack)
 				{
 					((GI_WktPoint)m_points.get(i)).TrackPaint(canvas, style);
@@ -161,7 +161,7 @@ public class GIXMLTrack extends GI_WktGeometry {
 	}
 
 	@Override
-	public boolean isTouch(GIBounds point) 
+	public boolean isTouch(GIBounds point)
 	{
 		boolean all_in_bounds = m_points.size() > 0;
 		for(GI_WktGeometry g : m_points)
@@ -184,7 +184,7 @@ public class GIXMLTrack extends GI_WktGeometry {
 		geom.add(new Vertex(rect.right, rect.top));
 		geom.add(new Vertex(rect.left, rect.top));
 		geom.add(new Vertex(rect.left, rect.bottom));
-		
+
 		for(int i = 0; i < m_points.size() - 1; i++)
 		{
 			GILonLat lonlat_start = new GILonLat(((GI_WktPoint)m_points.get(i)).m_lon, ((GI_WktPoint)m_points.get(i)).m_lat);
@@ -211,7 +211,7 @@ public class GIXMLTrack extends GI_WktGeometry {
 		return CreateOutput(folder, name);
 
 	}
-	
+
 	//TODO test it
 	public void AddPoint(GI_WktPoint point, float accurancy)
 	{
@@ -233,10 +233,9 @@ public class GIXMLTrack extends GI_WktGeometry {
 			AppendToFile(point.toWKT());
 		}
 	}
-	
 
 	@Override
-	public void Delete() 
+	public void Delete()
 	{
 		File f = new File(m_file);
 		if(f.exists())
@@ -247,11 +246,9 @@ public class GIXMLTrack extends GI_WktGeometry {
 		{
 			Log.d("LOG_TAG", f.getAbsolutePath() + "couldnt be found!");
 		}
-		
+
 	}
-	/**/
-	FileOutputStream m_output;
-	BufferedWriter m_writer;
+
 	public boolean CreateOutput(String folder, String name)
 	{
 		File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder);
@@ -310,23 +307,23 @@ public class GIXMLTrack extends GI_WktGeometry {
 		return m_file;
 	}
 
-	private void load(){
-		try
-		{
-			BufferedReader reader = new BufferedReader(new FileReader(m_file));
-			String line = "";
-			while((line = reader.readLine()) != null)
-			{
-				GI_WktGeometry point = GIWKTParser.CreateGeometryFromWKT(line);
-				m_points.add((GI_WktPoint) point);
-			}
-			reader.close();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
+//	private void load(){
+//		try
+//		{
+//			BufferedReader reader = new BufferedReader(new FileReader(m_file));
+//			String line = "";
+//			while((line = reader.readLine()) != null)
+//			{
+//				GI_WktGeometry point = GIWKTParser.CreateGeometryFromWKT(line);
+//				m_points.add((GI_WktPoint) point);
+//			}
+//			reader.close();
+//		}
+//		catch (IOException e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
 
 	@Override
 	public void free(){

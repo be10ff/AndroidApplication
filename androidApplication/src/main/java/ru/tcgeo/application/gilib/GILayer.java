@@ -56,10 +56,6 @@ public abstract class GILayer
 				layer.type = type;
 				return layer;
 			}
-			case DBASE:
-			{
-				return new GIEditableSQLiteLayer(path, new GIVectorStyle());
-			}
 			case XML:
 			{
 				return new GIGPSPointsLayer(path, new GIVectorStyle());
@@ -74,10 +70,7 @@ public abstract class GILayer
 				layer.type = type;
 				return layer;
 			}
-//			case PLIST:
-//			{
-//				return new GISPECSLayer(path, new GIVectorStyle());
-//			}
+
 			default:
 			{
 				return null;
@@ -92,12 +85,6 @@ public abstract class GILayer
 		{
 			case ON_LINE:
 			{
-//				if(path.equalsIgnoreCase("OSM"))
-//					return new GIOSMLayer(path);
-//				if(path.equalsIgnoreCase("Google"))
-//					return new GIGoogleLayer(path);
-//				if(path.equalsIgnoreCase("GeoPortal"))
-//					return new GIWMSLayer(path);
 				if(path.equalsIgnoreCase("Yandex"))
 					return new GIYandexLayer(path);
 			}
@@ -120,18 +107,10 @@ public abstract class GILayer
 				layer.type = type;
 				return layer;
 			}
-			case DBASE:
-			{
-				return new GIEditableSQLiteLayer(path, (GIVectorStyle)style);
-			}
 			case XML:
 			{
 				return new GIGPSPointsLayer(path, (GIVectorStyle)style);
 			}
-//			case PLIST:
-//			{
-//				return new GISPECSLayer(path, (GIVectorStyle)style);
-//			}
 			default:
 			{
 				return null;
@@ -146,12 +125,6 @@ public abstract class GILayer
 		{
 			case ON_LINE:
 			{
-//				if(path.equalsIgnoreCase("OSM"))
-//					return new GIOSMLayer(path);
-//				if(path.equalsIgnoreCase("Google"))
-//					return new GIGoogleLayer(path);
-//				if(path.equalsIgnoreCase("GeoPortal"))
-//					return new GIWMSLayer(path);
 				if(path.equalsIgnoreCase("Yandex"))
 					return new GIYandexLayer(path);
 			}
@@ -165,18 +138,10 @@ public abstract class GILayer
 				layer.type = type;
 				return layer;
 			}
-			case DBASE:
-			{
-				return new GIEditableSQLiteLayer(path, (GIVectorStyle)style, encoding);
-			}
 			case XML:
 			{
 				return new GIGPSPointsLayer(path, (GIVectorStyle)style, encoding);
 			}
-//			case PLIST:
-//			{
-//				return new GISPECSLayer(path, (GIVectorStyle)style);
-//			}
 			default:
 			{
 				return null;
@@ -317,7 +282,7 @@ public abstract class GILayer
 	}
 
 	public enum GILayerType {
-		LAYER_GROUP, RASTER_LAYER, VECTOR_LAYER, TILE_LAYER, ON_LINE, SQL_LAYER, DBASE, XML, SQL_YANDEX_LAYER, PLIST, ZIP, FOLDER
+		LAYER_GROUP, RASTER_LAYER, VECTOR_LAYER, TILE_LAYER, ON_LINE, SQL_LAYER, /*DBASE,*/ XML, SQL_YANDEX_LAYER, /*PLIST,*/ ZIP, FOLDER
 	}
 
 	public enum EditableType {
