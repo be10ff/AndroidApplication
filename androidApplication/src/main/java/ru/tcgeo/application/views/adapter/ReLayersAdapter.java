@@ -16,7 +16,6 @@ import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GISQLLayer;
-import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.MapUtils;
@@ -43,7 +42,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private LayerHolderCallback callback;
     private OnStartDragListener listener;
     private Context context;
-    private List<GITuple> data;
+    private List<GILayer> data;
     private GIProjectProperties project;
     private boolean header;
 
@@ -88,7 +87,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else {
             LayerHolder h = (LayerHolder) holder;
             h.removeListeners();
-            GITuple item = data.get(position);
+            GILayer item = data.get(position);
 
             h.flReOrder.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -101,19 +100,19 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             });
 
 
-            h.etLayerName.setText(item.layer.getName());
-            h.cbLayerVisibility.setChecked(item.visible);
-            h.tvFilePath.setText(item.layer.m_layer_properties.m_source.GetAbsolutePath());
-            if (new File(item.layer.m_layer_properties.m_source.GetAbsolutePath()).exists()) {
+            h.etLayerName.setText(item.getName());
+            h.cbLayerVisibility.setChecked(item.m_layer_properties.m_enabled);
+            h.tvFilePath.setText(item.m_layer_properties.m_source.GetAbsolutePath());
+            if (new File(item.m_layer_properties.m_source.GetAbsolutePath()).exists()) {
                 h.ivFileExsist.setImageResource(R.drawable.project_mark);
             } else {
                 h.ivFileExsist.setImageResource(R.drawable.project_mark_fail);
             }
-            h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.layer.m_layer_properties.m_range.m_to));
-            h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.layer.m_layer_properties.m_range.m_from));
+            h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.m_layer_properties.m_range.m_to));
+            h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.m_layer_properties.m_range.m_from));
 
 
-            h.tvScaleRange.setText(context.getString(R.string.scale_range_format, Math.round(item.layer.m_layer_properties.m_range.m_to), Math.round(item.layer.m_layer_properties.m_range.m_from)));
+            h.tvScaleRange.setText(context.getString(R.string.scale_range_format, Math.round(item.m_layer_properties.m_range.m_to), Math.round(item.m_layer_properties.m_range.m_from)));
 
             h.ivRemove.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -131,33 +130,33 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 h.flMore.setVisibility(View.VISIBLE);
                 h.flMarkers.setVisibility(View.GONE);
 
-                if (item.layer.m_layer_properties.m_type == GILayer.GILayerType.SQL_YANDEX_LAYER) {
+                if (item.m_layer_properties.m_type == GILayer.GILayerType.SQL_YANDEX_LAYER) {
                     sqlHolder.rbYandex.toggle();
-                } else if (item.layer.m_layer_properties.m_type == GILayer.GILayerType.SQL_LAYER) {
+                } else if (item.m_layer_properties.m_type == GILayer.GILayerType.SQL_LAYER) {
                     sqlHolder.rbGoogle.toggle();
                 }
 
 
-                if (item.layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.AUTO) {
+                if (item.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.AUTO) {
                     sqlHolder.rbAuto.toggle();
-                } else if (item.layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.SMART) {
+                } else if (item.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.SMART) {
                     sqlHolder.rbSmart.toggle();
-                } else if (item.layer.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.ADAPTIVE) {
+                } else if (item.m_layer_properties.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.ADAPTIVE) {
                     sqlHolder.rbAdaptive.toggle();
                 }
 
-                h.rsbScaleRange.setSelectedMaxValue(item.layer.m_layer_properties.m_sqldb.m_max_z);
-                h.rsbScaleRange.setSelectedMinValue(item.layer.m_layer_properties.m_sqldb.m_min_z);
+                h.rsbScaleRange.setSelectedMaxValue(item.m_layer_properties.m_sqldb.m_max_z);
+                h.rsbScaleRange.setSelectedMinValue(item.m_layer_properties.m_sqldb.m_min_z);
 
-                sqlHolder.rsbRatio.setSelectedMaxValue(item.layer.m_layer_properties.m_sqldb.mRatio);
+                sqlHolder.rsbRatio.setSelectedMaxValue(item.m_layer_properties.m_sqldb.mRatio);
             } else if (getItemViewType(position) == TYPE_XML) {
                 h.flMore.setVisibility(View.VISIBLE);
                 h.flMarkers.setVisibility(View.VISIBLE);
 
 
                 XmlLayerHolder xmlHolder = (XmlLayerHolder) holder;
-                if (item.layer instanceof GIGPSPointsLayer) {
-                    xmlHolder.isMarkersSource = ((GIGPSPointsLayer) item.layer).isMarkersSource();
+                if (item instanceof GIGPSPointsLayer) {
+                    xmlHolder.isMarkersSource = ((GIGPSPointsLayer) item).isMarkersSource();
                     if (xmlHolder.isMarkersSource) {
                         xmlHolder.ivMarkersSource.setImageResource(R.drawable.ic_markers_enable);
 
@@ -165,10 +164,10 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         xmlHolder.ivMarkersSource.setImageResource(R.drawable.ic_markers_disable);
                     }
                 }
-                xmlHolder.rsbStrokeWidth.setSelectedMaxValue(item.layer.m_layer_properties.m_style.m_lineWidth);
+                xmlHolder.rsbStrokeWidth.setSelectedMaxValue(item.m_layer_properties.m_style.m_lineWidth);
 
-                if (item.layer.m_layer_properties.m_style != null && item.layer.m_layer_properties.m_style.m_colors != null) {
-                    for (GIColor color : item.layer.m_layer_properties.m_style.m_colors) {
+                if (item.m_layer_properties.m_style != null && item.m_layer_properties.m_style.m_colors != null) {
+                    for (GIColor color : item.m_layer_properties.m_style.m_colors) {
                         if (color.m_description.equalsIgnoreCase("line")) {
                             xmlHolder.vStrokeColor.setBackgroundColor(color.Get());
                         } else if (color.m_description.equalsIgnoreCase("fill")) {
@@ -177,14 +176,14 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
 
-                if (item.layer instanceof GIEditableLayer) {
-                    if (item.layer.m_layer_properties.editable != null) {
-                        xmlHolder.cbPoiLayer.setChecked(item.layer.m_layer_properties.editable.active);
-                        if (item.layer.m_layer_properties.editable.enumType == GISQLLayer.EditableType.POI) {
+                if (item instanceof GIEditableLayer) {
+                    if (item.m_layer_properties.editable != null) {
+                        xmlHolder.cbPoiLayer.setChecked(item.m_layer_properties.editable.active);
+                        if (item.m_layer_properties.editable.enumType == GISQLLayer.EditableType.POI) {
                             xmlHolder.rbPoint.toggle();
-                        } else if (item.layer.m_layer_properties.editable.enumType == GISQLLayer.EditableType.LINE) {
+                        } else if (item.m_layer_properties.editable.enumType == GISQLLayer.EditableType.LINE) {
                             xmlHolder.rbLine.toggle();
-                        } else if (item.layer.m_layer_properties.editable.enumType == GISQLLayer.EditableType.POLYGON) {
+                        } else if (item.m_layer_properties.editable.enumType == GISQLLayer.EditableType.POLYGON) {
                             xmlHolder.rbPolygon.toggle();
                         } else {
                             xmlHolder.rgEditableType.clearCheck();
@@ -212,27 +211,27 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemViewType(int position) {
         if (data.get(position) == null) {
             return TYPE_GROUP;
-        } else if (data.get(position).layer.type == GILayer.GILayerType.XML) {
+        } else if (data.get(position).type == GILayer.GILayerType.XML) {
             return TYPE_XML;
-        } else if (data.get(position).layer.type == GILayer.GILayerType.SQL_LAYER
-                || data.get(position).layer.type == GILayer.GILayerType.SQL_YANDEX_LAYER
-                || data.get(position).layer.type == GILayer.GILayerType.FOLDER) {
+        } else if (data.get(position).type == GILayer.GILayerType.SQL_LAYER
+                || data.get(position).type == GILayer.GILayerType.SQL_YANDEX_LAYER
+                || data.get(position).type == GILayer.GILayerType.FOLDER) {
             return TYPE_SQL;
         } else {
             return TYPE_DEFAULT;
         }
     }
 
-    public GITuple getItem(int position) {
+    public GILayer getItem(int position) {
         return data.get(position);
     }
 
-    public void addItem(GITuple tuple) {
+    public void addItem(GILayer tuple) {
         data.add(tuple);
         notifyItemInserted(data.size() - 1);
     }
 
-    public void addItemAt(GITuple tuple) {
+    public void addItemAt(GILayer tuple) {
         int position = tuple.position;
         if (getItemViewType(0) == TYPE_GROUP) {
             position++;
@@ -261,7 +260,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         OnStartDragListener listener;
         private Context context;
         private LayerHolderCallback callback;
-        private List<GITuple> data;
+        private List<GILayer> data;
         private GIProjectProperties project;
         private boolean header;
 
@@ -279,7 +278,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return this;
         }
 
-        public Builder data(List<GITuple> data) {
+        public Builder data(List<GILayer> data) {
             this.data = data;
             return this;
         }

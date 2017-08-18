@@ -2,8 +2,8 @@ package ru.tcgeo.application.views.callback;
 
 import android.support.v7.widget.RecyclerView;
 
+import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GISQLLayer;
-import ru.tcgeo.application.gilib.GITuple;
 
 /**
  * Created by artem on 14.07.17.
@@ -21,7 +21,7 @@ public interface LayerHolderCallback {
 
     void onMarkersSourceCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked);
 
-    void onMove(GITuple from, GITuple to);
+    void onMove(GILayer from, GILayer to);
 
     void onZoomType(RecyclerView.ViewHolder holder, GISQLLayer.GISQLiteZoomingType type);
 

@@ -3,26 +3,23 @@ package ru.tcgeo.application.views.callback;
 import java.io.File;
 
 import ru.tcgeo.application.gilib.GIEditableLayer;
-import ru.tcgeo.application.gilib.GITuple;
+import ru.tcgeo.application.gilib.GILayer;
 
 /**
  * Created by artem on 14.07.17.
  */
 
 public interface LayerCallback {
-    void onMarkersSourceCheckChanged(GITuple tuple, boolean isChecked);
+    void onMarkersSourceCheckChanged(GILayer tuple, boolean isChecked);
 
     void onImmediatelyChange();
 
-//    void onLaterChange();
+    GILayer onAddLayer(File file);
 
-    GITuple onAddLayer(File file);
+    void onRemoveLayer(GILayer tuple);
 
-    void onRemoveLayer(GITuple tuple);
-
-    void onMoveLayer(GITuple fromPosition, GITuple toPosition);
+    void onMoveLayer(GILayer fromPosition, GILayer toPosition);
 
     void onPOILayer(GIEditableLayer layer);
 
-//    void onLayerChanged(GITuple fromPosition, GITuple toPosition);
 }

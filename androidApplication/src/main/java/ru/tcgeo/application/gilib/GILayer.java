@@ -24,6 +24,7 @@ public abstract class GILayer
 	public GILayerType type;
 	public long m_id;
 	public GIPropertiesLayer m_layer_properties;
+	public int position = -1;
 	protected GIBounds     m_maxExtent;
 	protected GIProjection m_projection;
 	protected GIRenderer   m_renderer;

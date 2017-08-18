@@ -13,12 +13,12 @@ import ru.tcgeo.application.gilib.parser.GIRange;
 public class GIGroupLayer extends GILayer
 {
 	//TODO: make private
-	public ArrayList<GITuple> m_list;
+	public ArrayList<GILayer> m_list;
 
 	public GIGroupLayer ()
     {
 		type = GILayerType.LAYER_GROUP;
-		m_list = new ArrayList<GITuple>();
+		m_list = new ArrayList<GILayer>();
 	}
 
 	@Override
@@ -35,11 +35,11 @@ public class GIGroupLayer extends GILayer
 				//Log.d("LogsThreads", "Thread " + Thread.currentThread().getId() + "Redraw canceled at " + i + " of " + m_list.size());
 				return;
 			}
-			if (m_list.get(i).visible)
+			if (m_list.get(i).m_layer_properties.m_enabled)
 			{
-				if (m_list.get(i).layer.m_layer_properties.m_range.IsWithinRange(_scale / scale_factor)) {//_scale/scale_factor)
-					m_list.get(i).layer.Redraw(area, bitmap, opacity, scale);
-					Log.d("LogsThreads", "Redraw " + m_list.get(i).layer.m_name);
+				if (m_list.get(i).m_layer_properties.m_range.IsWithinRange(_scale / scale_factor)) {//_scale/scale_factor)
+					m_list.get(i).Redraw(area, bitmap, opacity, scale);
+					Log.d("LogsThreads", "Redraw " + m_list.get(i).m_name);
 				}
 			}
 
@@ -61,11 +61,11 @@ public class GIGroupLayer extends GILayer
 					//Log.d("LogsThreads", "Thread " + Thread.currentThread().getId() + "Redraw canceled at " + i + " of " + m_list.size());
 					return;
 				}
-				if(m_list.get(i).layer.getType() == type)
+				if (m_list.get(i).getType() == type)
 				{
-					if (m_list.get(i).visible && m_list.get(i).layer.m_layer_properties.m_range.IsWithinRange(_scale / scale_factor))
+					if (m_list.get(i).m_layer_properties.m_enabled && m_list.get(i).m_layer_properties.m_range.IsWithinRange(_scale / scale_factor))
 					{
-						m_list.get(i).layer.RedrawLabels(area, bitmap, scale_factor, scale);//Redraw(area, bitmap, opacity, scale);
+						m_list.get(i).RedrawLabels(area, bitmap, scale_factor, scale);//Redraw(area, bitmap, opacity, scale);
 						Log.d("LogsThreads", "Redraw labels of " + i);
 					}
 				}
@@ -73,53 +73,42 @@ public class GIGroupLayer extends GILayer
 		}
 	}
 
-	public GITuple AddLayer(GILayer layer) {
-		GITuple result = null;
+	public GILayer AddLayer(GILayer layer) {
 		if (!m_list.contains(layer)) {
-
-//			if(layer.type == GILayerType.SQL_LAYER )
-//			{
-//				m_list.add(0, new GITuple(layer, true, new GIScaleRange()));
-//			}
-			result = new GITuple(layer, true);
-			m_list.add(result);
-			result.position = m_list.indexOf(result);
+			m_list.add(layer);
+			layer.position = m_list.indexOf(layer);
 		}
-		return result;
+		return layer;
 	}
 
-	public GITuple AddLayer(GILayer layer, GIRange range, boolean visible) {
-		GITuple result = null;
+	public GILayer AddLayer(GILayer layer, GIRange range, boolean visible) {
 		if (!m_list.contains(layer))
 		{
-			result = new GITuple(layer, visible);
-			m_list.add(result);
-			result.position = m_list.indexOf(result);
+			m_list.add(layer);
+			layer.position = m_list.indexOf(layer);
 		}
-		return result;
+		return layer;
 	}
 
-	public GITuple InsertLayerAt(GILayer layer, int position) {
-		GITuple result = null;
+	public GILayer InsertLayerAt(GILayer layer, int position) {
 		if (!m_list.contains(layer))
 		{
-			result = new GITuple(layer, true);
-			m_list.add(position, result);
-			result.position = m_list.indexOf(result);
+			m_list.add(position, layer);
+			layer.position = m_list.indexOf(layer);
 		}
-		return result;
+		return layer;
 	}
 	@Override
 	GIDataRequestor RequestDataIn (GIBounds point, GIDataRequestor requestor, double scale)
 	{
-		for (GITuple tuple : m_list)
+		for (GILayer layer : m_list)
 		{
-			if (!tuple.visible)
+			if (!layer.m_layer_properties.m_enabled)
 				continue;
-			if (!tuple.layer.m_layer_properties.m_range.IsWithinRange(scale))
+			if (!layer.m_layer_properties.m_range.IsWithinRange(scale))
 				continue;
-			
-			requestor = tuple.layer.RequestDataIn(point, requestor, scale);			
+
+			requestor = layer.RequestDataIn(point, requestor, scale);
 		}
 		
 		return requestor;
@@ -130,35 +119,14 @@ public class GIGroupLayer extends GILayer
 	{
 		for(int i = m_list.size() - 1; i >= 0; i--)
 		{
-			GITuple tuple = m_list.get(i);
-			tuple.layer.RemoveAll();
-			m_list.remove(tuple);			
+			GILayer layer = m_list.get(i);
+			layer.RemoveAll();
+			m_list.remove(layer);
 			
 		}
-		/*for (GITuple tuple : m_list)
-		{
-			tuple.layer.RemoveAll();
-			m_list.remove(tuple);
-		}*/
+
 		m_list.clear();
 		return true;
 	}
 
-//	public void moveUp(GITuple tuple){
-//		int index = m_list.indexOf(tuple);
-//		if(index != -1 && index > 0 ){
-//			GITuple tmp = m_list.get(index - 1);
-//			m_list.set(index - 1 ,m_list.get(index));
-//			m_list.set(index, tmp);
-//		}
-//	}
-//
-//	public void moveDown(GITuple tuple){
-//		int index = m_list.indexOf(tuple);
-//		if(index != -1 && index < m_list.size() - 1 ){
-//			GITuple tmp = m_list.get(index + 1);
-//			m_list.set(index + 1 ,m_list.get(index));
-//			m_list.set(index, tmp);
-//		}
-//	}
 }

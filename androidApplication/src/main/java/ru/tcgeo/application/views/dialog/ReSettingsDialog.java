@@ -26,7 +26,6 @@ import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GIEditableRenderer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GISQLLayer;
-import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.MapUtils;
@@ -55,7 +54,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
     private LayerCallback callback;
 
-    private List<GITuple> data;
+    private List<GILayer> data;
 
     private GIProjectProperties project;
 
@@ -91,16 +90,16 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                 .callback(new LayerHolderCallback() {
                     @Override
                     public void onMarkersSourceCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer tuple = adapter.getItem(holder.getAdapterPosition());
                         callback.onMarkersSourceCheckChanged(tuple, isChecked);
                         adapter.notifyDataSetChanged();
                     }
 
                     @Override
                     public void onVisibilityCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer tuple = adapter.getItem(holder.getAdapterPosition());
                         LayerHolder h = (LayerHolder) holder;
-                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        GILayer.Builder builder = new GILayer.Builder(tuple);
                         builder.enabled(h.cbLayerVisibility.isChecked());
                         builder.build();
                         callback.onImmediatelyChange();
@@ -108,8 +107,8 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
                     @Override
                     public void onLayerName(RecyclerView.ViewHolder holder) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
-                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        GILayer tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer.Builder builder = new GILayer.Builder(tuple);
                         LayerHolder h = (LayerHolder) holder;
                         builder.name(h.etLayerName.getText().toString());
                         builder.build();
@@ -117,8 +116,8 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
                     @Override
                     public void onScaleRange(RecyclerView.ViewHolder holder) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
-                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        GILayer tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer.Builder builder = new GILayer.Builder(tuple);
                         LayerHolder h = (LayerHolder) holder;
                         builder.sqldbMaxZ((int) h.rsbScaleRange.getSelectedMaxValue());
                         builder.sqldbMinZ((int) h.rsbScaleRange.getSelectedMinValue());
@@ -135,14 +134,14 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                     }
 
                     @Override
-                    public void onMove(GITuple fromPosition, GITuple toPosition) {
+                    public void onMove(GILayer fromPosition, GILayer toPosition) {
                         callback.onMoveLayer(fromPosition, toPosition);
                     }
 
                     @Override
                     public void onZoomType(RecyclerView.ViewHolder holder, GISQLLayer.GISQLiteZoomingType type) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
-                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        GILayer tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer.Builder builder = new GILayer.Builder(tuple);
                         builder.sqldbZoomType(type.name());
                         builder.build();
                         callback.onImmediatelyChange();
@@ -150,8 +149,8 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
                     @Override
                     public void onProjection(RecyclerView.ViewHolder holder, GISQLLayer.GILayerType type) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
-                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        GILayer tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer.Builder builder = new GILayer.Builder(tuple);
                         builder.type(type);
                         builder.build();
                         callback.onImmediatelyChange();
@@ -159,8 +158,8 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
                     @Override
                     public void onRatio(RecyclerView.ViewHolder holder) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
-                        GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                        GILayer tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer.Builder builder = new GILayer.Builder(tuple);
                         SqliteLayerHolder h = (SqliteLayerHolder) holder;
                         builder.sqldbRatio((int) h.rsbRatio.getSelectedMaxValue());
                         builder.build();
@@ -169,11 +168,11 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
                     @Override
                     public void onEditable(RecyclerView.ViewHolder holder, GISQLLayer.EditableType type) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer tuple = adapter.getItem(holder.getAdapterPosition());
                         XmlLayerHolder h = (XmlLayerHolder) holder;
-                        GIEditableLayer layer = (GIEditableLayer) tuple.layer;
+                        GIEditableLayer layer = (GIEditableLayer) tuple;
                         if (layer != null) {
-                            GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+                            GILayer.Builder builder = new GILayer.Builder(tuple);
                             builder.editable(type);
                             builder.build();
                         }
@@ -181,9 +180,9 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
                     @Override
                     public void onSetPoiLayer(RecyclerView.ViewHolder holder, boolean active) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer tuple = adapter.getItem(holder.getAdapterPosition());
                         XmlLayerHolder h = (XmlLayerHolder) holder;
-                        GIEditableLayer layer = (GIEditableLayer) tuple.layer;
+                        GIEditableLayer layer = (GIEditableLayer) tuple;
                         if (layer != null) {
                             callback.onPOILayer(layer);
                         }
@@ -192,9 +191,9 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
                     @Override
                     public void onFillColor(final RecyclerView.ViewHolder holder) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer tuple = adapter.getItem(holder.getAdapterPosition());
                         XmlLayerHolder h = (XmlLayerHolder) holder;
-                        final GIGPSPointsLayer layer = (GIGPSPointsLayer) tuple.layer;
+                        final GIGPSPointsLayer layer = (GIGPSPointsLayer) tuple;
 
                         if (layer.m_layer_properties.m_style != null && layer.m_layer_properties.m_style.m_colors != null) {
                             for (final GIColor color : layer.m_layer_properties.m_style.m_colors) {
@@ -218,9 +217,9 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
                     @Override
                     public void onStrokeColor(final RecyclerView.ViewHolder holder) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer l = adapter.getItem(holder.getAdapterPosition());
                         XmlLayerHolder h = (XmlLayerHolder) holder;
-                        final GIGPSPointsLayer layer = (GIGPSPointsLayer) tuple.layer;
+                        final GIGPSPointsLayer layer = (GIGPSPointsLayer) l;
 
                         if (layer.m_layer_properties.m_style != null && layer.m_layer_properties.m_style.m_colors != null) {
                             for (final GIColor color : layer.m_layer_properties.m_style.m_colors) {
@@ -244,9 +243,9 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
                     @Override
                     public void onWidth(RecyclerView.ViewHolder holder) {
-                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        GILayer l = adapter.getItem(holder.getAdapterPosition());
                         XmlLayerHolder h = (XmlLayerHolder) holder;
-                        final GIGPSPointsLayer layer = (GIGPSPointsLayer) tuple.layer;
+                        final GIGPSPointsLayer layer = (GIGPSPointsLayer) l;
                         layer.m_layer_properties.m_style.m_lineWidth = (int) h.rsbStrokeWidth.getSelectedMaxValue();
                         ((GIEditableRenderer) layer.renderer()).m_style.m_paint_pen.setStrokeWidth((int) h.rsbStrokeWidth.getSelectedMaxValue());
                         callback.onImmediatelyChange();
@@ -301,7 +300,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
     @Override
     public void OnFileClicked(File file) {
-        GITuple result = callback.onAddLayer(file);
+        GILayer result = callback.onAddLayer(file);
         if (result != null) {
             adapter.addItemAt(result);
             adapter.notifyDataSetChanged();
@@ -316,7 +315,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
     public static class Builder {
 
         private LayerCallback callback;
-        private List<GITuple> data;
+        private List<GILayer> data;
         private GIProjectProperties project;
         private Context context;
 
@@ -329,7 +328,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
             return this;
         }
 
-        public Builder data(List<GITuple> data) {
+        public Builder data(List<GILayer> data) {
             this.data = data;
             return this;
         }

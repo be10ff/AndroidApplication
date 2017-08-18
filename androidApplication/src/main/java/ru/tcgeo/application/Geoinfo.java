@@ -34,7 +34,6 @@ import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.GITouchControl;
-import ru.tcgeo.application.gilib.GITuple;
 import ru.tcgeo.application.gilib.gps.GICompassView;
 import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
 import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
@@ -212,8 +211,8 @@ public class Geoinfo extends FragmentActivity implements MapView {
 		new ReSettingsDialog.Builder(this)
 				.callback(new LayerCallback() {
 					@Override
-					public void onMarkersSourceCheckChanged(GITuple tuple, boolean isChecked) {
-						map.setMarkersSource(tuple, isChecked);
+					public void onMarkersSourceCheckChanged(GILayer layer, boolean isChecked) {
+						map.setMarkersSource(layer, isChecked);
 					}
 
 					@Override
@@ -222,29 +221,29 @@ public class Geoinfo extends FragmentActivity implements MapView {
 					}
 
 					@Override
-					public GITuple onAddLayer(File file) {
+					public GILayer onAddLayer(File file) {
 						return map.addLayer(file);
 					}
 
 					@Override
-					public void onRemoveLayer(GITuple tuple) {
-						map.m_layers.m_list.remove(tuple);
-						map.ps.m_Group.m_Entries.remove(tuple.layer.m_layer_properties);
+					public void onRemoveLayer(GILayer layer) {
+						map.m_layers.m_list.remove(layer);
+						map.ps.m_Group.m_Entries.remove(layer.m_layer_properties);
 						map.UpdateMap();
 					}
 
 					@Override
-					public void onMoveLayer(GITuple from, GITuple to) {
+					public void onMoveLayer(GILayer from, GILayer to) {
 						Collections.swap(map.m_layers.m_list, map.m_layers.m_list.indexOf(from), map.m_layers.m_list.indexOf(to));
-						Collections.swap(map.ps.m_Group.m_Entries, map.ps.m_Group.m_Entries.indexOf(from.layer.m_layer_properties), map.ps.m_Group.m_Entries.indexOf(to.layer.m_layer_properties));
+						Collections.swap(map.ps.m_Group.m_Entries, map.ps.m_Group.m_Entries.indexOf(from.m_layer_properties), map.ps.m_Group.m_Entries.indexOf(to.m_layer_properties));
 						map.UpdateMap();
 					}
 
 					@Override
 					public void onPOILayer(GIEditableLayer layer) {
-						for (GITuple tuple : map.m_layers.m_list) {
-							if (tuple.layer instanceof GIEditableLayer) {
-								GILayer.Builder builder = new GILayer.Builder(tuple.layer);
+						for (GILayer l : map.m_layers.m_list) {
+							if (l instanceof GIEditableLayer) {
+								GILayer.Builder builder = new GILayer.Builder(l);
 								builder.active(false);
 								builder.build();
 							}
