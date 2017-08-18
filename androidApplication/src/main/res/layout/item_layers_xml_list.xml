@@ -149,36 +149,37 @@
 
             <TextView
                 style="@style/CaptionText"
-                android:layout_width="72dp"
-                android:layout_height="match_parent"
-                android:gravity="left|top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:gravity="left|center_vertical"
                 android:text="@string/layer_colors" />
 
             <TextView
                 style="@style/CaptionText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
                 android:text="@string/fill_color" />
 
             <View
                 android:id="@+id/vFillColor"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-
-                android:layout_marginRight="24dp" />
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_margin="24dp" />
 
             <TextView
                 style="@style/CaptionText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
                 android:text="@string/stroke_color" />
 
             <View
                 android:id="@+id/vStrokeColor"
-                android:layout_width="48dp"
-                android:layout_height="48dp" />
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_margin="24dp" />
         </LinearLayout>
 
         <View
@@ -207,7 +208,7 @@
                 style="@style/Theme.Item_text.light_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/editable_poi" />
+                android:text="@string/editable_point" />
 
 
             <RadioButton

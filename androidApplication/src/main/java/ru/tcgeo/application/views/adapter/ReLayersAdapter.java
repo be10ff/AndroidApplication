@@ -176,6 +176,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         }
                     }
                 }
+
                 if (item.layer instanceof GIEditableLayer) {
                     if (item.layer.m_layer_properties.editable != null) {
                         xmlHolder.cbPoiLayer.setChecked(item.layer.m_layer_properties.editable.active);

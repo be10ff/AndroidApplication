@@ -23,9 +23,11 @@ import butterknife.OnClick;
 import ru.tcgeo.application.IFolderItemListener;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIEditableLayer;
+import ru.tcgeo.application.gilib.GIEditableRenderer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GISQLLayer;
 import ru.tcgeo.application.gilib.GITuple;
+import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.utils.ScreenUtils;
@@ -38,6 +40,8 @@ import ru.tcgeo.application.views.viewholder.SqliteLayerHolder;
 import ru.tcgeo.application.views.viewholder.XmlLayerHolder;
 import ru.tcgeo.application.views.viewholder.helper.OnStartDragListener;
 import ru.tcgeo.application.views.viewholder.helper.SimpleItemTouchHelperCallback;
+import ru.tcgeo.application.wkt.GIGPSPointsLayer;
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
  * Created by a_belov on 23.07.15.
@@ -184,6 +188,68 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                             callback.onPOILayer(layer);
                         }
                         adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFillColor(final RecyclerView.ViewHolder holder) {
+                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        XmlLayerHolder h = (XmlLayerHolder) holder;
+                        final GIGPSPointsLayer layer = (GIGPSPointsLayer) tuple.layer;
+
+                        if (layer.m_layer_properties.m_style != null && layer.m_layer_properties.m_style.m_colors != null) {
+                            for (final GIColor color : layer.m_layer_properties.m_style.m_colors) {
+                                if (color.m_description.equalsIgnoreCase("fill")) {
+                                    new AmbilWarnaDialog(getContext(), color.Get(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                                        @Override
+                                        public void onOk(AmbilWarnaDialog dialog, int new_color) {
+                                            color.set(new_color);
+                                            ((GIEditableRenderer) layer.renderer()).m_style.m_paint_brush.setColor(new_color);
+                                            adapter.notifyItemChanged(holder.getAdapterPosition());
+                                        }
+
+                                        @Override
+                                        public void onCancel(AmbilWarnaDialog dialog) {
+                                        }
+                                    }).show();
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onStrokeColor(final RecyclerView.ViewHolder holder) {
+                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        XmlLayerHolder h = (XmlLayerHolder) holder;
+                        final GIGPSPointsLayer layer = (GIGPSPointsLayer) tuple.layer;
+
+                        if (layer.m_layer_properties.m_style != null && layer.m_layer_properties.m_style.m_colors != null) {
+                            for (final GIColor color : layer.m_layer_properties.m_style.m_colors) {
+                                if (color.m_description.equalsIgnoreCase("line")) {
+                                    new AmbilWarnaDialog(getContext(), color.Get(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                                        @Override
+                                        public void onOk(AmbilWarnaDialog dialog, int new_color) {
+                                            color.set(new_color);
+                                            ((GIEditableRenderer) layer.renderer()).m_style.m_paint_pen.setColor(new_color);
+                                            adapter.notifyItemChanged(holder.getAdapterPosition());
+                                        }
+
+                                        @Override
+                                        public void onCancel(AmbilWarnaDialog dialog) {
+                                        }
+                                    }).show();
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onWidth(RecyclerView.ViewHolder holder) {
+                        GITuple tuple = adapter.getItem(holder.getAdapterPosition());
+                        XmlLayerHolder h = (XmlLayerHolder) holder;
+                        final GIGPSPointsLayer layer = (GIGPSPointsLayer) tuple.layer;
+                        layer.m_layer_properties.m_style.m_lineWidth = (int) h.rsbStrokeWidth.getSelectedMaxValue();
+                        ((GIEditableRenderer) layer.renderer()).m_style.m_paint_pen.setStrokeWidth((int) h.rsbStrokeWidth.getSelectedMaxValue());
+                        callback.onImmediatelyChange();
                     }
 
                 })

@@ -435,7 +435,8 @@ public class LoadProjectInteractor {
 
                     //todo remove with EditLayersKeeper
                     GIEditableLayer l = (GIEditableLayer) layer;
-                    if (l != null && l.m_layer_properties.editable != null) {
+                    if (l != null && l.m_layer_properties.editable != null
+                            && l.m_layer_properties.editable.enumType != GILayer.EditableType.TRACK) {
                         l.setType(l.m_layer_properties.editable.enumType);
                         if (l.m_Type == GILayer.EditableType.TRACK && l.m_layer_properties.editable.active) {
                             GIEditLayersKeeper.Instance().m_TrackLayer = l;

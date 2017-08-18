@@ -3,19 +3,14 @@ create new project - done
 text color in recyclers - done
 test save project - done. crash on saving fixed
 !!! remove unnesessary UPDATES while settings dialog initiating!!!@!
-todo layer settings
-    todo Folder, Traffic, Points/Lines editables (is possible, seems dont)
+editable layers
+LAYERS SETTINGS CALLBACKS!!
+unessesary ps.m_Edit
+layer settings
 
-todo ps.m_Edit.m_Entries ???!!!!???? is nesessary? !!!!!!
-
+todo Folder, Traffic, Points/Lines editables (is possible, seems dont)
 
 todo add yandex_traffic, folder, editable layers from dialog
-
-todo editable layers
-
-//todo to think: remove null from layerList data & remove project(group) holder from recycler to dialog layput
-
-TODO LAYERS SETTINGS CALLBACKS!!
 
 todo remove GITuple!
 

@@ -136,11 +136,11 @@
 
     <string name="scale_range">Scale range</string>
     <string name="scale_range_format" formatted="false">1:%d…1:%d</string>
-    <string name="editable_poi">POI</string>
+    <string name="editable_point">Point</string>
     <string name="editable_track">Track</string>
     <string name="editable_lines">Line</string>
     <string name="editable_polygon">Polygon</string>
-    <string name="active_source">Active source</string>
+    <string name="active_source">POI</string>
     <string-array name="zoom_type">
         <item>auto</item>
         <item>smart</item>

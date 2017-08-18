@@ -33,4 +33,11 @@ public interface LayerHolderCallback {
 
     void onSetPoiLayer(RecyclerView.ViewHolder holder, boolean active);
 
+    void onFillColor(RecyclerView.ViewHolder holder);
+
+    void onStrokeColor(RecyclerView.ViewHolder holder);
+
+    void onWidth(RecyclerView.ViewHolder holder);
+
+
 }

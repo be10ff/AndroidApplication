@@ -55,23 +55,12 @@ public class XmlLayerHolder extends LayerHolder {
 
     @OnClick(R.id.vFillColor)
     public void OnFillColor() {
-//            new AmbilWarnaDialog(getActivity(), color.Get(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
-//                @Override
-//                public void onOk(AmbilWarnaDialog dialog, int new_color) {
-//                    color.set(new_color);
-//                    mFillColor.setBackgroundColor(new_color);
-//                    ((GIEditableRenderer) mItem.layer.renderer()).m_style.m_paint_brush.setColor(new_color);
-//                }
-//
-//                @Override
-//                public void onCancel(AmbilWarnaDialog dialog) {
-//                }
-//            }).show();
+        callback.onFillColor(this);
     }
 
     @OnClick(R.id.vStrokeColor)
     public void OnStrokeColor() {
-
+        callback.onStrokeColor(this);
     }
 
     @Override
@@ -89,7 +78,7 @@ public class XmlLayerHolder extends LayerHolder {
         rsbStrokeWidth.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-
+                callback.onWidth(XmlLayerHolder.this);
             }
         });
 
