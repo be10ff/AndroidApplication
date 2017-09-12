@@ -20,18 +20,18 @@ import ru.tcgeo.application.gilib.models.GILonLat;
 public class GIPositionControl extends View implements GIControl //View
 {
 
-	private GIMap m_map;
-	private RelativeLayout m_root;
 	boolean hasClosed;
-	private GILonLat m_CurrentPosition;
-	private GILonLat m_OriginPosition;
-	private Context m_context;
 	int[] map_location = { 0, 0 };
 	Bitmap image;
 	Matrix matrix;
-
 	Point current_pos_on_screen;
-	//todo ????
+    private GIMap m_map;
+    private RelativeLayout m_root;
+    private GILonLat m_CurrentPosition;
+    private GILonLat m_OriginPosition;
+    private Context m_context;
+
+    //todo ????
 	//View m_LayoutView;
 	public GIPositionControl()
 	{
@@ -60,10 +60,6 @@ public class GIPositionControl extends View implements GIControl //View
 		setMap(map);
 		matrix = new Matrix();
 
-	}
-
-	public GIMap Map() {
-		return m_map;
 	}
 
 	public void setMap(GIMap map) {

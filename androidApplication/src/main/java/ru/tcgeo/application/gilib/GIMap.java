@@ -54,10 +54,10 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
     public ru.tcgeo.application.gilib.parser.GIProjectProperties ps;
     //TODO: make private
 	public GIGroupLayer m_layers;
+    public Rect m_view_rect;    // viewable part of bitmap
     GIBitmap m_smooth;
     GIBitmap m_draft;
     GIBounds m_bounds;    // current view extent & projection
-    Rect m_view_rect;    // viewable part of bitmap
     Handler m_handler;
 	SurfaceHolder m_holder;
 	ThreadStack m_threadStack;
@@ -334,7 +334,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         //TODO
         layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.SQL_YANDEX_LAYER);
         properties_layer.m_sqldb = new GISQLDB();//"auto";
-        properties_layer.m_sqldb.m_zoom_type = "auto";
+        properties_layer.m_sqldb.m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
 
         properties_layer.m_sqldb.m_min_z = 1;
         properties_layer.m_sqldb.m_max_z = 19;
@@ -711,8 +711,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         return requestArea;
 	}
 
-	GIDataRequestor RequestDataInPoint(Point point, GIDataRequestor requestor)
-	{
+    public GIDataRequestor RequestDataInPoint(Point point, GIDataRequestor requestor) {
 		synchronized(m_layers)
 		{
 		double scale_ = GIMap.getScale(m_bounds, m_view);

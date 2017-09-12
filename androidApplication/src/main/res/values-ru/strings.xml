@@ -1,31 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GeoInfo</string>
-    <string name="sub_app_name">Navigator</string>
-    <string name="background">background</string>
-    <string name="layers_additional_button">Дополнительно</string>
-    <string name="layers_general_button">Основные</string>
-    <string name="top_bar_layers_button">Слои</string>
     <string name="layers_list_default_text">Default text is very long and almost pointless.</string>
-    <string name="project_selector_button">Проекты</string>
     <string name="project_list_default_text">Проект</string>
     <string name="project_list_addition_text">Project_info</string>
-    <string name="default_project_full_name">newProject.pro</string>
-    <string name="markers_button">Метки</string>
     <string name="scale_info_default_text">1 000 m</string>
-    <string name="button_square_tool">button_square_tool</string>
-    <string name="button_stop_search">button_stop_search</string>
-    <string name="button_rule_tool">button_rule_tool</string>
-    <string name="button_position_follow">button_position_follow</string>
-    <string name="project_management">Управление проектами...</string>
-    <string name="button_editable_layers">button_editable_layers</string>
-    <string name="StopEditLayer">Закончить редактирование</string>
-    <string name="edit_layer_new">Создать</string>
-    <string name="edit_layer_edit_geometry">Редактировать\nгеометрию</string>
-    <string name="edit_layer_edit_attributes">Редактировать\nаттрибуты</string>
-    <string name="edit_layer_delete">Удалить</string>
-    <string name="button_gps">GPS</string>
-    <string name="add_layer_header">добавить...</string>
     <string-array name="extentions">
         <!--<item>"track"</item>-->
         <item>"sqlitedb"</item>
@@ -34,58 +13,18 @@
         <item>traffic</item>
     </string-array>
 
-    <string name="ProjectServer_Remotes">Проекты на сервере</string>
-    <string name="ProjectServer_Offline">Сервер недоступен</string>
-    <string name="ProjectServer_Locals">Проекты на устройстве</string>
-    <string name="ProjectServer_BtnLoad">Загрузить</string>
-    <string name="ProjectServer_BtnDelete">Удалить</string>
-    <string name="ProjectServer_BtnClose">Закрыть</string>
-    <string name="ProjectServer_BtnUpdate">Обновить</string>
-    <string name="unzipping">разархивирование</string>
-    <string name="parsing">чтение проектов</string>
     <color name="Item_Background_Selected">#ffdaffda</color>
-    <color name="Item_Background_Unselected">#0a0a0a0a</color>
-    <string name="image_project_status"></string>
-    <string name="state_ready">готов</string>
-    <string name="state_downloading">загружается</string>
-    <string name="state_updating">обновляется</string>
-    <string name="state_checking">проверяется</string>
-    <string name="state_unzipping">устанавливается</string>
-    <string name="state_deleting">удаляется</string>
-    <string name="state_unknown">неизвестно</string>
     <!--<string name="edit_layer_new">Create</string>-->
-    <string name="edit_layer_new_stop">Закончить создание</string>
     <!--<string name="edit_layer_edit_geometry">Edit geometry</string>-->
-    <string name="edit_layer_edit_geometry_stop">Закончить редактирование</string>
     <!--<string name="edit_layer_edit_attributes">Edit attributes</string>-->
-    <string name="edit_layer_edit_attributes_stop">Закончить редактирование editing</string>
     <!--<string name="edit_layer_delete">Delete</string>-->
-    <string name="edit_layer_delete_stop">Отмена</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
-    <string name="longtitude">longtitude</string>
     <string name="latitude">latitude</string>
-    <string name="gps_off">GPS Off</string>
-    <string name="gps_on">GPS On</string>
-    <string name="auto_follow_on">Auto Follow On</string>
-    <string name="auto_follow_off">Auto Follow Off</string>
-    <string name="start_track">Start new track</string>
-    <string name="pause_track">Pause tracking</string>
-    <string name="stop_track">Finish track</string>
-    <string name="poi">Create POI</string>
-    <string name="stop_poi">Finish POI</string>
     <string name="new_attribute_name">параметр</string>
     <string name="new_attribute_value">значение</string>
-    <color name="dark_text">#ff0f050f</color>
-    <color name="transparent_background">#05050505</color>
-    <string name="provider_available">жив</string>
-    <string name="provider_temporary_unavailable">болеет</string>
-    <string name="provider_out_of_service">мертв</string>
-    <string name="format_accurancy">±%%02d m</string>
-    <string name="format_datetime">A%%02d-%%02d-%%02d-%%02d-%%02d</string>
 
     <string name="button_close">Закрыть</string>
-    <string name="gps_accurancy">-- m</string>
 
 
     <string name="lontitude">lontitude</string>
@@ -93,99 +32,11 @@
     <string name="dd_mm_hint">DD° MM.MMMMMM\'</string>
     <string name="dd_hint">DD.DDDDDDDD°</string>
 
-    <string name="layer_name">Имя</string>
-    <string name="layer_type">Тип</string>
-    <string name="layer_location">Расположение</string>
-    <string name="layer_zoom">Масштаб</string>
-    <string name="layer_range">Масштаб</string>
-    <string name="from">от</string>
-    <string name="to">до</string>
     <string name="ratio">увеличение</string>
     <string name="layer_colors">Цвет</string>
     <string name="fill_color">Заливка</string>
     <string name="stroke_color">Контур</string>
 
-    <string name="move_up">Выше</string>
-    <string name="move_down">Ниже</string>
-    <string name="remove">Удалить</string>
     <string name="file_error">Ошибка чтения файла</string>
-
-    <string-array name="zoom_type">
-        <item>auto</item>
-        <item>smart</item>
-        <item>adaptive</item>
-    </string-array>
-    <string-array name="ratio">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>5</item>
-        <item>8</item>
-    </string-array>
-    <string-array name="layer_type">
-        <item>SQL_YANDEX_LAYER</item>
-        <item>SQL_LAYER</item>
-        <item>XML</item>
-        <!--<item>PLIST</item>-->
-        <!--<item>LAYER_GROUP</item>-->
-        <!--<item>RASTER_LAYER</item>-->
-        <!--<item>VECTOR_LAYER</item>-->
-        <!--<item>TILE_LAYER</item>-->
-        <!--<item>ON_LINE</item>-->
-        <!--<item>DBASE</item>-->
-
-    </string-array>
-    <string-array name="source_type">
-        <item>local</item>
-        <item>text</item>
-        <item>absolute</item>
-    </string-array>
-
-    <string-array name="zoom_levels">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>24</item>
-    </string-array>
-
-    <string-array name="ranges">
-        <item>Все</item>
-        <item>1:20</item>
-        <item>1:50</item>
-        <item>1:100</item>
-        <item>1:250</item>
-        <item>1:500</item>
-        <item>1:1000</item>
-        <item>1:2000</item>
-        <item>1:3000</item>
-        <item>1:5000</item>
-        <item>1:10000</item>
-        <item>1:20000</item>
-        <item>1:50000</item>
-        <item>1:100000</item>
-        <item>1:500000</item>
-        <item>1:1000000</item>
-    </string-array>
 
 </resources>

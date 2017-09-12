@@ -1,9 +1,5 @@
 package ru.tcgeo.application.gilib;
 
-import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.wkt.GI_WktPoint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,36 +13,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
 
+import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.models.GIBounds;
+import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.wkt.GI_WktPoint;
+
 public class GIGeometryPointControl extends LinearLayout implements GIControl, OnClickListener, OnLongClickListener {
 
-	private GIMap m_map;
-	private RelativeLayout m_root;
-	boolean hasClosed;
-	private GILonLat m_PointOriginMap;
 	public GI_WktPoint m_WKTPoint;
-	private Context m_context;
-	int[] map_location = { 0, 0 };
+    boolean hasClosed;
+    int[] map_location = { 0, 0 };
 	ToggleButton m_button;
 	View m_LayoutView;
 	int[] m_offset;
-
-	public boolean getChecked()
-	{
-		if(m_button != null)
-		{
-			return m_button.isChecked();
-		}
-		return false;
-	}
-
-	public void setChecked(boolean checked)
-	{
-		if(m_button != null)
-		{
-			m_button.setChecked(checked);
-		}
-	}
-
+    private GIMap m_map;
+    private RelativeLayout m_root;
+    private GILonLat m_PointOriginMap;
+    private Context m_context;
 
 	public GIGeometryPointControl (Context context, GIMap map)
 	{
@@ -67,6 +50,19 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
 		setMap(map);
 		//m_button.setOnClickListener(this);
 	}
+
+    public boolean getChecked() {
+        if (m_button != null) {
+            return m_button.isChecked();
+        }
+        return false;
+    }
+
+    public void setChecked(boolean checked) {
+        if (m_button != null) {
+            m_button.setChecked(checked);
+        }
+    }
 
 	public void setActiveStatus(boolean active)
 	{
@@ -116,10 +112,6 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
 		}
 	}
 
-	public GIMap Map()
-	{
-		return m_map;
-	}
 	public void setMap(GIMap map)
 	{
 

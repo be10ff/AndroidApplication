@@ -10,22 +10,21 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.GIControl;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.gilib.models.GIBounds;
 
 public class GILocatorRange extends View implements GIControl
 {
-	Context m_context;
+    public final String tag = "LOCATOR_RANGE_TAG";
+    Context m_context;
 	GIMap m_map;
 	Bitmap image;
 	int[] map_location = { 0, 0 };
 	Rect m_source;
 	Rect m_dest;
 	private float m_accurancy;
-
-	public final String tag = "LOCATOR_RANGE_TAG";
 	
 	public GILocatorRange() 
 	{
@@ -62,11 +61,6 @@ public class GILocatorRange extends View implements GIControl
 	{
 		m_dest.set(0, 0, canvas.getWidth(), canvas.getHeight());
 		canvas.drawBitmap(image, m_source, m_dest, null );
-	}
-
-	public GIMap Map() 
-	{
-		return m_map;
 	}
 
 	public void setMap(GIMap map) 

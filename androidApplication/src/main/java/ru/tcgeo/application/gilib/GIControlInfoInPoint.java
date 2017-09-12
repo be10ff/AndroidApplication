@@ -18,32 +18,13 @@ import ru.tcgeo.application.gilib.models.GILonLat;
 
 public class GIControlInfoInPoint extends LinearLayout implements GIControl, OnClickListener
 {
-	private GIMap m_map;
+    private static GIControlInfoInPoint instance;
+    public boolean hasClosed;
+    private GIMap m_map;
 	private GILonLat m_PointOriginMap;
 	private View m_LayoutView;
-	public boolean hasClosed;
 	private Context m_context;
 	private String m_info_text;
-
-	private static GIControlInfoInPoint instance;
-
-	public static GIControlInfoInPoint Instance(Context context, GIMap map, GILonLat lonlat, String text, String caption)
-	{
-		if(instance == null)
-		{
-			instance = new GIControlInfoInPoint(context, map, lonlat, text, caption);
-		}
-		else
-		{
-			instance.setMap(map);
-			instance.hasClosed = false;
-			instance.setText(text);
-			instance.setCaption(caption);
-			instance.setLonLat(lonlat);
-			instance.onMapMove();
-		}
-		return instance ;
-	}
 
 	private GIControlInfoInPoint (Context context, GIMap map, GILonLat lonlat, String text, String caption)
 	{
@@ -65,11 +46,21 @@ public class GIControlInfoInPoint extends LinearLayout implements GIControl, OnC
     	rl.addView(this);
 	}
 
-	public GIMap Map()
-	{
-		return m_map;
-	}
-	public void setMap(GIMap map)
+    public static GIControlInfoInPoint Instance(Context context, GIMap map, GILonLat lonlat, String text, String caption) {
+        if (instance == null) {
+            instance = new GIControlInfoInPoint(context, map, lonlat, text, caption);
+        } else {
+            instance.setMap(map);
+            instance.hasClosed = false;
+            instance.setText(text);
+            instance.setCaption(caption);
+            instance.setLonLat(lonlat);
+            instance.onMapMove();
+        }
+        return instance;
+    }
+
+    public void setMap(GIMap map)
 	{
 		m_map = map;
 		map.registerGIControl(this);

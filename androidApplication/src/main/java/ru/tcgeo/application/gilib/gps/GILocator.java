@@ -8,20 +8,20 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.graphics.Paint.Style;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.GIControl;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
-import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.GIRuleToolControl;
+import ru.tcgeo.application.gilib.models.GIBounds;
+import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktPoint;
@@ -29,7 +29,8 @@ import ru.tcgeo.application.wkt.GI_WktPoint;
 //NEVER USED
 public class GILocator extends View implements GIControl
 {
-	public GI_WktGeometry m_POI;
+    public final String tag = "LOCATOR_TAG";
+    public GI_WktGeometry m_POI;
 	Context m_context;
 	GIMap m_map;
 	Bitmap image;
@@ -42,7 +43,6 @@ public class GILocator extends View implements GIControl
 	Paint paint_fill;
 	//Paint paint_stroke;
 	Rect bounds;
-	public final String tag = "LOCATOR_TAG";
 	
 	public GILocator(GI_WktGeometry poi)
 	{
@@ -108,13 +108,7 @@ public class GILocator extends View implements GIControl
 		canvas.drawBitmap(image, matrix, null);
 	}
 
-	public GIMap Map() 
-	{
-		return m_map;
-	}
-
-	public void setMap(GIMap map) 
-	{
+    public void setMap(GIMap map) {
 		m_map = map;
 		map.registerGIControl(this);
 	}

@@ -3,6 +3,8 @@ package ru.tcgeo.application.gilib.parser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import ru.tcgeo.application.gilib.GISQLLayer;
+
 
 public class GIParserSQLiteDB extends GIParser
 {
@@ -22,8 +24,15 @@ public class GIParserSQLiteDB extends GIParser
 		{
 			if(m_ParserCurrent.getAttributeName(i).equalsIgnoreCase("zoom_type"))
 			{
-				m_root.m_zoom_type = m_ParserCurrent.getAttributeValue(i);
-			}
+
+                if (m_ParserCurrent.getAttributeValue(i).equalsIgnoreCase(GISQLLayer.GISQLiteZoomingType.SMART.name())) {
+                    m_root.m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
+                } else if (m_ParserCurrent.getAttributeValue(i).equalsIgnoreCase(GISQLLayer.GISQLiteZoomingType.ADAPTIVE.name())) {
+                    m_root.m_zooming_type = GISQLLayer.GISQLiteZoomingType.ADAPTIVE;
+                } else {
+                    m_root.m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
+                }
+            }
 			if(m_ParserCurrent.getAttributeName(i).equalsIgnoreCase("min"))
 			{
 				m_root.m_min_z = Integer.valueOf(m_ParserCurrent.getAttributeValue(i));

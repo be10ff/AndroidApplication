@@ -3,12 +3,10 @@
     <color name="layers_dialog_dividers">#22222222</color>
     <color name="measure_line_color">#ff0fb129</color>
     <color name="black_text">#ff333333</color>
-    <color name="red_text">#ffff0000</color>
     <color name="dark_red_text">#ffbd0000</color>
     <color name="white">#ffffff</color>
     <color name="colorDivider">#EBEBEB</color>
     <color name="control">#a7f827</color>
-    <color name="dark_text">#2d2d2d</color>
     <color name="sub_text">#8a000000</color>
     <color name="gray_text">#4a000000</color>
 </resources>

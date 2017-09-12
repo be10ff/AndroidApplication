@@ -8,23 +8,23 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
-import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.GIControl;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GIGeometryPointControl;
 import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.gilib.models.GIBounds;
 
 public class GIGeometryControl extends View implements GIControl
 {
-	Context m_context;
-	GIMap m_map;
 	public ArrayList<GIGeometryPointControl> m_points;
 	public GI_WktGeometry m_geometry;
 	public GIEditableLayer m_layer;
 	public boolean mShow = true;
-	
-	public GIGeometryControl(GIEditableLayer layer, GI_WktGeometry geometry) 
+    Context m_context;
+    GIMap m_map;
+
+    public GIGeometryControl(GIEditableLayer layer, GI_WktGeometry geometry)
 	{
 		super(GIEditLayersKeeper.Instance().getMap().getContext());
 		this.setEnabled(false);
@@ -96,13 +96,7 @@ public class GIGeometryControl extends View implements GIControl
 		}
 	}
 
-	public GIMap Map() 
-	{
-		return m_map;
-	}
-
-	public void setMap(GIMap map) 
-	{
+    public void setMap(GIMap map) {
 		m_map = map;
 		map.registerGIControl(this);
 	}

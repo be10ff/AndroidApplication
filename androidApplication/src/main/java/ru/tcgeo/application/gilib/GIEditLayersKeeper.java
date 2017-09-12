@@ -15,10 +15,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import ru.tcgeo.application.GITouchControl;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.gps.GICompassFragment;
-import ru.tcgeo.application.gilib.gps.GILocatorFragment;
 import ru.tcgeo.application.gilib.gps.GIXMLTrack;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
@@ -35,38 +34,23 @@ import ru.tcgeo.application.wkt.GI_WktPolygon;
 @Deprecated
 public class GIEditLayersKeeper {
 
-	public final static String edit_layer_tag = "EDIT_LAYER_TAG";
 	private static GIEditLayersKeeper instance;
-	final public String edit_attributes_tag = "EDIT_ATTRIBUTES_TAG";
-	final public String gps_dialog_tag = "GPS_DIALOG_TAG";
-	final public String compass_view_tag = "COMPASS_TAG";
-	//	final public String locator_view_tag = "LOCATOR_TAG";
 	public GIMap m_Map;
-    public Geoinfo activity;
+	//buttons only
+	public Geoinfo activity;
 	public LocationManager m_location_manager;
-	// views
-//	public GIEditLayerDialog m_EditLayerDialog;
-	public GICompassFragment m_compass;
-	public GILocatorFragment m_locator;
-    //	public GILocatorRange m_range;
-    //	public GIEditAttributesFragment m_EditAttributesFragment;
-//	public EditAttributesDialog m_EditAttributesFragment;
     public GIGeometryControl m_current_track_control;
 	//currents
 	public GIEditableLayer m_layer;
-	//todo find TRACK in Map.layers.ps. editable
+
 	public GIEditableLayer m_TrackLayer;
-	//todo find POI in Map.layers.ps. editable
+
 	public GIEditableLayer m_POILayer;
 
 	public GI_WktGeometry m_CurrentTrack;
-	public GI_WktGeometry m_CurrentPOI;
-
-	@Deprecated
-	public GI_WktGeometry m_CurrentTarget;
 
 	public GI_WktGeometry m_geometry;
-	//GILonLat m_last_location;
+
 	//todo find not null in Map.layers.ps.editable
 	public ArrayList<GIEditableLayer> m_Layers;
 	//statuses
@@ -84,8 +68,6 @@ public class GIEditLayersKeeper {
 	private boolean m_isPaused;
 	private GIEditLayersKeeper()
 	{
-//		m_EditLayerDialog = null;
-//		m_EditAttributesFragment = null;
         m_TrackingStatus = GITrackingStatus.STOP;
 		m_layer = null;
 		m_geometry = null;
@@ -330,15 +312,15 @@ public class GIEditLayersKeeper {
 		}
 	}
 
-	public void StartTracking()
-	{
-		m_TrackLayer.m_Status = GIEditableLayer.GIEditableLayerStatus.EDITED;
-		for(GI_WktGeometry geom : m_TrackLayer.m_shapes)
-		{
-			GIGeometryControl geometry_control = new GIGeometryControl(m_layer, geom);
-			m_controls.add(geometry_control);
-		}
-	}
+//	public void StartTracking()
+//	{
+//		m_TrackLayer.m_Status = GIEditableLayer.GIEditableLayerStatus.EDITED;
+//		for(GI_WktGeometry geom : m_TrackLayer.m_shapes)
+//		{
+//			GIGeometryControl geometry_control = new GIGeometryControl(m_layer, geom);
+//			m_controls.add(geometry_control);
+//		}
+//	}
 
 	public void StartEditingPOI(GIEditableLayer layer, GI_WktGeometry geometry)
 	{
@@ -818,23 +800,23 @@ public class GIEditLayersKeeper {
 		return m_Map.ps.m_name + String.format(Locale.ENGLISH, "%02d_%02d_%02d_%02d", mounth+1, day, hour, minute);
 	}
 
-	public void AddPointToTrack()
-	{
-		GIXMLTrack track = (GIXMLTrack)m_geometry;
-		if(track == null)
-		{
-			return;
-		}
-		GI_WktPoint point = new GI_WktPoint();
-		GILonLat location = GIProjection.ReprojectLonLat(m_Map.Center(), m_Map.Projection(), GIProjection.WGS84());
-		point.Set(location);
-		point.m_attributes = new HashMap<String, GIDBaseField>();
-		GIDBaseField field = new GIDBaseField();
-		field.m_name = "Description";
-		field.m_value = getCurrentTime();
-		point.m_attributes.put("Description", field);
-		track.AddPoint(point, 0);
-	}
+//	public void AddPointToTrack()
+//	{
+//		GIXMLTrack track = (GIXMLTrack)m_geometry;
+//		if(track == null)
+//		{
+//			return;
+//		}
+//		GI_WktPoint point = new GI_WktPoint();
+//		GILonLat location = GIProjection.ReprojectLonLat(m_Map.Center(), m_Map.Projection(), GIProjection.WGS84());
+//		point.Set(location);
+//		point.m_attributes = new HashMap<String, GIDBaseField>();
+//		GIDBaseField field = new GIDBaseField();
+//		field.m_name = "Description";
+//		field.m_value = getCurrentTime();
+//		point.m_attributes.put("Description", field);
+//		track.AddPoint(point, 0);
+//	}
 
 	public void AddPointToTrack(GILonLat lonlat, float accurancy)
 	{

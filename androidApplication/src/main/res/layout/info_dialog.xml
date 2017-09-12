@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/info_dialog"
     android:layout_width="483dp"
     android:layout_height="265dp"
+    android:background="@drawable/point_info_panel"
+    android:focusable="false"
     android:orientation="vertical"
     android:paddingBottom="30dp"
     android:paddingLeft="80dp"
     android:paddingRight="83dp"
-    android:paddingTop="30dp"
-    android:focusable="false"
-    android:background="@drawable/point_info_panel">
+    android:paddingTop="30dp">
     <!--  android:layoutMode="opticalBounds"-->
     <!--  android:background="@drawable/point_info_panel"-->
     <!--
@@ -18,7 +17,6 @@
     -->
 
     <ScrollView
-        android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@null"        

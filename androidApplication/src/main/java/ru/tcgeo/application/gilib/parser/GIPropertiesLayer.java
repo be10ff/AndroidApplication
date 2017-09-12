@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.gilib.GILayer;
+import ru.tcgeo.application.gilib.GISQLLayer;
 import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 //import ru.tcgeo.application.gilib.models.GIIcon;
@@ -225,7 +226,7 @@ public class GIPropertiesLayer implements ILayersRoot
             return this;
         }
 
-        public Builder sqldbZoomType(String zoomType){
+        public Builder sqldbZoomType(GISQLLayer.GISQLiteZoomingType zoomType) {
             sqldbBuilder.zoomType(zoomType);
             return this;
         }
@@ -260,12 +261,7 @@ public class GIPropertiesLayer implements ILayersRoot
                 layer.m_strType = strType;
             }
 
-//
-//            if(editable != null){
-//
-//                layer.editable.enumType = editable;
-//            }
-
+            layer.m_enabled = enabled;
             layer.m_source = sourceBuilder.build();
             layer.m_style = styleBuilder.build();
             layer.m_range = rangeBuilder.build();

@@ -137,8 +137,8 @@ public class LoadProjectInteractor {
                     layer.setName(current_layer.m_name);
                     if (current_layer.m_sqldb != null) {
                         GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-                        if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
+                        builder.zoomType(current_layer.m_sqldb.m_zooming_type);
+                        if (current_layer.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.ADAPTIVE)
                         {
                             ((GISQLLayer) layer).getAvalibleLevels();
                         }
@@ -156,9 +156,9 @@ public class LoadProjectInteractor {
                     layer.setName(current_layer.m_name);
                     if (current_layer.m_sqldb != null) {
                         GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
+                        builder.zoomType(current_layer.m_sqldb.m_zooming_type);
 
-                        if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE")) {
+                        if (current_layer.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.ADAPTIVE) {
                             ((GISQLLayer) layer).getAvalibleLevels();
                         }
                         current_layer.m_sqldb = builder.build();
@@ -180,8 +180,8 @@ public class LoadProjectInteractor {
                     layer.setName(current_layer.m_name);
                     if (current_layer.m_sqldb != null) {
                         GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-                        if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
+                        builder.zoomType(current_layer.m_sqldb.m_zooming_type);
+                        if (current_layer.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.ADAPTIVE)
                         {
                             ((GISQLLayer) layer).getAvalibleLevels();
                         }
@@ -196,9 +196,8 @@ public class LoadProjectInteractor {
                     layer.setName(current_layer.m_name);
                     if (current_layer.m_sqldb != null) {
                         GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-                        if (current_layer.m_sqldb.m_zoom_type
-                                .equalsIgnoreCase("ADAPTIVE")) {
+                        builder.zoomType(current_layer.m_sqldb.m_zooming_type);
+                        if (current_layer.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.ADAPTIVE) {
                             ((GISQLLayer) layer).getAvalibleLevels();
                         }
                         current_layer.m_sqldb = builder.build();
@@ -220,8 +219,8 @@ public class LoadProjectInteractor {
                     layer.setName(current_layer.m_name);
                     if (current_layer.m_sqldb != null) {
                         GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-                        if (current_layer.m_sqldb.m_zoom_type.equalsIgnoreCase("ADAPTIVE"))
+                        builder.zoomType(current_layer.m_sqldb.m_zooming_type);
+                        if (current_layer.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.ADAPTIVE)
                         {
                             ((GISQLLayer) layer).getAvalibleLevels();
                         }
@@ -236,9 +235,8 @@ public class LoadProjectInteractor {
                     layer.setName(current_layer.m_name);
                     if (current_layer.m_sqldb != null) {
                         GISQLDB.Builder builder = new GISQLDB.Builder(current_layer.m_sqldb);
-                        builder.zoomType(current_layer.m_sqldb.m_zoom_type);
-                        if (current_layer.m_sqldb.m_zoom_type
-                                .equalsIgnoreCase("ADAPTIVE")) {
+                        builder.zoomType(current_layer.m_sqldb.m_zooming_type);
+                        if (current_layer.m_sqldb.m_zooming_type == GISQLLayer.GISQLiteZoomingType.ADAPTIVE) {
                             ((GISQLLayer) layer).getAvalibleLevels();
                         }
                         current_layer.m_sqldb = builder.build();

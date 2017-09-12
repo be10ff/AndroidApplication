@@ -142,7 +142,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                     public void onZoomType(RecyclerView.ViewHolder holder, GISQLLayer.GISQLiteZoomingType type) {
                         GILayer tuple = adapter.getItem(holder.getAdapterPosition());
                         GILayer.Builder builder = new GILayer.Builder(tuple);
-                        builder.sqldbZoomType(type.name());
+                        builder.sqldbZoomType(type);
                         builder.build();
                         callback.onImmediatelyChange();
                     }

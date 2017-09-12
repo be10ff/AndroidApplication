@@ -95,11 +95,11 @@ public class GIControlFloating extends LinearLayout implements GIControl
 		}
 	}
 
-	public GIMap Map()
-	{
-		return m_map;
-	}
-	public void setMap(GIMap map)
+    //	public GIMap Map()
+//	{
+//		return m_map;
+//	}
+    public void setMap(GIMap map)
 	{
 		m_map = map;
 		map.registerGIControl(this);

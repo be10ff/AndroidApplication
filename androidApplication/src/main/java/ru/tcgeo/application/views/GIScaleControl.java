@@ -9,18 +9,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.GIControl;
-import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.gilib.models.GIBounds;
+import ru.tcgeo.application.gilib.models.GILonLat;
 
 public class GIScaleControl extends RelativeLayout implements GIControl
 {
-	int[] m_nominals = {20, 50, 100, 250, 500, 1000, 2000, 3000, 5000, 10000, 20000, 50000, 100000, 500000, 1000000, 5000000, 10000000};
-	GIMap m_map;
 	public TextView m_scale_info_text;
 	public TextView m_lon_info_text;
 	public TextView m_lat_info_text;
+    int[] m_nominals = {20, 50, 100, 250, 500, 1000, 2000, 3000, 5000, 10000, 20000, 50000, 100000, 500000, 1000000, 5000000, 10000000};
+    GIMap m_map;
 
 	public GIScaleControl(Context context, AttributeSet attrs, int defStyle) 
 	{
@@ -84,8 +84,8 @@ public class GIScaleControl extends RelativeLayout implements GIControl
 		m_scale_info_text.setText(out);
 		
 		RelativeLayout rl = (RelativeLayout)findViewById(R.id.scale_control_root);
-		ViewGroup.LayoutParams params = (ViewGroup.LayoutParams)rl.getLayoutParams();
-		params.width = (int) lenght;
+        ViewGroup.LayoutParams params = rl.getLayoutParams();
+        params.width = (int) lenght;
 		rl.setLayoutParams(params);
 		/**/
 		//double dist = m_map.getDistance(new Point((int)lenght, 0));
@@ -93,12 +93,8 @@ public class GIScaleControl extends RelativeLayout implements GIControl
 		m_lon_info_text.setText(getCoordString(m_map.MetersToDegrees(center).lon()));
 		m_lat_info_text.setText(getCoordString(m_map.MetersToDegrees(center).lat()));
 	}
-	
-	public GIMap Map ()
-	{
-		return m_map;
-	}
-	public void setMap(GIMap map)
+
+    public void setMap(GIMap map)
 	{
 		m_map = map;
 		map.registerGIControl(this);

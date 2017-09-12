@@ -8,15 +8,15 @@ LAYERS SETTINGS CALLBACKS!!
 unessesary ps.m_Edit
 layer settings
 remove GITuple!
-
+ remover string m_zoom_type  from GISQLDB
 
 todo Folder, Traffic, Points/Lines editables (is possible, seems dont)
 
 todo add yandex_traffic, folder, editable layers from dialog
 
-todo remover string m_zoom_type  from GISQLDB
-
 todo clearing
+
+todo editing dont works
 
 
 

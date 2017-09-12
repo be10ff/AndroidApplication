@@ -104,13 +104,7 @@ public class GIDirectionToPOIArrow  extends View implements GIControl
 		canvas.drawBitmap(image, matrix, null);
 	}
 
-	public GIMap Map() 
-	{
-		return m_map;
-	}
-
-	public void setMap(GIMap map) 
-	{
+    public void setMap(GIMap map) {
 		m_map = map;
 		map.registerGIControl(this);
 	}

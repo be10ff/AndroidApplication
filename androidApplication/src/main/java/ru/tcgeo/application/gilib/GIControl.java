@@ -7,7 +7,6 @@ import ru.tcgeo.application.gilib.models.GIBounds;
 
 public interface GIControl
 {
-	GIMap Map();
 	/**
 	 *  устанавливает связь с картой
 	 * @param map

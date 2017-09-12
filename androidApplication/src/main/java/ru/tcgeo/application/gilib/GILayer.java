@@ -383,8 +383,8 @@ public abstract class GILayer
 			return this;
 		}
 
-        public Builder sqldbZoomType(String zoomType) {
-			builder.sqldbZoomType(zoomType);
+        public Builder sqldbZoomType(GISQLLayer.GISQLiteZoomingType zoomType) {
+            builder.sqldbZoomType(zoomType);
 			return this;
 		}
 
