@@ -122,10 +122,10 @@ public class GIEditLayersKeeper {
 		EditAttributesDialog dialog = new EditAttributesDialog(activity, true, new DialogInterface.OnCancelListener() {
 			@Override
 			public void onCancel(DialogInterface dialog) {
-				GIEditLayersKeeper.Instance().activity.btnEditCreate.setEnabled(true);
-				GIEditLayersKeeper.Instance().activity.btnEditAttributes.setEnabled(true);
-				GIEditLayersKeeper.Instance().activity.btnEditGeometry.setEnabled(true);
-				GIEditLayersKeeper.Instance().activity.btnEditDelete.setEnabled(true);
+				GIEditLayersKeeper.Instance().m_TouchControl.btnEditCreate.setEnabled(true);
+				GIEditLayersKeeper.Instance().m_TouchControl.btnEditAttributes.setEnabled(true);
+				GIEditLayersKeeper.Instance().m_TouchControl.btnEditGeometry.setEnabled(true);
+				GIEditLayersKeeper.Instance().m_TouchControl.btnEditDelete.setEnabled(true);
 
 				GIEditLayersKeeper.Instance().UpdateMap();
 			}
@@ -250,8 +250,8 @@ public class GIEditLayersKeeper {
 			m_Map.UpdateMap();
 		}
 
-		activity.fbEditButton.setVisibility(View.GONE);
-		activity.fbEditButton.setActivated(false);
+		m_TouchControl.fbEditButton.setVisibility(View.GONE);
+		m_TouchControl.fbEditButton.setActivated(false);
 
 		for(GIGeometryControl control : m_controls)
 		{
@@ -288,16 +288,16 @@ public class GIEditLayersKeeper {
 		{
 			layer.m_Status = GIEditableLayer.GIEditableLayerStatus.EDITED;
 
-            activity.fbEditButton.setVisibility(View.VISIBLE);
-            activity.fbEditButton.setActivated(true);
-            if(m_layer == m_TrackLayer){
+			m_TouchControl.fbEditButton.setVisibility(View.VISIBLE);
+			m_TouchControl.fbEditButton.setActivated(true);
+			if(m_layer == m_TrackLayer){
 
-                activity.fbEditGeometry.setVisibility(View.GONE);
-                activity.fbEditCreate.setVisibility(View.GONE);
-            }else{
-                activity.fbEditGeometry.setVisibility(View.VISIBLE);
-                activity.fbEditCreate.setVisibility(View.VISIBLE);
-            }
+				m_TouchControl.fbEditGeometry.setVisibility(View.GONE);
+				m_TouchControl.fbEditCreate.setVisibility(View.GONE);
+			}else{
+				m_TouchControl.fbEditGeometry.setVisibility(View.VISIBLE);
+				m_TouchControl.fbEditCreate.setVisibility(View.VISIBLE);
+			}
 
 			for(GI_WktGeometry geom : layer.m_shapes)
 			{
@@ -406,7 +406,7 @@ public class GIEditLayersKeeper {
 						showEditAttributesFragment();
 						m_Status = GIEditingStatus.RUNNING;
 //						m_EditLayerDialog.m_btnAttributes.setChecked(false);
-                        activity.btnEditAttributes.setChecked(false);
+						m_TouchControl.btnEditAttributes.setChecked(false);
 						m_Map.UpdateMap();
 						res = true;
 					}
@@ -434,7 +434,7 @@ public class GIEditLayersKeeper {
 						m_Map.UpdateMap();
 
 //						m_EditLayerDialog.m_btnNew.setChecked(false);
-                        activity.btnEditCreate.setChecked(false);
+						m_TouchControl.btnEditCreate.setChecked(false);
 						break;
 					}
 					case LINE:
@@ -497,7 +497,7 @@ public class GIEditLayersKeeper {
 					m_layer.Save();
 					m_Map.UpdateMap();
 //					m_EditLayerDialog.m_btnDelete.setChecked(false);
-                    activity.btnEditDelete.setChecked(false);
+					m_TouchControl.btnEditDelete.setChecked(false);
 
 					for(GIGeometryPointControl c : m_current_geometry_editing_control.m_points)
 					{

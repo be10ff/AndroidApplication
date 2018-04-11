@@ -4,17 +4,11 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.io.File;
 import java.util.Collections;
@@ -29,7 +23,6 @@ import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
-import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
 import ru.tcgeo.application.gilib.gps.GILocatorFragment;
 import ru.tcgeo.application.gilib.gps.GISensors;
 import ru.tcgeo.application.gilib.models.GIBounds;
@@ -59,15 +52,15 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
     }
 
     final public String SAVED_PATH = "default_project_path";
-    public AppCompatCheckBox btnEditCreate;
-    public AppCompatCheckBox btnEditGeometry;
-    public AppCompatCheckBox btnEditAttributes;
-    public AppCompatCheckBox btnEditDelete;
-    public SubActionButton fbEditCreate;
-    public SubActionButton fbEditGeometry;
-    public SubActionButton fbEditAttributes;
-    public SubActionButton fbEditDelete;
-    public FloatingActionButton fbEditButton;
+    //    public AppCompatCheckBox btnEditCreate;
+//    public AppCompatCheckBox btnEditGeometry;
+//    public AppCompatCheckBox btnEditAttributes;
+//    public AppCompatCheckBox btnEditDelete;
+//    public SubActionButton fbEditCreate;
+//    public SubActionButton fbEditGeometry;
+//    public SubActionButton fbEditAttributes;
+//    public SubActionButton fbEditDelete;
+//    public FloatingActionButton fbEditButton;
     //
     @Bind(R.id.root)
     RelativeLayout root;
@@ -87,9 +80,9 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
     GIControlFloating m_marker_point;
     //todo move to touchcontrol
 //    GIGPSLocationListener m_location_listener;
-    GIGPSButtonView fbGPS;
-    ImageButton fbEdit;
-    FloatingActionMenu editActionMenu;
+//    GIGPSButtonView fbGPS;
+//    ImageButton fbEdit;
+//    FloatingActionMenu editActionMenu;
 
     public void MarkersDialogClicked() {
         View v = root.findViewById(R.id.direction_to_point_arrow);
@@ -158,8 +151,8 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
                     @Override
                     public void onStopEdit() {
                         GIEditLayersKeeper.Instance().StopEditing();
-                        if (editActionMenu != null) {
-                            editActionMenu.close(true);
+                        if (touchControl.editActionMenu != null) {
+                            touchControl.editActionMenu.close(true);
                         }
 
                     }
@@ -751,7 +744,7 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
         super.onResume();
         GIEditLayersKeeper.Instance().onResume();
         GISensors.Instance(this).run(true);
-        fbGPS.onResume();
+//        fbGPS.onResume();
 
     }
 
@@ -761,7 +754,7 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
         super.onPause();
         GIEditLayersKeeper.Instance().onPause();
         GISensors.Instance(this).run(false);
-        fbGPS.onPause();
+//        fbGPS.onPause();
         onSaveProject();
     }
 

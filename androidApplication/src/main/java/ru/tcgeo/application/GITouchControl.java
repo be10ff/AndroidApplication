@@ -498,17 +498,17 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
 
 
         //todo
-        ImageButton fbedit = new ImageButton(activity);
-        FloatingActionButton.LayoutParams editMenuParams = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
-        editMenuParams.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
-        fbedit.setImageResource(R.drawable.edit);
-        fbedit.setBackgroundDrawable(null);
-        FloatingActionButton fbeditbutton = new FloatingActionButton.Builder(activity)
-                .setContentView(fbedit)
-                .setBackgroundDrawable(null)
-                .setPosition(FloatingActionButton.POSITION_LEFT_CENTER)
-                .setLayoutParams(editMenuParams)
-                .build();
+//        ImageButton fbedit = new ImageButton(activity);
+//        FloatingActionButton.LayoutParams editMenuParams = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
+//        editMenuParams.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
+//        fbedit.setImageResource(R.drawable.edit);
+//        fbedit.setBackgroundDrawable(null);
+//        FloatingActionButton fbeditbutton = new FloatingActionButton.Builder(activity)
+//                .setContentView(fbedit)
+//                .setBackgroundDrawable(null)
+//                .setPosition(FloatingActionButton.POSITION_LEFT_CENTER)
+//                .setLayoutParams(editMenuParams)
+//                .build();
     }
 
     public void SetMeasureState(boolean rule, boolean square) {

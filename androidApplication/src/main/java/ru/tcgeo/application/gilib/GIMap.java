@@ -85,8 +85,9 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         //final static double meters_per_inch = 0.0254f;
         GIBounds metric = bounds.Reprojected(GIProjection.WorldMercator());
         double rect_diag_meters = Math.hypot(rect.width(), rect.height()) * inches_per_pixel * meters_per_inch;
-        return rect_diag_meters / Math.hypot(metric.width(), metric.height());
-    }
+		double metricDiagonal = Math.hypot(metric.width(), metric.height());
+		return rect_diag_meters / metricDiagonal;
+	}
 
     public void registerGIControl(GIControl control)
 	{

@@ -41,10 +41,11 @@ public class GIRange {
         double m_min = 1 / ((double) m_to);
         double m_max = 1 / ((double) m_from);
 
-        if (scale > m_max && -1.0f != m_max)
+        if (scale > m_min && -1.0f != m_min)
             return false;
 
-        return scale >= m_min;
+        return scale >= m_max || m_max == -1;
+//        return true;
     }
 
     public static class Builder {
