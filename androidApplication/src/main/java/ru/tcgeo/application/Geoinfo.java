@@ -9,11 +9,9 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.io.File;
@@ -29,7 +27,6 @@ import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
-import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
 import ru.tcgeo.application.gilib.gps.GILocatorFragment;
 import ru.tcgeo.application.gilib.gps.GISensors;
 import ru.tcgeo.application.gilib.models.GIBounds;
@@ -87,9 +84,9 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
     GIControlFloating m_marker_point;
     //todo move to touchcontrol
 //    GIGPSLocationListener m_location_listener;
-    GIGPSButtonView fbGPS;
-    ImageButton fbEdit;
-    FloatingActionMenu editActionMenu;
+//    GIGPSButtonView fbGPS;
+//    ImageButton fbEdit;
+//    FloatingActionMenu editActionMenu;
 
     public void MarkersDialogClicked() {
         View v = root.findViewById(R.id.direction_to_point_arrow);
@@ -158,9 +155,9 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
                     @Override
                     public void onStopEdit() {
                         GIEditLayersKeeper.Instance().StopEditing();
-                        if (editActionMenu != null) {
-                            editActionMenu.close(true);
-                        }
+//                        if (editActionMenu != null) {
+//                            editActionMenu.close(true);
+//                        }
 
                     }
                 })
@@ -716,7 +713,6 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
         String path = App.getInstance().getPreference().getLastProjectPath();
         LoadProject(path);
         GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
-        GIEditLayersKeeper.Instance().setTouchControl(touchControl);
         GIEditLayersKeeper.Instance().setMap(map);
         GIEditLayersKeeper.Instance().setActivity(this);
 
@@ -751,7 +747,7 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
         super.onResume();
         GIEditLayersKeeper.Instance().onResume();
         GISensors.Instance(this).run(true);
-        fbGPS.onResume();
+//        fbGPS.onResume();
 
     }
 
@@ -761,7 +757,7 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
         super.onPause();
         GIEditLayersKeeper.Instance().onPause();
         GISensors.Instance(this).run(false);
-        fbGPS.onPause();
+//        fbGPS.onPause();
         onSaveProject();
     }
 

@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-import ru.tcgeo.application.GITouchControl;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.gps.GIXMLTrack;
@@ -59,7 +58,6 @@ public class GIEditLayersKeeper {
 	public boolean m_ShowTargetDirection;
 	GIGeometryControl m_current_geometry_editing_control;
 	ArrayList<GIGeometryControl> m_controls;
-	private GITouchControl m_TouchControl;
 	//	private int m_root;
 	private FragmentManager m_FragmentManager;
 	private GIPositionControl m_position;
@@ -104,11 +102,6 @@ public class GIEditLayersKeeper {
 
 	public void setState(GIEditingStatus status) {
 		m_Status = status;
-		//m_PreviusStatus = status;
-		if (IsRunning()) {
-			m_TouchControl.SetMeasureState(false, false);
-		}
-
 	}
 
 	public boolean IsRunning()
@@ -136,11 +129,6 @@ public class GIEditLayersKeeper {
 	public void setFragmentManager(FragmentManager fragment_manager)
 	{
 		m_FragmentManager = fragment_manager;
-	}
-
-	public void setTouchControl(GITouchControl TouchControl)
-	{
-		m_TouchControl = TouchControl;
 	}
 
 	public void setActivity(Geoinfo gi)
@@ -800,23 +788,6 @@ public class GIEditLayersKeeper {
 		return m_Map.ps.m_name + String.format(Locale.ENGLISH, "%02d_%02d_%02d_%02d", mounth+1, day, hour, minute);
 	}
 
-//	public void AddPointToTrack()
-//	{
-//		GIXMLTrack track = (GIXMLTrack)m_geometry;
-//		if(track == null)
-//		{
-//			return;
-//		}
-//		GI_WktPoint point = new GI_WktPoint();
-//		GILonLat location = GIProjection.ReprojectLonLat(m_Map.Center(), m_Map.Projection(), GIProjection.WGS84());
-//		point.Set(location);
-//		point.m_attributes = new HashMap<String, GIDBaseField>();
-//		GIDBaseField field = new GIDBaseField();
-//		field.m_name = "Description";
-//		field.m_value = getCurrentTime();
-//		point.m_attributes.put("Description", field);
-//		track.AddPoint(point, 0);
-//	}
 
 	public void AddPointToTrack(GILonLat lonlat, float accurancy)
 	{
@@ -895,7 +866,6 @@ public class GIEditLayersKeeper {
 				m_position = new GIPositionControl(m_Map.getContext(), m_Map);
 			}
 		}
-		return;
 	}
 
 	public void SetPositionControl(Location location)
