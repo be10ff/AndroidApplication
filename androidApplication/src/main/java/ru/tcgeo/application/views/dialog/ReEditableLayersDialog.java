@@ -99,7 +99,7 @@ public class ReEditableLayersDialog extends Dialog {
         inEditing = false;
         if (data != null) {
             for (GIEditableLayer layer : data) {
-                if (layer.m_Status == EDITED || layer.m_Status == UNSAVED) {
+                if (layer != null && (layer.m_Status == EDITED || layer.m_Status == UNSAVED)) {
                     inEditing = true;
                     break;
                 }
@@ -108,7 +108,7 @@ public class ReEditableLayersDialog extends Dialog {
         if (inEditing) {
             fabStopEdit.setVisibility(View.VISIBLE);
         } else {
-            fabStopEdit.setVisibility(View.INVISIBLE);
+            fabStopEdit.setVisibility(View.GONE);
         }
     }
 

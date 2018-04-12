@@ -30,6 +30,8 @@ import ru.tcgeo.application.wkt.GI_WktLinestring;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 import ru.tcgeo.application.wkt.GI_WktPolygon;
 
+import static ru.tcgeo.application.gilib.GILayer.EditableType.POI;
+
 
 @Deprecated
 public class GIEditLayersKeeper {
@@ -167,14 +169,14 @@ public class GIEditLayersKeeper {
 		m_Layers.clear();
 	}
 
-//	public void setRoot(int id)
-//	{
-//		m_root = id;
-//	}
-
 	public boolean CreateNewObject()
 	{
 		boolean res = false;
+
+		if (m_layer.m_Type == null) {
+			m_layer.m_Type = POI;
+		}
+
 		switch (m_layer.m_Type)
 		{
 			case POI:

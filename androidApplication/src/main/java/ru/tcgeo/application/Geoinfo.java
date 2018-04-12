@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -141,6 +142,15 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
 
     public void EditableLayersDialogClicked() {
 
+        ArrayList<GIEditableLayer> editableLayers = new ArrayList<>();
+        if (map != null && map.m_layers != null && map.m_layers.m_list != null) {
+            for (GILayer l : map.m_layers.m_list) {
+                if (l instanceof GIEditableLayer) {
+                    editableLayers.add((GIEditableLayer) l);
+                }
+            }
+        }
+
         new ReEditableLayersDialog.Builder(this)
                 .callback(new EditableLayerCallback() {
                     @Override
@@ -157,7 +167,7 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
 
                     }
                 })
-                .data(GIEditLayersKeeper.Instance().m_Layers)
+                .data(editableLayers)
                 .build()
                 .show();
     }
@@ -721,20 +731,8 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
                 dm.heightPixels / dm.ydpi);
         GIMap.inches_per_pixel = screenInches / screenPixels;
 
-
-		/**/
-
-        //TODO uncomment
-//		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	5, 5, m_location_listener);
-//		locationManager.requestLocationUpdates(	LocationManager.NETWORK_PROVIDER, 5, 5, m_location_listener);
-
-//		m_location_listener = new GIGPSLocationListener(map);
-//		m_location_listener = new GIGPSLocationListener((LocationManager) getSystemService(Context.LOCATION_SERVICE));
-//		GIEditLayersKeeper.Instance().locationManager = m_location_listener.locationManager;
-
-//		GIScaleControl m_scale_control_fixed = (GIScaleControl) findViewById(R.id.scale_control_screen);
         scaleControl.setMap(map);
-//		fbGPS.SetGPSEnabledStatus(m_location_listener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+
 
     }
 

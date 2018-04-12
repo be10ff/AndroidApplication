@@ -61,10 +61,10 @@ public abstract class GILayer
 			{
 				return new GIGPSPointsLayer(path, new GIVectorStyle());
 			}
-			case ZIP:
-			{
-				return new GIGPSPointsLayer(path, new GIVectorStyle());
-			}
+//			case ZIP:
+//			{
+//				return new GIGPSPointsLayer(path, new GIVectorStyle());
+//			}
 			case FOLDER:
 			{
 				GIFolderLayer layer = new GIFolderLayer(path);
@@ -283,7 +283,7 @@ public abstract class GILayer
 	}
 
 	public enum GILayerType {
-		LAYER_GROUP, RASTER_LAYER, VECTOR_LAYER, TILE_LAYER, ON_LINE, SQL_LAYER, /*DBASE,*/ XML, SQL_YANDEX_LAYER, /*PLIST,*/ ZIP, FOLDER
+		LAYER_GROUP, RASTER_LAYER, VECTOR_LAYER, TILE_LAYER, ON_LINE, SQL_LAYER, /*DBASE,*/ XML, SQL_YANDEX_LAYER, /*PLIST, ZIP,*/ FOLDER
 	}
 
 	public enum EditableType {

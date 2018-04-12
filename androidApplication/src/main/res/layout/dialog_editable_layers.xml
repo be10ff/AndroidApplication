@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/layers_panel"
+    android:orientation="horizontal">
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rvEditableLayers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/layers_panel"
         android:orientation="vertical" />
 
     <ImageView
@@ -17,4 +18,4 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="36dp"
         android:src="@drawable/icon_off_normal" />
-</FrameLayout>
+</LinearLayout>
