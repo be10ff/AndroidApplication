@@ -991,17 +991,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         }
     }
 
-
-//	public void onMapLoaded(GIProjectProperties ps) {
-//		this.ps = ps;
-//		GIBounds temp = new GIBounds(ps.m_projection, ps.m_left,
-//				ps.m_top, ps.m_right, ps.m_bottom);
-//		InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
-//		GIPropertiesGroup current_group = ps.m_Group;
-//		GIEditLayersKeeper.Instance().ClearLayers();
-//		loadGroup(current_group);
-//	}
-
     class DraftRenderTask implements Runnable {
 
         GIBounds actual_bounds;

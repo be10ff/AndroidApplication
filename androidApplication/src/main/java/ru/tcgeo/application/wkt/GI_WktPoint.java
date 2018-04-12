@@ -11,20 +11,22 @@ import android.graphics.RectF;
 
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
+import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
 
 public class GI_WktPoint extends GI_WktGeometry {
 
+	protected static Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.measure_point);
 	public double m_lon;
 	public double m_lat;
 	public double m_lon_in_map_projection;
 	public double m_lat_in_map_projection;
 	Bitmap m_bitmap;
 	int m_TrackID;
+
 	public GI_WktPoint() 
 	{
 //		m_bitmap = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.measure_point);
@@ -54,12 +56,14 @@ public class GI_WktPoint extends GI_WktGeometry {
 	{
 		return new GILonLat(m_lon, m_lat);
 	}
+
 	@Override
 	public String toWKT()
 	{
 		String res = "POINT(" +  m_lon + " " + m_lat + ")";
 		return res;
 	}
+
 	public void Set(GILonLat point)
 	{
 		m_lon = point.lon();
@@ -90,6 +94,7 @@ public class GI_WktPoint extends GI_WktGeometry {
 		RectF dst = new RectF(point.x - scale*m_bitmap.getWidth()/2, point.y - scale*m_bitmap.getHeight()/2, point.x + scale*m_bitmap.getWidth()/2, point.y + scale*m_bitmap.getHeight()/2);
 		canvas.drawBitmap(m_bitmap, src, dst, paint);
 	}
+
 	@Override
 	public boolean isTouch(GIBounds point) 
 	{

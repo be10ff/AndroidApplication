@@ -4,8 +4,6 @@ import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.squareup.otto.Bus;
-
 import ru.tcgeo.application.utils.SPUtils;
 
 /**
@@ -14,7 +12,6 @@ import ru.tcgeo.application.utils.SPUtils;
 public class App extends Application {
     private static App sInstance;
     public Bitmap wktPointBitmap;
-    private Bus bus;
     private SPUtils sp;
 
 //    private Observable<Location> locationObservable;
@@ -26,15 +23,10 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        bus = new Bus();
         wktPointBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.measure_point);
 
         sInstance = this;
         sp = new SPUtils(this);
-    }
-
-    public Bus getEventBus() {
-        return bus;
     }
 
     public SPUtils getPreference() {
