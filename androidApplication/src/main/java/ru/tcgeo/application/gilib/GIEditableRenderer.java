@@ -20,7 +20,6 @@ public class GIEditableRenderer extends GIRenderer {
 
 	public GIEditableRenderer(GIVectorStyle style)
 	{
-
 		m_style = style;
 		m_additional_styles = new ArrayList<GIVectorStyle>();
 	}

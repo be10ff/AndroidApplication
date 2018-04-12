@@ -1,7 +1,6 @@
 package ru.tcgeo.application.wkt;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -10,7 +9,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 import ru.tcgeo.application.App;
-import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
@@ -19,7 +17,7 @@ import ru.tcgeo.application.gilib.models.GIVectorStyle;
 
 public class GI_WktPoint extends GI_WktGeometry {
 
-	protected static Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.measure_point);
+	//	protected static Bitmap m_bitmap = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.measure_point);
 	public double m_lon;
 	public double m_lat;
 	public double m_lon_in_map_projection;
