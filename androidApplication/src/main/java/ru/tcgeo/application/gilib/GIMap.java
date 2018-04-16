@@ -22,7 +22,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.tcgeo.application.gilib.gps.GIXMLTrack;
 import ru.tcgeo.application.gilib.models.GIBitmap;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIColor;
@@ -36,8 +35,10 @@ import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
 import ru.tcgeo.application.gilib.parser.GIRange;
 import ru.tcgeo.application.gilib.parser.GISQLDB;
 import ru.tcgeo.application.gilib.parser.GISource;
+import ru.tcgeo.application.utils.CommonUtils;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.wkt.GIGPSPointsLayer;
+import ru.tcgeo.application.wkt.GIXMLTrack;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktLinestring;
 import ru.tcgeo.application.wkt.GI_WktPoint;
@@ -909,7 +910,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
                                 if (geom.m_attributes.containsKey("Project")) {
                                     marker.name = geom.m_attributes.get("Project").m_value.toString();
                                     if (geom.m_attributes.containsKey("Description")) {
-                                        String data = GIEditLayersKeeper.getTime(geom.m_attributes.get("Description").m_value.toString());
+                                        String data = CommonUtils.getTime(geom.m_attributes.get("Description").m_value.toString());
                                         if (!data.isEmpty()) {
                                             marker.name = marker.name + " " + data;
                                         } else {
@@ -936,7 +937,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
                                 if (geom.m_attributes.containsKey("Project")) {
                                     marker.name = geom.m_attributes.get("Project").m_value.toString();
                                     if (geom.m_attributes.containsKey("Description")) {
-                                        String data = GIEditLayersKeeper.getTime(geom.m_attributes.get("Description").m_value.toString());
+                                        String data = CommonUtils.getTime(geom.m_attributes.get("Description").m_value.toString());
                                         if (!data.isEmpty()) {
                                             marker.name = marker.name + " " + data;
                                         } else {

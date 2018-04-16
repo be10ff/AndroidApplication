@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import ru.tcgeo.application.gilib.GIEditableLayer;
-import ru.tcgeo.application.gilib.gps.GIXMLTrack;
 
 
 public class GIGPSParser {

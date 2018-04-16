@@ -295,15 +295,15 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
         setContentView(R.layout.main);
         ButterKnife.bind(this);
 
-        touchControl.setupButtons(this);
+        touchControl.setupButtons();
+
+
 
 
         String path = App.getInstance().getPreference().getLastProjectPath();
         LoadProject(path);
-        GIEditLayersKeeper.Instance().setFragmentManager(getFragmentManager());
         GIEditLayersKeeper.Instance().setTouchControl(touchControl);
         GIEditLayersKeeper.Instance().setMap(map);
-        GIEditLayersKeeper.Instance().setActivity(this);
 
         // Setup pixel size to let scale work properly
         DisplayMetrics dm = new DisplayMetrics();
@@ -342,7 +342,6 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
         if (map != null && map.ps != null && map.ps.m_path != null && !map.ps.m_path.isEmpty()) {
             SaveAsPath = map.ps.m_path;
         }
-
         map.ps.SavePro(SaveAsPath);
     }
 
@@ -386,4 +385,52 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
         return m_marker_point;
     }
 
+
+//    public boolean CreateTrack()
+//    {
+//        boolean res = false;
+//        if(m_TrackLayer == null){
+//            SimpleDateFormat dateFormat = new SimpleDateFormat(getString(R.string.date_format), Locale.ENGLISH);
+//            String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
+//            m_TrackLayer = GILayer.createTrack(map.ps.m_name, date);
+//            m_TrackLayer.setType(GILayer.EditableType.TRACK);
+//            m_TrackLayer.Save();
+//            map.ps.m_Group.addEntry(m_TrackLayer.m_layer_properties);
+//            map.AddLayer(m_TrackLayer);
+////			}
+//        }
+//        if(m_TrackLayer != null)
+//        {
+//            m_TrackingStatus = GIEditLayersKeeper.GITrackingStatus.WRITE;
+//            m_CurrentTrack = new GIXMLTrack();
+//
+//            m_CurrentTrack.m_attributes = new HashMap<String, GIDBaseField>();
+//            for(String key : m_TrackLayer.m_attributes.keySet()) {
+//                m_CurrentTrack.m_attributes.put(key, new GIDBaseField(m_TrackLayer.m_attributes.get(key)));
+//            }
+//            String time = CommonUtils.getCurrentTime();
+//            GIDBaseField field = new GIDBaseField();
+//            field.m_name = "Description";
+//            field.m_value = time;
+//            m_CurrentTrack.m_attributes.put("Description", field);
+//
+//            GIDBaseField proj_field = new GIDBaseField();
+//            proj_field.m_name = "Project";
+//            proj_field.m_value = m_Map.ps.m_name;
+//            m_CurrentTrack.m_attributes.put("Project", proj_field);
+//
+//
+//            res = ((GIXMLTrack)m_CurrentTrack).Create(m_Map.ps.m_name, getCurrentTimeShort(), m_TrackLayer.m_style, m_TrackLayer.m_encoding);
+//            m_CurrentTrack.m_status = GI_WktGeometry.GIWKTGeometryStatus.NEW;
+//            m_TrackLayer.m_shapes.add(m_CurrentTrack);
+//
+//            //todo
+//            m_current_track_control = new GIGeometryControl(m_TrackLayer, m_CurrentTrack);
+//            m_current_track_control.setMap(map);
+//
+////			m_current_track_control.Show(m_TrackLayer.m_layer_properties.m_enabled);
+//            m_TrackLayer.Save();
+//        }
+//        return res;
+//    }
 }

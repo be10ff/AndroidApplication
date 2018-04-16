@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
 
+import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
@@ -184,8 +185,8 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
 
 	public boolean onLongClick(View v) 
 	{
-		GIEditLayersKeeper.Instance().onLongClickPoint(this);
-		return true;
+        new GILonLatInputDialog(this).show(((Geoinfo) m_context).getFragmentManager(), "lon_lat");
+        return true;
 	}
 
 }

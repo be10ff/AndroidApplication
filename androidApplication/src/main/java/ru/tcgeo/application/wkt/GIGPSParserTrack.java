@@ -6,10 +6,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import ru.tcgeo.application.gilib.gps.GIXMLTrack;
 import ru.tcgeo.application.utils.MapUtils;
 
 
@@ -45,8 +43,8 @@ public class GIGPSParserTrack extends GIGPSParser
 					while((line = reader.readLine()) != null)
 					{
 						GI_WktGeometry point = GIWKTParser.CreateGeometryFromWKT(line);
-						((GIXMLTrack)m_geometry).m_points.add((GI_WktPoint) point);
-					}
+                        ((GIXMLTrack) m_geometry).m_points.add(point);
+                    }
 
 					int  iiiii = 0;
 

@@ -1,8 +1,8 @@
 package ru.tcgeo.application;
 
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.location.Location;
@@ -22,6 +22,8 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import ru.tcgeo.application.data.GIEditingStatus;
+import ru.tcgeo.application.data.GITrackingStatus;
 import ru.tcgeo.application.gilib.GIControl;
 import ru.tcgeo.application.gilib.GIDataRequestorImp;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
@@ -36,6 +38,8 @@ import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.view.FloatingActionButtonsCallback;
+import ru.tcgeo.application.views.dialog.EditAttributesDialog;
+import ru.tcgeo.application.wkt.GI_WktGeometry;
 
 
 public class GITouchControl extends View implements GIControl, OnLongClickListener {
@@ -64,8 +68,9 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
     boolean m_IsRule;
     boolean m_IsSquare;
     boolean m_GotPosition;
-    Context m_context;
+    //    Context m_context;
     GIGPSLocationListener m_location_listener;
+    Geoinfo activity;
     private ScaleGestureDetector m_ScaleDetector;
     private GIMap m_map;
     private int active_id = INVALID_ID;
@@ -74,6 +79,8 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
     private Point m_focus;
     private float m_ScaleFactor;
     private boolean m_scaled;
+    private GIEditingStatus m_Status = GIEditingStatus.STOPPED;
+    private GITrackingStatus m_TrackingStatus = GITrackingStatus.STOP;
 
     public GITouchControl(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -91,6 +98,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
     }
 
     private void initialize(Context context) {
+        activity = (Geoinfo) context;
         m_ScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
         m_scaled = false;
         m_ScaleFactor = 1.0f;
@@ -99,21 +107,24 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
         m_IsMultyClick = false;
         m_IsLongClick = false;
         m_GotPosition = false;
-        m_context = context;
         this.setOnLongClickListener(this);
         //// TODO: 19.07.17
-        ViewConfiguration vc = ViewConfiguration.get(getContext());
+        ViewConfiguration vc = ViewConfiguration.get(activity);
         mTouchSlop = vc.getScaledTouchSlop();
 
 
         m_location_listener = new GIGPSLocationListener(context);
         GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.locationManager;
 
+        // TODO 13/04/2018
+        m_Status = GIEditingStatus.STOPPED;
+        m_TrackingStatus = GITrackingStatus.STOP;
+
     }
 
-    public void setupButtons(Activity activity) {
+    public void setupButtons() {
 
-        final FloatingActionButtonsCallback callback = (FloatingActionButtonsCallback) activity;
+        final FloatingActionButtonsCallback callback = activity;
         // floating buttons
         //--------------------------------------------------------------------
 
@@ -139,7 +150,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
 
         fbGPS.SetGPSEnabledStatus(m_location_listener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
 
-        //--------------------------------------------------------------------
+        //-------------------------------------------------------------------
         // GPS AUTO_FOLL0W
         //--------------------------------------------------------------------
         final CheckBox m_btnAutoFollow = new CheckBox(activity);
@@ -170,17 +181,17 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
         m_btnTrackControl.setTextSize(0);
         m_btnTrackControl.setButtonDrawable(R.drawable.stop_start_track_button);
         SubActionButton fbTrackControl = itemBuilder.setContentView(m_btnTrackControl).build();
-        m_btnTrackControl.setChecked(GIEditLayersKeeper.Instance().m_TrackingStatus == GIEditLayersKeeper.GITrackingStatus.WRITE);
+        m_btnTrackControl.setChecked(m_TrackingStatus == GITrackingStatus.WRITE);
         m_btnTrackControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (GIEditLayersKeeper.Instance().m_TrackingStatus == GIEditLayersKeeper.GITrackingStatus.STOP) {
+                if (m_TrackingStatus == GITrackingStatus.STOP) {
                     if (!GIEditLayersKeeper.Instance().CreateTrack()) {
-                        GIEditLayersKeeper.Instance().m_TrackingStatus = GIEditLayersKeeper.GITrackingStatus.STOP;
+                        m_TrackingStatus = GITrackingStatus.STOP;
                         m_btnTrackControl.setChecked(false);
                     }
                 } else {
-                    GIEditLayersKeeper.Instance().m_TrackingStatus = GIEditLayersKeeper.GITrackingStatus.STOP;
+                    m_TrackingStatus = GITrackingStatus.STOP;
                     GIEditLayersKeeper.Instance().StopTrack();
                 }
             }
@@ -213,7 +224,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
         m_btnPoiControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (GIEditLayersKeeper.Instance().getState() != GIEditLayersKeeper.GIEditingStatus.EDITING_POI && GIEditLayersKeeper.Instance().getState() != GIEditLayersKeeper.GIEditingStatus.EDITING_GEOMETRY) {
+                if (getState() != GIEditingStatus.EDITING_POI && getState() != GIEditingStatus.EDITING_GEOMETRY) {
                     GIEditLayersKeeper.Instance().CreatePOI();
                 } else {
                     GIEditLayersKeeper.Instance().StopEditing();
@@ -359,20 +370,20 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
         btnEditCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((GIEditLayersKeeper.Instance().getState() != GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION) && (btnEditCreate.isChecked())) {
+                if ((getState() != GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION) && (btnEditCreate.isChecked())) {
                     if (!GIEditLayersKeeper.Instance().CreateNewObject()) {
                         return;
                     }
-                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION);
+                    setState(GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION);
                     fbEditAttributes.setEnabled(false);
                     fbEditGeometry.setEnabled(false);
                     fbEditDelete.setEnabled(false);
                     btnEditAttributes.setChecked(false);
                     btnEditGeometry.setChecked(false);
                     btnEditDelete.setChecked(false);
-                    GIEditLayersKeeper.Instance().UpdateMap();
+                    m_map.UpdateMap();
                 } else {
-                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.RUNNING);
+                    setState(GIEditingStatus.RUNNING);
                     GIEditLayersKeeper.Instance().FillAttributes();
                     fbEditCreate.setEnabled(false);
                 }
@@ -385,8 +396,8 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
                     return;
                 }
 
-                if ((GIEditLayersKeeper.Instance().getState() == GIEditLayersKeeper.GIEditingStatus.EDITING_GEOMETRY) || (GIEditLayersKeeper.Instance().getState() == GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING) || (GIEditLayersKeeper.Instance().getState() == GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_NEW_POINT_LOCATION)) {
-                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.RUNNING);
+                if ((getState() == GIEditingStatus.EDITING_GEOMETRY) || (getState() == GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING) || (getState() == GIEditingStatus.WAITING_FOR_NEW_POINT_LOCATION)) {
+                    setState(GIEditingStatus.RUNNING);
                     GIEditLayersKeeper.Instance().StopEditingGeometry();
                     fbEditCreate.setEnabled(true);
                     fbEditAttributes.setEnabled(true);
@@ -395,7 +406,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
                     btnEditAttributes.setChecked(false);
                     btnEditDelete.setChecked(false);
                 } else {
-                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING);
+                    setState(GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING);
                     fbEditCreate.setEnabled(false);
                     fbEditAttributes.setEnabled(false);
                     fbEditDelete.setEnabled(false);
@@ -405,8 +416,8 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
         btnEditAttributes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (GIEditLayersKeeper.Instance().getState() != GIEditLayersKeeper.GIEditingStatus.WAITIN_FOR_SELECT_OBJECT) {
-                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.WAITIN_FOR_SELECT_OBJECT);
+                if (getState() != GIEditingStatus.WAITIN_FOR_SELECT_OBJECT) {
+                    setState(GIEditingStatus.WAITIN_FOR_SELECT_OBJECT);
                     fbEditCreate.setEnabled(false);
                     fbEditGeometry.setEnabled(false);
                     fbEditDelete.setEnabled(false);
@@ -414,7 +425,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
                     btnEditGeometry.setChecked(false);
                     btnEditDelete.setChecked(false);
                 } else {
-                    GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.RUNNING);
+                    setState(GIEditingStatus.RUNNING);
                     fbEditCreate.setEnabled(true);
                     fbEditGeometry.setEnabled(true);
                     fbEditDelete.setEnabled(true);
@@ -425,7 +436,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
         btnEditDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GIEditLayersKeeper.Instance().setState(GIEditLayersKeeper.GIEditingStatus.WAITING_FOR_TO_DELETE);
+                setState(GIEditingStatus.WAITING_FOR_TO_DELETE);
             }
         });
 
@@ -474,45 +485,24 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
                 .build();
 
 
-        //--------------------------------------------------------------------
-        // Edit buttons
-        //--------------------------------------------------------------------
+    }
 
-//        ImageButton fbedit = new ImageButton(this);
-//        FloatingActionButton.LayoutParams editMenuParams = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
-//        editMenuParams.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
-//        fbedit.setImageResource(R.drawable.edit);
-//        fbedit.setBackgroundDrawable(null);
-//
-//        FloatingActionButton fbeditbutton = new FloatingActionButton.Builder(this)
-//                .setContentView(fbedit)
-//                .setBackgroundDrawable(null)
-//                .setPosition(FloatingActionButton.POSITION_LEFT_CENTER)
-//                .setLayoutParams(editMenuParams)
-//                .build();
-//
-//        fbeditbutton.setVisibility(View.VISIBLE);
-//        fbeditbutton.setActivated(false);
-
-        /**/
-
-
-        //todo
-//        ImageButton fbedit = new ImageButton(activity);
-//        FloatingActionButton.LayoutParams editMenuParams = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
-//        editMenuParams.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
-//        fbedit.setImageResource(R.drawable.edit);
-//        fbedit.setBackgroundDrawable(null);
-//        FloatingActionButton fbeditbutton = new FloatingActionButton.Builder(activity)
-//                .setContentView(fbedit)
-//                .setBackgroundDrawable(null)
-//                .setPosition(FloatingActionButton.POSITION_LEFT_CENTER)
-//                .setLayoutParams(editMenuParams)
-//                .build();
+    public void showEditAttributesFragment(GI_WktGeometry geometry) {
+        EditAttributesDialog dialog = new EditAttributesDialog(activity, true, new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                btnEditCreate.setEnabled(true);
+                btnEditAttributes.setEnabled(true);
+                btnEditGeometry.setEnabled(true);
+                btnEditDelete.setEnabled(true);
+                m_map.UpdateMap();
+            }
+        }, geometry.m_attributes);
+        dialog.show();
     }
 
     public void SetMeasureState(boolean rule, boolean square) {
-        if (!GIEditLayersKeeper.Instance().IsRunning()) {
+        if (!IsRunning()) {
             m_IsRule = rule;
             m_IsSquare = square;
         } else {
@@ -622,7 +612,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
                         GISquareToolControl SC = GISquareToolControl.Instance(getContext(), m_map);
                         SC.AddPoint(mark);
                     }
-                    if (GIEditLayersKeeper.Instance().IsRunning()) {
+                    if (IsRunning()) {
                         Point point = new Point((int) event.getX(), (int) event.getY());
                         GILonLat mark = m_map.ScreenToMap(point);
                         GIBounds area = m_map.getrequestArea(point);
@@ -669,7 +659,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
     }
 
     public boolean onLongClick(View arg0) {
-        if (!m_IsMultyClick && !m_IsMoveClick && !m_IsRule && !m_IsSquare && !GIEditLayersKeeper.Instance().IsRunning()) {
+        if (!m_IsMultyClick && !m_IsMoveClick && !m_IsRule && !m_IsSquare && !IsRunning()) {
             m_IsClick = false;
             m_IsLongClick = true;
             GILonLat lonlat = m_map.ScreenToMap(new Point((int) x, (int) y));
@@ -679,6 +669,30 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
             requestor.ShowDialog(this.getContext(), new Point(point.x, point.y), m_map);
         }
         return false;
+    }
+
+    public GIEditingStatus getState() {
+        return m_Status;
+    }
+
+    public void setState(GIEditingStatus status) {
+        m_Status = status;
+        if (IsRunning()) {
+            SetMeasureState(false, false);
+        }
+
+    }
+
+    public boolean IsRunning() {
+        return !(m_Status == GIEditingStatus.STOPPED);
+    }
+
+    public GITrackingStatus getTrackingStatus() {
+        return m_TrackingStatus;
+    }
+
+    public void setTrackingStatus(GITrackingStatus status) {
+        m_TrackingStatus = status;
     }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {

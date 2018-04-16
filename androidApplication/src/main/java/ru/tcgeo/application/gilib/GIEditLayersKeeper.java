@@ -1,8 +1,6 @@
 package ru.tcgeo.application.gilib;
 
 
-import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationManager;
@@ -15,16 +13,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import ru.tcgeo.application.App;
 import ru.tcgeo.application.GITouchControl;
-import ru.tcgeo.application.Geoinfo;
-import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.gps.GIXMLTrack;
+import ru.tcgeo.application.data.GIEditingStatus;
+import ru.tcgeo.application.data.GITrackingStatus;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.views.dialog.EditAttributesDialog;
+import ru.tcgeo.application.utils.CommonUtils;
 import ru.tcgeo.application.wkt.GIDBaseField;
 import ru.tcgeo.application.wkt.GIGeometryControl;
+import ru.tcgeo.application.wkt.GIXMLTrack;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktLinestring;
 import ru.tcgeo.application.wkt.GI_WktPoint;
@@ -39,7 +38,7 @@ public class GIEditLayersKeeper {
 	private static GIEditLayersKeeper instance;
 	public GIMap m_Map;
 	//buttons only
-	public Geoinfo activity;
+//	public Geoinfo activity;
 	public LocationManager m_location_manager;
     public GIGeometryControl m_current_track_control;
 	//currents
@@ -53,27 +52,21 @@ public class GIEditLayersKeeper {
 
 	public GI_WktGeometry m_geometry;
 
-	//todo find not null in Map.layers.ps.editable
 	public ArrayList<GIEditableLayer> m_Layers;
-	//statuses
-	public GITrackingStatus m_TrackingStatus;
+
 	public boolean m_AutoFollow;
 	public boolean m_ShowTargetDirection;
 	GIGeometryControl m_current_geometry_editing_control;
 	ArrayList<GIGeometryControl> m_controls;
 	private GITouchControl m_TouchControl;
-	//	private int m_root;
-	private FragmentManager m_FragmentManager;
 	private GIPositionControl m_position;
-	private GIEditingStatus m_Status;
-	private GIEditingStatus m_PreviusStatus;
+	//	private GIEditingStatus m_Status;
+//	private GIEditingStatus m_PreviusStatus;
 	private boolean m_isPaused;
 	private GIEditLayersKeeper()
 	{
-        m_TrackingStatus = GITrackingStatus.STOP;
 		m_layer = null;
 		m_geometry = null;
-		m_Status = GIEditingStatus.STOPPED;
 		m_Layers = new ArrayList<GIEditableLayer>();
 		m_controls = new ArrayList<GIGeometryControl>();
 		m_AutoFollow = false;
@@ -88,66 +81,9 @@ public class GIEditLayersKeeper {
 		return instance;
 	}
 
-	public static String getTime(String currentTimeShort) {
-		String result = "";
-		if (currentTimeShort != null && !currentTimeShort.isEmpty()) {
-			String[] parts = currentTimeShort.split("_");
-			if (parts.length == 5) {
-				result = parts[2] + "h" + parts[3] + "m";
-			}
-		}
-		return result;
-	}
-
-	public GIEditingStatus getState()
-	{
-		return m_Status;
-	}
-
-	public void setState(GIEditingStatus status) {
-		m_Status = status;
-		//m_PreviusStatus = status;
-		if (IsRunning()) {
-			m_TouchControl.SetMeasureState(false, false);
-		}
-
-	}
-
-	public boolean IsRunning()
-	{
-		return !(m_Status == GIEditingStatus.STOPPED);
-	}
-
-
-	public void showEditAttributesFragment()
-	{
-		EditAttributesDialog dialog = new EditAttributesDialog(activity, true, new DialogInterface.OnCancelListener() {
-			@Override
-			public void onCancel(DialogInterface dialog) {
-				GIEditLayersKeeper.Instance().m_TouchControl.btnEditCreate.setEnabled(true);
-				GIEditLayersKeeper.Instance().m_TouchControl.btnEditAttributes.setEnabled(true);
-				GIEditLayersKeeper.Instance().m_TouchControl.btnEditGeometry.setEnabled(true);
-				GIEditLayersKeeper.Instance().m_TouchControl.btnEditDelete.setEnabled(true);
-
-				GIEditLayersKeeper.Instance().UpdateMap();
-			}
-		}, m_geometry.m_attributes);
-		dialog.show();
-	}
-
-	public void setFragmentManager(FragmentManager fragment_manager)
-	{
-		m_FragmentManager = fragment_manager;
-	}
-
 	public void setTouchControl(GITouchControl TouchControl)
 	{
 		m_TouchControl = TouchControl;
-	}
-
-	public void setActivity(Geoinfo gi)
-	{
-		activity = gi;
 	}
 
 	public GIMap getMap()
@@ -236,7 +172,7 @@ public class GIEditLayersKeeper {
 
 	public void StopEditing()
 	{
-		setState(GIEditingStatus.STOPPED);
+		m_TouchControl.setState(GIEditingStatus.STOPPED);
 		boolean toRedraw = false;
 		for(GIEditableLayer layer : m_Layers)
 		{
@@ -264,12 +200,12 @@ public class GIEditLayersKeeper {
 
 	public void StartEditing(GIEditableLayer layer)
 	{
-		if(m_Status == GIEditingStatus.EDITING_POI)
+		if (m_TouchControl.getState() == GIEditingStatus.EDITING_POI)
 		{
 			return;
 		}
 		boolean toRedraw = false;
-		m_Status = GIEditingStatus.RUNNING;
+		m_TouchControl.setState(GIEditingStatus.RUNNING);
 		m_layer = layer;
 		for(GIEditableLayer old : m_Layers)
 		{
@@ -314,20 +250,10 @@ public class GIEditLayersKeeper {
 		}
 	}
 
-//	public void StartTracking()
-//	{
-//		m_TrackLayer.m_Status = GIEditableLayer.GIEditableLayerStatus.EDITED;
-//		for(GI_WktGeometry geom : m_TrackLayer.m_shapes)
-//		{
-//			GIGeometryControl geometry_control = new GIGeometryControl(m_layer, geom);
-//			m_controls.add(geometry_control);
-//		}
-//	}
-
 	public void StartEditingPOI(GIEditableLayer layer, GI_WktGeometry geometry)
 	{
 		boolean toRedraw = false;
-		m_Status = GIEditingStatus.EDITING_POI;
+		m_TouchControl.setState(GIEditingStatus.EDITING_POI);
 		m_layer = layer;
 		m_geometry = geometry;
 		for(GIEditableLayer old : m_Layers)
@@ -359,14 +285,14 @@ public class GIEditLayersKeeper {
 					m_current_geometry_editing_control.m_points.get(0).setActiveStatus(true);
 					m_current_geometry_editing_control.m_points.get(0).setChecked(false);
 					m_current_geometry_editing_control.m_points.get(0).invalidate();
-					m_Status = GIEditingStatus.EDITING_GEOMETRY;
+					m_TouchControl.setState(GIEditingStatus.EDITING_GEOMETRY);
 					/**/
 				}
 				m_controls.add(geometry_control);
 			}
 		}
 
-		showEditAttributesFragment();
+		m_TouchControl.showEditAttributesFragment(m_geometry);
 		m_layer.m_Status = GIEditableLayer.GIEditableLayerStatus.UNSAVED;
 		m_layer.Save();
 		((GI_WktPoint)m_geometry).m_status = GI_WktGeometry.GIWKTGeometryStatus.MODIFIED;
@@ -384,9 +310,9 @@ public class GIEditLayersKeeper {
 		{
 			if(!m_geometry.IsEmpty())
 			{
-				showEditAttributesFragment();
+				m_TouchControl.showEditAttributesFragment(m_geometry);
 			}
-			m_Status = GIEditingStatus.RUNNING;
+			m_TouchControl.setState(GIEditingStatus.RUNNING);
 			StopEditingGeometry();
 		}
 	}
@@ -395,7 +321,7 @@ public class GIEditLayersKeeper {
 	{
 
 		boolean res = false;
-		switch (m_Status)
+		switch (m_TouchControl.getState())
 		{
 			case WAITIN_FOR_SELECT_OBJECT:
 			{
@@ -404,10 +330,8 @@ public class GIEditLayersKeeper {
 					if(geometry.isTouch(area))
 					{
 						m_geometry = geometry;
-//						GIEditLayersKeeper.Instance().getEditAttributesFragment();
-						showEditAttributesFragment();
-						m_Status = GIEditingStatus.RUNNING;
-//						m_EditLayerDialog.m_btnAttributes.setChecked(false);
+						m_TouchControl.showEditAttributesFragment(m_geometry);
+						m_TouchControl.setState(GIEditingStatus.RUNNING);
 						m_TouchControl.btnEditAttributes.setChecked(false);
 						m_Map.UpdateMap();
 						res = true;
@@ -422,10 +346,8 @@ public class GIEditLayersKeeper {
 					case POINT:
 					{
 						((GI_WktPoint)m_geometry).Set(point);
-
-//						GIEditLayersKeeper.Instance().getEditAttributesFragment();
-						showEditAttributesFragment();
-						m_Status = GIEditingStatus.RUNNING;
+						m_TouchControl.showEditAttributesFragment(m_geometry);
+						m_TouchControl.setState(GIEditingStatus.RUNNING);
 						m_layer.m_Status = GIEditableLayer.GIEditableLayerStatus.UNSAVED;
 						m_layer.Save();
 						((GI_WktPoint)m_geometry).m_status = GI_WktGeometry.GIWKTGeometryStatus.MODIFIED;
@@ -476,7 +398,7 @@ public class GIEditLayersKeeper {
 					if(geometry.isTouch(area))
 					{
 						m_geometry = geometry;
-						m_Status = GIEditingStatus.RUNNING;
+						m_TouchControl.setState(GIEditingStatus.RUNNING);
 						for(GIGeometryControl control : m_controls)
 						{
 							if(control.m_geometry == m_geometry)
@@ -490,7 +412,7 @@ public class GIEditLayersKeeper {
 				}
 				if(res)
 				{
-					m_Status = GIEditingStatus.RUNNING;
+					m_TouchControl.setState(GIEditingStatus.RUNNING);
 					m_layer.m_shapes.remove(m_geometry);
 					m_layer.DeleteObject(m_geometry);
 					m_geometry.Delete();
@@ -498,7 +420,6 @@ public class GIEditLayersKeeper {
 					m_layer.m_Status = GIEditableLayer.GIEditableLayerStatus.UNSAVED;
 					m_layer.Save();
 					m_Map.UpdateMap();
-//					m_EditLayerDialog.m_btnDelete.setChecked(false);
 					m_TouchControl.btnEditDelete.setChecked(false);
 
 					for(GIGeometryPointControl c : m_current_geometry_editing_control.m_points)
@@ -534,20 +455,20 @@ public class GIEditLayersKeeper {
 							}
 						}
 						m_current_geometry_editing_control.invalidate();
-						m_Status = GIEditingStatus.EDITING_GEOMETRY;
+						m_TouchControl.setState(GIEditingStatus.EDITING_GEOMETRY);
 						reDraw = true;
 					}
 				}
 				if(reDraw)
 				{
-					UpdateMap();
+					m_Map.UpdateMap();
 				}
 				break;
 			}
 			//case EDITING_GEOMETRY:
 			case WAITING_FOR_NEW_POINT_LOCATION :
 			{
-				m_Status = GIEditingStatus.EDITING_GEOMETRY;
+				m_TouchControl.setState(GIEditingStatus.EDITING_GEOMETRY);
 
 				for(GIGeometryPointControl control : m_current_geometry_editing_control.m_points)
 				{
@@ -564,27 +485,14 @@ public class GIEditLayersKeeper {
 				}
 				m_current_geometry_editing_control.invalidate();
 				//TODO
-				if(m_PreviusStatus != null)
-				{
-					m_Status = m_PreviusStatus;
-				}
-				else
-				{
-					m_Status = GIEditingStatus.EDITING_GEOMETRY;
-				}
-				//m_Status = m_PreviusStatus;
-				//m_Status = GIEditingStatus.EDITING_GEOMETRY;
+				m_TouchControl.setState(GIEditingStatus.EDITING_GEOMETRY);
+
 				break;
 			}
 		default:
 			break;
 		}
 		return res;
-	}
-
-	public void UpdateMap()
-	{
-		m_Map.UpdateMap();
 	}
 
 	public void StopEditingGeometry()
@@ -636,20 +544,14 @@ public class GIEditLayersKeeper {
 		control.setChecked(checked_yet);
 		if(checked_yet)
 		{
-			setState(GIEditingStatus.WAITING_FOR_NEW_POINT_LOCATION);
+			m_TouchControl.setState(GIEditingStatus.WAITING_FOR_NEW_POINT_LOCATION);
 		}
 		else
 		{
-			setState(GIEditingStatus.EDITING_GEOMETRY);
+			m_TouchControl.setState(GIEditingStatus.EDITING_GEOMETRY);
 		}
 	}
 
-	public void onLongClickPoint(GIGeometryPointControl control)
-	{
-		GILonLatInputDialog m_GILonLatInputFragment = new GILonLatInputDialog(control);
-		m_GILonLatInputFragment.show(m_FragmentManager, "lon_lat");
-	}
-	
 	//one point is one datarow
 	public void onGPSLocationChanged(Location location)
 	{
@@ -667,65 +569,45 @@ public class GIEditLayersKeeper {
 			accurancy = location.getAccuracy();
 		}
 
-		if(!m_isPaused)
-		{
-
-			if(m_AutoFollow)
-			{
-				GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), m_Map.Projection());
-				Point new_center = m_Map.MapToScreen(mercator);
-				double distance = Math.hypot(new_center.y - m_Map.Height()/2, new_center.x - m_Map.Width()/2);
-				//TODO uncomment
-				if(distance > 20)
-				{
-					m_Map.SetCenter(mercator);
-				}
+		if (!m_isPaused && m_AutoFollow) {
+			GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), m_Map.Projection());
+			Point new_center = m_Map.MapToScreen(mercator);
+			double distance = Math.hypot(new_center.y - m_Map.Height() / 2, new_center.x - m_Map.Width() / 2);
+			//TODO uncomment
+			if (distance > 20) {
+				m_Map.SetCenter(mercator);
 			}
-			GIEditLayersKeeper.Instance().SetPositionControl(location);
 		}
-		if(m_TrackingStatus == GITrackingStatus.WRITE)
-		{
-			//TODO
-			//if(accurancy < m_context.getResources().getInteger(R.integer.))
-			{
-				if(m_TrackLayer != null)
-				{
-					GI_WktPoint point = new GI_WktPoint();
-					point.Set(deg);
-//					if(m_current_track_control != null) {
-//						m_current_track_control.Show(m_TrackLayer.m_layer_properties.m_enabled);
-//					}
-					AddPointToTrack(deg, accurancy);
-				}
+		SetPositionControl(location);
+		if (m_TouchControl.getTrackingStatus() == GITrackingStatus.WRITE) {
+			if (m_TrackLayer != null) {
+				GI_WktPoint point = new GI_WktPoint();
+				point.Set(deg);
+				AddPointToTrack(deg, accurancy);
 			}
 		}
 
 	}
 
-//	public void setAutoFollow(boolean follow){
-//		m_AutoFollow = follow;
-//	}
 	
 	public boolean CreateTrack()
 	{
 		boolean res = false;
 		if(m_TrackLayer == null){
-            SimpleDateFormat dateFormat = new SimpleDateFormat(activity.getString(R.string.date_format), Locale.ENGLISH);
-            String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
+			SimpleDateFormat dateFormat = new SimpleDateFormat(App.getInstance().dateTimeFormat, Locale.ENGLISH);
+			String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
 
-//			GIEditableLayer  m_TrackLayer = (GIEditableLayer)m_Map.find(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + m_Map.ps.name + File.separator + m_Map.ps.name + "_" + date + "_track.xml");
-//			if(m_TrackLayer == null) {
-				m_TrackLayer = GILayer.createTrack(m_Map.ps.m_name, date);
+			m_TrackLayer = GILayer.createTrack(m_Map.ps.m_name, date);
 			m_TrackLayer.setType(GILayer.EditableType.TRACK);
-				m_TrackLayer.Save();
+			m_TrackLayer.Save();
 
-				m_Map.ps.m_Group.addEntry(m_TrackLayer.m_layer_properties);
-				m_Map.AddLayer(m_TrackLayer);
-//			}
+			m_Map.ps.m_Group.addEntry(m_TrackLayer.m_layer_properties);
+			m_Map.AddLayer(m_TrackLayer);
+
         }
 		if(m_TrackLayer != null)
 		{
-			m_TrackingStatus = GITrackingStatus.WRITE;
+			m_TouchControl.setTrackingStatus(GITrackingStatus.WRITE);
 			m_CurrentTrack = new GIXMLTrack();
 
 			m_CurrentTrack.m_attributes = new HashMap<String, GIDBaseField>();
@@ -733,7 +615,7 @@ public class GIEditLayersKeeper {
 			{
 				m_CurrentTrack.m_attributes.put(key, new GIDBaseField(m_TrackLayer.m_attributes.get(key)));
 			}
-			String time = getCurrentTime();
+			String time = CommonUtils.getCurrentTime();
 			GIDBaseField field = new GIDBaseField();
 			field.m_name = "Description";
 			field.m_value = time;
@@ -745,7 +627,7 @@ public class GIEditLayersKeeper {
 			m_CurrentTrack.m_attributes.put("Project", proj_field);
 
 
-			res = ((GIXMLTrack)m_CurrentTrack).Create(m_Map.ps.m_name, getCurrentTimeShort(), m_TrackLayer.m_style, m_TrackLayer.m_encoding);
+			res = ((GIXMLTrack) m_CurrentTrack).Create(m_Map.ps.m_name, m_Map.ps.m_name + CommonUtils.getCurrentTimeShort(), m_TrackLayer.m_style, m_TrackLayer.m_encoding);
 			m_CurrentTrack.m_status = GI_WktGeometry.GIWKTGeometryStatus.NEW;
 			m_TrackLayer.m_shapes.add(m_CurrentTrack);
 
@@ -753,7 +635,6 @@ public class GIEditLayersKeeper {
 			m_current_track_control = new GIGeometryControl(m_TrackLayer, m_CurrentTrack);
 			m_current_track_control.setMap(m_Map);
 
-//			m_current_track_control.Show(m_TrackLayer.m_layer_properties.m_enabled);
 			m_TrackLayer.Save();
 		}
 		return res;
@@ -778,48 +659,6 @@ public class GIEditLayersKeeper {
 		m_Map.UpdateMap();
 	}
 
-	private String getCurrentTime()
-	{
-		Calendar calendar = Calendar.getInstance();
-		int day = calendar.get(Calendar.DATE);
-		int mounth = calendar.get(Calendar.MONTH);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-        int second = calendar.get(Calendar.SECOND);
-
-		return String.format(Locale.ENGLISH, "%02d_%02d_%02d_%02d_%02d", mounth+1, day, hour, minute, second);
-	}
-
-	private String getCurrentTimeShort()
-	{
-		Calendar calendar = Calendar.getInstance();
-		int day = calendar.get(Calendar.DATE);
-		int mounth = calendar.get(Calendar.MONTH);
-		int hour = calendar.get(Calendar.HOUR_OF_DAY);
-		int minute = calendar.get(Calendar.MINUTE);
-		int second = calendar.get(Calendar.SECOND);
-
-		return m_Map.ps.m_name + String.format(Locale.ENGLISH, "%02d_%02d_%02d_%02d", mounth+1, day, hour, minute);
-	}
-
-//	public void AddPointToTrack()
-//	{
-//		GIXMLTrack track = (GIXMLTrack)m_geometry;
-//		if(track == null)
-//		{
-//			return;
-//		}
-//		GI_WktPoint point = new GI_WktPoint();
-//		GILonLat location = GIProjection.ReprojectLonLat(m_Map.Center(), m_Map.Projection(), GIProjection.WGS84());
-//		point.Set(location);
-//		point.m_attributes = new HashMap<String, GIDBaseField>();
-//		GIDBaseField field = new GIDBaseField();
-//		field.m_name = "Description";
-//		field.m_value = getCurrentTime();
-//		point.m_attributes.put("Description", field);
-//		track.AddPoint(point, 0);
-//	}
-
 	public void AddPointToTrack(GILonLat lonlat, float accurancy)
 	{
 		GIXMLTrack track = (GIXMLTrack)m_CurrentTrack;
@@ -832,7 +671,7 @@ public class GIEditLayersKeeper {
 		point.m_attributes = new HashMap<String, GIDBaseField>();
 		GIDBaseField field = new GIDBaseField();
 		field.m_name = "Description";
-		field.m_value = getCurrentTime();
+		field.m_value = CommonUtils.getCurrentTime();
 		point.m_attributes.put("Description", field);
 		if(m_current_track_control != null)
 		{
@@ -855,7 +694,7 @@ public class GIEditLayersKeeper {
 			}
 			GIDBaseField field = new GIDBaseField();
 			field.m_name = "DateTime";
-			field.m_value = getCurrentTime();
+			field.m_value = CommonUtils.getCurrentTime();
 			point.m_attributes.put("DateTime", field);
 
 
@@ -908,23 +747,5 @@ public class GIEditLayersKeeper {
 		}
 	}
 
-	public enum GIEditingStatus {
-		STOPPED,                                    //после конструктора.
-		RUNNING,                                    //работа с слоем
-		WAITIN_FOR_SELECT_OBJECT,                    //выбор объекта для редактирования аттрибутов
-		WAITING_FOR_OBJECT_NEWLOCATION,                //добавление точки к геометрии
-		WAITING_FOR_TO_DELETE,                        //выбор объекта для удаления
-		WAITING_FOR_SELECT_GEOMETRY_TO_EDITING,        //выбор объекта для редактирования геометрии
-		EDITING_GEOMETRY,                            //выбор точки объекта для смены ее координат
-		WAITING_FOR_NEW_POINT_LOCATION,                //выбор новых координат выбранной точки
-		EDITING_POI                                //работа с POI
-	}
-
-	public enum GITrackingStatus {
-		WRITE,
-		PAUSE,
-		STOP
-	}
-	
 
 }

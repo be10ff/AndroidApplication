@@ -10,10 +10,7 @@ import android.os.Bundle;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.utils.MapUtils;
-import ru.tcgeo.application.wkt.GI_WktPoint;
-import rx.Notification;
 import rx.Observable;
-import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.functions.Func2;
 import rx.subjects.PublishSubject;
@@ -83,31 +80,31 @@ public class GIGPSLocationListener implements LocationListener
 	{
 		// Assuming we get wgs84 coordinates
 		GIEditLayersKeeper.Instance().onGPSLocationChanged(location);
-
 		this.location.onNext(location);
 	}
 
-	class Gain{
-		Gain(double delta, Location location){
-			this.delta = delta;
-			this.location = location;
-		}
-		double delta;
-		Location location;
-	}
-
-	public void onProviderDisabled(String provider) 
+	public void onProviderDisabled(String provider)
 	{
 		enabled.onNext(false);
 	}
 
-	public void onProviderEnabled(String provider) 
+	public void onProviderEnabled(String provider)
 	{
 		enabled.onNext(true);
 	}
 
-	public void onStatusChanged(String provider, int status, Bundle extras) 
+	public void onStatusChanged(String provider, int status, Bundle extras)
 	{
 
+	}
+
+	class Gain {
+		double delta;
+		Location location;
+
+		Gain(double delta, Location location) {
+			this.delta = delta;
+			this.location = location;
+		}
 	}
 }

@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.gps;
+package ru.tcgeo.application.wkt;
 
 import android.graphics.Canvas;
 import android.graphics.Path;
@@ -9,7 +9,6 @@ import android.util.Log;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,8 +22,6 @@ import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.planimetry.Edge;
 import ru.tcgeo.application.gilib.planimetry.Vertex;
 import ru.tcgeo.application.utils.MapUtils;
-import ru.tcgeo.application.wkt.GI_WktGeometry;
-import ru.tcgeo.application.wkt.GI_WktPoint;
 
 public class GIXMLTrack extends GI_WktGeometry {
 
@@ -34,11 +31,10 @@ public class GIXMLTrack extends GI_WktGeometry {
 	public ArrayList<GI_WktGeometry> m_points;
 	Path m_path;
 	/**/
-	FileOutputStream m_output;
+//	FileOutputStream m_output;
 	BufferedWriter m_writer;
 
-	public GIXMLTrack()
-	{
+	public GIXMLTrack() {
 		m_type = GIWKTGeometryType.TRACK;
 		m_status = GIWKTGeometryStatus.NEW;
 		m_points = new ArrayList<GI_WktGeometry>();
@@ -47,9 +43,7 @@ public class GIXMLTrack extends GI_WktGeometry {
 	}
 
 	@Override
-	public String toWKT()
-	{
-
+	public String toWKT() {
 		File f = new File(m_file);
 		String res = f.getName();
 		return "FILE\"" + res + "\"";
@@ -59,21 +53,13 @@ public class GIXMLTrack extends GI_WktGeometry {
 	public void Draw(Canvas canvas, GIBounds area, float scale, android.graphics.Paint paint)
 	{
 		//todo
-		if( GIEditLayersKeeper.Instance().m_CurrentTrack == this)
-		{
-////			android.graphics.Paint current = new android.graphics.Paint(paint);
-//			paint.setColor(Color.MAGENTA);
-
+		if (GIEditLayersKeeper.Instance().m_CurrentTrack == this) {
 			return;
-
 		}
 		if(m_points.size() > 2)
 		{
 			m_path.reset();
 			int counter = 0;
-			//GIBounds _area = area.Reprojected(GIProjection.WGS84());
-			//PointF point_prev = ((GI_WktPoint)m_points.get(counter)).MapToScreen(canvas, area);
-			//m_path.moveTo(point_prev.x, point_prev.y);
 			while(counter < m_points.size() - 1)
 			{
 
@@ -99,11 +85,11 @@ public class GIXMLTrack extends GI_WktGeometry {
 				//TODO
 				if(area.ContainsPoint(((GI_WktPoint)m_points.get(counter)).LonLat()) || area.ContainsPoint(((GI_WktPoint)m_points.get(current_index)).LonLat()))
 				{
-					//Log.d("track", "start");
+
 					PointF point_prev = ((GI_WktPoint)m_points.get(counter)).MapToScreen(canvas, area);
 					PointF point_current = ((GI_WktPoint)m_points.get(current_index)).MapToScreen(canvas, area);
 					canvas.drawLine(point_prev.x, point_prev.y, point_current.x, point_current.y, paint);
-					//Log.d("track", "stop");
+
 				}
 				counter = current_index;
 				if(Thread.interrupted())
