@@ -10,6 +10,7 @@ import android.os.Bundle;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.utils.MapUtils;
+import ru.tcgeo.application.views.callback.LocationCallback;
 import rx.Observable;
 import rx.functions.Func1;
 import rx.functions.Func2;
@@ -23,11 +24,12 @@ public class GIGPSLocationListener implements LocationListener
 	public static final float ACCEPTABLE_DISTANCE = 1.5f;
 
 	public LocationManager locationManager;
+	private LocationCallback callback;
 
 	private PublishSubject<Location> location = PublishSubject.create();
 	private PublishSubject<Boolean> enabled = PublishSubject.create();
 
-	public GIGPSLocationListener(Context context){
+	public GIGPSLocationListener(Context context, LocationCallback callback) {
 		locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 		this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	2000, 5, this);
 //		this.locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 5, this);
@@ -79,6 +81,7 @@ public class GIGPSLocationListener implements LocationListener
 	public void onLocationChanged(Location location) 
 	{
 		// Assuming we get wgs84 coordinates
+		callback.onLocationChanged(location);
 		GIEditLayersKeeper.Instance().onGPSLocationChanged(location);
 		this.location.onNext(location);
 	}

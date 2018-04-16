@@ -11,8 +11,8 @@ import ru.tcgeo.application.utils.SPUtils;
  */
 public class App extends Application {
     private static App sInstance;
-    public Bitmap wktPointBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.measure_point);
-    public String dateTimeFormat = getString(R.string.date_format);
+    public Bitmap wktPointBitmap /*= BitmapFactory.decodeResource(getResources(), R.drawable.measure_point)*/;
+    public String dateTimeFormat /*= getString(R.string.date_format)*/;
     private SPUtils sp;
 
 //    private Observable<Location> locationObservable;
@@ -25,6 +25,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        wktPointBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.measure_point);
+        dateTimeFormat = getString(R.string.date_format);
         sp = new SPUtils(this);
     }
 

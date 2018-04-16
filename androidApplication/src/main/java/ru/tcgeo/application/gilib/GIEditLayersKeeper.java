@@ -3,7 +3,6 @@ package ru.tcgeo.application.gilib;
 
 import android.graphics.Point;
 import android.location.Location;
-import android.location.LocationManager;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
@@ -39,8 +38,8 @@ public class GIEditLayersKeeper {
 	public GIMap m_Map;
 	//buttons only
 //	public Geoinfo activity;
-	public LocationManager m_location_manager;
-    public GIGeometryControl m_current_track_control;
+//	public LocationManager m_location_manager;
+	public GIGeometryControl m_current_track_control;
 	//currents
 	public GIEditableLayer m_layer;
 
@@ -59,9 +58,8 @@ public class GIEditLayersKeeper {
 	GIGeometryControl m_current_geometry_editing_control;
 	ArrayList<GIGeometryControl> m_controls;
 	private GITouchControl m_TouchControl;
-	private GIPositionControl m_position;
-	//	private GIEditingStatus m_Status;
-//	private GIEditingStatus m_PreviusStatus;
+//	private GIPositionControl m_position;
+
 	private boolean m_isPaused;
 	private GIEditLayersKeeper()
 	{
@@ -578,7 +576,7 @@ public class GIEditLayersKeeper {
 				m_Map.SetCenter(mercator);
 			}
 		}
-		SetPositionControl(location);
+
 		if (m_TouchControl.getTrackingStatus() == GITrackingStatus.WRITE) {
 			if (m_TrackLayer != null) {
 				GI_WktPoint point = new GI_WktPoint();
@@ -709,43 +707,6 @@ public class GIEditLayersKeeper {
 		}
 	}
 
-	public void GetPositionControl()
-	{
-		if(m_Map == null)
-		{
-			return;
-		}
-		else if(!m_Map.isShown())
-		{
-			return;
-		}
-
-		Location location = m_location_manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-		String mocLocationProvider = LocationManager.GPS_PROVIDER;
-
-		if (null != m_location_manager.getProvider(mocLocationProvider))
-		{
-			location = m_location_manager.getLastKnownLocation(mocLocationProvider);
-		}
-
-		if(location != null)
-		{
-			if(m_position == null)
-			{
-				m_position = new GIPositionControl(m_Map.getContext(), m_Map);
-			}
-		}
-		return;
-	}
-
-	public void SetPositionControl(Location location)
-	{
-		if(m_position != null)
-		{
-			m_position.setLonLat( new GILonLat(location.getLongitude(), location.getLatitude()));
-		}
-	}
 
 
 }

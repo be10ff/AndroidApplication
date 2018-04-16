@@ -3,6 +3,7 @@ package ru.tcgeo.application.gilib;
 /**
  * текущее положение и направление
  */
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,10 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -20,7 +25,6 @@ import ru.tcgeo.application.gilib.models.GILonLat;
 public class GIPositionControl extends View implements GIControl //View
 {
 
-	boolean hasClosed;
 	int[] map_location = { 0, 0 };
 	Bitmap image;
 	Matrix matrix;
@@ -29,38 +33,59 @@ public class GIPositionControl extends View implements GIControl //View
     private RelativeLayout m_root;
     private GILonLat m_CurrentPosition;
     private GILonLat m_OriginPosition;
-    private Context m_context;
 
-    //todo ????
-	//View m_LayoutView;
-	public GIPositionControl()
-	{
-		super(GIEditLayersKeeper.Instance().getMap().getContext());
-		m_context = GIEditLayersKeeper.Instance().getMap().getContext();
-		//LayoutInflater m_LayoutInflater = (LayoutInflater)m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		//m_LayoutView = m_LayoutInflater.inflate(R.layout.position_marker, null);
-		m_root = (RelativeLayout) GIEditLayersKeeper.Instance().getMap().getParent();
-		m_root.addView(this);
-    	bringToFront();
-		image = BitmapFactory.decodeResource(getResources(), R.drawable.position_arrow);
-		setMap(GIEditLayersKeeper.Instance().getMap());
-		matrix = new Matrix();
+	private LocationManager locationManager;
 
-	}
+	private LocationListener locationListener = new LocationListener() {
+
+		public void onLocationChanged(Location location) {
+			setLonLat(new GILonLat(location.getLongitude(), location.getLatitude()));
+		}
+
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+
+		}
+
+		@Override
+		public void onProviderEnabled(String provider) {
+
+		}
+
+		@Override
+		public void onProviderDisabled(String provider) {
+
+		}
+
+	};
+
 	public GIPositionControl(Context context, GIMap map)
 	{
 		super(context);
-		m_context = context;
-		//LayoutInflater m_LayoutInflater = (LayoutInflater)m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		//m_LayoutView = m_LayoutInflater.inflate(R.layout.position_marker, null);
 		m_root = (RelativeLayout)map.getParent();
 		m_root.addView(this);
     	bringToFront();
 		image = BitmapFactory.decodeResource(getResources(), R.drawable.position_arrow);
 		setMap(map);
 		matrix = new Matrix();
+		locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+
 
 	}
+
+	@Override
+	protected void onVisibilityChanged(View changedView, int visibility) {
+		super.onVisibilityChanged(changedView, visibility);
+		if (visibility == VISIBLE) {
+			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 10, locationListener);
+			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000 * 10, 10, locationListener);
+
+		} else {
+			locationManager.removeUpdates(locationListener);
+		}
+	}
+
+
 
 	public void setMap(GIMap map) {
 		m_map = map;
@@ -97,6 +122,10 @@ public class GIPositionControl extends View implements GIControl //View
 
 	public void MoveTo(Point point)
 	{
+		m_map.getLocationOnScreen(map_location);
+		map_location[0] -= image.getHeight() / 2;
+		map_location[1] -= image.getWidth() / 2 + m_map.getOffsetY();
+
 		current_pos_on_screen = point;
 		setX(point.x + map_location[0]);
         setY(point.y + map_location[1]);
@@ -112,7 +141,8 @@ public class GIPositionControl extends View implements GIControl //View
 		m_CurrentPosition = lonlat;
 		onViewMove();
 	}
-	
+
+
 	@Override
     protected void onDraw(Canvas canvas) 
 	{
@@ -132,17 +162,12 @@ public class GIPositionControl extends View implements GIControl //View
 				}
 			}
 		}
-		/*
-		Paint paint = new Paint();
-		paint.setARGB(128, 128, 128, 128);
-		paint.setStyle(Style.FILL);
-		canvas.drawCircle(current_pos_on_screen.x, current_pos_on_screen.y, 100, paint);
-		
-		*/
+
 		direction = Math.toDegrees(direction);
 		matrix.reset();
 		//matrix.setTranslate(m_accurancy/2, m_accurancy/2);
 		matrix.setRotate((float)direction, image.getWidth()/2, image.getHeight()/2);
 		canvas.drawBitmap(image, matrix, null);
+//		bringToFront();
 	}
 }

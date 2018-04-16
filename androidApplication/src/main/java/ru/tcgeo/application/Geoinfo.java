@@ -1,6 +1,7 @@
 package ru.tcgeo.application;
 
 import android.content.res.Configuration;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -23,7 +24,9 @@ import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.gilib.GIPositionControl;
 import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
+import ru.tcgeo.application.gilib.gps.GIGPSLocationListener;
 import ru.tcgeo.application.gilib.gps.GILocatorFragment;
 import ru.tcgeo.application.gilib.gps.GISensors;
 import ru.tcgeo.application.gilib.models.GIBounds;
@@ -36,6 +39,7 @@ import ru.tcgeo.application.view.MapView;
 import ru.tcgeo.application.views.GIScaleControl;
 import ru.tcgeo.application.views.callback.EditableLayerCallback;
 import ru.tcgeo.application.views.callback.LayerCallback;
+import ru.tcgeo.application.views.callback.LocationCallback;
 import ru.tcgeo.application.views.callback.MarkerCallback;
 import ru.tcgeo.application.views.callback.ProjectsCallback;
 import ru.tcgeo.application.views.dialog.ReEditableLayersDialog;
@@ -45,7 +49,10 @@ import ru.tcgeo.application.views.dialog.ReSettingsDialog;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
 
-public class Geoinfo extends FragmentActivity implements MapView, FloatingActionButtonsCallback {
+public class Geoinfo extends FragmentActivity
+        implements MapView,
+        FloatingActionButtonsCallback,
+        LocationCallback {
     final static public String locator_view_tag = "LOCATOR_TAG";
 
     static {
@@ -69,6 +76,10 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
     View pbProgress;
 
     GIControlFloating m_marker_point;
+
+    GIGPSLocationListener m_location_listener;
+
+    GIPositionControl positionControl;
 
     public void MarkersDialogClicked() {
         View v = root.findViewById(R.id.direction_to_point_arrow);
@@ -295,6 +306,9 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
         setContentView(R.layout.main);
         ButterKnife.bind(this);
 
+        m_location_listener = new GIGPSLocationListener(this, this);
+//        GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.locationManager;
+
         touchControl.setupButtons();
 
 
@@ -314,7 +328,7 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
         GIMap.inches_per_pixel = screenInches / screenPixels;
 
         scaleControl.setMap(map);
-
+        positionControl = new GIPositionControl(this, map);
 
     }
 
@@ -383,6 +397,12 @@ public class Geoinfo extends FragmentActivity implements MapView, FloatingAction
             m_marker_point.setMap(getMap());
         }
         return m_marker_point;
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        GIEditLayersKeeper.Instance().onGPSLocationChanged(location);
+//        GIPositionControl.setPosition(location);
     }
 
 

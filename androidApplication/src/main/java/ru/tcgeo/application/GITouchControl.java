@@ -32,7 +32,6 @@ import ru.tcgeo.application.gilib.GIRuleToolControl;
 import ru.tcgeo.application.gilib.GISquareToolControl;
 import ru.tcgeo.application.gilib.gps.GICompassView;
 import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
-import ru.tcgeo.application.gilib.gps.GIGPSLocationListener;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
@@ -69,7 +68,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
     boolean m_IsSquare;
     boolean m_GotPosition;
     //    Context m_context;
-    GIGPSLocationListener m_location_listener;
+//    GIGPSLocationListener m_location_listener;
     Geoinfo activity;
     private ScaleGestureDetector m_ScaleDetector;
     private GIMap m_map;
@@ -81,6 +80,8 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
     private boolean m_scaled;
     private GIEditingStatus m_Status = GIEditingStatus.STOPPED;
     private GITrackingStatus m_TrackingStatus = GITrackingStatus.STOP;
+
+    private LocationManager locationManager;
 
     public GITouchControl(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -112,14 +113,11 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
         ViewConfiguration vc = ViewConfiguration.get(activity);
         mTouchSlop = vc.getScaledTouchSlop();
 
-
-        m_location_listener = new GIGPSLocationListener(context);
-        GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.locationManager;
-
         // TODO 13/04/2018
         m_Status = GIEditingStatus.STOPPED;
         m_TrackingStatus = GITrackingStatus.STOP;
 
+        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     }
 
     public void setupButtons() {
@@ -148,7 +146,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
         itemBuilder.setLayoutParams(action_params);
 
 
-        fbGPS.SetGPSEnabledStatus(m_location_listener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+//        fbGPS.SetGPSEnabledStatus(m_location_listener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
 
         //-------------------------------------------------------------------
         // GPS AUTO_FOLL0W
@@ -162,15 +160,14 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
             public void onClick(View v) {
                 GIEditLayersKeeper.Instance().m_AutoFollow = m_btnAutoFollow.isChecked();
                 if (m_btnAutoFollow.isChecked()) {
-                    Location location = GIEditLayersKeeper.Instance().m_location_manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     if (location != null) {
                         GILonLat go_to = GILonLat.fromLocation(location);
                         GILonLat go_to_map = GIProjection.ReprojectLonLat(go_to, GIProjection.WGS84(), GIProjection.WorldMercator());
-                        GIEditLayersKeeper.Instance().getMap().SetCenter(go_to_map);
-                        GIEditLayersKeeper.Instance().GetPositionControl();
+                        m_map.SetCenter(go_to_map);
                     }
                 }
-                GIEditLayersKeeper.Instance().GetPositionControl();
+//                GIEditLayersKeeper.Instance().GetPositionControl();
             }
         });
 
@@ -707,4 +704,6 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
             return true;
         }
     }
+
+
 }
