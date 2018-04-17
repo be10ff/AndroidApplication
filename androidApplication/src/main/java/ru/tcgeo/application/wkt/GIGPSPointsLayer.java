@@ -140,7 +140,7 @@ public class GIGPSPointsLayer  extends GIEditableLayer
 		catch(Exception e)
 		{
 			Log.d("LOG_TAG", e.toString());
-			Toast.makeText(App.getInstance(), e.toString(), Toast.LENGTH_SHORT);
+			Toast.makeText(App.Instance(), e.toString(), Toast.LENGTH_SHORT);
 		}
 	}
 

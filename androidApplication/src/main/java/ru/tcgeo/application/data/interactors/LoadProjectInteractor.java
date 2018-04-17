@@ -6,8 +6,6 @@ import android.os.Environment;
 
 import java.io.File;
 
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
-import ru.tcgeo.application.gilib.GIEditableLayer;
 import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GISQLLayer;
 import ru.tcgeo.application.gilib.models.GIColor;
@@ -25,14 +23,11 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-//import ru.tcgeo.application.gilib.GIEditableSQLiteLayer;
-
 /**
  * Created by abelov on 28.04.16.
  */
 public class LoadProjectInteractor {
     private MapView view;
-//    private GIMap map;
 
     public void setView(MapView view) {
         this.view = view;
@@ -339,19 +334,19 @@ public class LoadProjectInteractor {
 //                        }
 //                    }
                     subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
-
-                    //todo remove with EditLayersKeeper
-                    GIEditableLayer l = (GIEditableLayer) layer;
-                    if (l != null && l.m_layer_properties.editable != null
-                            && l.m_layer_properties.editable.enumType != GILayer.EditableType.TRACK) {
-                        l.setType(l.m_layer_properties.editable.enumType);
-                        if (l.m_Type == GILayer.EditableType.TRACK && l.m_layer_properties.editable.active) {
-                            GIEditLayersKeeper.Instance().m_TrackLayer = l;
-                        } else if (l.m_Type == GILayer.EditableType.POI && l.m_layer_properties.editable.active) {
-                            GIEditLayersKeeper.Instance().m_POILayer = l;
-                        }
-                        GIEditLayersKeeper.Instance().AddLayer(l);
-                    }
+//
+//                    //todo remove with EditLayersKeeper
+//                    GIEditableLayer l = (GIEditableLayer) layer;
+//                    if (l != null && l.m_layer_properties.editable != null
+//                            && l.m_layer_properties.editable.enumType != GILayer.EditableType.TRACK) {
+//                        l.setType(l.m_layer_properties.editable.enumType);
+//                        if (l.m_Type == GILayer.EditableType.TRACK && l.m_layer_properties.editable.active) {
+//                            GIEditLayersKeeper.Instance().m_TrackLayer = l;
+//                        } else if (l.m_Type == GILayer.EditableType.POI && l.m_layer_properties.editable.active) {
+//                            GIEditLayersKeeper.Instance().m_POILayer = l;
+//                        }
+//                        GIEditLayersKeeper.Instance().AddLayer(l);
+//                    }
                 }
 
                 else {

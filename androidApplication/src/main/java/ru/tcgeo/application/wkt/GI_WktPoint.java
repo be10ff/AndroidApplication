@@ -9,7 +9,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 import ru.tcgeo.application.App;
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
@@ -17,8 +16,8 @@ import ru.tcgeo.application.gilib.models.GIVectorStyle;
 
 public class GI_WktPoint extends GI_WktGeometry {
 
-	//	protected static Bitmap m_bitmap = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.measure_point);
-	public double m_lon;
+    //	protected static Bitmap m_bitmap = BitmapFactory.decodeResource(App.Instance().getResources(), R.drawable.measure_point);
+    public double m_lon;
 	public double m_lat;
 	public double m_lon_in_map_projection;
 	public double m_lat_in_map_projection;
@@ -27,9 +26,9 @@ public class GI_WktPoint extends GI_WktGeometry {
 
 	public GI_WktPoint() 
 	{
-//		m_bitmap = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.measure_point);
-		m_bitmap = App.getInstance().wktPointBitmap;
-		m_type = GIWKTGeometryType.POINT;
+//		m_bitmap = BitmapFactory.decodeResource(App.Instance().getResources(), R.drawable.measure_point);
+        m_bitmap = App.Instance().wktPointBitmap;
+        m_type = GIWKTGeometryType.POINT;
 		m_status = GIWKTGeometryStatus.NEW;
 		m_lon = 0;
 		m_lat = 0;
@@ -37,14 +36,14 @@ public class GI_WktPoint extends GI_WktGeometry {
 	}
 	public GI_WktPoint(GILonLat point)
 	{
-//		m_bitmap = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.measure_point);
-		m_bitmap = App.getInstance().wktPointBitmap;
-		m_type = GIWKTGeometryType.POINT;
+//		m_bitmap = BitmapFactory.decodeResource(App.Instance().getResources(), R.drawable.measure_point);
+        m_bitmap = App.Instance().wktPointBitmap;
+        m_type = GIWKTGeometryType.POINT;
 		m_status = GIWKTGeometryStatus.NEW;
 		m_lon = point.lon();
 		m_lat = point.lat();
-		GIProjection map_projection = GIEditLayersKeeper.Instance().m_Map.Projection();
-		GILonLat in_map = GIProjection.ReprojectLonLat(point, GIProjection.WGS84(), map_projection);
+        GIProjection map_projection = App.Instance().getMap().Projection();
+        GILonLat in_map = GIProjection.ReprojectLonLat(point, GIProjection.WGS84(), map_projection);
 		m_lon_in_map_projection = in_map.lon();
 		m_lat_in_map_projection = in_map.lat();
 		m_TrackID = -1;
@@ -66,8 +65,8 @@ public class GI_WktPoint extends GI_WktGeometry {
 	{
 		m_lon = point.lon();
 		m_lat = point.lat();
-		GIProjection map_projection = GIEditLayersKeeper.Instance().m_Map.Projection();
-		GILonLat in_map = GIProjection.ReprojectLonLat(point, GIProjection.WGS84(), map_projection);
+        GIProjection map_projection = App.Instance().getMap().Projection();
+        GILonLat in_map = GIProjection.ReprojectLonLat(point, GIProjection.WGS84(), map_projection);
 		m_lon_in_map_projection = in_map.lon();
 		m_lat_in_map_projection = in_map.lat();
 	}
@@ -109,9 +108,9 @@ public class GI_WktPoint extends GI_WktGeometry {
 	public void TrackPaint(Canvas canvas, GIVectorStyle s) {
 		// TODO Auto-generated method stub
 		int[] offset = { 0, 0 };
-		GIEditLayersKeeper.Instance().getMap().getLocationOnScreen(offset);
-		Point first = GIEditLayersKeeper.Instance().getMap().MercatorMapToScreen(new GILonLat(m_lon_in_map_projection, m_lat_in_map_projection));
-		first.x -= m_bitmap.getWidth()/2 + offset[0];
+        App.Instance().getMap().getLocationOnScreen(offset);
+        Point first = App.Instance().getMap().MercatorMapToScreen(new GILonLat(m_lon_in_map_projection, m_lat_in_map_projection));
+        first.x -= m_bitmap.getWidth()/2 + offset[0];
 		first.y -= m_bitmap.getHeight()/2 + offset[1];
 		canvas.drawBitmap(m_bitmap, first.x, first.y, null);
 		

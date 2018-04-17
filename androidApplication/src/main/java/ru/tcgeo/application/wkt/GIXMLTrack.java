@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import ru.tcgeo.application.App;
 import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIEncoding;
@@ -52,6 +53,7 @@ public class GIXMLTrack extends GI_WktGeometry {
 	@Override
 	public void Draw(Canvas canvas, GIBounds area, float scale, android.graphics.Paint paint)
 	{
+
 		//todo
 		if (GIEditLayersKeeper.Instance().m_CurrentTrack == this) {
 			return;
@@ -106,22 +108,16 @@ public class GIXMLTrack extends GI_WktGeometry {
 	public void Paint(Canvas canvas, GIVectorStyle style) {
 		if(m_points.size() > 1) //2
 		{
-			GIBounds area = GIEditLayersKeeper.Instance().getMap().Bounds();
+			GIBounds area = App.Instance().getMap().Bounds();
 			int[] offset = { 0, 0 };
-			GIEditLayersKeeper.Instance().getMap().getLocationOnScreen(offset);
-//			float offset_x = GIEditLayersKeeper.Instance().getMap().getX();
-//			float offset_y = GIEditLayersKeeper.Instance().getMap().getY();
+			App.Instance().getMap().getLocationOnScreen(offset);
+
 			if(this != GIEditLayersKeeper.Instance().m_CurrentTrack)
 			{
 				((GI_WktPoint)m_points.get(0)).TrackPaint(canvas, style);
 			}
 			for(int i = m_points.size() - 1; i > 0; i--)
-			//for(int i = 1; i < m_points.size(); i++)
 			{
-//				Point first = GIEditLayersKeeper.Instance().getMap().MercatorMapToScreen(new GILonLat(((GI_WktPoint)m_points.get(i-1)).m_lon_in_map_projection, ((GI_WktPoint)m_points.get(i-1)).m_lat_in_map_projection));
-//				Point second = GIEditLayersKeeper.Instance().getMap().MercatorMapToScreen(new GILonLat(((GI_WktPoint)m_points.get(i)).m_lon_in_map_projection, ((GI_WktPoint)m_points.get(i)).m_lat_in_map_projection));
-//				canvas.drawLine(first.x, first.y, second.x, second.y, style.m_paint_pen);
-
 				PointF point_prev = ((GI_WktPoint)m_points.get(i-1)).MapToScreen(canvas, area);
 				PointF point_current = ((GI_WktPoint)m_points.get(i)).MapToScreen(canvas, area);
 				//canvas.drawLine(point_prev.x - offset[0], point_prev.y - offset[1], point_current.x - offset[0], point_current.y - offset[1], style.m_paint_pen);

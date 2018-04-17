@@ -19,6 +19,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
+import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.utils.GIYandexUtils;
 import ru.tcgeo.application.utils.MaskedWatcher;
@@ -26,7 +27,8 @@ import ru.tcgeo.application.wkt.GI_WktPoint;
 
 public class GILonLatInputDialog extends DialogFragment 
 {
-    GI_WktPoint m_point;
+	Geoinfo activity;
+	GI_WktPoint m_point;
     GIGeometryPointControl m_control;
     private EditText m_lon_dec;
 	private EditText m_lat_dec;
@@ -40,6 +42,7 @@ public class GILonLatInputDialog extends DialogFragment
 
 	public GILonLatInputDialog(GIGeometryPointControl control)
 	{
+		activity = (Geoinfo) getActivity();
 		m_control = control;
 		m_point = m_control.m_WKTPoint;
 	}
@@ -226,7 +229,7 @@ public class GILonLatInputDialog extends DialogFragment
 
             m_control.setWKTPoint(m_control.m_WKTPoint);
 			//m_control.setWKTPoint(m_point);
-			GIEditLayersKeeper.Instance().m_current_geometry_editing_control.invalidate();
+			activity.getKeeper().m_current_geometry_editing_control.invalidate();
 			super.onCancel(dialog);
 		}
 		catch(NumberFormatException e)

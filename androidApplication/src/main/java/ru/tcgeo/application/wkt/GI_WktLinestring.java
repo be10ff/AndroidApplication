@@ -8,8 +8,8 @@ import android.graphics.RectF;
 
 import java.util.ArrayList;
 
+import ru.tcgeo.application.App;
 import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
@@ -119,14 +119,14 @@ public class GI_WktLinestring extends GI_WktGeometry {
 	public void Paint(Canvas canvas, GIVectorStyle s)
 	{
 		int[] offset = { 0, 0 };
-		GIEditLayersKeeper.Instance().getMap().getLocationOnScreen(offset);
-		if(m_points.size() > 0)
+        App.Instance().getMap().getLocationOnScreen(offset);
+        if(m_points.size() > 0)
 		{
 			for(int i = 1; i < m_points.size(); i++)
 			{
-				Point first = GIEditLayersKeeper.Instance().getMap().MapToScreenTempo(new GILonLat(m_points.get(i-1).m_lon, m_points.get(i-1).m_lat));
-				Point second = GIEditLayersKeeper.Instance().getMap().MapToScreenTempo(new GILonLat(m_points.get(i).m_lon, m_points.get(i).m_lat));
-				canvas.drawLine(first.x - offset[0], first.y - offset[0], second.x - offset[0], second.y- offset[0], s.m_paint_pen);
+                Point first = App.Instance().getMap().MapToScreenTempo(new GILonLat(m_points.get(i - 1).m_lon, m_points.get(i - 1).m_lat));
+                Point second = App.Instance().getMap().MapToScreenTempo(new GILonLat(m_points.get(i).m_lon, m_points.get(i).m_lat));
+                canvas.drawLine(first.x - offset[0], first.y - offset[0], second.x - offset[0], second.y- offset[0], s.m_paint_pen);
 			}
 		}
 	}

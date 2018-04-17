@@ -180,7 +180,7 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
 
 	public void onClick(View v)
 	{
-		GIEditLayersKeeper.Instance().onSelectPoint(this);
+		((Geoinfo) m_context).getKeeper().onSelectPoint(this);
 	}
 
 	public boolean onLongClick(View v) 

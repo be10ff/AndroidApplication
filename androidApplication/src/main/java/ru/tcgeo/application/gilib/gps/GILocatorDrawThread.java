@@ -7,17 +7,16 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
-import android.graphics.Paint.Style;
 import android.view.SurfaceHolder;
 
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
-import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
@@ -25,11 +24,9 @@ import ru.tcgeo.application.wkt.GI_WktPoint;
 
 public class GILocatorDrawThread extends Thread 
 {
-	private boolean running = false;
-	private SurfaceHolder  surfaceHolder;
-	Matrix matrix;
 	public GI_WktGeometry m_POI;
-	//Context context;
+    Matrix matrix;
+    //Context context;
 	GIMap m_map;
 	GILonLat m_lon_lat_poi;
 	Bitmap arrow;
@@ -40,16 +37,18 @@ public class GILocatorDrawThread extends Thread
 	//Paint paint_stroke;
 	Rect bounds;
 	Context mContext;
+    private boolean running = false;
+    private SurfaceHolder surfaceHolder;
 
 	
 	public GILocatorDrawThread(SurfaceHolder surfaceHolder,GI_WktGeometry poi, Context context)
 	{
 		mContext = context;
 		this.surfaceHolder = surfaceHolder;
-		arrow = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.locator_big);
-		m_POI = poi;
-		m_map = GIEditLayersKeeper.Instance().getMap();
-    	matrix = new Matrix();
+        arrow = BitmapFactory.decodeResource(App.Instance().getResources(), R.drawable.locator_big);
+        m_POI = poi;
+        m_map = App.Instance().getMap();
+        matrix = new Matrix();
     	m_lon_lat_poi = new GILonLat(((GI_WktPoint)m_POI).m_lon, ((GI_WktPoint)m_POI).m_lat);
 		paint_fill = new Paint();
 		paint_fill.setColor(Color.argb(255, 255, 0, 0));

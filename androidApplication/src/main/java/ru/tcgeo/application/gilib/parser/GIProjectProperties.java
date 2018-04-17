@@ -59,7 +59,7 @@ public GIProjectProperties(Context context)
 		m_decription = context.getString(R.string.default_project_name);
 //        m_SaveAs = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + context.getString(R.string.default_project_path);
 
-		m_path = App.getInstance().getPreference().getNewProjectName();
+		m_path = App.Instance().getPreference().getNewProjectName();
 
 		m_str_projection = "WGS84";
 		m_markers = "";

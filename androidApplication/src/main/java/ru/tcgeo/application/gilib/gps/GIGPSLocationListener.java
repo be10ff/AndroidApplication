@@ -7,7 +7,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.views.callback.LocationCallback;
@@ -32,10 +31,11 @@ public class GIGPSLocationListener implements LocationListener
 	public GIGPSLocationListener(Context context, LocationCallback callback) {
 		locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 		this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,	2000, 5, this);
+        this.callback = callback;
 //		this.locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 5, this);
 
-//		App.getInstance().setLocationObservable(location.asObservable());
-	}
+//		App.Instance().setLocationObservable(location.asObservable());
+    }
 
 	public Observable<Location> getLocation(){
 		return location.asObservable();
@@ -82,8 +82,8 @@ public class GIGPSLocationListener implements LocationListener
 	{
 		// Assuming we get wgs84 coordinates
 		callback.onLocationChanged(location);
-		GIEditLayersKeeper.Instance().onGPSLocationChanged(location);
-		this.location.onNext(location);
+//		callback.onGPSLocationChanged(location);
+        this.location.onNext(location);
 	}
 
 	public void onProviderDisabled(String provider)

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.utils.SPUtils;
 
 /**
@@ -14,10 +15,11 @@ public class App extends Application {
     public Bitmap wktPointBitmap /*= BitmapFactory.decodeResource(getResources(), R.drawable.measure_point)*/;
     public String dateTimeFormat /*= getString(R.string.date_format)*/;
     private SPUtils sp;
+    private GIMap map;
 
 //    private Observable<Location> locationObservable;
 
-    public static App getInstance() {
+    public static App Instance() {
         return sInstance;
     }
 
@@ -34,7 +36,13 @@ public class App extends Application {
         return sp;
     }
 
+    public GIMap getMap() {
+        return map;
+    }
 
+    public void setMap(GIMap map) {
+        this.map = map;
+    }
 
 //    public Observable<Location> getLocationObservable() {
 //        return locationObservable;

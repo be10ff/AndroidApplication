@@ -18,8 +18,8 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.Attribute;
 import ru.tcgeo.application.views.adapter.AttributesAdapter;
 import ru.tcgeo.application.views.callback.AttributesCallback;
@@ -32,13 +32,16 @@ public class EditAttributesDialog extends Dialog {
     @Bind(R.id.rvAttributes)
     RecyclerView rvAttributes;
 
+    Geoinfo activity;
+
     private AttributesAdapter mAdapter;
 
     private Map<String, GIDBaseField> attributes;
 
     public EditAttributesDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener, Map<String, GIDBaseField> attributes) {
         super(context, cancelable, cancelListener);
-        attributes = GIEditLayersKeeper.Instance().m_geometry.m_attributes;
+        activity = (Geoinfo) context;
+        attributes = activity.getKeeper().m_geometry.m_attributes;
         this.attributes = attributes;
     }
 
@@ -59,8 +62,8 @@ public class EditAttributesDialog extends Dialog {
 
         }
 
-        GIEditLayersKeeper.Instance().m_geometry.m_status = GI_WktGeometry.GIWKTGeometryStatus.MODIFIED;
-        GIEditLayersKeeper.Instance().m_layer.Save();
+        activity.getKeeper().m_geometry.m_status = GI_WktGeometry.GIWKTGeometryStatus.MODIFIED;
+        activity.getKeeper().m_layer.Save();
         dismiss();
 
     }

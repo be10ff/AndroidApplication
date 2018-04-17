@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import ru.tcgeo.application.App;
-import ru.tcgeo.application.GITouchControl;
+import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.data.GIEditingStatus;
 import ru.tcgeo.application.data.GITrackingStatus;
 import ru.tcgeo.application.gilib.models.GIBounds;
@@ -35,9 +35,8 @@ import static ru.tcgeo.application.gilib.GILayer.EditableType.POI;
 public class GIEditLayersKeeper {
 
 	private static GIEditLayersKeeper instance;
-	public GIMap m_Map;
 	//buttons only
-//	public Geoinfo activity;
+	public Geoinfo activity;
 //	public LocationManager m_location_manager;
 	public GIGeometryControl m_current_track_control;
 	//currents
@@ -57,12 +56,14 @@ public class GIEditLayersKeeper {
 	public boolean m_ShowTargetDirection;
 	GIGeometryControl m_current_geometry_editing_control;
 	ArrayList<GIGeometryControl> m_controls;
-	private GITouchControl m_TouchControl;
+//	private GITouchControl m_TouchControl;
 //	private GIPositionControl m_position;
 
 	private boolean m_isPaused;
-	private GIEditLayersKeeper()
+
+	public GIEditLayersKeeper(Geoinfo activity)
 	{
+		this.activity = activity;
 		m_layer = null;
 		m_geometry = null;
 		m_Layers = new ArrayList<GIEditableLayer>();
@@ -72,26 +73,26 @@ public class GIEditLayersKeeper {
 		m_isPaused = false;
 	}
 
-	public static GIEditLayersKeeper Instance() {
-		if (instance == null) {
-			instance = new GIEditLayersKeeper();
-		}
-		return instance;
-	}
+//	public static GIEditLayersKeeper Instance() {
+//		if (instance == null) {
+//			instance = new GIEditLayersKeeper();
+//		}
+//		return instance;
+//	}
+//
+//	public void setTouchControl(GITouchControl TouchControl)
+//	{
+//		m_TouchControl = TouchControl;
+//	}
 
-	public void setTouchControl(GITouchControl TouchControl)
-	{
-		m_TouchControl = TouchControl;
-	}
-
-	public GIMap getMap()
-	{
-		return m_Map;
-	}
-
-	public void setMap(GIMap map) {
-		m_Map = map;
-	}
+//	public GIMap getMap()
+//	{
+//		return m_Map;
+//	}
+//
+//	public void setMap(GIMap map) {
+//		m_Map = map;
+//	}
 	
 	public void AddLayer(GIEditableLayer layer)
 	{
@@ -170,7 +171,7 @@ public class GIEditLayersKeeper {
 
 	public void StopEditing()
 	{
-		m_TouchControl.setState(GIEditingStatus.STOPPED);
+		activity.setState(GIEditingStatus.STOPPED);
 		boolean toRedraw = false;
 		for(GIEditableLayer layer : m_Layers)
 		{
@@ -183,11 +184,11 @@ public class GIEditLayersKeeper {
 		}
 		if(toRedraw)
 		{
-			m_Map.UpdateMap();
+			App.Instance().getMap().UpdateMap();
 		}
 
-		m_TouchControl.fbEditButton.setVisibility(View.GONE);
-		m_TouchControl.fbEditButton.setActivated(false);
+		activity.fbEditButton.setVisibility(View.GONE);
+		activity.fbEditButton.setActivated(false);
 
 		for(GIGeometryControl control : m_controls)
 		{
@@ -198,12 +199,12 @@ public class GIEditLayersKeeper {
 
 	public void StartEditing(GIEditableLayer layer)
 	{
-		if (m_TouchControl.getState() == GIEditingStatus.EDITING_POI)
+		if (activity.getState() == GIEditingStatus.EDITING_POI)
 		{
 			return;
 		}
 		boolean toRedraw = false;
-		m_TouchControl.setState(GIEditingStatus.RUNNING);
+		activity.setState(GIEditingStatus.RUNNING);
 		m_layer = layer;
 		for(GIEditableLayer old : m_Layers)
 		{
@@ -224,15 +225,15 @@ public class GIEditLayersKeeper {
 		{
 			layer.m_Status = GIEditableLayer.GIEditableLayerStatus.EDITED;
 
-			m_TouchControl.fbEditButton.setVisibility(View.VISIBLE);
-			m_TouchControl.fbEditButton.setActivated(true);
+			activity.fbEditButton.setVisibility(View.VISIBLE);
+			activity.fbEditButton.setActivated(true);
 			if(m_layer == m_TrackLayer){
 
-				m_TouchControl.fbEditGeometry.setVisibility(View.GONE);
-				m_TouchControl.fbEditCreate.setVisibility(View.GONE);
+				activity.fbEditGeometry.setVisibility(View.GONE);
+				activity.fbEditCreate.setVisibility(View.GONE);
 			}else{
-				m_TouchControl.fbEditGeometry.setVisibility(View.VISIBLE);
-				m_TouchControl.fbEditCreate.setVisibility(View.VISIBLE);
+				activity.fbEditGeometry.setVisibility(View.VISIBLE);
+				activity.fbEditCreate.setVisibility(View.VISIBLE);
 			}
 
 			for(GI_WktGeometry geom : layer.m_shapes)
@@ -244,14 +245,14 @@ public class GIEditLayersKeeper {
 		}
 		if(toRedraw)
 		{
-			m_Map.UpdateMap();
+			App.Instance().getMap().UpdateMap();
 		}
 	}
 
 	public void StartEditingPOI(GIEditableLayer layer, GI_WktGeometry geometry)
 	{
 		boolean toRedraw = false;
-		m_TouchControl.setState(GIEditingStatus.EDITING_POI);
+		activity.setState(GIEditingStatus.EDITING_POI);
 		m_layer = layer;
 		m_geometry = geometry;
 		for(GIEditableLayer old : m_Layers)
@@ -283,21 +284,21 @@ public class GIEditLayersKeeper {
 					m_current_geometry_editing_control.m_points.get(0).setActiveStatus(true);
 					m_current_geometry_editing_control.m_points.get(0).setChecked(false);
 					m_current_geometry_editing_control.m_points.get(0).invalidate();
-					m_TouchControl.setState(GIEditingStatus.EDITING_GEOMETRY);
+					activity.setState(GIEditingStatus.EDITING_GEOMETRY);
 					/**/
 				}
 				m_controls.add(geometry_control);
 			}
 		}
 
-		m_TouchControl.showEditAttributesFragment(m_geometry);
+		activity.showEditAttributesFragment(m_geometry);
 		m_layer.m_Status = GIEditableLayer.GIEditableLayerStatus.UNSAVED;
 		m_layer.Save();
 		((GI_WktPoint)m_geometry).m_status = GI_WktGeometry.GIWKTGeometryStatus.MODIFIED;
 		m_current_geometry_editing_control.invalidate();
 		if(toRedraw)
 		{
-			m_Map.UpdateMap();
+			App.Instance().getMap().UpdateMap();
 		}
 
 	}
@@ -308,18 +309,17 @@ public class GIEditLayersKeeper {
 		{
 			if(!m_geometry.IsEmpty())
 			{
-				m_TouchControl.showEditAttributesFragment(m_geometry);
+				activity.showEditAttributesFragment(m_geometry);
 			}
-			m_TouchControl.setState(GIEditingStatus.RUNNING);
+			activity.setState(GIEditingStatus.RUNNING);
 			StopEditingGeometry();
 		}
 	}
 
-	public boolean ClickAt(GILonLat point, GIBounds area)
-	{
+	public boolean ClickAt(GILonLat point, GIBounds area) {
 
 		boolean res = false;
-		switch (m_TouchControl.getState())
+		switch (activity.getState())
 		{
 			case WAITIN_FOR_SELECT_OBJECT:
 			{
@@ -328,10 +328,10 @@ public class GIEditLayersKeeper {
 					if(geometry.isTouch(area))
 					{
 						m_geometry = geometry;
-						m_TouchControl.showEditAttributesFragment(m_geometry);
-						m_TouchControl.setState(GIEditingStatus.RUNNING);
-						m_TouchControl.btnEditAttributes.setChecked(false);
-						m_Map.UpdateMap();
+						activity.showEditAttributesFragment(m_geometry);
+						activity.setState(GIEditingStatus.RUNNING);
+						activity.btnEditAttributes.setChecked(false);
+						App.Instance().getMap().UpdateMap();
 						res = true;
 					}
 				}
@@ -344,8 +344,8 @@ public class GIEditLayersKeeper {
 					case POINT:
 					{
 						((GI_WktPoint)m_geometry).Set(point);
-						m_TouchControl.showEditAttributesFragment(m_geometry);
-						m_TouchControl.setState(GIEditingStatus.RUNNING);
+						activity.showEditAttributesFragment(m_geometry);
+						activity.setState(GIEditingStatus.RUNNING);
 						m_layer.m_Status = GIEditableLayer.GIEditableLayerStatus.UNSAVED;
 						m_layer.Save();
 						((GI_WktPoint)m_geometry).m_status = GI_WktGeometry.GIWKTGeometryStatus.MODIFIED;
@@ -353,10 +353,10 @@ public class GIEditLayersKeeper {
 						m_current_geometry_editing_control.invalidate();
 
 						res = true;
-						m_Map.UpdateMap();
+						App.Instance().getMap().UpdateMap();
 
 //						m_EditLayerDialog.m_btnNew.setChecked(false);
-						m_TouchControl.btnEditCreate.setChecked(false);
+						activity.btnEditCreate.setChecked(false);
 						break;
 					}
 					case LINE:
@@ -396,7 +396,7 @@ public class GIEditLayersKeeper {
 					if(geometry.isTouch(area))
 					{
 						m_geometry = geometry;
-						m_TouchControl.setState(GIEditingStatus.RUNNING);
+						activity.setState(GIEditingStatus.RUNNING);
 						for(GIGeometryControl control : m_controls)
 						{
 							if(control.m_geometry == m_geometry)
@@ -410,15 +410,15 @@ public class GIEditLayersKeeper {
 				}
 				if(res)
 				{
-					m_TouchControl.setState(GIEditingStatus.RUNNING);
+					activity.setState(GIEditingStatus.RUNNING);
 					m_layer.m_shapes.remove(m_geometry);
 					m_layer.DeleteObject(m_geometry);
 					m_geometry.Delete();
 					m_geometry = null;
 					m_layer.m_Status = GIEditableLayer.GIEditableLayerStatus.UNSAVED;
 					m_layer.Save();
-					m_Map.UpdateMap();
-					m_TouchControl.btnEditDelete.setChecked(false);
+					App.Instance().getMap().UpdateMap();
+					activity.btnEditDelete.setChecked(false);
 
 					for(GIGeometryPointControl c : m_current_geometry_editing_control.m_points)
 					{
@@ -453,20 +453,20 @@ public class GIEditLayersKeeper {
 							}
 						}
 						m_current_geometry_editing_control.invalidate();
-						m_TouchControl.setState(GIEditingStatus.EDITING_GEOMETRY);
+						activity.setState(GIEditingStatus.EDITING_GEOMETRY);
 						reDraw = true;
 					}
 				}
 				if(reDraw)
 				{
-					m_Map.UpdateMap();
+					App.Instance().getMap().UpdateMap();
 				}
 				break;
 			}
 			//case EDITING_GEOMETRY:
 			case WAITING_FOR_NEW_POINT_LOCATION :
 			{
-				m_TouchControl.setState(GIEditingStatus.EDITING_GEOMETRY);
+				activity.setState(GIEditingStatus.EDITING_GEOMETRY);
 
 				for(GIGeometryPointControl control : m_current_geometry_editing_control.m_points)
 				{
@@ -482,8 +482,8 @@ public class GIEditLayersKeeper {
 
 				}
 				m_current_geometry_editing_control.invalidate();
-				//TODO
-				m_TouchControl.setState(GIEditingStatus.EDITING_GEOMETRY);
+
+				activity.setState(GIEditingStatus.EDITING_GEOMETRY);
 
 				break;
 			}
@@ -495,26 +495,21 @@ public class GIEditLayersKeeper {
 
 	public void StopEditingGeometry()
 	{
-		if(m_geometry == null)
-		{
+		if (m_geometry == null) {
 			return;
 		}
 		m_geometry.m_status = GI_WktGeometry.GIWKTGeometryStatus.MODIFIED;
 
-		if(m_geometry.m_type == GI_WktGeometry.GIWKTGeometryType.POLYGON)
-		{
+		if (m_geometry.m_type == GI_WktGeometry.GIWKTGeometryType.POLYGON) {
 			GI_WktPolygon polygon = (GI_WktPolygon)m_geometry;
-			for(GI_WktLinestring ring : polygon.m_rings)
-			{
-				if(ring.m_points.size() > 1)
-				{
+			for (GI_WktLinestring ring : polygon.m_rings) {
+				if (ring.m_points.size() > 1) {
 					ring.m_points.get(ring.m_points.size() - 1).m_lon = ring.m_points.get(0).m_lon;
 					ring.m_points.get(ring.m_points.size() - 1).m_lat = ring.m_points.get(0).m_lat;
 				}
 			}
 		}
-		for(GIGeometryPointControl c : m_current_geometry_editing_control.m_points)
-		{
+		for (GIGeometryPointControl c : m_current_geometry_editing_control.m_points) {
 			c.setActiveStatus(false);
 			c.setChecked(false);
 			c.invalidate();
@@ -527,26 +522,21 @@ public class GIEditLayersKeeper {
 		//m_CurrentTarget = control.m_WKTPoint;
 		//GIDirectionToPOIArrow arrow = new GIDirectionToPOIArrow(m_CurrentTarget);
 
-		if(m_current_geometry_editing_control == null)
-		{
+		if (m_current_geometry_editing_control == null) {
 			return;
 		}
+
 		boolean checked_yet = control.getChecked();
-		if(m_current_geometry_editing_control != null)
-		{
-			for(GIGeometryPointControl other : m_current_geometry_editing_control.m_points)
-			{
+		if (m_current_geometry_editing_control != null) {
+			for (GIGeometryPointControl other : m_current_geometry_editing_control.m_points) {
 				other.setChecked(false);
 			}
 		}
 		control.setChecked(checked_yet);
-		if(checked_yet)
-		{
-			m_TouchControl.setState(GIEditingStatus.WAITING_FOR_NEW_POINT_LOCATION);
-		}
-		else
-		{
-			m_TouchControl.setState(GIEditingStatus.EDITING_GEOMETRY);
+		if (checked_yet) {
+			activity.setState(GIEditingStatus.WAITING_FOR_NEW_POINT_LOCATION);
+		} else {
+			activity.setState(GIEditingStatus.EDITING_GEOMETRY);
 		}
 	}
 
@@ -559,7 +549,7 @@ public class GIEditLayersKeeper {
 
 		if(location == null)
 		{
-			deg = GIProjection.ReprojectLonLat(m_Map.Center(), m_Map.Projection(), GIProjection.WGS84());
+			deg = GIProjection.ReprojectLonLat(activity.getMap().Center(), activity.getMap().Projection(), GIProjection.WGS84());
 		}
 		else
 		{
@@ -568,16 +558,16 @@ public class GIEditLayersKeeper {
 		}
 
 		if (!m_isPaused && m_AutoFollow) {
-			GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), m_Map.Projection());
-			Point new_center = m_Map.MapToScreen(mercator);
-			double distance = Math.hypot(new_center.y - m_Map.Height() / 2, new_center.x - m_Map.Width() / 2);
+			GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), activity.getMap().Projection());
+			Point new_center = activity.getMap().MapToScreen(mercator);
+			double distance = Math.hypot(new_center.y - activity.getMap().Height() / 2, new_center.x - activity.getMap().Width() / 2);
 			//TODO uncomment
 			if (distance > 20) {
-				m_Map.SetCenter(mercator);
+				activity.getMap().SetCenter(mercator);
 			}
 		}
 
-		if (m_TouchControl.getTrackingStatus() == GITrackingStatus.WRITE) {
+		if (activity.getTrackingStatus() == GITrackingStatus.WRITE) {
 			if (m_TrackLayer != null) {
 				GI_WktPoint point = new GI_WktPoint();
 				point.Set(deg);
@@ -591,26 +581,25 @@ public class GIEditLayersKeeper {
 	public boolean CreateTrack()
 	{
 		boolean res = false;
-		if(m_TrackLayer == null){
-			SimpleDateFormat dateFormat = new SimpleDateFormat(App.getInstance().dateTimeFormat, Locale.ENGLISH);
+		if (m_TrackLayer == null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat(App.Instance().dateTimeFormat, Locale.ENGLISH);
 			String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
 
-			m_TrackLayer = GILayer.createTrack(m_Map.ps.m_name, date);
+			m_TrackLayer = GILayer.createTrack(activity.getMap().ps.m_name, date);
 			m_TrackLayer.setType(GILayer.EditableType.TRACK);
 			m_TrackLayer.Save();
 
-			m_Map.ps.m_Group.addEntry(m_TrackLayer.m_layer_properties);
-			m_Map.AddLayer(m_TrackLayer);
+			activity.getMap().ps.m_Group.addEntry(m_TrackLayer.m_layer_properties);
+			activity.getMap().AddLayer(m_TrackLayer);
 
         }
-		if(m_TrackLayer != null)
-		{
-			m_TouchControl.setTrackingStatus(GITrackingStatus.WRITE);
+
+		if (m_TrackLayer != null) {
+			activity.setTrackingStatus(GITrackingStatus.WRITE);
 			m_CurrentTrack = new GIXMLTrack();
 
 			m_CurrentTrack.m_attributes = new HashMap<String, GIDBaseField>();
-			for(String key : m_TrackLayer.m_attributes.keySet())
-			{
+			for (String key : m_TrackLayer.m_attributes.keySet()) {
 				m_CurrentTrack.m_attributes.put(key, new GIDBaseField(m_TrackLayer.m_attributes.get(key)));
 			}
 			String time = CommonUtils.getCurrentTime();
@@ -621,17 +610,17 @@ public class GIEditLayersKeeper {
 
 			GIDBaseField proj_field = new GIDBaseField();
 			proj_field.m_name = "Project";
-			proj_field.m_value = m_Map.ps.m_name;
+			proj_field.m_value = activity.getMap().ps.m_name;
 			m_CurrentTrack.m_attributes.put("Project", proj_field);
 
 
-			res = ((GIXMLTrack) m_CurrentTrack).Create(m_Map.ps.m_name, m_Map.ps.m_name + CommonUtils.getCurrentTimeShort(), m_TrackLayer.m_style, m_TrackLayer.m_encoding);
+			res = ((GIXMLTrack) m_CurrentTrack).Create(activity.getMap().ps.m_name, activity.getMap().ps.m_name + CommonUtils.getCurrentTimeShort(), m_TrackLayer.m_style, m_TrackLayer.m_encoding);
 			m_CurrentTrack.m_status = GI_WktGeometry.GIWKTGeometryStatus.NEW;
 			m_TrackLayer.m_shapes.add(m_CurrentTrack);
 
 			//todo
 			m_current_track_control = new GIGeometryControl(m_TrackLayer, m_CurrentTrack);
-			m_current_track_control.setMap(m_Map);
+			m_current_track_control.setMap(activity.getMap());
 
 			m_TrackLayer.Save();
 		}
@@ -640,21 +629,17 @@ public class GIEditLayersKeeper {
 
 	public void StopTrack()
 	{
-
-		if(m_CurrentTrack != null)
-		{
-			if(m_CurrentTrack.m_type == GI_WktGeometry.GIWKTGeometryType.TRACK)
-			{
+		if (m_CurrentTrack != null) {
+			if (m_CurrentTrack.m_type == GI_WktGeometry.GIWKTGeometryType.TRACK) {
 				GIXMLTrack track = (GIXMLTrack)m_CurrentTrack;
 				track.StopTrack();
 			}
 		}
-		if(m_current_track_control != null)
-		{
+		if (m_current_track_control != null) {
 			m_current_track_control.Disable();
 		}
 		m_CurrentTrack = null;
-		m_Map.UpdateMap();
+		activity.getMap().UpdateMap();
 	}
 
 	public void AddPointToTrack(GILonLat lonlat, float accurancy)
@@ -683,7 +668,7 @@ public class GIEditLayersKeeper {
 		if(m_POILayer != null)
 		{
 			GI_WktPoint point = new GI_WktPoint();
-			GILonLat location = GIProjection.ReprojectLonLat(m_Map.Center(), m_Map.Projection(), GIProjection.WGS84());
+			GILonLat location = GIProjection.ReprojectLonLat(activity.getMap().Center(), activity.getMap().Projection(), GIProjection.WGS84());
 			point.Set(location);
 			point.m_attributes = new HashMap<String, GIDBaseField>();
 			for(String key : m_POILayer.m_attributes.keySet())
@@ -698,12 +683,11 @@ public class GIEditLayersKeeper {
 
 			GIDBaseField proj_field = new GIDBaseField();
 			proj_field.m_name = "Project";
-			proj_field.m_value = m_Map.ps.m_name;
+			proj_field.m_value = activity.getMap().ps.m_name;
 			point.m_attributes.put("Project", proj_field);
 
 			m_POILayer.AddGeometry(point);
 			StartEditingPOI(m_POILayer, point);
-
 		}
 	}
 

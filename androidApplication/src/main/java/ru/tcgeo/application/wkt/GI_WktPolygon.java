@@ -10,8 +10,8 @@ import android.graphics.PointF;
 
 import java.util.ArrayList;
 
+import ru.tcgeo.application.App;
 import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
@@ -99,19 +99,19 @@ public class GI_WktPolygon extends GI_WktGeometry
 	{
 		Path polygon = new Path();
 		int[] offset = { 0, 0 };
-		GIEditLayersKeeper.Instance().getMap().getLocationOnScreen(offset);
-		polygon.setFillType(FillType.EVEN_ODD);
+        App.Instance().getMap().getLocationOnScreen(offset);
+        polygon.setFillType(FillType.EVEN_ODD);
 		for(int i = 0; i < m_rings.size(); i++)
 		{
 			GI_WktLinestring ring = m_rings.get(i);
 			if(ring.m_points.size() > 0)
 			{
-				Point point_first =  GIEditLayersKeeper.Instance().getMap().MapToScreenTempo(new GILonLat(ring.m_points.get(0).m_lon, ring.m_points.get(0).m_lat));
-				polygon.moveTo(point_first.x - offset[0], point_first.y - offset[1]);
+                Point point_first = App.Instance().getMap().MapToScreenTempo(new GILonLat(ring.m_points.get(0).m_lon, ring.m_points.get(0).m_lat));
+                polygon.moveTo(point_first.x - offset[0], point_first.y - offset[1]);
 				for(int j = 1; j < ring.m_points.size() - 1; j++)
 				{
-					Point point_current = GIEditLayersKeeper.Instance().getMap().MapToScreenTempo(new GILonLat(ring.m_points.get(j).m_lon, ring.m_points.get(j).m_lat));
-					polygon.lineTo( point_current.x - offset[0], point_current.y - offset[1]);
+                    Point point_current = App.Instance().getMap().MapToScreenTempo(new GILonLat(ring.m_points.get(j).m_lon, ring.m_points.get(j).m_lat));
+                    polygon.lineTo( point_current.x - offset[0], point_current.y - offset[1]);
 				}
 				polygon.close();
 			}

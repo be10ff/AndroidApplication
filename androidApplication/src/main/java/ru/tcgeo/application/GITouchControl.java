@@ -2,58 +2,39 @@ package ru.tcgeo.application;
 
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.location.Location;
-import android.location.LocationManager;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewConfiguration;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
 
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
-import ru.tcgeo.application.data.GIEditingStatus;
-import ru.tcgeo.application.data.GITrackingStatus;
 import ru.tcgeo.application.gilib.GIControl;
 import ru.tcgeo.application.gilib.GIDataRequestorImp;
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.GIRuleToolControl;
 import ru.tcgeo.application.gilib.GISquareToolControl;
-import ru.tcgeo.application.gilib.gps.GICompassView;
-import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.utils.ScreenUtils;
-import ru.tcgeo.application.view.FloatingActionButtonsCallback;
-import ru.tcgeo.application.views.dialog.EditAttributesDialog;
-import ru.tcgeo.application.wkt.GI_WktGeometry;
 
 
-public class GITouchControl extends View implements GIControl, OnLongClickListener {
+public class GITouchControl extends View implements GIControl, OnLongClickListener/*, ITouchControl */ {
     private static final int INVALID_ID = -1;
-    public AppCompatCheckBox btnEditCreate;
-    public AppCompatCheckBox btnEditGeometry;
-    public AppCompatCheckBox btnEditAttributes;
-    public AppCompatCheckBox btnEditDelete;
-    public SubActionButton fbEditCreate;
-    public SubActionButton fbEditGeometry;
-    public SubActionButton fbEditAttributes;
-    public SubActionButton fbEditDelete;
-    public FloatingActionButton fbEditButton;
-    GIGPSButtonView fbGPS;
-    ImageButton fbEdit;
+    //    public AppCompatCheckBox btnEditCreate;
+//    public AppCompatCheckBox btnEditGeometry;
+//    public AppCompatCheckBox btnEditAttributes;
+//    public AppCompatCheckBox btnEditDelete;
+//    public SubActionButton fbEditCreate;
+//    public SubActionButton fbEditGeometry;
+//    public SubActionButton fbEditAttributes;
+//    public SubActionButton fbEditDelete;
+//    public FloatingActionButton fbEditButton;
+//    GIGPSButtonView fbGPS;
+//    ImageButton fbEdit;
     FloatingActionMenu editActionMenu;
     int mTouchSlop;
     float x;
@@ -78,10 +59,11 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
     private Point m_focus;
     private float m_ScaleFactor;
     private boolean m_scaled;
-    private GIEditingStatus m_Status = GIEditingStatus.STOPPED;
-    private GITrackingStatus m_TrackingStatus = GITrackingStatus.STOP;
+//    private GIEditingStatus m_Status = GIEditingStatus.STOPPED;
+//    private GITrackingStatus m_TrackingStatus = GITrackingStatus.STOP;
 
-    private LocationManager locationManager;
+
+//    private LocationManager locationManager;
 
     public GITouchControl(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -113,390 +95,392 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
         ViewConfiguration vc = ViewConfiguration.get(activity);
         mTouchSlop = vc.getScaledTouchSlop();
 
-        // TODO 13/04/2018
-        m_Status = GIEditingStatus.STOPPED;
-        m_TrackingStatus = GITrackingStatus.STOP;
+//        // TODO 13/04/2018
+//        m_Status = GIEditingStatus.STOPPED;
+//        m_TrackingStatus = GITrackingStatus.STOP;
 
-        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-    }
-
-    public void setupButtons() {
-
-        final FloatingActionButtonsCallback callback = activity;
-        // floating buttons
-        //--------------------------------------------------------------------
-
-        //--------------------------------------------------------------------
-        // GPS buttons
-        //--------------------------------------------------------------------
-        fbGPS = new GIGPSButtonView(activity);
-        FloatingActionButton.LayoutParams gps_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
-        gps_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
-
-        FloatingActionButton gps_action_button = new FloatingActionButton.Builder(activity)
-                .setContentView(fbGPS)
-                .setBackgroundDrawable(null)
-                .setPosition(FloatingActionButton.POSITION_TOP_LEFT)
-                .setLayoutParams(gps_menu_params)
-                .build();
-
-        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(activity);
-        FloatingActionButton.LayoutParams action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(84), ScreenUtils.dpToPx(84));
-        action_params.gravity = Gravity.CENTER_HORIZONTAL;
-        itemBuilder.setLayoutParams(action_params);
-
-
-//        fbGPS.SetGPSEnabledStatus(m_location_listener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-
-        //-------------------------------------------------------------------
-        // GPS AUTO_FOLL0W
-        //--------------------------------------------------------------------
-        final CheckBox m_btnAutoFollow = new CheckBox(activity);
-        m_btnAutoFollow.setButtonDrawable(R.drawable.auto_follow_status_);
-        SubActionButton fbAutoFollow = itemBuilder.setContentView(m_btnAutoFollow).build();
-        m_btnAutoFollow.setChecked(GIEditLayersKeeper.Instance().m_AutoFollow);
-        m_btnAutoFollow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GIEditLayersKeeper.Instance().m_AutoFollow = m_btnAutoFollow.isChecked();
-                if (m_btnAutoFollow.isChecked()) {
-                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    if (location != null) {
-                        GILonLat go_to = GILonLat.fromLocation(location);
-                        GILonLat go_to_map = GIProjection.ReprojectLonLat(go_to, GIProjection.WGS84(), GIProjection.WorldMercator());
-                        m_map.SetCenter(go_to_map);
-                    }
-                }
-//                GIEditLayersKeeper.Instance().GetPositionControl();
-            }
-        });
-
-        //--------------------------------------------------------------------
-        // GPS TRACK_CONTROL
-        //--------------------------------------------------------------------
-        final CheckBox m_btnTrackControl = new CheckBox(activity);
-        m_btnTrackControl.setTextSize(0);
-        m_btnTrackControl.setButtonDrawable(R.drawable.stop_start_track_button);
-        SubActionButton fbTrackControl = itemBuilder.setContentView(m_btnTrackControl).build();
-        m_btnTrackControl.setChecked(m_TrackingStatus == GITrackingStatus.WRITE);
-        m_btnTrackControl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (m_TrackingStatus == GITrackingStatus.STOP) {
-                    if (!GIEditLayersKeeper.Instance().CreateTrack()) {
-                        m_TrackingStatus = GITrackingStatus.STOP;
-                        m_btnTrackControl.setChecked(false);
-                    }
-                } else {
-                    m_TrackingStatus = GITrackingStatus.STOP;
-                    GIEditLayersKeeper.Instance().StopTrack();
-                }
-            }
-        });
-
-        //--------------------------------------------------------------------
-        // GPS SHOW TRACK
-        //--------------------------------------------------------------------
-        final CheckBox m_btnShowTrack = new CheckBox(activity);
-        m_btnShowTrack.setTextSize(0);
-        m_btnShowTrack.setButtonDrawable(R.drawable.show_track);
-        SubActionButton fbShowTrack = itemBuilder.setContentView(m_btnShowTrack).build();
-        m_btnShowTrack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (GIEditLayersKeeper.Instance().m_current_track_control != null) {
-                    GIEditLayersKeeper.Instance().m_current_track_control.Show(m_btnShowTrack.isChecked());
-                    GIEditLayersKeeper.Instance().getMap().UpdateMap();
-                }
-            }
-        });
-
-        //--------------------------------------------------------------------
-        // GPS POI CONTROL
-        //--------------------------------------------------------------------
-        final ImageButton m_btnPoiControl = new ImageButton(activity);
-        m_btnPoiControl.setImageResource(R.drawable.poi_status);
-        m_btnPoiControl.setBackgroundDrawable(null);
-        SubActionButton fbPoiControl = itemBuilder.setContentView(m_btnPoiControl).build();
-        m_btnPoiControl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getState() != GIEditingStatus.EDITING_POI && getState() != GIEditingStatus.EDITING_GEOMETRY) {
-                    GIEditLayersKeeper.Instance().CreatePOI();
-                } else {
-                    GIEditLayersKeeper.Instance().StopEditing();
-                }
-            }
-        });
-
-        //--------------------------------------------------------------------
-        // GPS buttons
-        //--------------------------------------------------------------------
-        FloatingActionMenu gpsActionMenu = new FloatingActionMenu.Builder(activity)
-
-                .addSubActionView(fbAutoFollow)
-                .addSubActionView(fbTrackControl)
-                .addSubActionView(fbShowTrack)
-                .addSubActionView(fbPoiControl)
-
-                .attachTo(gps_action_button)
-                .setRadius(ScreenUtils.dpToPx(144))
-                .setStartAngle(0)
-                .setEndAngle(90)
-                .build();
-        //--------------------------------------------------------------------
-        // GPS buttons
-        //--------------------------------------------------------------------
-
-        //--------------------------------------------------------------------
-        // Compass buttons
-        //--------------------------------------------------------------------
-        GICompassView fbCompass = new GICompassView(activity);
-        FloatingActionButton.LayoutParams compass_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
-        compass_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
-
-        FloatingActionButton compass_action_button = new FloatingActionButton.Builder(activity)
-                .setContentView(fbCompass)
-                .setBackgroundDrawable(null)
-                .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
-                .setLayoutParams(compass_menu_params)
-                .build();
-        //--------------------------------------------------------------------
-        // COMPASS_OPEN_BUTTON
-        //--------------------------------------------------------------------
-        final ImageButton btnProjectSelectorButton = new ImageButton(activity);
-        btnProjectSelectorButton.setImageResource(R.drawable.open);
-        btnProjectSelectorButton.setBackgroundDrawable(null);
-        SubActionButton fbOpen = itemBuilder.setContentView(btnProjectSelectorButton).build();
-        btnProjectSelectorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.ProjectSelectorDialogClicked();
-            }
-        });
-        //--------------------------------------------------------------------
-        // COMPASS_OPEN_Layers
-        //--------------------------------------------------------------------
-        final ImageButton btnLayers = new ImageButton(activity);
-        btnLayers.setImageResource(R.drawable.gear);
-        btnLayers.setBackgroundDrawable(null);
-        SubActionButton fbLayers = itemBuilder.setContentView(btnLayers).build();
-        btnLayers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.SettingsDialogClicked();
-
-            }
-        });
-        //--------------------------------------------------------------------
-        // COMPASS_EDIT_Layers
-        //--------------------------------------------------------------------
-        final ImageButton btnEditLayers = new ImageButton(activity);
-        btnEditLayers.setImageResource(R.drawable.edit);
-        btnEditLayers.setBackgroundDrawable(null);
-        SubActionButton fbEditLayers = itemBuilder.setContentView(btnEditLayers).build();
-        btnEditLayers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.EditableLayersDialogClicked();
-            }
-        });
-        //--------------------------------------------------------------------
-        // COMPASS_MARKERS
-        //--------------------------------------------------------------------
-        final ImageButton btnMarkers = new ImageButton(activity);
-        btnMarkers.setImageResource(R.drawable.poi);
-        btnMarkers.setBackgroundDrawable(null);
-        SubActionButton fbMarkers = itemBuilder.setContentView(btnMarkers).build();
-        btnMarkers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.MarkersDialogClicked();
-            }
-        });
-        //--------------------------------------------------------------------
-        // Compass buttons
-        //--------------------------------------------------------------------
-        FloatingActionMenu compassActionMenu = new FloatingActionMenu.Builder(activity)
-
-                .addSubActionView(fbOpen)
-                .addSubActionView(fbLayers)
-                .addSubActionView(fbEditLayers)
-                .addSubActionView(fbMarkers)
-
-                .attachTo(compass_action_button)
-                .setRadius(ScreenUtils.dpToPx(144))
-                .setStartAngle(90)
-                .setEndAngle(180)
-                .build();
-        //--------------------------------------------------------------------
-        // Compass buttons
-        //--------------------------------------------------------------------
-
-        //--------------------------------------------------------------------
-        // Edit buttons
-        //--------------------------------------------------------------------
-        btnEditCreate = new AppCompatCheckBox(activity);
-        btnEditCreate.setTextSize(0);
-//		Drawable d = AppCompatDrawableManager.get().getDrawable(this, R.drawable.edit_create_bg);
-        btnEditCreate.setButtonDrawable(R.drawable.edit_create_bg);
-        btnEditCreate.setBackgroundDrawable(null);
-        fbEditCreate = itemBuilder.setContentView(btnEditCreate).build();
-
-
-        btnEditGeometry = new AppCompatCheckBox(activity);
-        btnEditGeometry.setTextSize(0);
-        btnEditGeometry.setButtonDrawable(R.drawable.edit_geometry_bg);
-        btnEditGeometry.setBackgroundDrawable(null);
-        fbEditGeometry = itemBuilder.setContentView(btnEditGeometry).build();
-
-
-        btnEditAttributes = new AppCompatCheckBox(activity);
-        btnEditAttributes.setTextSize(0);
-        btnEditAttributes.setButtonDrawable(R.drawable.edit_attributes_bg);
-        btnEditAttributes.setBackgroundDrawable(null);
-        fbEditAttributes = itemBuilder.setContentView(btnEditAttributes).build();
-
-        btnEditDelete = new AppCompatCheckBox(activity);
-        btnEditDelete.setTextSize(0);
-        btnEditDelete.setButtonDrawable(R.drawable.edit_delete_bg);
-        btnEditDelete.setBackgroundDrawable(null);
-        fbEditDelete = itemBuilder.setContentView(btnEditDelete).build();
-
-
-        btnEditCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((getState() != GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION) && (btnEditCreate.isChecked())) {
-                    if (!GIEditLayersKeeper.Instance().CreateNewObject()) {
-                        return;
-                    }
-                    setState(GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION);
-                    fbEditAttributes.setEnabled(false);
-                    fbEditGeometry.setEnabled(false);
-                    fbEditDelete.setEnabled(false);
-                    btnEditAttributes.setChecked(false);
-                    btnEditGeometry.setChecked(false);
-                    btnEditDelete.setChecked(false);
-                    m_map.UpdateMap();
-                } else {
-                    setState(GIEditingStatus.RUNNING);
-                    GIEditLayersKeeper.Instance().FillAttributes();
-                    fbEditCreate.setEnabled(false);
-                }
-            }
-        });
-        btnEditGeometry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (GIEditLayersKeeper.Instance().m_layer == GIEditLayersKeeper.Instance().m_TrackLayer) {
-                    return;
-                }
-
-                if ((getState() == GIEditingStatus.EDITING_GEOMETRY) || (getState() == GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING) || (getState() == GIEditingStatus.WAITING_FOR_NEW_POINT_LOCATION)) {
-                    setState(GIEditingStatus.RUNNING);
-                    GIEditLayersKeeper.Instance().StopEditingGeometry();
-                    fbEditCreate.setEnabled(true);
-                    fbEditAttributes.setEnabled(true);
-                    fbEditDelete.setEnabled(true);
-                    btnEditCreate.setChecked(false);
-                    btnEditAttributes.setChecked(false);
-                    btnEditDelete.setChecked(false);
-                } else {
-                    setState(GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING);
-                    fbEditCreate.setEnabled(false);
-                    fbEditAttributes.setEnabled(false);
-                    fbEditDelete.setEnabled(false);
-                }
-            }
-        });
-        btnEditAttributes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getState() != GIEditingStatus.WAITIN_FOR_SELECT_OBJECT) {
-                    setState(GIEditingStatus.WAITIN_FOR_SELECT_OBJECT);
-                    fbEditCreate.setEnabled(false);
-                    fbEditGeometry.setEnabled(false);
-                    fbEditDelete.setEnabled(false);
-                    btnEditCreate.setChecked(false);
-                    btnEditGeometry.setChecked(false);
-                    btnEditDelete.setChecked(false);
-                } else {
-                    setState(GIEditingStatus.RUNNING);
-                    fbEditCreate.setEnabled(true);
-                    fbEditGeometry.setEnabled(true);
-                    fbEditDelete.setEnabled(true);
-                }
-            }
-        });
-
-        btnEditDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setState(GIEditingStatus.WAITING_FOR_TO_DELETE);
-            }
-        });
-
-        fbEdit = new ImageButton(activity);
-        FloatingActionButton.LayoutParams edit_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
-        edit_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
-        fbEdit.setImageResource(R.drawable.edit);
-        fbEdit.setBackgroundDrawable(null);
-        fbEdit.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (GIEditLayersKeeper.Instance().m_layer == GIEditLayersKeeper.Instance().m_TrackLayer) {
-                    fbEditGeometry.setVisibility(View.GONE);
-                    fbEditCreate.setVisibility(View.GONE);
-                } else {
-                    fbEditGeometry.setVisibility(View.VISIBLE);
-                    fbEditCreate.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        fbEditButton = new FloatingActionButton.Builder(activity)
-                .setContentView(fbEdit)
-                .setBackgroundDrawable(null)
-                .setPosition(FloatingActionButton.POSITION_BOTTOM_RIGHT)
-                .setLayoutParams(edit_menu_params)
-                .build();
-
-        fbEditButton.setVisibility(View.GONE);
-        fbEditButton.setActivated(false);
-
-        FloatingActionButton.LayoutParams edit_action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(84), ScreenUtils.dpToPx(84));
-        edit_action_params.gravity = Gravity.CENTER_HORIZONTAL;
-        itemBuilder.setLayoutParams(edit_action_params);
-
-        editActionMenu = new FloatingActionMenu.Builder(activity)
-
-                .addSubActionView(fbEditCreate)
-                .addSubActionView(fbEditGeometry)
-                .addSubActionView(fbEditAttributes)
-                .addSubActionView(fbEditDelete)
-                .attachTo(fbEditButton)
-                .setRadius(ScreenUtils.dpToPx(144))
-                .setStartAngle(180)
-                .setEndAngle(270)
-                .build();
+//        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
 
     }
 
-    public void showEditAttributesFragment(GI_WktGeometry geometry) {
-        EditAttributesDialog dialog = new EditAttributesDialog(activity, true, new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                btnEditCreate.setEnabled(true);
-                btnEditAttributes.setEnabled(true);
-                btnEditGeometry.setEnabled(true);
-                btnEditDelete.setEnabled(true);
-                m_map.UpdateMap();
-            }
-        }, geometry.m_attributes);
-        dialog.show();
-    }
+//    public void setupButtons() {
+//
+//        final FloatingActionButtonsCallback callback = activity;
+//        // floating buttons
+//        //--------------------------------------------------------------------
+//
+//        //--------------------------------------------------------------------
+//        // GPS buttons
+//        //--------------------------------------------------------------------
+//        fbGPS = new GIGPSButtonView(activity);
+//        FloatingActionButton.LayoutParams gps_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
+//        gps_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
+//
+//        FloatingActionButton gps_action_button = new FloatingActionButton.Builder(activity)
+//                .setContentView(fbGPS)
+//                .setBackgroundDrawable(null)
+//                .setPosition(FloatingActionButton.POSITION_TOP_LEFT)
+//                .setLayoutParams(gps_menu_params)
+//                .build();
+//
+//        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(activity);
+//        FloatingActionButton.LayoutParams action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(84), ScreenUtils.dpToPx(84));
+//        action_params.gravity = Gravity.CENTER_HORIZONTAL;
+//        itemBuilder.setLayoutParams(action_params);
+//
+//
+////        fbGPS.SetGPSEnabledStatus(m_location_listener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+//
+//        //-------------------------------------------------------------------
+//        // GPS AUTO_FOLL0W
+//        //--------------------------------------------------------------------
+//        final CheckBox m_btnAutoFollow = new CheckBox(activity);
+//        m_btnAutoFollow.setButtonDrawable(R.drawable.auto_follow_status_);
+//        SubActionButton fbAutoFollow = itemBuilder.setContentView(m_btnAutoFollow).build();
+//        m_btnAutoFollow.setChecked(GIEditLayersKeeper.Instance().m_AutoFollow);
+//        m_btnAutoFollow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                GIEditLayersKeeper.Instance().m_AutoFollow = m_btnAutoFollow.isChecked();
+//                if (m_btnAutoFollow.isChecked()) {
+//                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//                    if (location != null) {
+//                        GILonLat go_to = GILonLat.fromLocation(location);
+//                        GILonLat go_to_map = GIProjection.ReprojectLonLat(go_to, GIProjection.WGS84(), GIProjection.WorldMercator());
+//                        m_map.SetCenter(go_to_map);
+//                    }
+//                }
+////                GIEditLayersKeeper.Instance().GetPositionControl();
+//            }
+//        });
+//
+//        //--------------------------------------------------------------------
+//        // GPS TRACK_CONTROL
+//        //--------------------------------------------------------------------
+//        final CheckBox m_btnTrackControl = new CheckBox(activity);
+//        m_btnTrackControl.setTextSize(0);
+//        m_btnTrackControl.setButtonDrawable(R.drawable.stop_start_track_button);
+//        SubActionButton fbTrackControl = itemBuilder.setContentView(m_btnTrackControl).build();
+//        m_btnTrackControl.setChecked(m_TrackingStatus == GITrackingStatus.WRITE);
+//        m_btnTrackControl.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (m_TrackingStatus == GITrackingStatus.STOP) {
+//                    if (!GIEditLayersKeeper.Instance().CreateTrack()) {
+//                        m_TrackingStatus = GITrackingStatus.STOP;
+//                        m_btnTrackControl.setChecked(false);
+//                    }
+//                } else {
+//                    m_TrackingStatus = GITrackingStatus.STOP;
+//                    GIEditLayersKeeper.Instance().StopTrack();
+//                }
+//            }
+//        });
+//
+//        //--------------------------------------------------------------------
+//        // GPS SHOW TRACK
+//        //--------------------------------------------------------------------
+//        final CheckBox m_btnShowTrack = new CheckBox(activity);
+//        m_btnShowTrack.setTextSize(0);
+//        m_btnShowTrack.setButtonDrawable(R.drawable.show_track);
+//        SubActionButton fbShowTrack = itemBuilder.setContentView(m_btnShowTrack).build();
+//        m_btnShowTrack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (GIEditLayersKeeper.Instance().m_current_track_control != null) {
+//                    GIEditLayersKeeper.Instance().m_current_track_control.Show(m_btnShowTrack.isChecked());
+//                    App.Instance().getMap().UpdateMap();
+//                }
+//            }
+//        });
+//
+//        //--------------------------------------------------------------------
+//        // GPS POI CONTROL
+//        //--------------------------------------------------------------------
+//        final ImageButton m_btnPoiControl = new ImageButton(activity);
+//        m_btnPoiControl.setImageResource(R.drawable.poi_status);
+//        m_btnPoiControl.setBackgroundDrawable(null);
+//        SubActionButton fbPoiControl = itemBuilder.setContentView(m_btnPoiControl).build();
+//        m_btnPoiControl.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (getState() != GIEditingStatus.EDITING_POI && getState() != GIEditingStatus.EDITING_GEOMETRY) {
+//                    GIEditLayersKeeper.Instance().CreatePOI();
+//                } else {
+//                    GIEditLayersKeeper.Instance().StopEditing();
+//                }
+//            }
+//        });
+//
+//        //--------------------------------------------------------------------
+//        // GPS buttons
+//        //--------------------------------------------------------------------
+//        FloatingActionMenu gpsActionMenu = new FloatingActionMenu.Builder(activity)
+//
+//                .addSubActionView(fbAutoFollow)
+//                .addSubActionView(fbTrackControl)
+//                .addSubActionView(fbShowTrack)
+//                .addSubActionView(fbPoiControl)
+//
+//                .attachTo(gps_action_button)
+//                .setRadius(ScreenUtils.dpToPx(144))
+//                .setStartAngle(0)
+//                .setEndAngle(90)
+//                .build();
+//        //--------------------------------------------------------------------
+//        // GPS buttons
+//        //--------------------------------------------------------------------
+//
+//        //--------------------------------------------------------------------
+//        // Compass buttons
+//        //--------------------------------------------------------------------
+//        GICompassView fbCompass = new GICompassView(activity);
+//        FloatingActionButton.LayoutParams compass_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
+//        compass_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
+//
+//        FloatingActionButton compass_action_button = new FloatingActionButton.Builder(activity)
+//                .setContentView(fbCompass)
+//                .setBackgroundDrawable(null)
+//                .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
+//                .setLayoutParams(compass_menu_params)
+//                .build();
+//        //--------------------------------------------------------------------
+//        // COMPASS_OPEN_BUTTON
+//        //--------------------------------------------------------------------
+//        final ImageButton btnProjectSelectorButton = new ImageButton(activity);
+//        btnProjectSelectorButton.setImageResource(R.drawable.open);
+//        btnProjectSelectorButton.setBackgroundDrawable(null);
+//        SubActionButton fbOpen = itemBuilder.setContentView(btnProjectSelectorButton).build();
+//        btnProjectSelectorButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                callback.ProjectSelectorDialogClicked();
+//            }
+//        });
+//        //--------------------------------------------------------------------
+//        // COMPASS_OPEN_Layers
+//        //--------------------------------------------------------------------
+//        final ImageButton btnLayers = new ImageButton(activity);
+//        btnLayers.setImageResource(R.drawable.gear);
+//        btnLayers.setBackgroundDrawable(null);
+//        SubActionButton fbLayers = itemBuilder.setContentView(btnLayers).build();
+//        btnLayers.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                callback.SettingsDialogClicked();
+//
+//            }
+//        });
+//        //--------------------------------------------------------------------
+//        // COMPASS_EDIT_Layers
+//        //--------------------------------------------------------------------
+//        final ImageButton btnEditLayers = new ImageButton(activity);
+//        btnEditLayers.setImageResource(R.drawable.edit);
+//        btnEditLayers.setBackgroundDrawable(null);
+//        SubActionButton fbEditLayers = itemBuilder.setContentView(btnEditLayers).build();
+//        btnEditLayers.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                callback.EditableLayersDialogClicked();
+//            }
+//        });
+//        //--------------------------------------------------------------------
+//        // COMPASS_MARKERS
+//        //--------------------------------------------------------------------
+//        final ImageButton btnMarkers = new ImageButton(activity);
+//        btnMarkers.setImageResource(R.drawable.poi);
+//        btnMarkers.setBackgroundDrawable(null);
+//        SubActionButton fbMarkers = itemBuilder.setContentView(btnMarkers).build();
+//        btnMarkers.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                callback.MarkersDialogClicked();
+//            }
+//        });
+//        //--------------------------------------------------------------------
+//        // Compass buttons
+//        //--------------------------------------------------------------------
+//        FloatingActionMenu compassActionMenu = new FloatingActionMenu.Builder(activity)
+//
+//                .addSubActionView(fbOpen)
+//                .addSubActionView(fbLayers)
+//                .addSubActionView(fbEditLayers)
+//                .addSubActionView(fbMarkers)
+//
+//                .attachTo(compass_action_button)
+//                .setRadius(ScreenUtils.dpToPx(144))
+//                .setStartAngle(90)
+//                .setEndAngle(180)
+//                .build();
+//        //--------------------------------------------------------------------
+//        // Compass buttons
+//        //--------------------------------------------------------------------
+//
+//        //--------------------------------------------------------------------
+//        // Edit buttons
+//        //--------------------------------------------------------------------
+//        btnEditCreate = new AppCompatCheckBox(activity);
+//        btnEditCreate.setTextSize(0);
+////		Drawable d = AppCompatDrawableManager.get().getDrawable(this, R.drawable.edit_create_bg);
+//        btnEditCreate.setButtonDrawable(R.drawable.edit_create_bg);
+//        btnEditCreate.setBackgroundDrawable(null);
+//        fbEditCreate = itemBuilder.setContentView(btnEditCreate).build();
+//
+//
+//        btnEditGeometry = new AppCompatCheckBox(activity);
+//        btnEditGeometry.setTextSize(0);
+//        btnEditGeometry.setButtonDrawable(R.drawable.edit_geometry_bg);
+//        btnEditGeometry.setBackgroundDrawable(null);
+//        fbEditGeometry = itemBuilder.setContentView(btnEditGeometry).build();
+//
+//
+//        btnEditAttributes = new AppCompatCheckBox(activity);
+//        btnEditAttributes.setTextSize(0);
+//        btnEditAttributes.setButtonDrawable(R.drawable.edit_attributes_bg);
+//        btnEditAttributes.setBackgroundDrawable(null);
+//        fbEditAttributes = itemBuilder.setContentView(btnEditAttributes).build();
+//
+//        btnEditDelete = new AppCompatCheckBox(activity);
+//        btnEditDelete.setTextSize(0);
+//        btnEditDelete.setButtonDrawable(R.drawable.edit_delete_bg);
+//        btnEditDelete.setBackgroundDrawable(null);
+//        fbEditDelete = itemBuilder.setContentView(btnEditDelete).build();
+//
+//
+//        btnEditCreate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if ((getState() != GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION) && (btnEditCreate.isChecked())) {
+//                    if (!GIEditLayersKeeper.Instance().CreateNewObject()) {
+//                        return;
+//                    }
+//                    setState(GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION);
+//                    fbEditAttributes.setEnabled(false);
+//                    fbEditGeometry.setEnabled(false);
+//                    fbEditDelete.setEnabled(false);
+//                    btnEditAttributes.setChecked(false);
+//                    btnEditGeometry.setChecked(false);
+//                    btnEditDelete.setChecked(false);
+//                    m_map.UpdateMap();
+//                } else {
+//                    setState(GIEditingStatus.RUNNING);
+//                    GIEditLayersKeeper.Instance().FillAttributes();
+//                    fbEditCreate.setEnabled(false);
+//                }
+//            }
+//        });
+//        btnEditGeometry.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (GIEditLayersKeeper.Instance().m_layer == GIEditLayersKeeper.Instance().m_TrackLayer) {
+//                    return;
+//                }
+//
+//                if ((getState() == GIEditingStatus.EDITING_GEOMETRY) || (getState() == GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING) || (getState() == GIEditingStatus.WAITING_FOR_NEW_POINT_LOCATION)) {
+//                    setState(GIEditingStatus.RUNNING);
+//                    GIEditLayersKeeper.Instance().StopEditingGeometry();
+//                    fbEditCreate.setEnabled(true);
+//                    fbEditAttributes.setEnabled(true);
+//                    fbEditDelete.setEnabled(true);
+//                    btnEditCreate.setChecked(false);
+//                    btnEditAttributes.setChecked(false);
+//                    btnEditDelete.setChecked(false);
+//                } else {
+//                    setState(GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING);
+//                    fbEditCreate.setEnabled(false);
+//                    fbEditAttributes.setEnabled(false);
+//                    fbEditDelete.setEnabled(false);
+//                }
+//            }
+//        });
+//        btnEditAttributes.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (getState() != GIEditingStatus.WAITIN_FOR_SELECT_OBJECT) {
+//                    setState(GIEditingStatus.WAITIN_FOR_SELECT_OBJECT);
+//                    fbEditCreate.setEnabled(false);
+//                    fbEditGeometry.setEnabled(false);
+//                    fbEditDelete.setEnabled(false);
+//                    btnEditCreate.setChecked(false);
+//                    btnEditGeometry.setChecked(false);
+//                    btnEditDelete.setChecked(false);
+//                } else {
+//                    setState(GIEditingStatus.RUNNING);
+//                    fbEditCreate.setEnabled(true);
+//                    fbEditGeometry.setEnabled(true);
+//                    fbEditDelete.setEnabled(true);
+//                }
+//            }
+//        });
+//
+//        btnEditDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setState(GIEditingStatus.WAITING_FOR_TO_DELETE);
+//            }
+//        });
+//
+//        fbEdit = new ImageButton(activity);
+//        FloatingActionButton.LayoutParams edit_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
+//        edit_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
+//        fbEdit.setImageResource(R.drawable.edit);
+//        fbEdit.setBackgroundDrawable(null);
+//        fbEdit.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (GIEditLayersKeeper.Instance().m_layer == GIEditLayersKeeper.Instance().m_TrackLayer) {
+//                    fbEditGeometry.setVisibility(View.GONE);
+//                    fbEditCreate.setVisibility(View.GONE);
+//                } else {
+//                    fbEditGeometry.setVisibility(View.VISIBLE);
+//                    fbEditCreate.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+//
+//        fbEditButton = new FloatingActionButton.Builder(activity)
+//                .setContentView(fbEdit)
+//                .setBackgroundDrawable(null)
+//                .setPosition(FloatingActionButton.POSITION_BOTTOM_RIGHT)
+//                .setLayoutParams(edit_menu_params)
+//                .build();
+//
+//        fbEditButton.setVisibility(View.GONE);
+//        fbEditButton.setActivated(false);
+//
+//        FloatingActionButton.LayoutParams edit_action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(84), ScreenUtils.dpToPx(84));
+//        edit_action_params.gravity = Gravity.CENTER_HORIZONTAL;
+//        itemBuilder.setLayoutParams(edit_action_params);
+//
+//        editActionMenu = new FloatingActionMenu.Builder(activity)
+//
+//                .addSubActionView(fbEditCreate)
+//                .addSubActionView(fbEditGeometry)
+//                .addSubActionView(fbEditAttributes)
+//                .addSubActionView(fbEditDelete)
+//                .attachTo(fbEditButton)
+//                .setRadius(ScreenUtils.dpToPx(144))
+//                .setStartAngle(180)
+//                .setEndAngle(270)
+//                .build();
+//
+//
+//    }
+
+//    public void showEditAttributesFragment(GI_WktGeometry geometry) {
+//        EditAttributesDialog dialog = new EditAttributesDialog(activity, true, new DialogInterface.OnCancelListener() {
+//            @Override
+//            public void onCancel(DialogInterface dialog) {
+//                btnEditCreate.setEnabled(true);
+//                btnEditAttributes.setEnabled(true);
+//                btnEditGeometry.setEnabled(true);
+//                btnEditDelete.setEnabled(true);
+//                m_map.UpdateMap();
+//            }
+//        }, geometry.m_attributes);
+//        dialog.show();
+//    }
 
     public void SetMeasureState(boolean rule, boolean square) {
         if (!IsRunning()) {
@@ -613,7 +597,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
                         Point point = new Point((int) event.getX(), (int) event.getY());
                         GILonLat mark = m_map.ScreenToMap(point);
                         GIBounds area = m_map.getrequestArea(point);
-                        m_GotPosition = GIEditLayersKeeper.Instance().ClickAt(mark, area);
+                        m_GotPosition = activity.keeper.ClickAt(mark, area);
                         return false;
                     }
                     return true;
@@ -668,29 +652,30 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
         return false;
     }
 
-    public GIEditingStatus getState() {
-        return m_Status;
-    }
-
-    public void setState(GIEditingStatus status) {
-        m_Status = status;
-        if (IsRunning()) {
-            SetMeasureState(false, false);
-        }
-
-    }
-
+    //    public GIEditingStatus getState() {
+//        return m_Status;
+//    }
+//
+//    public void setState(GIEditingStatus status) {
+//        m_Status = status;
+//        if (IsRunning()) {
+//            SetMeasureState(false, false);
+//        }
+//
+//    }
+//
     public boolean IsRunning() {
-        return !(m_Status == GIEditingStatus.STOPPED);
+        return activity.IsRunning();
+//        return !(m_Status == GIEditingStatus.STOPPED);
     }
-
-    public GITrackingStatus getTrackingStatus() {
-        return m_TrackingStatus;
-    }
-
-    public void setTrackingStatus(GITrackingStatus status) {
-        m_TrackingStatus = status;
-    }
+//
+//    public GITrackingStatus getTrackingStatus() {
+//        return m_TrackingStatus;
+//    }
+//
+//    public void setTrackingStatus(GITrackingStatus status) {
+//        m_TrackingStatus = status;
+//    }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
@@ -704,6 +689,5 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
             return true;
         }
     }
-
 
 }

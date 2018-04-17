@@ -14,15 +14,16 @@ import ru.tcgeo.application.R;
 
 public class GICompassDrawThread extends Thread 
 {
-	private boolean running = false;
-	private SurfaceHolder  surfaceHolder;
 	Context mContext;
 	Bitmap arrow;
-	public GICompassDrawThread(SurfaceHolder surfaceHolder)
+    private boolean running = false;
+    private SurfaceHolder surfaceHolder;
+
+    public GICompassDrawThread(SurfaceHolder surfaceHolder)
 	{
 		this.surfaceHolder = surfaceHolder;
-		arrow = BitmapFactory.decodeResource(App.getInstance().getResources(), R.drawable.arrow);
-	}
+        arrow = BitmapFactory.decodeResource(App.Instance().getResources(), R.drawable.arrow);
+    }
 
 	public GICompassDrawThread(Context context, SurfaceHolder surfaceHolder)
 	{

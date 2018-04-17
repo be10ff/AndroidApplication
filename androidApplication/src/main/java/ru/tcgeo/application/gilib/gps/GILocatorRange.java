@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 
+import ru.tcgeo.application.App;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIControl;
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.models.GIBounds;
 
@@ -28,12 +28,12 @@ public class GILocatorRange extends View implements GIControl
 	
 	public GILocatorRange() 
 	{
-		super(GIEditLayersKeeper.Instance().getMap().getContext());
-		android.view.ViewGroup.LayoutParams params = new LayoutParams(100, 100);
+        super(App.Instance().getMap().getContext());
+        android.view.ViewGroup.LayoutParams params = new LayoutParams(100, 100);
 		setLayoutParams(params);
-		m_context = GIEditLayersKeeper.Instance().getMap().getContext();	
-		m_map = GIEditLayersKeeper.Instance().getMap();
-    	m_map.getLocationOnScreen(map_location);
+        m_context = getContext();
+        m_map = App.Instance().getMap();
+        m_map.getLocationOnScreen(map_location);
 		this.setX(map_location[0]);
 		this.setY(map_location[1]);
         m_map.registerGIControl(this);
