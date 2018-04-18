@@ -6,8 +6,8 @@ import android.os.Environment;
 
 import java.io.File;
 
-import ru.tcgeo.application.gilib.GILayer;
-import ru.tcgeo.application.gilib.GISQLLayer;
+import ru.tcgeo.application.gilib.layer.GILayer;
+import ru.tcgeo.application.gilib.layer.GISQLLayer;
 import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
@@ -314,7 +314,7 @@ public class LoadProjectInteractor {
 //                                GIEditableLayer l = (GIEditableLayer) layer;
 //                                if (ref.m_type.equalsIgnoreCase("POINT")) {
 //                                    l.setType(GIEditableLayer.GIEditableLayerType.POINT);
-//                                    GIEditLayersKeeper.Instance().m_POILayer = l;
+//                                    GIEditLayersKeeper.Instance().poiLayer = l;
 //                                    continue;
 //                                }
 //                                if (ref.m_type.equalsIgnoreCase("LINE")) {
@@ -326,7 +326,7 @@ public class LoadProjectInteractor {
 //                                    continue;
 //                                }
 //                                if (ref.m_type.equalsIgnoreCase("TRACK")) {
-//                                    GIEditLayersKeeper.Instance().m_TrackLayer = l;
+//                                    GIEditLayersKeeper.Instance().trackLayer = l;
 //                                    l.setType(GIEditableLayer.GIEditableLayerType.TRACK);
 //                                    continue;
 //                                }
@@ -341,11 +341,11 @@ public class LoadProjectInteractor {
 //                            && l.m_layer_properties.editable.enumType != GILayer.EditableType.TRACK) {
 //                        l.setType(l.m_layer_properties.editable.enumType);
 //                        if (l.m_Type == GILayer.EditableType.TRACK && l.m_layer_properties.editable.active) {
-//                            GIEditLayersKeeper.Instance().m_TrackLayer = l;
+//                            GIEditLayersKeeper.Instance().trackLayer = l;
 //                        } else if (l.m_Type == GILayer.EditableType.POI && l.m_layer_properties.editable.active) {
-//                            GIEditLayersKeeper.Instance().m_POILayer = l;
+//                            GIEditLayersKeeper.Instance().poiLayer = l;
 //                        }
-//                        GIEditLayersKeeper.Instance().AddLayer(l);
+//                        GIEditLayersKeeper.Instance().AddEditableLayer(l);
 //                    }
                 }
 

@@ -3,7 +3,7 @@ package ru.tcgeo.application.gilib.parser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import ru.tcgeo.application.gilib.GILayer;
+import ru.tcgeo.application.gilib.layer.GILayer;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 
 //import ru.tcgeo.application.gilib.models.GIIcon;

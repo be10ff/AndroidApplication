@@ -2,19 +2,12 @@ package ru.tcgeo.application.wkt;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.PointF;
-import android.graphics.RectF;
 
 import java.util.ArrayList;
 
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
-import ru.tcgeo.application.gilib.planimetry.Edge;
-import ru.tcgeo.application.gilib.planimetry.Vertex;
 
 
 public class GI_WktBounds extends GI_WktGeometry {

@@ -3,6 +3,7 @@ package ru.tcgeo.application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -29,21 +30,23 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import ru.tcgeo.application.control.GIControlFloating;
+import ru.tcgeo.application.control.GIGeometryPointControl;
+import ru.tcgeo.application.control.GIPositionControl;
+import ru.tcgeo.application.control.GIScaleControl;
+import ru.tcgeo.application.control.GITouchControl;
 import ru.tcgeo.application.data.GIEditingStatus;
 import ru.tcgeo.application.data.GITrackingStatus;
 import ru.tcgeo.application.data.interactors.LoadProjectInteractor;
-import ru.tcgeo.application.gilib.GIControlFloating;
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
-import ru.tcgeo.application.gilib.GIEditableLayer;
-import ru.tcgeo.application.gilib.GILayer;
 import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.GIPositionControl;
 import ru.tcgeo.application.gilib.gps.GICompassView;
 import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
 import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
 import ru.tcgeo.application.gilib.gps.GIGPSLocationListener;
 import ru.tcgeo.application.gilib.gps.GILocatorFragment;
 import ru.tcgeo.application.gilib.gps.GISensors;
+import ru.tcgeo.application.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.gilib.layer.GILayer;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
@@ -52,7 +55,6 @@ import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.view.FloatingActionButtonsCallback;
 import ru.tcgeo.application.view.MapView;
-import ru.tcgeo.application.views.GIScaleControl;
 import ru.tcgeo.application.views.callback.EditableLayerCallback;
 import ru.tcgeo.application.views.callback.LayerCallback;
 import ru.tcgeo.application.views.callback.LocationCallback;
@@ -85,6 +87,8 @@ public class Geoinfo extends FragmentActivity
     public SubActionButton fbEditAttributes;
     public SubActionButton fbEditDelete;
     public FloatingActionButton fbEditButton;
+    public boolean toAutoFollow = false;
+    public boolean toShowTargetDirection = false;
     @Bind(R.id.root)
     RelativeLayout root;
     @Bind(R.id.map)
@@ -100,11 +104,11 @@ public class Geoinfo extends FragmentActivity
     FloatingActionMenu editActionMenu;
     GIControlFloating m_marker_point;
     GIPositionControl positionControl;
-    GIEditLayersKeeper keeper;
     private GIEditingStatus m_Status = GIEditingStatus.STOPPED;
     private GITrackingStatus m_TrackingStatus = GITrackingStatus.STOP;
     private LocationManager locationManager;
     private GIGPSLocationListener m_location_listener;
+    private boolean isPaused = false;
 
     public void MarkersDialogClicked() {
         View v = root.findViewById(R.id.direction_to_point_arrow);
@@ -176,15 +180,13 @@ public class Geoinfo extends FragmentActivity
                 .callback(new EditableLayerCallback() {
                     @Override
                     public void onStartEdit(GIEditableLayer layer) {
-                        keeper.StartEditing(layer);
+                        map.StartEditing(layer);
                     }
 
                     @Override
                     public void onStopEdit() {
-                        keeper.StopEditing();
-                        if (touchControl.editActionMenu != null) {
-                            touchControl.editActionMenu.close(true);
-                        }
+                        map.StopEditing();
+                        editActionMenu.close(true);
 
                     }
                 })
@@ -268,7 +270,7 @@ public class Geoinfo extends FragmentActivity
                         builder.active(false);
                         builder.build();
                         layer.m_layer_properties.editable.active = true;
-                        keeper.m_POILayer = layer;
+                        map.setPoiLayer(layer);
                     }
 
 
@@ -303,7 +305,7 @@ public class Geoinfo extends FragmentActivity
     @Override
     public void onProject(GIProjectProperties ps) {
         map.ps = ps;
-        keeper.ClearLayers();
+        map.ClearEditableLayers();
         GIBounds temp = new GIBounds(ps.m_projection, ps.m_left,
                 ps.m_top, ps.m_right, ps.m_bottom);
 
@@ -320,11 +322,11 @@ public class Geoinfo extends FragmentActivity
                 && l.m_layer_properties.editable.enumType != GILayer.EditableType.TRACK) {
             l.setType(l.m_layer_properties.editable.enumType);
             if (l.m_Type == GILayer.EditableType.TRACK && l.m_layer_properties.editable.active) {
-                keeper.m_TrackLayer = l;
+                map.setTrackLayer(l);
             } else if (l.m_Type == GILayer.EditableType.POI && l.m_layer_properties.editable.active) {
-                keeper.m_POILayer = l;
+                map.setPoiLayer(l);
             }
-            keeper.AddLayer(l);
+            map.AddEditableLayer(l);
         }
     }
 
@@ -367,9 +369,6 @@ public class Geoinfo extends FragmentActivity
 
         String path = App.Instance().getPreference().getLastProjectPath();
         LoadProject(path);
-        keeper = new GIEditLayersKeeper(this);
-//        GIEditLayersKeeper.Instance().setTouchControl(touchControl);
-        App.Instance().setMap(map);
 
         // Setup pixel size to let scale work properly
         DisplayMetrics dm = new DisplayMetrics();
@@ -382,15 +381,13 @@ public class Geoinfo extends FragmentActivity
         scaleControl.setMap(map);
         positionControl = new GIPositionControl(this, map);
 
-        App.Instance().setMap(map);
-
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        keeper.onResume();
+        isPaused = false;
         GISensors.Instance(this).run(true);
 
     }
@@ -399,7 +396,8 @@ public class Geoinfo extends FragmentActivity
     @Override
     protected void onPause() {
         super.onPause();
-        keeper.onPause();
+        getMap().StopEditing();
+        isPaused = true;
         GISensors.Instance(this).run(false);
         onSaveProject();
     }
@@ -473,11 +471,11 @@ public class Geoinfo extends FragmentActivity
         final CheckBox m_btnAutoFollow = new CheckBox(this);
         m_btnAutoFollow.setButtonDrawable(R.drawable.auto_follow_status_);
         SubActionButton fbAutoFollow = itemBuilder.setContentView(m_btnAutoFollow).build();
-        m_btnAutoFollow.setChecked(keeper.m_AutoFollow);
+        m_btnAutoFollow.setChecked(toAutoFollow);
         m_btnAutoFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                keeper.m_AutoFollow = m_btnAutoFollow.isChecked();
+                toAutoFollow = m_btnAutoFollow.isChecked();
                 if (m_btnAutoFollow.isChecked()) {
                     Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     if (location != null) {
@@ -502,13 +500,13 @@ public class Geoinfo extends FragmentActivity
             @Override
             public void onClick(View v) {
                 if (m_TrackingStatus == GITrackingStatus.STOP) {
-                    if (!keeper.CreateTrack()) {
+                    if (!map.CreateTrack()) {
                         m_TrackingStatus = GITrackingStatus.STOP;
                         m_btnTrackControl.setChecked(false);
                     }
                 } else {
                     m_TrackingStatus = GITrackingStatus.STOP;
-                    keeper.StopTrack();
+                    map.StopTrack();
                 }
             }
         });
@@ -523,9 +521,9 @@ public class Geoinfo extends FragmentActivity
         m_btnShowTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (keeper.m_current_track_control != null) {
-                    keeper.m_current_track_control.Show(m_btnShowTrack.isChecked());
-                    App.Instance().getMap().UpdateMap();
+                if (map.getCurrentTrackControl() != null) {
+                    map.getCurrentTrackControl().Show(m_btnShowTrack.isChecked());
+                    getMap().UpdateMap();
                 }
             }
         });
@@ -541,9 +539,9 @@ public class Geoinfo extends FragmentActivity
             @Override
             public void onClick(View v) {
                 if (getState() != GIEditingStatus.EDITING_POI && getState() != GIEditingStatus.EDITING_GEOMETRY) {
-                    keeper.CreatePOI();
+                    map.CreatePOI();
                 } else {
-                    keeper.StopEditing();
+                    map.StopEditing();
                 }
             }
         });
@@ -687,7 +685,7 @@ public class Geoinfo extends FragmentActivity
             @Override
             public void onClick(View v) {
                 if ((getState() != GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION) && (btnEditCreate.isChecked())) {
-                    if (!keeper.CreateNewObject()) {
+                    if (!map.CreateNewObject()) {
                         return;
                     }
                     setState(GIEditingStatus.WAITING_FOR_OBJECT_NEWLOCATION);
@@ -700,7 +698,7 @@ public class Geoinfo extends FragmentActivity
                     map.UpdateMap();
                 } else {
                     setState(GIEditingStatus.RUNNING);
-                    keeper.FillAttributes();
+                    map.FillAttributes();
                     fbEditCreate.setEnabled(false);
                 }
             }
@@ -708,13 +706,13 @@ public class Geoinfo extends FragmentActivity
         btnEditGeometry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (keeper.m_layer == keeper.m_TrackLayer) {
+                if (map.getCurrentLayer() == map.getTrackLayer()) {
                     return;
                 }
 
                 if ((getState() == GIEditingStatus.EDITING_GEOMETRY) || (getState() == GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING) || (getState() == GIEditingStatus.WAITING_FOR_NEW_POINT_LOCATION)) {
                     setState(GIEditingStatus.RUNNING);
-                    keeper.StopEditingGeometry();
+                    map.StopEditingGeometry();
                     fbEditCreate.setEnabled(true);
                     fbEditAttributes.setEnabled(true);
                     fbEditDelete.setEnabled(true);
@@ -764,7 +762,7 @@ public class Geoinfo extends FragmentActivity
         fbEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (keeper.m_layer == keeper.m_TrackLayer) {
+                if (map.getCurrentLayer() == map.getTrackLayer()) {
                     fbEditGeometry.setVisibility(View.GONE);
                     fbEditCreate.setVisibility(View.GONE);
                 } else {
@@ -832,10 +830,6 @@ public class Geoinfo extends FragmentActivity
         return map;
     }
 
-    public GIEditLayersKeeper getKeeper() {
-        return keeper;
-    }
-
     public GIControlFloating getMarkerPoint() {
 
         if (m_marker_point == null) {
@@ -848,8 +842,55 @@ public class Geoinfo extends FragmentActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        if (keeper != null) {
-            keeper.onGPSLocationChanged(location);
+        GILonLat deg = null;
+        float accurancy = 100;
+
+        if (location == null) {
+            deg = GIProjection.ReprojectLonLat(getMap().Center(), getMap().Projection(), GIProjection.WGS84());
+        } else {
+            deg = new GILonLat(location.getLongitude(), location.getLatitude());
+            accurancy = location.getAccuracy();
+        }
+
+        if (!isPaused && toAutoFollow) {
+            GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), getMap().Projection());
+            Point new_center = getMap().MapToScreen(mercator);
+            double distance = Math.hypot(new_center.y - getMap().Height() / 2, new_center.x - getMap().Width() / 2);
+            //TODO uncomment
+            if (distance > 20) {
+                getMap().SetCenter(mercator);
+            }
+        }
+
+        if (getTrackingStatus() == GITrackingStatus.WRITE) {
+            if (getMap().getTrackLayer() != null) {
+                GI_WktPoint point = new GI_WktPoint();
+                point.Set(deg);
+                getMap().AddPointToTrack(deg, accurancy);
+            }
+        }
+
+    }
+
+    public void onSelectPoint(GIGeometryPointControl control) {
+        //m_CurrentTarget = control.m_WKTPoint;
+        //GIDirectionToPOIArrow arrow = new GIDirectionToPOIArrow(m_CurrentTarget);
+
+        if (getMap().getCurrentEditingControl() == null) {
+            return;
+        }
+
+        boolean checked_yet = control.getChecked();
+        if (getMap().getCurrentEditingControl() != null) {
+            for (GIGeometryPointControl other : getMap().getCurrentEditingControl().m_points) {
+                other.setChecked(false);
+            }
+        }
+        control.setChecked(checked_yet);
+        if (checked_yet) {
+            setState(GIEditingStatus.WAITING_FOR_NEW_POINT_LOCATION);
+        } else {
+            setState(GIEditingStatus.EDITING_GEOMETRY);
         }
     }
 }

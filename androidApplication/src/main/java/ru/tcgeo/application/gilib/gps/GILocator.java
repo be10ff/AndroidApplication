@@ -16,9 +16,9 @@ import android.widget.RelativeLayout;
 
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.GIControl;
+import ru.tcgeo.application.control.GIControl;
+import ru.tcgeo.application.control.GIRuleToolControl;
 import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.GIRuleToolControl;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;

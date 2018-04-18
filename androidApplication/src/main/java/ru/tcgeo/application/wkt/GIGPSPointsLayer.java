@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import ru.tcgeo.application.App;
-import ru.tcgeo.application.gilib.GIEditableLayer;
+import ru.tcgeo.application.gilib.layer.GIEditableLayer;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
 
@@ -68,7 +68,7 @@ public class GIGPSPointsLayer  extends GIEditableLayer
 			FileInputStream xmlFile = null;
 			try
 			{
-				xmlFile = new FileInputStream(m_path);
+				xmlFile = new FileInputStream(path);
 			}
 			catch(FileNotFoundException e)
 			{
@@ -115,7 +115,7 @@ public class GIGPSPointsLayer  extends GIEditableLayer
 	{
 		try
 		{
-			String path = m_path;
+			String path = this.path;
 			FileOutputStream xmlFile = new FileOutputStream(path);
 			XmlSerializer serializer = Xml.newSerializer();
 		

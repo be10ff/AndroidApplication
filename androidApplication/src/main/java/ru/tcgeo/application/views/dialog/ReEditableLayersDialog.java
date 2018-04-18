@@ -18,14 +18,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.GIEditableLayer;
+import ru.tcgeo.application.gilib.layer.GIEditableLayer;
 import ru.tcgeo.application.views.adapter.ReEditableLayersAdapter;
 import ru.tcgeo.application.views.callback.EditableLayerCallback;
 import ru.tcgeo.application.views.callback.EditableLayerHolderCallback;
 import ru.tcgeo.application.views.viewholder.EdiableLayerHolder;
 
-import static ru.tcgeo.application.gilib.GIEditableLayer.GIEditableLayerStatus.EDITED;
-import static ru.tcgeo.application.gilib.GIEditableLayer.GIEditableLayerStatus.UNSAVED;
+import static ru.tcgeo.application.gilib.layer.GIEditableLayer.GIEditableLayerStatus.EDITED;
+import static ru.tcgeo.application.gilib.layer.GIEditableLayer.GIEditableLayerStatus.UNSAVED;
 
 /**
  * Created by a_belov on 23.07.15.

@@ -13,9 +13,9 @@ import java.util.Collections;
 import java.util.List;
 
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.GIEditableLayer;
-import ru.tcgeo.application.gilib.GILayer;
-import ru.tcgeo.application.gilib.GISQLLayer;
+import ru.tcgeo.application.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.gilib.layer.GILayer;
+import ru.tcgeo.application.gilib.layer.GISQLLayer;
 import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.MapUtils;

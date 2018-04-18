@@ -6,7 +6,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.HashMap;
 
-import ru.tcgeo.application.gilib.GIEditableLayer;
+import ru.tcgeo.application.gilib.layer.GIEditableLayer;
 
 
 public class GIGPSParser {

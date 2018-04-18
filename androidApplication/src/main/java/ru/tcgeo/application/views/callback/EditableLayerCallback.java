@@ -1,6 +1,6 @@
 package ru.tcgeo.application.views.callback;
 
-import ru.tcgeo.application.gilib.GIEditableLayer;
+import ru.tcgeo.application.gilib.layer.GIEditableLayer;
 
 /**
  * Created by artem on 14.07.17.

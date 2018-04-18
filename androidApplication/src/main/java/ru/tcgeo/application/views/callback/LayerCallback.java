@@ -2,8 +2,8 @@ package ru.tcgeo.application.views.callback;
 
 import java.io.File;
 
-import ru.tcgeo.application.gilib.GIEditableLayer;
-import ru.tcgeo.application.gilib.GILayer;
+import ru.tcgeo.application.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.gilib.layer.GILayer;
 
 /**
  * Created by artem on 14.07.17.

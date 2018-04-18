@@ -8,11 +8,10 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
-import ru.tcgeo.application.App;
-import ru.tcgeo.application.gilib.GIControl;
-import ru.tcgeo.application.gilib.GIEditableLayer;
-import ru.tcgeo.application.gilib.GIGeometryPointControl;
+import ru.tcgeo.application.control.GIControl;
+import ru.tcgeo.application.control.GIGeometryPointControl;
 import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.gilib.layer.GIEditableLayer;
 import ru.tcgeo.application.gilib.models.GIBounds;
 
 public class GIGeometryControl extends View implements GIControl
@@ -24,15 +23,15 @@ public class GIGeometryControl extends View implements GIControl
     Context m_context;
     GIMap m_map;
 
-    public GIGeometryControl(GIEditableLayer layer, GI_WktGeometry geometry)
+	public GIGeometryControl(GIMap map, GIEditableLayer layer, GI_WktGeometry geometry)
 	{
-		super(App.Instance().getMap().getContext());
+		super(map.getContext());
 		this.setEnabled(false);
 		m_points = new ArrayList<GIGeometryPointControl>();
 		m_geometry = geometry;
 		m_layer = layer;
-		m_context = App.Instance().getMap().getContext();
-		m_map = App.Instance().getMap();
+		m_context = map.getContext();
+		m_map = map;
 		m_map.registerGIControl(this);
         AddPoints();
 		RelativeLayout rl = (RelativeLayout)m_map.getParent();//

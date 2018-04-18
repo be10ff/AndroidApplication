@@ -41,7 +41,7 @@ public class EditAttributesDialog extends Dialog {
     public EditAttributesDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener, Map<String, GIDBaseField> attributes) {
         super(context, cancelable, cancelListener);
         activity = (Geoinfo) context;
-        attributes = activity.getKeeper().m_geometry.m_attributes;
+        attributes = activity.getMap().getCurrentGeometry().m_attributes;
         this.attributes = attributes;
     }
 
@@ -62,8 +62,8 @@ public class EditAttributesDialog extends Dialog {
 
         }
 
-        activity.getKeeper().m_geometry.m_status = GI_WktGeometry.GIWKTGeometryStatus.MODIFIED;
-        activity.getKeeper().m_layer.Save();
+        activity.getMap().getCurrentGeometry().m_status = GI_WktGeometry.GIWKTGeometryStatus.MODIFIED;
+        activity.getMap().getCurrentLayer().Save();
         dismiss();
 
     }

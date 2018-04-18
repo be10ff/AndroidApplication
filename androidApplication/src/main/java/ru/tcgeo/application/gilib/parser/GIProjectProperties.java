@@ -210,8 +210,8 @@ public GIProjectProperties(Context context)
 	
 	public boolean LoadPro(InputStream xmlFile)
 	{
-		//m_path = path;
-		boolean res = false;
+        //path = path;
+        boolean res = false;
 		try
 		{
 			XmlPullParser parser;

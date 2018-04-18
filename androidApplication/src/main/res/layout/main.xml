@@ -12,12 +12,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-    <ru.tcgeo.application.GITouchControl
+    <ru.tcgeo.application.control.GITouchControl
             android:id="@+id/touchcontrol"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <ru.tcgeo.application.views.GIScaleControl
+    <ru.tcgeo.application.control.GIScaleControl
             android:id="@+id/scale_control_screen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

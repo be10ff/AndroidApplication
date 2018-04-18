@@ -4,7 +4,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
 
-import ru.tcgeo.application.gilib.GILayer;
+import ru.tcgeo.application.gilib.layer.GILayer;
 
 public class GIEditable {
 

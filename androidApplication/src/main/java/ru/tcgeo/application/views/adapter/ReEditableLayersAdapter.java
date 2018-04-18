@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.GIEditableLayer;
+import ru.tcgeo.application.gilib.layer.GIEditableLayer;
 import ru.tcgeo.application.views.callback.EditableLayerHolderCallback;
 import ru.tcgeo.application.views.callback.ZeroDataHolderCallback;
 import ru.tcgeo.application.views.viewholder.EdiableLayerHolder;

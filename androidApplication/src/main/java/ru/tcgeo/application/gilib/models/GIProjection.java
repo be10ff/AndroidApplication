@@ -12,10 +12,6 @@ public class GIProjection
 		mWKT = wkt_description;
 		mId = id;
     }
-//	public GIProjection (long epgs)
-//    {
-//    }
-
 
 	public static GIProjection WGS84()
 	{

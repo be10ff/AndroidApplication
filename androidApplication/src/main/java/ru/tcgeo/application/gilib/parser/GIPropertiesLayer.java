@@ -5,8 +5,8 @@ import org.xmlpull.v1.XmlSerializer;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import ru.tcgeo.application.gilib.GILayer;
-import ru.tcgeo.application.gilib.GISQLLayer;
+import ru.tcgeo.application.gilib.layer.GILayer;
+import ru.tcgeo.application.gilib.layer.GISQLLayer;
 import ru.tcgeo.application.gilib.models.GIColor;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 //import ru.tcgeo.application.gilib.models.GIIcon;

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.App;
-import ru.tcgeo.application.gilib.GIEditLayersKeeper;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GIEncoding;
 import ru.tcgeo.application.gilib.models.GILonLat;
@@ -82,8 +81,8 @@ public class GIXMLTrack extends GI_WktGeometry {
 				}
 //				//TODO
 //				PointF point_current = ((GI_WktPoint)m_points.get(current_index)).MapToScreen(canvas, area);
-//				m_path.lineTo( point_current.x, point_current.y);
-//				canvas.drawPath(m_path, paint);
+//				path.lineTo( point_current.x, point_current.y);
+//				canvas.drawPath(path, paint);
 				//TODO
 				if(area.ContainsPoint(((GI_WktPoint)m_points.get(counter)).LonLat()) || area.ContainsPoint(((GI_WktPoint)m_points.get(current_index)).LonLat()))
 				{
