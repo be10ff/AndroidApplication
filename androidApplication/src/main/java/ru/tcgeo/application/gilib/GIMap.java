@@ -2,6 +2,7 @@ package ru.tcgeo.application.gilib;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -29,6 +30,7 @@ import java.util.Locale;
 
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.Geoinfo;
+import ru.tcgeo.application.R;
 import ru.tcgeo.application.control.GIControl;
 import ru.tcgeo.application.control.GIGeometryPointControl;
 import ru.tcgeo.application.data.GIEditingStatus;
@@ -82,9 +84,9 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 
     public GIGroupLayer m_layers;
     public Rect m_view_rect;    // viewable part of bitmap
+    public GIBounds m_bounds;    // current view extent & projection
     GIBitmap m_smooth;
     GIBitmap m_draft;
-    GIBounds m_bounds;    // current view extent & projection
     Handler m_handler;
     SurfaceHolder m_holder;
     ThreadStack m_threadStack;
@@ -400,7 +402,9 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         fill.setStrokeWidth(2);
         fill.setStyle(Paint.Style.FILL);
 
-        GIVectorStyle vstyle = new GIVectorStyle(line, fill, 1);
+        Bitmap point = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.measure_point);
+
+        GIVectorStyle vstyle = new GIVectorStyle(line, fill, point, 1);
 
         properties_layer.m_style = new GIPropertiesStyle.Builder()
                 .type("vector")

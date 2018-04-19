@@ -1,7 +1,6 @@
 package ru.tcgeo.application.wkt;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.PointF;
 
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class GI_WktBounds extends GI_WktGeometry {
 		return res;
 	}
 	@Override
-	public void Draw(Canvas canvas, GIBounds area, float scale, Paint paint)
+	public void Draw(Canvas canvas, GIBounds area, float scale, GIVectorStyle style/*Paint paint*/)
 	{
 		if(m_points.size() > 0)
 		{
@@ -43,7 +42,7 @@ public class GI_WktBounds extends GI_WktGeometry {
 			{
 				PointF point_prev = m_points.get(i-1).MapToScreen(canvas, area);
 				PointF point_current = m_points.get(i).MapToScreen(canvas, area);
-				canvas.drawLine(point_prev.x, point_prev.y, point_current.x, point_current.y, paint);
+				canvas.drawLine(point_prev.x, point_prev.y, point_current.x, point_current.y, style.m_paint_pen);
 			}
 		}
 	}
@@ -55,7 +54,7 @@ public class GI_WktBounds extends GI_WktGeometry {
 	}
 
 	@Override
-	public void Paint(Canvas canvas, GIVectorStyle s)
+	public void Paint(Canvas canvas, GIBounds area, GIVectorStyle s)
 	{
 
 	}

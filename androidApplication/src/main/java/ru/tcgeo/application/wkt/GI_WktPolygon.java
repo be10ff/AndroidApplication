@@ -61,7 +61,7 @@ public class GI_WktPolygon extends GI_WktGeometry
 		return res;
 	}
 	@Override
-	public void Draw(Canvas canvas, GIBounds area, float scale, Paint paint)
+	public void Draw(Canvas canvas, GIBounds area, float scale, GIVectorStyle style/*Paint paint*/)
 	{
 		Path polygon = new Path();
 		polygon.setFillType(FillType.EVEN_ODD);
@@ -90,12 +90,12 @@ public class GI_WktPolygon extends GI_WktGeometry
 		}
 		else
 		{
-			canvas.drawPath(polygon, paint);
+			canvas.drawPath(polygon, style.m_paint_pen);
 		}
 	}
 
 	@Override
-	public void Paint(Canvas canvas, GIVectorStyle s)
+	public void Paint(Canvas canvas, GIBounds bounds, GIVectorStyle s)
 	{
 		Path polygon = new Path();
 		int[] offset = { 0, 0 };

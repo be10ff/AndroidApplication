@@ -182,7 +182,7 @@ public abstract class GILayer
 		fill.setStrokeWidth(2);
 		fill.setStyle(Paint.Style.FILL);
 
-		GIVectorStyle vstyle = new GIVectorStyle(line, fill, 1);
+        GIVectorStyle vstyle = new GIVectorStyle(line, fill, null, 1);
 
 		properties_layer.m_style = new GIPropertiesStyle.Builder()
 				.type("vector")
@@ -204,8 +204,8 @@ public abstract class GILayer
 		editing_fill.setAlpha(128);
 		editing_stroke.setStyle(Paint.Style.STROKE);
 		GIVectorStyle vstyle_editing = new GIVectorStyle(
-				editing_stroke, editing_fill,
-				1);
+                editing_stroke, editing_fill, null,
+                1);
 		layer.AddStyle(vstyle_editing);
 
 		layer.setName(file.getName());

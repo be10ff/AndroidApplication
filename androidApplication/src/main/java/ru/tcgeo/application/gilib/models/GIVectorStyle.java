@@ -8,8 +8,8 @@ public class GIVectorStyle implements GIStyle
 {
 	public Paint m_paint_pen;
 	public Paint m_paint_brush;
-    int m_opacity;
-	Bitmap m_image;
+    public int m_opacity;
+    public Bitmap m_image;
 
     public GIVectorStyle ()
     {
@@ -20,11 +20,12 @@ public class GIVectorStyle implements GIStyle
     	m_image = image;
     }
 
-	public GIVectorStyle (Paint paint_pen, Paint paint_brush, int opacity)
+    public GIVectorStyle(Paint paint_pen, Paint paint_brush, Bitmap image, int opacity)
     {
 	    m_paint_pen = paint_pen;
 	    m_paint_brush = paint_brush;
-	    m_opacity = opacity;
+        m_image = image;
+        m_opacity = opacity;
     }
 
 	public GIVectorStyle (Paint paint, int opacity)

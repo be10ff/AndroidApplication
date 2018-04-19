@@ -91,8 +91,8 @@ public class GIGeometryControl extends View implements GIControl
     protected void onDraw(Canvas canvas)
 	{
 		if(mShow) {
-			m_geometry.Paint(canvas, m_layer.getPaint(m_geometry.m_status));
-		}
+            m_geometry.Paint(canvas, m_map.m_bounds, m_layer.getPaint(m_geometry.m_status));
+        }
 	}
 
     public void setMap(GIMap map) {

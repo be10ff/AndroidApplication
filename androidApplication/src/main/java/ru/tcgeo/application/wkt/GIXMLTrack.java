@@ -50,11 +50,11 @@ public class GIXMLTrack extends GI_WktGeometry {
 	}
 
 	@Override
-	public void Draw(Canvas canvas, GIBounds area, float scale, android.graphics.Paint paint)
+	public void Draw(Canvas canvas, GIBounds area, float scale, GIVectorStyle style/*android.graphics.Paint paint*/)
 	{
 
 		//todo
-		if (GIEditLayersKeeper.Instance().m_CurrentTrack == this) {
+		if (App.Instance().getCurrentTrack() == this) {
 			return;
 		}
 		if(m_points.size() > 2)
@@ -89,7 +89,7 @@ public class GIXMLTrack extends GI_WktGeometry {
 
 					PointF point_prev = ((GI_WktPoint)m_points.get(counter)).MapToScreen(canvas, area);
 					PointF point_current = ((GI_WktPoint)m_points.get(current_index)).MapToScreen(canvas, area);
-					canvas.drawLine(point_prev.x, point_prev.y, point_current.x, point_current.y, paint);
+					canvas.drawLine(point_prev.x, point_prev.y, point_current.x, point_current.y, style.m_paint_pen);
 
 				}
 				counter = current_index;
@@ -104,14 +104,14 @@ public class GIXMLTrack extends GI_WktGeometry {
 	}
 
 	@Override
-	public void Paint(Canvas canvas, GIVectorStyle style) {
+	public void Paint(Canvas canvas, GIBounds area, GIVectorStyle style) {
 		if(m_points.size() > 1) //2
 		{
-			GIBounds area = App.Instance().getMap().Bounds();
+//			GIBounds area = App.Instance().getMap().Bounds();
 			int[] offset = { 0, 0 };
 			App.Instance().getMap().getLocationOnScreen(offset);
 
-			if(this != GIEditLayersKeeper.Instance().m_CurrentTrack)
+			if (this != App.Instance().getCurrentTrack())
 			{
 				((GI_WktPoint)m_points.get(0)).TrackPaint(canvas, style);
 			}
@@ -122,7 +122,7 @@ public class GIXMLTrack extends GI_WktGeometry {
 				//canvas.drawLine(point_prev.x - offset[0], point_prev.y - offset[1], point_current.x - offset[0], point_current.y - offset[1], style.m_paint_pen);
 				canvas.drawLine(point_prev.x, point_prev.y, point_current.x, point_current.y, style.m_paint_pen);
 
-				if(this != GIEditLayersKeeper.Instance().m_CurrentTrack)
+				if (this != App.Instance().getCurrentTrack())
 				{
 					((GI_WktPoint)m_points.get(i)).TrackPaint(canvas, style);
 				}

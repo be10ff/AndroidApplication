@@ -297,7 +297,7 @@ public class Geoinfo extends FragmentActivity
     public void LoadProject(String path) {
 
         pbProgress.setVisibility(View.VISIBLE);
-        LoadProjectInteractor interactor = new LoadProjectInteractor();
+        LoadProjectInteractor interactor = new LoadProjectInteractor(this);
         interactor.setView(this);
         interactor.loadProject(path);
     }
@@ -311,6 +311,7 @@ public class Geoinfo extends FragmentActivity
 
         map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
         touchControl.setMap(map);
+        App.Instance().setMap(map);
         map.ps = ps;
     }
 

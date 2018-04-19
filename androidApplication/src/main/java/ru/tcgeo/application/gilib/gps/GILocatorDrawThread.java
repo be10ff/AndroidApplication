@@ -16,6 +16,7 @@ import android.view.SurfaceHolder;
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.utils.MapUtils;
@@ -34,16 +35,17 @@ public class GILocatorDrawThread extends Thread
 	int length = 2;
 	Path path;
 	Paint paint_fill;
-	//Paint paint_stroke;
-	Rect bounds;
+
+	GIBounds bounds;
 	Context mContext;
     private boolean running = false;
     private SurfaceHolder surfaceHolder;
 
-	
-	public GILocatorDrawThread(SurfaceHolder surfaceHolder,GI_WktGeometry poi, Context context)
+
+	public GILocatorDrawThread(SurfaceHolder surfaceHolder, GI_WktGeometry poi, Context context)
 	{
 		mContext = context;
+		this.bounds = bounds;
 		this.surfaceHolder = surfaceHolder;
         arrow = BitmapFactory.decodeResource(App.Instance().getResources(), R.drawable.locator_big);
         m_POI = poi;
@@ -53,7 +55,6 @@ public class GILocatorDrawThread extends Thread
 		paint_fill = new Paint();
 		paint_fill.setColor(Color.argb(255, 255, 0, 0));
 		paint_fill.setStyle(Style.FILL);
-		bounds = new Rect();
 		path = new Path();
 	}
 	
@@ -81,6 +82,7 @@ public class GILocatorDrawThread extends Thread
 				canvas  = surfaceHolder.lockCanvas(null);
 				if(canvas == null) continue;
 				canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+//				GILonLat c = GIProjection.ReprojectLonLat(bounds.Center(), bounds.projection(), GIProjection.WGS84());
 				GILonLat center = GIProjection.ReprojectLonLat(m_map.Center(), m_map.Projection(), GIProjection.WGS84());
 				float[] orientation =  GISensors.Instance(mContext).getOrientation();
 				double azimuth = - orientation[0] + MapUtils.GetAzimuth(center, m_lon_lat_poi);

@@ -46,8 +46,7 @@ public class GIEditableRenderer extends GIRenderer {
 		{
     		for(GI_WktGeometry geom : layer.m_shapes)
 	        {
-				geom.Draw(m_canvas, area, scale_factor, layer.getStyle().m_paint_pen);
-				geom.Draw(m_canvas, area, scale_factor, layer.getStyle().m_paint_brush);
+				geom.Draw(m_canvas, area, scale_factor, layer.getStyle());
 			}
 		}
 		catch(Exception e)

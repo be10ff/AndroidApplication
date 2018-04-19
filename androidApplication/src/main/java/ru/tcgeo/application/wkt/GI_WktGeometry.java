@@ -1,7 +1,6 @@
 package ru.tcgeo.application.wkt;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -28,9 +27,9 @@ public abstract class GI_WktGeometry
 
 	public abstract String toWKT();
 
-	public abstract void Draw(Canvas canvas, GIBounds area, float scale, Paint paint);
+	public abstract void Draw(Canvas canvas, GIBounds area, float scale, GIVectorStyle style/*Paint paint*/);
 
-	public abstract void Paint(Canvas canvas, GIVectorStyle style);
+	public abstract void Paint(Canvas canvas, GIBounds area, GIVectorStyle style);
 
 	public abstract boolean IsEmpty();
 

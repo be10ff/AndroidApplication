@@ -1,11 +1,15 @@
 package ru.tcgeo.application.data.interactors;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Environment;
 
 import java.io.File;
 
+import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.layer.GILayer;
 import ru.tcgeo.application.gilib.layer.GISQLLayer;
 import ru.tcgeo.application.gilib.models.GIColor;
@@ -27,7 +31,14 @@ import rx.schedulers.Schedulers;
  * Created by abelov on 28.04.16.
  */
 public class LoadProjectInteractor {
+    private Bitmap wktPointBitmap;
+
     private MapView view;
+
+    public LoadProjectInteractor(Context context) {
+
+        wktPointBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.measure_point);
+    }
 
     public void setView(MapView view) {
         this.view = view;
@@ -288,11 +299,12 @@ public class LoadProjectInteractor {
                 editing_stroke.setStyle(Paint.Style.STROKE);
                 GIVectorStyle vstyle_editing = new GIVectorStyle(
                         editing_stroke, editing_fill,
+                        wktPointBitmap,
                         (int) current_layer2.m_opacity);
 
                 GILayer layer;
                 if (current_layer.m_source.m_location.equalsIgnoreCase("local") || current_layer.m_source.m_location.equalsIgnoreCase("absolute")) {
-                    GIVectorStyle vstyle = new GIVectorStyle(line, fill,
+                    GIVectorStyle vstyle = new GIVectorStyle(line, fill, wktPointBitmap,
                             (int) current_layer2.m_opacity);
 
                     String path = current_layer.m_source.GetLocalPath();
