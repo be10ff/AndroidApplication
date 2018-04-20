@@ -134,6 +134,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         m_handler = new Handler();
         m_threadStack = new ThreadStack();
         editableLayers = new ArrayList<GIEditableLayer>();
+        controls = new ArrayList<>();
         m_bounds = new GIBounds(GIProjection.WGS84(), 0, 90, 90, 0);
         InitBounds(m_bounds.Reprojected(GIProjection.WorldMercator()));
     }

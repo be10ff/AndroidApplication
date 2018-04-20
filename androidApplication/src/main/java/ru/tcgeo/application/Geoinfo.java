@@ -170,7 +170,8 @@ public class Geoinfo extends FragmentActivity
         ArrayList<GIEditableLayer> editableLayers = new ArrayList<>();
         if (map != null && map.m_layers != null && map.m_layers.m_list != null) {
             for (GILayer l : map.m_layers.m_list) {
-                if (l instanceof GIEditableLayer) {
+                //todo
+                if (l instanceof GIEditableLayer && l.m_layer_properties.editable != null) {
                     editableLayers.add((GIEditableLayer) l);
                 }
             }
@@ -309,6 +310,8 @@ public class Geoinfo extends FragmentActivity
         GIBounds temp = new GIBounds(ps.m_projection, ps.m_left,
                 ps.m_top, ps.m_right, ps.m_bottom);
 
+        //??
+
         map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
         touchControl.setMap(map);
         App.Instance().setMap(map);
@@ -318,16 +321,18 @@ public class Geoinfo extends FragmentActivity
     @Override
     public void onLayer(LoadProjectInteractor.Layer layer) {
         map.AddLayer(layer.giLayer, layer.giRange, layer.enabled);
-        GIEditableLayer l = (GIEditableLayer) layer.giLayer;
-        if (l != null && l.m_layer_properties.editable != null
-                && l.m_layer_properties.editable.enumType != GILayer.EditableType.TRACK) {
-            l.setType(l.m_layer_properties.editable.enumType);
-            if (l.m_Type == GILayer.EditableType.TRACK && l.m_layer_properties.editable.active) {
-                map.setTrackLayer(l);
-            } else if (l.m_Type == GILayer.EditableType.POI && l.m_layer_properties.editable.active) {
-                map.setPoiLayer(l);
+        if (layer.giLayer instanceof GIEditableLayer) {
+            GIEditableLayer l = (GIEditableLayer) layer.giLayer;
+            if (l != null && l.m_layer_properties.editable != null
+                    && l.m_layer_properties.editable.enumType != GILayer.EditableType.TRACK) {
+                l.setType(l.m_layer_properties.editable.enumType);
+                if (l.m_Type == GILayer.EditableType.TRACK && l.m_layer_properties.editable.active) {
+                    map.setTrackLayer(l);
+                } else if (l.m_Type == GILayer.EditableType.POI && l.m_layer_properties.editable.active) {
+                    map.setPoiLayer(l);
+                }
+                map.AddEditableLayer(l);
             }
-            map.AddEditableLayer(l);
         }
     }
 

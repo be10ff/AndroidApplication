@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 
@@ -47,7 +48,7 @@ public class LoadProjectInteractor {
     public void loadProject(final String path){
         
         Observable.just(path)
-            .observeOn(Schedulers.newThread())
+                .observeOn(Schedulers.io())
                 .map(new Func1<String, GIProjectProperties>() {
                     @Override
                     public GIProjectProperties call(String s) {
@@ -55,12 +56,16 @@ public class LoadProjectInteractor {
 //                        view.onProject(ps);
                         return ps;
                     }
-                }).observeOn(AndroidSchedulers.mainThread()).doOnNext(new Action1<GIProjectProperties>() {
-            @Override
-            public void call(GIProjectProperties giProjectProperties) {
-                view.onProject(giProjectProperties);
-            }
-        }).flatMap(new Func1<GIProjectProperties, Observable<Layer>>() {
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(new Action1<GIProjectProperties>() {
+                    @Override
+                    public void call(GIProjectProperties giProjectProperties) {
+                        view.onProject(giProjectProperties);
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .flatMap(new Func1<GIProjectProperties, Observable<Layer>>() {
                     @Override
                     public Observable<Layer> call(final GIProjectProperties giProjectProperties) {
                         return Observable.create(
@@ -75,6 +80,7 @@ public class LoadProjectInteractor {
 
                     }
                 })
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Layer>() {
                     @Override
@@ -84,6 +90,7 @@ public class LoadProjectInteractor {
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e("GEOINFO", e.getMessage());
                         view.onError();
                     }
 
