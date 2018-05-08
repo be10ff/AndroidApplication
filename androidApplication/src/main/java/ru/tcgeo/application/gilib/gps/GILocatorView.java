@@ -9,12 +9,13 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import ru.tcgeo.application.gilib.gps.thread.GILocatorDrawThread;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 
 public class GILocatorView extends SurfaceView implements SurfaceHolder.Callback
 {
-	private GILocatorDrawThread drawThread;
 	public GI_WktGeometry m_POI;
+	private GILocatorDrawThread drawThread;
 	public GILocatorView(Context context) 
 	{
 		super(context);
