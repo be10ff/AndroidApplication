@@ -89,7 +89,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             h.removeListeners();
             GILayer item = data.get(position);
 
-            h.flReOrder.setOnTouchListener(new View.OnTouchListener() {
+            h.ivReOrder.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {

@@ -57,7 +57,14 @@ public class LayerHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.flReOrder)
     public View flReOrder;
 
+
+    @Bind(R.id.ivReOrder)
+    public View ivReOrder;
+
     @Bind(R.id.flRemove)
+    public View flRemove;
+
+    @Bind(R.id.ivRemove)
     public View ivRemove;
 
     @Bind(R.id.flMarkers)
