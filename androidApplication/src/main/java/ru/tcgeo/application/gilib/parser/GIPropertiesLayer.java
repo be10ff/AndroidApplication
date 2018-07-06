@@ -262,11 +262,21 @@ public class GIPropertiesLayer implements ILayersRoot
             }
 
             layer.m_enabled = enabled;
-            layer.m_source = sourceBuilder.build();
-            layer.m_style = styleBuilder.build();
-            layer.m_range = rangeBuilder.build();
-            layer.m_sqldb = sqldbBuilder.build();
-            layer.editable = editableBuilder.build();
+            if (layer.m_source != null) {
+                layer.m_source = sourceBuilder.build();
+            }
+            if (layer.m_style != null) {
+                layer.m_style = styleBuilder.build();
+            }
+            if (layer.m_range != null) {
+                layer.m_range = rangeBuilder.build();
+            }
+            if (layer.m_sqldb != null) {
+                layer.m_sqldb = sqldbBuilder.build();
+            }
+            if (layer.editable != null) {
+                layer.editable = editableBuilder.build();
+            }
 
             return layer;
         }

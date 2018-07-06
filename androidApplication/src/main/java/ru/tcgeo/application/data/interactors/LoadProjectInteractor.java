@@ -11,6 +11,7 @@ import android.util.Log;
 import java.io.File;
 
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.layer.GIEditableLayer;
 import ru.tcgeo.application.gilib.layer.GILayer;
 import ru.tcgeo.application.gilib.layer.GISQLLayer;
 import ru.tcgeo.application.gilib.models.GIColor;
@@ -326,6 +327,11 @@ public class LoadProjectInteractor {
                     layer.m_layer_properties = current_layer;
 
                     layer.AddStyle(vstyle_editing);
+                    if (layer instanceof GIEditableLayer && current_layer.editable != null) {
+                        GIEditableLayer editableLayer = (GIEditableLayer) layer;
+                        editableLayer.m_Type = current_layer.editable.enumType;
+                    }
+
 					/**/
 //					if(ps.m_Edit != null && ps.m_Edit.m_Entries != null) {
 //                        for (GIPropertiesLayerRef ref : ps.m_Edit.m_Entries) {

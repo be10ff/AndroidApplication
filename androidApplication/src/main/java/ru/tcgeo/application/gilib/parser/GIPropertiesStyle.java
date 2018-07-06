@@ -14,6 +14,7 @@ public class GIPropertiesStyle
 	
 	public GIPropertiesStyle()
 	{
+        m_type = "";
 		m_colors = new ArrayList<GIColor>();
 	}
 	public String ToString()
