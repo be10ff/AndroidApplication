@@ -57,7 +57,6 @@ import ru.tcgeo.application.view.FloatingActionButtonsCallback;
 import ru.tcgeo.application.view.MapView;
 import ru.tcgeo.application.views.callback.EditableLayerCallback;
 import ru.tcgeo.application.views.callback.LayerCallback;
-import ru.tcgeo.application.views.callback.LocationCallback;
 import ru.tcgeo.application.views.callback.MarkerCallback;
 import ru.tcgeo.application.views.callback.ProjectsCallback;
 import ru.tcgeo.application.views.dialog.EditAttributesDialog;
@@ -71,7 +70,7 @@ import ru.tcgeo.application.wkt.GI_WktPoint;
 
 public class Geoinfo extends FragmentActivity
         implements MapView,
-        FloatingActionButtonsCallback, LocationCallback {
+        FloatingActionButtonsCallback/*, LocationCallback*/ {
     final static public String locator_view_tag = "LOCATOR_TAG";
 
     static {
@@ -364,8 +363,39 @@ public class Geoinfo extends FragmentActivity
         setContentView(R.layout.main);
         ButterKnife.bind(this);
 
-        m_location_listener = new GIGPSLocationListener(this, this);
-//        GIEditLayersKeeper.Instance().m_location_manager = m_location_listener.locationManager;
+        m_location_listener = new GIGPSLocationListener(this/*, this*/);
+
+        m_location_listener.getLonLat();
+
+        /**/
+        GILonLat deg = null;
+        float accurancy = 100;
+
+        if (location == null) {
+            deg = GIProjection.ReprojectLonLat(getMap().Center(), getMap().Projection(), GIProjection.WGS84());
+        } else {
+            deg = new GILonLat(location.getLongitude(), location.getLatitude());
+            accurancy = location.getAccuracy();
+        }
+
+        if (!isPaused && toAutoFollow) {
+            GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), getMap().Projection());
+            Point new_center = getMap().MapToScreen(mercator);
+            double distance = Math.hypot(new_center.y - getMap().Height() / 2, new_center.x - getMap().Width() / 2);
+            //TODO uncomment
+            if (distance > 20) {
+                getMap().SetCenter(mercator);
+            }
+        }
+
+        if (getTrackingStatus() == GITrackingStatus.WRITE) {
+            if (getMap().getTrackLayer() != null) {
+                GI_WktPoint point = new GI_WktPoint();
+                point.Set(deg);
+                getMap().AddPointToTrack(deg, accurancy);
+            }
+        }
+        /**/
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         m_Status = GIEditingStatus.STOPPED;
