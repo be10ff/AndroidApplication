@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.control.GIControlFloating;
 import ru.tcgeo.application.control.GIGeometryPointControl;
@@ -89,15 +89,15 @@ public class Geoinfo extends FragmentActivity
     public FloatingActionButton fbEditButton;
     public boolean toAutoFollow = false;
     public boolean toShowTargetDirection = false;
-    @Bind(R.id.root)
+    @BindView(R.id.root)
     RelativeLayout root;
-    @Bind(R.id.map)
+    @BindView(R.id.map)
     GIMap map;
-    @Bind(R.id.touchcontrol)
+    @BindView(R.id.touchcontrol)
     GITouchControl touchControl;
-    @Bind(R.id.scale_control_screen)
+    @BindView(R.id.scale_control_screen)
     GIScaleControl scaleControl;
-    @Bind(R.id.pbProgress)
+    @BindView(R.id.pbProgress)
     View pbProgress;
     GIGPSButtonView fbGPS;
     ImageButton fbEdit;

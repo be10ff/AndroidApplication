@@ -16,20 +16,21 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
 
 public class GIGPSButtonView extends RelativeLayout 
 {
-	@Bind(R.id.imageViewStatus)
+	@BindView(R.id.imageViewStatus)
 	public ImageView ivStatus;
+
 	int countSatellite;
 	float accurancy;
 	int speed;
-	@Bind(R.id.textViewAccurancy)
+	@BindView(R.id.textViewAccurancy)
 	TextView m_textViewAccurancy;
-	@Bind(R.id.tvSpeed)
+	@BindView(R.id.tvSpeed)
 	TextView tvSpeed;
 	private View layoutView;
 
@@ -104,21 +105,21 @@ public class GIGPSButtonView extends RelativeLayout
 	{
 		super(context, attrs, defStyle);
 		LayoutInflater m_LayoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		layoutView = m_LayoutInflater.inflate(R.layout.gps_button_layout, this, true);
+		layoutView = m_LayoutInflater.inflate(R.layout.gps_button_layout, this);
 		Init(context);
 	}
 	public GIGPSButtonView(Context context, AttributeSet attrs) 
 	{
 		super(context, attrs);
 		LayoutInflater m_LayoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		layoutView = m_LayoutInflater.inflate(R.layout.gps_button_layout, this, true);
+		layoutView = m_LayoutInflater.inflate(R.layout.gps_button_layout, this);
 		Init(context);
 	}
 	public GIGPSButtonView(Context context) 
 	{
 		super(context);
 		LayoutInflater m_LayoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		layoutView = m_LayoutInflater.inflate(R.layout.gps_button_layout, this, true);
+		layoutView = m_LayoutInflater.inflate(R.layout.gps_button_layout, this);
 		Init(context);
 	}
 	private void Init(Context context)

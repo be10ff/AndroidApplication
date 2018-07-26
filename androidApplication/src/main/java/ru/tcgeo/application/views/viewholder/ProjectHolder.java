@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
@@ -17,19 +17,19 @@ import ru.tcgeo.application.views.callback.ProjectsHolderCallback;
 
 public class ProjectHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.tvFilePath)
+    @BindView(R.id.tvFilePath)
     public TextView tvFilePath;
 
-    @Bind(R.id.ivLoaded)
+    @BindView(R.id.ivLoaded)
     public ImageView ivLoaded;
 
-    @Bind(R.id.tvProjectName)
+    @BindView(R.id.tvProjectName)
     public TextView tvProjectName;
 
-    @Bind(R.id.tvDescription)
+    @BindView(R.id.tvDescription)
     public TextView tvDescription;
 
-    @Bind(R.id.rlProject)
+    @BindView(R.id.rlProject)
     public View rlProject;
 
     private ProjectsHolderCallback callback;

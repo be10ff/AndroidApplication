@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
@@ -16,13 +16,13 @@ import ru.tcgeo.application.views.callback.LayerHolderCallback;
 
 public class ProjectLayerHeaderHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.tvFilePath)
+    @BindView(R.id.tvFilePath)
     public TextView tvFilePath;
 
-    @Bind(R.id.etProjectName)
+    @BindView(R.id.etProjectName)
     public EditText etProjectName;
 
-    @Bind(R.id.etDescription)
+    @BindView(R.id.etDescription)
     public EditText etDescription;
 
     private LayerHolderCallback callback;

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.Geoinfo;
@@ -29,7 +29,7 @@ import ru.tcgeo.application.wkt.GI_WktGeometry;
 
 public class EditAttributesDialog extends Dialog {
 
-    @Bind(R.id.rvAttributes)
+    @BindView(R.id.rvAttributes)
     RecyclerView rvAttributes;
 
     Geoinfo activity;

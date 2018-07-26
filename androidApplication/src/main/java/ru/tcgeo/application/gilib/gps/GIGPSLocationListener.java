@@ -7,13 +7,16 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import io.reactivex.Observable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.views.callback.LocationCallback;
-import rx.Observable;
-import rx.functions.Func1;
-import rx.functions.Func2;
-import rx.subjects.PublishSubject;
+
 
 public class GIGPSLocationListener implements LocationListener 
 {
@@ -37,41 +40,42 @@ public class GIGPSLocationListener implements LocationListener
 //		App.Instance().setLocationObservable(location.asObservable());
     }
 
-	public Observable<Location> getLocation(){
-		return location.asObservable();
+    public Subject<Location> getLocation() {
+        return location;
 	}
 
 	public Observable<GILonLat> getLonLat(){
-		return location.asObservable().map(new Func1<Location, GILonLat>() {
+        return location.map(new Function<Location, GILonLat>() {
 			@Override
-			public GILonLat call(Location location) {
+            public GILonLat apply(Location location) {
 				return new GILonLat(location.getLongitude(), location.getLatitude());
 			}
 		});
 	}
 
 	public Observable<Location> getFilteredLocation(){
-		return location.map(new Func1<Location, Gain>() {
+        return location.map(new Function<Location, Gain>() {
 			@Override
-			public Gain call(Location location) {
+            public Gain apply(Location location) {
 				return new Gain(0, location);
 			}
-		}).scan(new Func2<Gain, Gain, Gain>() {
+        }).scan(new BiFunction<Gain, Gain, Gain>() {
 			@Override
-			public Gain call(Gain gain, Gain last) {
+            public Gain apply(Gain gain, Gain last) {
 				GILonLat origin = new GILonLat(gain.location.getLongitude(), gain.location.getLatitude());
 				GILonLat current = new GILonLat(last.location.getLongitude(), last.location.getLatitude());
 				last.delta = MapUtils.GetDistance(origin, current);
 				return last;
 			}
-		}).filter(new Func1<Gain, Boolean>() {
+        }).filter(new Predicate<Gain>() {
 			@Override
-			public Boolean call(Gain location) {
+            public boolean test(Gain location) {
 				return location.delta > location.location.getAccuracy()*1.5f;
 			}
-		}).map(new Func1<Gain, Location>() {
+        })
+                .map(new Function<Gain, Location>() {
 			@Override
-			public Location call(Gain gain) {
+            public Location apply(Gain gain) {
 				return gain.location;
 			}
 		});

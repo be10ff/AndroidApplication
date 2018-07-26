@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
@@ -30,47 +30,47 @@ import ru.tcgeo.application.views.callback.LayerHolderCallback;
 public class LayerHolder extends RecyclerView.ViewHolder {
 
     // common layer settings
-    @Bind(R.id.etLayerName)
+    @BindView(R.id.etLayerName)
     public android.support.v7.widget.AppCompatEditText etLayerName;
 
-    @Bind(R.id.cbLayerVisibility)
+    @BindView(R.id.cbLayerVisibility)
     public CheckBox cbLayerVisibility;
 
-    @Bind(R.id.llLayerSettings)
+    @BindView(R.id.llLayerSettings)
     public LinearLayout llLayerSettings;
 
-    @Bind(R.id.flMore)
+    @BindView(R.id.flMore)
     public View flMore;
 
-    @Bind(R.id.tvFilePath)
+    @BindView(R.id.tvFilePath)
     public TextView tvFilePath;
 
-    @Bind(R.id.ivFileExsist)
+    @BindView(R.id.ivFileExsist)
     public ImageView ivFileExsist;
 
-    @Bind(R.id.tvScaleRange)
+    @BindView(R.id.tvScaleRange)
     public TextView tvScaleRange;
 
-    @Bind(R.id.rsbScaleRange)
+    @BindView(R.id.rsbScaleRange)
     public RangeSeekBar rsbScaleRange;
 
-    @Bind(R.id.flReOrder)
+    @BindView(R.id.flReOrder)
     public View flReOrder;
 
 
-    @Bind(R.id.ivReOrder)
+    @BindView(R.id.ivReOrder)
     public View ivReOrder;
 
-    @Bind(R.id.flRemove)
+    @BindView(R.id.flRemove)
     public View flRemove;
 
-    @Bind(R.id.ivRemove)
+    @BindView(R.id.ivRemove)
     public View ivRemove;
 
-    @Bind(R.id.flMarkers)
+    @BindView(R.id.flMarkers)
     public View flMarkers;
 
-    @Bind(R.id.ivMarkersSource)
+    @BindView(R.id.ivMarkersSource)
     public android.support.v7.widget.AppCompatImageView ivMarkersSource;
 
     protected LayerHolderCallback callback;

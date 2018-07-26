@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
@@ -46,7 +46,7 @@ import yuku.ambilwarna.AmbilWarnaDialog;
  */
 public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnStartDragListener {
 
-    @Bind(R.id.rvLayers)
+    @BindView(R.id.rvLayers)
     RecyclerView rvLayers;
 
     ReLayersAdapter adapter;

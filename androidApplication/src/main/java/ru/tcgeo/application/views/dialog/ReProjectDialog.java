@@ -16,7 +16,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.Geoinfo;
@@ -33,10 +33,10 @@ import ru.tcgeo.application.views.viewholder.ProjectHolder;
  */
 public class ReProjectDialog extends Dialog {
 
-    @Bind(R.id.rvProjects)
+    @BindView(R.id.rvProjects)
     RecyclerView rvProjects;
 
-    @Bind(R.id.fabAdd)
+    @BindView(R.id.fabAdd)
     android.support.v7.widget.AppCompatImageView fabAdd;
     private ReProjectsAdapter adapter;
     private Context context;

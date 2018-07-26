@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
@@ -32,9 +32,9 @@ import static ru.tcgeo.application.gilib.layer.GIEditableLayer.GIEditableLayerSt
  */
 public class ReEditableLayersDialog extends Dialog {
 
-    @Bind(R.id.rvEditableLayers)
+    @BindView(R.id.rvEditableLayers)
     RecyclerView rvEditableLayers;
-    @Bind(R.id.fabStopEdit)
+    @BindView(R.id.fabStopEdit)
     ImageView fabStopEdit;
     private Context context;
     private List<GIEditableLayer> data;

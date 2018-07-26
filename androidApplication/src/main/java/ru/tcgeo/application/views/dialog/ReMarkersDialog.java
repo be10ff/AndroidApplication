@@ -12,7 +12,7 @@ import android.view.Window;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.models.Marker;
@@ -26,7 +26,7 @@ import ru.tcgeo.application.views.viewholder.MarkerHolder;
  */
 public class ReMarkersDialog extends Dialog {
 
-    @Bind(R.id.rvMarkers)
+    @BindView(R.id.rvMarkers)
     RecyclerView rvMarkers;
 
     ReMarkersAdapter adapter;

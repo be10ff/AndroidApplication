@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
@@ -17,10 +17,10 @@ import ru.tcgeo.application.views.callback.MarkerHolderCallback;
 
 public class MarkerHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.tvDescription)
+    @BindView(R.id.tvDescription)
     public TextView tvDescription;
 
-    @Bind(R.id.ivDirecton)
+    @BindView(R.id.ivDirecton)
     public ImageView ivDirecton;
     private MarkerHolderCallback callback;
 

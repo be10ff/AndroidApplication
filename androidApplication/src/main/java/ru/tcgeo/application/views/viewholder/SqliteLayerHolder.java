@@ -7,7 +7,7 @@ import android.widget.RadioGroup;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.layer.GISQLLayer;
@@ -19,28 +19,28 @@ import ru.tcgeo.application.views.callback.LayerHolderCallback;
 
 public class SqliteLayerHolder extends LayerHolder {
 
-    @Bind(R.id.rsbRatio)
+    @BindView(R.id.rsbRatio)
     public org.florescu.android.rangeseekbar.RangeSeekBar rsbRatio;
 
-    @Bind(R.id.rgProjection)
+    @BindView(R.id.rgProjection)
     public RadioGroup rgProjection;
 
-    @Bind(R.id.rgZoomType)
+    @BindView(R.id.rgZoomType)
     public RadioGroup rgZoomType;
 
-    @Bind(R.id.rbYandex)
+    @BindView(R.id.rbYandex)
     public RadioButton rbYandex;
 
-    @Bind(R.id.rbGoogle)
+    @BindView(R.id.rbGoogle)
     public RadioButton rbGoogle;
 
-    @Bind(R.id.rbAuto)
+    @BindView(R.id.rbAuto)
     public RadioButton rbAuto;
 
-    @Bind(R.id.rbSmart)
+    @BindView(R.id.rbSmart)
     public RadioButton rbSmart;
 
-    @Bind(R.id.rbAdaptive)
+    @BindView(R.id.rbAdaptive)
     public RadioButton rbAdaptive;
 
     public SqliteLayerHolder(View itemView, LayerHolderCallback callback) {

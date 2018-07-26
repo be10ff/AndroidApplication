@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
@@ -16,7 +16,7 @@ import ru.tcgeo.application.views.callback.EditableLayerHolderCallback;
 
 public class EdiableLayerHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.tvEditableLayerName)
+    @BindView(R.id.tvEditableLayerName)
     public TextView tvEditableLayerName;
 
     private EditableLayerHolderCallback callback;

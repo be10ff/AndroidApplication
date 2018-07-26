@@ -9,7 +9,7 @@ import android.widget.RadioGroup;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
@@ -22,28 +22,28 @@ import ru.tcgeo.application.views.callback.LayerHolderCallback;
 
 public class XmlLayerHolder extends LayerHolder {
 
-    @Bind(R.id.rsbStrokeWidth)
+    @BindView(R.id.rsbStrokeWidth)
     public RangeSeekBar rsbStrokeWidth;
 
-    @Bind(R.id.vFillColor)
+    @BindView(R.id.vFillColor)
     public View vFillColor;
 
-    @Bind(R.id.vStrokeColor)
+    @BindView(R.id.vStrokeColor)
     public View vStrokeColor;
 
-    @Bind(R.id.rgEditableType)
+    @BindView(R.id.rgEditableType)
     public RadioGroup rgEditableType;
 
-    @Bind(R.id.rbPoint)
+    @BindView(R.id.rbPoint)
     public RadioButton rbPoint;
 
-    @Bind(R.id.rbLine)
+    @BindView(R.id.rbLine)
     public RadioButton rbLine;
 
-    @Bind(R.id.rbPolygon)
+    @BindView(R.id.rbPolygon)
     public RadioButton rbPolygon;
 
-    @Bind(R.id.cbPoiLayer)
+    @BindView(R.id.cbPoiLayer)
     public CheckBox cbPoiLayer;
 
     public boolean isMarkersSource;

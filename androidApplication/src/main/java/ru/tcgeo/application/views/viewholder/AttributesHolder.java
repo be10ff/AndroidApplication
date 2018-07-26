@@ -7,7 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.models.Attribute;
@@ -19,10 +19,10 @@ import ru.tcgeo.application.views.callback.AttributesCallback;
 
 public class AttributesHolder extends RecyclerView.ViewHolder implements TextWatcher {
 
-    @Bind(R.id.etName)
+    @BindView(R.id.etName)
     public EditText etName;
 
-    @Bind(R.id.etValue)
+    @BindView(R.id.etValue)
     public EditText etValue;
 
     private Context context;

@@ -18,6 +18,8 @@ todo clearing
 
 todo editing dont works
 
+todo RxJava2
+
 
 
 
