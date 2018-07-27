@@ -46,6 +46,7 @@ import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIPList;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.gilib.models.LonLatEvent;
 import ru.tcgeo.application.gilib.models.Marker;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
 import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
@@ -1198,6 +1199,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 
         if (trackLayer != null) {
             activity.setTrackingStatus(GITrackingStatus.WRITE);
+            activity.setTrackingStatus(LonLatEvent.FLAG_TRACK);
             currentTrack = new GIXMLTrack();
 
             currentTrack.m_attributes = new HashMap<String, GIDBaseField>();
@@ -1522,9 +1524,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 
         public boolean IsAlive() {
             if (current != null) {
-                if (current.isAlive()) {
-                    return true;
-                }
+                return current.isAlive();
             }
             return false;
         }

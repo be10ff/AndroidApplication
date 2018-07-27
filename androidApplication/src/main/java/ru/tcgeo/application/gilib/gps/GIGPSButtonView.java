@@ -4,11 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.location.GpsSatellite;
 import android.location.GpsStatus;
-import android.location.GpsStatus.NmeaListener;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,90 +14,95 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function3;
+import io.reactivex.schedulers.Schedulers;
+import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 
 public class GIGPSButtonView extends RelativeLayout 
 {
 	@BindView(R.id.imageViewStatus)
 	public ImageView ivStatus;
-
-	int countSatellite;
-	float accurancy;
 	int speed;
 	@BindView(R.id.textViewAccurancy)
 	TextView m_textViewAccurancy;
 	@BindView(R.id.tvSpeed)
 	TextView tvSpeed;
 	private View layoutView;
-
-//	private Context context;
 	private boolean blink;
-	
-	private LocationManager locationManager;
+	protected CompositeDisposable subscription = new CompositeDisposable();
 
-	private LocationListener locationListener = new LocationListener() {
+	GIGPSLocationListener locationListener;
 
-		public void onLocationChanged(Location location) {
-			accurancy = location.getAccuracy();
-			m_textViewAccurancy.setText(String.format("±%02d m", (int) accurancy));
-			blink = !blink;
-			if (blink) {
-				m_textViewAccurancy.setTextColor(Color.argb(255, 63, 255, 63));
-			} else {
-				m_textViewAccurancy.setTextColor(Color.argb(255, 191, 63, 0));
-			}
+//	private LocationListener locationListener = new LocationListener() {
+//
+//		public void onLocationChanged(Location location) {
+//			accurancy = location.getAccuracy();
+//			m_textViewAccurancy.setText(String.format("±%02d m", (int) accurancy));
+//			blink = !blink;
+//			if (blink) {
+//				m_textViewAccurancy.setTextColor(Color.argb(255, 63, 255, 63));
+//			} else {
+//				m_textViewAccurancy.setTextColor(Color.argb(255, 191, 63, 0));
+//			}
+//
+//			speed = (int) Math.round(3.6 * location.getSpeed());
+//			if (speed < 10) {
+//				speed = 0;
+//				tvSpeed.setVisibility(INVISIBLE);
+//			} else {
+//				tvSpeed.setVisibility(VISIBLE);
+//				tvSpeed.setText(/*String.format("%03d", speed)*/String.valueOf(speed));
+//			}
+//		}
+//
+//
+//		public void onProviderDisabled(String provider) {
+//			SetGPSEnabledStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+//		}
+//
+//
+//		public void onProviderEnabled(String provider) {
+//			SetGPSEnabledStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+//		}
+//
+//
+//		public void onStatusChanged(String provider, int s, Bundle extras) {
+//		}
+//
+//	};
 
-			speed = (int) Math.round(3.6 * location.getSpeed());
-			if (speed < 10) {
-				speed = 0;
-				tvSpeed.setVisibility(INVISIBLE);
-			} else {
-				tvSpeed.setVisibility(VISIBLE);
-				tvSpeed.setText(/*String.format("%03d", speed)*/String.valueOf(speed));
-			}
-		}
 
+//	private GpsStatus.Listener lGPS = new GpsStatus.Listener() {
+//		public void onGpsStatusChanged(int event) {
+//			if (event == GpsStatus.GPS_EVENT_SATELLITE_STATUS) {
+//				GpsStatus status = locationManager.getGpsStatus(null);
+//				countSatellite = 0;
+//				Iterable<GpsSatellite> sats = status.getSatellites();
+//				for (GpsSatellite sat : sats) {
+//					countSatellite++;
+//				}
+//			}
+//		}
+//	};
+//	private NmeaListener lNmea = new NmeaListener() {
+//
+//		public void onNmeaReceived(long timestamp, String nmea) {
+//
+//			if (accurancy < 15 || countSatellite > 5) {
+//				ShowGPSStatus(1);
+//			} else {
+//				int[] res = ParseNmea(nmea);
+//				ShowGPSStatus(res[1]);
+//			}
+//		}
+//	};
 
-		public void onProviderDisabled(String provider) {
-			SetGPSEnabledStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-		}
-
-
-		public void onProviderEnabled(String provider) {
-			SetGPSEnabledStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-		}
-
-
-		public void onStatusChanged(String provider, int s, Bundle extras) {
-		}
-
-	};
-	private GpsStatus.Listener lGPS = new GpsStatus.Listener() {
-		public void onGpsStatusChanged(int event) {
-			if (event == GpsStatus.GPS_EVENT_SATELLITE_STATUS) {
-				GpsStatus status = locationManager.getGpsStatus(null);
-				countSatellite = 0;
-				Iterable<GpsSatellite> sats = status.getSatellites();
-				for (GpsSatellite sat : sats) {
-					countSatellite++;
-				}
-			}
-		}
-	};
-	private NmeaListener lNmea = new NmeaListener() {
-
-		public void onNmeaReceived(long timestamp, String nmea) {
-
-			if (accurancy < 15 || countSatellite > 5) {
-				ShowGPSStatus(1);
-			} else {
-				int[] res = ParseNmea(nmea);
-				ShowGPSStatus(res[1]);
-			}
-		}
-	};
-		
-	public GIGPSButtonView(Context context, AttributeSet attrs, int defStyle) 
+	public GIGPSButtonView(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);
 		LayoutInflater m_LayoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -129,40 +130,79 @@ public class GIGPSButtonView extends RelativeLayout
 		m_textViewAccurancy.setText("-- m");
 		tvSpeed.setVisibility(INVISIBLE);
 		blink = false;
-		locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+
+		locationListener = ((Geoinfo) context).locationListener;
+		subscription.add(locationListener.enabledBehaviorSubject
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(new Consumer<Boolean>() {
+					@Override
+					public void accept(Boolean enabeled) {
+						if (enabeled) {
+							ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_out_of_service));
+						} else {
+							ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_disabeled));
+							m_textViewAccurancy.setText("-- m");
+						}
+					}
+				}));
+
+		subscription.add(Observable.combineLatest(locationListener.statusBehaviorSubject.hide(), locationListener.nmeaBehaviorSubject.hide(), locationListener.locationBehaviorSubject
+				, new Function3<GpsStatus, String, Location, Integer>() {
+					@Override
+					public Integer apply(GpsStatus gpsStatus, String nmea, Location location) {
+						int countSatellite = 0;
+						Iterable<GpsSatellite> sats = gpsStatus.getSatellites();
+						for (GpsSatellite sat : sats) {
+							countSatellite++;
+						}
+
+						if (location.getAccuracy() < 15 || countSatellite > 5) {
+							return 1;
+						} else {
+							int[] res = ParseNmea(nmea);
+							return (res[1]);
+						}
+					}
+				})
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(new Consumer<Integer>() {
+					@Override
+					public void accept(Integer integer) {
+						ShowGPSStatus(integer);
+					}
+				}));
+
+
+		subscription.add(locationListener.getLocation()
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(new Consumer<Location>() {
+					@Override
+					public void accept(Location location) {
+						float accurancy = location.getAccuracy();
+						m_textViewAccurancy.setText(String.format("±%02d m", (int) accurancy));
+						blink = !blink;
+						if (blink) {
+							m_textViewAccurancy.setTextColor(Color.argb(255, 63, 255, 63));
+						} else {
+							m_textViewAccurancy.setTextColor(Color.argb(255, 191, 63, 0));
+						}
+
+						speed = (int) Math.round(3.6 * location.getSpeed());
+						if (speed < 10) {
+							speed = 0;
+							tvSpeed.setVisibility(INVISIBLE);
+						} else {
+							tvSpeed.setVisibility(VISIBLE);
+							tvSpeed.setText(/*String.format("%03d", speed)*/String.valueOf(speed));
+						}
+					}
+				})
+		);
 	}
 
-
-	@Override
-	protected void onVisibilityChanged(View changedView, int visibility) {
-		super.onVisibilityChanged(changedView, visibility);
-		if (visibility == VISIBLE) {
-			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 10, locationListener);
-			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000 * 10, 10, locationListener);
-			locationManager.addGpsStatusListener(lGPS);
-			locationManager.addNmeaListener(lNmea);
-			SetGPSEnabledStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-
-		} else {
-			locationManager.removeUpdates(locationListener);
-		}
-	}
-//
-//	public void onResume()
-//	{
-//	    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 10, locationListener);
-//        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000 * 10, 10, locationListener);
-//        locationManager.addGpsStatusListener(lGPS);
-//        locationManager.addNmeaListener(lNmea);
-//        SetGPSEnabledStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-//	}
-//
-//
-//
-//	public void onPause()
-//	{
-//		locationManager.removeUpdates(locationListener);
-//	}
 
 
 	public void SetGPSEnabledStatus(boolean enabeled)

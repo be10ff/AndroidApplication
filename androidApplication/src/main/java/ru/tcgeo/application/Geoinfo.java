@@ -1,11 +1,8 @@
 package ru.tcgeo.application;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Point;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -30,6 +27,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 import ru.tcgeo.application.control.GIControlFloating;
 import ru.tcgeo.application.control.GIGeometryPointControl;
 import ru.tcgeo.application.control.GIPositionControl;
@@ -50,6 +55,7 @@ import ru.tcgeo.application.gilib.layer.GILayer;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
+import ru.tcgeo.application.gilib.models.LonLatEvent;
 import ru.tcgeo.application.gilib.models.Marker;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.ScreenUtils;
@@ -105,9 +111,13 @@ public class Geoinfo extends FragmentActivity
     GIPositionControl positionControl;
     private GIEditingStatus m_Status = GIEditingStatus.STOPPED;
     private GITrackingStatus m_TrackingStatus = GITrackingStatus.STOP;
-    private LocationManager locationManager;
-    private GIGPSLocationListener m_location_listener;
+    //    private LocationManager locationManager;
+    public GIGPSLocationListener locationListener;
     private boolean isPaused = false;
+    protected CompositeDisposable subscription = new CompositeDisposable();
+    private PublishSubject<Integer> pausedSubject = PublishSubject.create();
+    private PublishSubject<Integer> trackSubject = PublishSubject.create();
+    private PublishSubject<Integer> followSubject = PublishSubject.create();
 
     public void MarkersDialogClicked() {
         View v = root.findViewById(R.id.direction_to_point_arrow);
@@ -363,43 +373,124 @@ public class Geoinfo extends FragmentActivity
         setContentView(R.layout.main);
         ButterKnife.bind(this);
 
-        m_location_listener = new GIGPSLocationListener(this/*, this*/);
+        locationListener = new GIGPSLocationListener(this/*, this*/);
 
-        m_location_listener.getLonLat();
+//        Observable<LonLatEvent> events
+//                =
+        subscription.add(Observable.combineLatest(locationListener.getLonLat(), pausedSubject.hide(),
+                new BiFunction<LonLatEvent, Integer, LonLatEvent>() {
+                    @Override
+                    public LonLatEvent apply(LonLatEvent giLonLat, Integer paused) {
+                        giLonLat.actions = giLonLat.actions | paused;
+                        return giLonLat;
+                    }
+                })
+                .filter(new Predicate<LonLatEvent>() {
+                    @Override
+                    public boolean test(LonLatEvent lonLatEvent) {
+                        return (lonLatEvent.actions & LonLatEvent.FLAG_FOLLOW) != 0 && (lonLatEvent.actions & ~LonLatEvent.FLAG_PAUSED) != 0;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<LonLatEvent>() {
+                    @Override
+                    public void accept(LonLatEvent lonLatEvent) {
+                        GILonLat mercator = GIProjection.ReprojectLonLat(lonLatEvent.lonlat, GIProjection.WGS84(), getMap().Projection());
+                        Point new_center = getMap().MapToScreen(mercator);
+                        double distance = Math.hypot(new_center.y - getMap().Height() / 2, new_center.x - getMap().Width() / 2);
+                        if (distance > 20) {
+                            getMap().SetCenter(mercator);
+                        }
+                    }
+                }));
+
+        subscription.add(Observable.combineLatest(locationListener.getLonLat(), trackSubject.hide(),
+                new BiFunction<LonLatEvent, Integer, LonLatEvent>() {
+                    @Override
+                    public LonLatEvent apply(LonLatEvent lonLatEvent, Integer track) {
+                        lonLatEvent.actions = lonLatEvent.actions | track;
+                        return lonLatEvent;
+                    }
+                })
+                .filter(new Predicate<LonLatEvent>() {
+                    @Override
+                    public boolean test(LonLatEvent lonLatEvent) {
+                        return (lonLatEvent.actions & LonLatEvent.FLAG_TRACK) != 0;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<LonLatEvent>() {
+                    @Override
+                    public void accept(LonLatEvent lonLatEvent) {
+                        if (getMap().getTrackLayer() != null) {
+                            GI_WktPoint point = new GI_WktPoint();
+                            point.Set(lonLatEvent.lonlat);
+                            getMap().AddPointToTrack(lonLatEvent.lonlat, lonLatEvent.accurancy);
+                        }
+                    }
+                }));
+
+        subscription.add(Observable.combineLatest(locationListener.getLonLat(), followSubject.hide(),
+                new BiFunction<LonLatEvent, Integer, LonLatEvent>() {
+                    @Override
+                    public LonLatEvent apply(LonLatEvent lonLatEvent, Integer follow) {
+                        lonLatEvent.actions = lonLatEvent.actions | follow;
+                        return lonLatEvent;
+                    }
+                })
+                .filter(new Predicate<LonLatEvent>() {
+                    @Override
+                    public boolean test(LonLatEvent lonLatEvent) {
+                        return (lonLatEvent.actions & LonLatEvent.FLAG_FOLLOW) != 0;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<LonLatEvent>() {
+                    @Override
+                    public void accept(LonLatEvent lonLatEvent) {
+//                        GILonLat go_to = GILonLat.fromLocation(location);
+                        GILonLat go_to_map = GIProjection.ReprojectLonLat(lonLatEvent.lonlat, GIProjection.WGS84(), GIProjection.WorldMercator());
+                        map.SetCenter(go_to_map);
+                    }
+                }));
 
         /**/
-        GILonLat deg = null;
-        float accurancy = 100;
+//        GILonLat deg = null;
+//        float accurancy = 100;
+//
+//        if (location == null) {
+//            deg = GIProjection.ReprojectLonLat(getMap().Center(), getMap().Projection(), GIProjection.WGS84());
+//        } else {
+//            deg = new GILonLat(location.getLongitude(), location.getLatitude());
+//            accurancy = location.getAccuracy();
+//        }
+//
+//        if (!isPaused && toAutoFollow) {
+//            GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), getMap().Projection());
+//            Point new_center = getMap().MapToScreen(mercator);
+//            double distance = Math.hypot(new_center.y - getMap().Height() / 2, new_center.x - getMap().Width() / 2);
+//            //TODO uncomment
+//            if (distance > 20) {
+//                getMap().SetCenter(mercator);
+//            }
+//        }
 
-        if (location == null) {
-            deg = GIProjection.ReprojectLonLat(getMap().Center(), getMap().Projection(), GIProjection.WGS84());
-        } else {
-            deg = new GILonLat(location.getLongitude(), location.getLatitude());
-            accurancy = location.getAccuracy();
-        }
-
-        if (!isPaused && toAutoFollow) {
-            GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), getMap().Projection());
-            Point new_center = getMap().MapToScreen(mercator);
-            double distance = Math.hypot(new_center.y - getMap().Height() / 2, new_center.x - getMap().Width() / 2);
-            //TODO uncomment
-            if (distance > 20) {
-                getMap().SetCenter(mercator);
-            }
-        }
-
-        if (getTrackingStatus() == GITrackingStatus.WRITE) {
-            if (getMap().getTrackLayer() != null) {
-                GI_WktPoint point = new GI_WktPoint();
-                point.Set(deg);
-                getMap().AddPointToTrack(deg, accurancy);
-            }
-        }
+//        if (getTrackingStatus() == GITrackingStatus.WRITE) {
+//            if (getMap().getTrackLayer() != null) {
+//                GI_WktPoint point = new GI_WktPoint();
+//                point.Set(deg);
+//                getMap().AddPointToTrack(deg, accurancy);
+//            }
+//        }
         /**/
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         m_Status = GIEditingStatus.STOPPED;
         m_TrackingStatus = GITrackingStatus.STOP;
+        trackSubject.onNext(0);
 
         setupButtons();
 
@@ -419,11 +510,18 @@ public class Geoinfo extends FragmentActivity
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        subscription.dispose();
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         isPaused = false;
+        pausedSubject.onNext(0);
+        followSubject.onNext(0);
         GISensors.Instance(this).run(true);
 
     }
@@ -434,6 +532,8 @@ public class Geoinfo extends FragmentActivity
         super.onPause();
         getMap().StopEditing();
         isPaused = true;
+        pausedSubject.onNext(LonLatEvent.FLAG_PAUSED);
+        followSubject.onNext(0);
         GISensors.Instance(this).run(false);
         onSaveProject();
     }
@@ -499,7 +599,7 @@ public class Geoinfo extends FragmentActivity
         itemBuilder.setLayoutParams(action_params);
 
 
-//        fbGPS.SetGPSEnabledStatus(m_location_listener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+//        fbGPS.SetGPSEnabledStatus(locationListener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
 
         //-------------------------------------------------------------------
         // GPS AUTO_FOLL0W
@@ -508,18 +608,22 @@ public class Geoinfo extends FragmentActivity
         m_btnAutoFollow.setButtonDrawable(R.drawable.auto_follow_status_);
         SubActionButton fbAutoFollow = itemBuilder.setContentView(m_btnAutoFollow).build();
         m_btnAutoFollow.setChecked(toAutoFollow);
+        followSubject.onNext(0);
         m_btnAutoFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toAutoFollow = m_btnAutoFollow.isChecked();
-                if (m_btnAutoFollow.isChecked()) {
-                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                    if (location != null) {
-                        GILonLat go_to = GILonLat.fromLocation(location);
-                        GILonLat go_to_map = GIProjection.ReprojectLonLat(go_to, GIProjection.WGS84(), GIProjection.WorldMercator());
-                        map.SetCenter(go_to_map);
-                    }
-                }
+                followSubject.onNext(m_btnAutoFollow.isChecked() ? LonLatEvent.FLAG_FOLLOW : 0);
+
+//                if (m_btnAutoFollow.isChecked()) {
+//                    locationListener.getLonLat().replay(1)
+//                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//                    if (location != null) {
+//                        GILonLat go_to = GILonLat.fromLocation(location);
+//                        GILonLat go_to_map = GIProjection.ReprojectLonLat(go_to, GIProjection.WGS84(), GIProjection.WorldMercator());
+//                        map.SetCenter(go_to_map);
+//                    }
+//                }
 //                GIEditLayersKeeper.Instance().GetPositionControl();
             }
         });
@@ -538,10 +642,12 @@ public class Geoinfo extends FragmentActivity
                 if (m_TrackingStatus == GITrackingStatus.STOP) {
                     if (!map.CreateTrack()) {
                         m_TrackingStatus = GITrackingStatus.STOP;
+                        trackSubject.onNext(0);
                         m_btnTrackControl.setChecked(false);
                     }
                 } else {
                     m_TrackingStatus = GITrackingStatus.STOP;
+                    trackSubject.onNext(0);
                     map.StopTrack();
                 }
             }
@@ -853,12 +959,16 @@ public class Geoinfo extends FragmentActivity
         return !(m_Status == GIEditingStatus.STOPPED);
     }
 
-    public GITrackingStatus getTrackingStatus() {
-        return m_TrackingStatus;
-    }
+//    public GITrackingStatus getTrackingStatus() {
+//        return m_TrackingStatus;
+//    }
 
     public void setTrackingStatus(GITrackingStatus status) {
         m_TrackingStatus = status;
+    }
+
+    public void setTrackingStatus(int status) {
+        trackSubject.onNext(status);
     }
 
 
@@ -876,37 +986,37 @@ public class Geoinfo extends FragmentActivity
         return m_marker_point;
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        GILonLat deg = null;
-        float accurancy = 100;
-
-        if (location == null) {
-            deg = GIProjection.ReprojectLonLat(getMap().Center(), getMap().Projection(), GIProjection.WGS84());
-        } else {
-            deg = new GILonLat(location.getLongitude(), location.getLatitude());
-            accurancy = location.getAccuracy();
-        }
-
-        if (!isPaused && toAutoFollow) {
-            GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), getMap().Projection());
-            Point new_center = getMap().MapToScreen(mercator);
-            double distance = Math.hypot(new_center.y - getMap().Height() / 2, new_center.x - getMap().Width() / 2);
-            //TODO uncomment
-            if (distance > 20) {
-                getMap().SetCenter(mercator);
-            }
-        }
-
-        if (getTrackingStatus() == GITrackingStatus.WRITE) {
-            if (getMap().getTrackLayer() != null) {
-                GI_WktPoint point = new GI_WktPoint();
-                point.Set(deg);
-                getMap().AddPointToTrack(deg, accurancy);
-            }
-        }
-
-    }
+//    @Override
+//    public void onLocationChanged(Location location) {
+//        GILonLat deg = null;
+//        float accurancy = 100;
+//
+//        if (location == null) {
+//            deg = GIProjection.ReprojectLonLat(getMap().Center(), getMap().Projection(), GIProjection.WGS84());
+//        } else {
+//            deg = new GILonLat(location.getLongitude(), location.getLatitude());
+//            accurancy = location.getAccuracy();
+//        }
+//
+//        if (!isPaused && toAutoFollow) {
+//            GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), getMap().Projection());
+//            Point new_center = getMap().MapToScreen(mercator);
+//            double distance = Math.hypot(new_center.y - getMap().Height() / 2, new_center.x - getMap().Width() / 2);
+//            //TODO uncomment
+//            if (distance > 20) {
+//                getMap().SetCenter(mercator);
+//            }
+//        }
+//
+//        if (getTrackingStatus() == GITrackingStatus.WRITE) {
+//            if (getMap().getTrackLayer() != null) {
+//                GI_WktPoint point = new GI_WktPoint();
+//                point.Set(deg);
+//                getMap().AddPointToTrack(deg, accurancy);
+//            }
+//        }
+//
+//    }
 
     public void onSelectPoint(GIGeometryPointControl control) {
         //m_CurrentTarget = control.m_WKTPoint;
