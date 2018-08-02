@@ -20,17 +20,17 @@
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa8c29bb-4d7a-43e8-80fa-51877adc9ddf" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/LonLatEvent.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" />
       <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/control/GIPositionControl.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/control/GIPositionControl.java" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/GITrackingStatus.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/GITrackingStatus.java" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java" />
+      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java" />
       <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java" />
       <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSLocationListener.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSLocationListener.java" />
+      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/LonLatEvent.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/LonLatEvent.java" />
     </list>
     <ignored path="AndroidApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,42 +43,6 @@
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
-  </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="GIGPSLocationListener.java" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSLocationListener.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="680">
-                    <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
-                    <folding>
-                      <element signature="imports" expanded="true" />
-                      <element signature="e#4213#4214#0" expanded="true" />
-                      <element signature="e#4259#4260#0" expanded="true" />
-                      <element signature="e#4796#4797#0" expanded="true" />
-                      <element signature="e#4826#4827#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="LocationListener.class" pinned="false" current-in-tab="false">
-              <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-25/android.jar!/android/location/LocationListener.class">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="135">
-                    <caret line="12" column="9" lean-forward="false" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -100,67 +64,65 @@
       <file leaf-file-name="Geoinfo.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="114" column="49" lean-forward="false" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="49" />
+            <state relative-caret-position="382">
+              <caret line="933" column="27" lean-forward="false" selection-start-line="933" selection-start-column="19" selection-end-line="933" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#12644#13020#0" expanded="true" />
-                <element signature="e#13019#13020#0" expanded="true" />
-                <element signature="e#15868#16204#0" expanded="true" />
-                <element signature="e#16203#16204#0" expanded="true" />
-                <element signature="e#16230#16556#0" expanded="true" />
-                <element signature="e#16555#16556#0" expanded="true" />
-                <element signature="e#16690#17344#0" expanded="true" />
-                <element signature="e#17343#17344#0" expanded="true" />
-                <element signature="e#17466#17812#0" expanded="true" />
-                <element signature="e#17811#17812#0" expanded="true" />
-                <element signature="e#17838#18107#0" expanded="true" />
-                <element signature="e#18106#18107#0" expanded="true" />
-                <element signature="e#18241#18736#0" expanded="true" />
-                <element signature="e#18735#18736#0" expanded="true" />
-                <element signature="e#18859#19207#0" expanded="true" />
-                <element signature="e#19206#19207#0" expanded="true" />
-                <element signature="e#19233#19503#0" expanded="true" />
-                <element signature="e#19502#19503#0" expanded="true" />
-                <element signature="e#19637#20092#0" expanded="true" />
-                <element signature="e#20091#20092#0" expanded="true" />
-                <element signature="e#26138#27060#0" expanded="true" />
-                <element signature="e#27059#27060#0" expanded="true" />
-                <element signature="e#27660#28270#0" expanded="true" />
-                <element signature="e#28269#28270#0" expanded="true" />
-                <element signature="e#28754#29073#0" expanded="true" />
-                <element signature="e#29072#29073#0" expanded="true" />
-                <element signature="e#29582#29932#0" expanded="true" />
-                <element signature="e#29931#29932#0" expanded="true" />
-                <element signature="e#32164#32337#0" expanded="true" />
-                <element signature="e#32336#32337#0" expanded="true" />
-                <element signature="e#32809#32976#0" expanded="true" />
-                <element signature="e#32975#32976#0" expanded="true" />
-                <element signature="e#33472#33644#0" expanded="true" />
-                <element signature="e#33643#33644#0" expanded="true" />
-                <element signature="e#34117#34282#0" expanded="true" />
-                <element signature="e#34281#34282#0" expanded="true" />
-                <element signature="e#36619#37590#0" expanded="true" />
-                <element signature="e#37589#37590#0" expanded="true" />
-                <element signature="e#37636#38790#0" expanded="true" />
-                <element signature="e#38789#38790#0" expanded="true" />
-                <element signature="e#38838#39676#0" expanded="true" />
-                <element signature="e#39675#39676#0" expanded="true" />
-                <element signature="e#39721#39902#0" expanded="true" />
-                <element signature="e#39901#39902#0" expanded="true" />
-                <element signature="e#40351#40824#0" expanded="true" />
-                <element signature="e#40823#40824#0" expanded="true" />
-                <element signature="e#41984#41985#0" expanded="true" />
-                <element signature="e#42015#42016#0" expanded="true" />
-                <element signature="e#42228#42229#0" expanded="true" />
-                <element signature="e#42289#42290#0" expanded="true" />
-                <element signature="e#42447#42448#0" expanded="true" />
-                <element signature="e#42488#42489#0" expanded="true" />
-                <element signature="e#42537#42538#0" expanded="true" />
-                <element signature="e#42580#42581#0" expanded="true" />
-                <element signature="e#42610#42611#0" expanded="true" />
-                <element signature="e#42636#42637#0" expanded="true" />
+                <element signature="e#12452#12828#0" expanded="true" />
+                <element signature="e#12827#12828#0" expanded="true" />
+                <element signature="e#15861#16339#0" expanded="true" />
+                <element signature="e#16338#16339#0" expanded="true" />
+                <element signature="e#16602#17319#0" expanded="true" />
+                <element signature="e#17318#17319#0" expanded="true" />
+                <element signature="e#22103#22398#0" expanded="true" />
+                <element signature="e#22397#22398#0" expanded="true" />
+                <element signature="e#22998#23652#0" expanded="true" />
+                <element signature="e#23651#23652#0" expanded="true" />
+                <element signature="e#24136#24455#0" expanded="true" />
+                <element signature="e#24454#24455#0" expanded="true" />
+                <element signature="e#24964#25314#0" expanded="true" />
+                <element signature="e#25313#25314#0" expanded="true" />
+                <element signature="e#27546#27719#0" expanded="true" />
+                <element signature="e#27718#27719#0" expanded="true" />
+                <element signature="e#28191#28358#0" expanded="true" />
+                <element signature="e#28357#28358#0" expanded="true" />
+                <element signature="e#28854#29026#0" expanded="true" />
+                <element signature="e#29025#29026#0" expanded="true" />
+                <element signature="e#29499#29664#0" expanded="true" />
+                <element signature="e#29663#29664#0" expanded="true" />
+                <element signature="e#32001#32972#0" expanded="true" />
+                <element signature="e#32971#32972#0" expanded="true" />
+                <element signature="e#33018#34172#0" expanded="true" />
+                <element signature="e#34171#34172#0" expanded="true" />
+                <element signature="e#34220#35058#0" expanded="true" />
+                <element signature="e#35057#35058#0" expanded="true" />
+                <element signature="e#35103#35284#0" expanded="true" />
+                <element signature="e#35283#35284#0" expanded="true" />
+                <element signature="e#35733#36206#0" expanded="true" />
+                <element signature="e#36205#36206#0" expanded="true" />
+                <element signature="e#37365#37366#0" expanded="true" />
+                <element signature="e#37396#37397#0" expanded="true" />
+                <element signature="e#37609#37610#0" expanded="true" />
+                <element signature="e#37670#37671#0" expanded="true" />
+                <element signature="e#37732#37733#0" expanded="true" />
+                <element signature="e#37773#37774#0" expanded="true" />
+                <element signature="e#37822#37823#0" expanded="true" />
+                <element signature="e#37887#37888#0" expanded="true" />
+                <element signature="e#37917#37918#0" expanded="true" />
+                <element signature="e#37943#37944#0" expanded="true" />
+                <element signature="e#39457#39458#0" expanded="true" />
+                <element signature="e#39510#39511#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GIEditable.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIEditable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -168,12 +130,9 @@
       <file leaf-file-name="GIPositionControl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/control/GIPositionControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="29" column="4" lean-forward="false" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="75" />
-              <folding>
-                <element signature="e#1759#1996#0" expanded="true" />
-                <element signature="e#1995#1996#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="292">
+              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -181,29 +140,33 @@
       <file leaf-file-name="GIGPSButtonView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="67" column="2" lean-forward="true" selection-start-line="67" selection-start-column="2" selection-end-line="67" selection-end-column="2" />
+            <state relative-caret-position="-3699">
+              <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4573#4936#0" expanded="true" />
-                <element signature="e#4935#4936#0" expanded="true" />
-                <element signature="e#5124#5635#0" expanded="true" />
-                <element signature="e#5634#5635#0" expanded="true" />
-                <element signature="e#5733#5876#0" expanded="true" />
-                <element signature="e#5875#5876#0" expanded="true" />
-                <element signature="e#6028#6759#0" expanded="true" />
-                <element signature="e#6758#6759#0" expanded="true" />
+                <element signature="e#2727#3029#0" expanded="true" />
+                <element signature="e#3028#3029#0" expanded="true" />
+                <element signature="e#3055#3332#0" expanded="true" />
+                <element signature="e#3331#3332#0" expanded="true" />
+                <element signature="e#3355#3633#0" expanded="true" />
+                <element signature="e#3632#3633#0" expanded="true" />
+                <element signature="e#3732#4099#0" expanded="true" />
+                <element signature="e#4098#4099#0" expanded="true" />
+                <element signature="e#4377#5054#0" expanded="true" />
+                <element signature="e#5053#5054#0" expanded="true" />
+                <element signature="e#5080#5357#0" expanded="true" />
+                <element signature="e#5356#5357#0" expanded="true" />
+                <element signature="e#5380#5658#0" expanded="true" />
+                <element signature="e#5657#5658#0" expanded="true" />
+                <element signature="e#5756#5882#0" expanded="true" />
+                <element signature="e#5881#5882#0" expanded="true" />
+                <element signature="e#6075#6421#0" expanded="true" />
+                <element signature="e#6420#6421#0" expanded="true" />
+                <element signature="e#6455#6774#0" expanded="true" />
+                <element signature="e#6773#6774#0" expanded="true" />
+                <element signature="e#6805#7127#0" expanded="true" />
+                <element signature="e#7126#7127#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GpsStatus.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-25/android.jar!/android/location/GpsStatus.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -211,8 +174,8 @@
       <file leaf-file-name="GIMap.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="1201" column="21" lean-forward="false" selection-start-line="1201" selection-start-column="21" selection-end-line="1201" selection-end-column="21" />
+            <state relative-caret-position="9885">
+              <caret line="746" column="17" lean-forward="false" selection-start-line="746" selection-start-column="17" selection-end-line="746" selection-end-column="17" />
               <folding>
                 <element signature="e#31124#31125#0" expanded="true" />
                 <element signature="e#31164#31165#0" expanded="true" />
@@ -221,32 +184,64 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BehaviorSubject.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.1.9/890fc9ef77d78ac270f322b024c0e660a8f57ea0/rxjava-2.1.9-sources.jar!/io/reactivex/subjects/BehaviorSubject.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
-              <caret line="206" column="4" lean-forward="false" selection-start-line="206" selection-start-column="4" selection-end-line="206" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="LonLatEvent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/LonLatEvent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="44" lean-forward="false" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
+            <state relative-caret-position="30">
+              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GILonLat.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/GILonLat.java">
+      <file leaf-file-name="GIGPSLocationListener.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSLocationListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="418">
+              <caret line="116" column="88" lean-forward="false" selection-start-line="116" selection-start-column="88" selection-end-line="116" selection-end-column="141" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3439#3745#0" expanded="true" />
+                <element signature="e#3744#3745#0" expanded="true" />
+                <element signature="e#3771#4024#0" expanded="true" />
+                <element signature="e#4023#4024#0" expanded="true" />
+                <element signature="e#4153#4464#0" expanded="true" />
+                <element signature="e#4463#4464#0" expanded="true" />
+                <element signature="e#4490#4741#0" expanded="true" />
+                <element signature="e#4740#4741#0" expanded="true" />
+                <element signature="e#4942#5357#0" expanded="true" />
+                <element signature="e#5356#5357#0" expanded="true" />
+                <element signature="e#5383#5693#0" expanded="true" />
+                <element signature="e#5692#5693#0" expanded="true" />
+                <element signature="e#5747#5748#0" expanded="true" />
+                <element signature="e#5793#5794#0" expanded="true" />
+                <element signature="e#5861#5862#0" expanded="true" />
+                <element signature="e#5905#5906#0" expanded="true" />
+                <element signature="e#5957#5958#0" expanded="true" />
+                <element signature="e#5986#5987#0" expanded="true" />
+                <element signature="e#6044#6045#0" expanded="true" />
+                <element signature="e#6081#6082#0" expanded="true" />
+                <element signature="e#6137#6138#0" expanded="true" />
+                <element signature="e#6172#6173#0" expanded="true" />
+                <element signature="e#6234#6235#0" expanded="true" />
+                <element signature="e#6275#6276#0" expanded="true" />
+                <element signature="e#6332#6333#0" expanded="true" />
+                <element signature="e#6368#6369#0" expanded="true" />
+                <element signature="e#8123#8124#0" expanded="true" />
+                <element signature="e#8163#8164#0" expanded="true" />
+                <element signature="e#8222#8223#0" expanded="true" />
+                <element signature="e#8260#8261#0" expanded="true" />
+                <element signature="e#8320#8321#0" expanded="true" />
+                <element signature="e#8359#8360#0" expanded="true" />
+                <element signature="e#8415#8416#0" expanded="true" />
+                <element signature="e#8461#8462#0" expanded="true" />
+                <element signature="e#8998#8999#0" expanded="true" />
+                <element signature="e#9028#9029#0" expanded="true" />
+                <element signature="e#9095#9096#0" expanded="true" />
+                <element signature="e#9140#9141#0" expanded="true" />
+                <element signature="e#9203#9204#0" expanded="true" />
+                <element signature="e#9245#9246#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -291,6 +286,12 @@
       <find>drawText</find>
       <find>LocationL</find>
       <find>LocationManager</find>
+      <find>Log.</find>
+      <find>paused</find>
+      <find>positionControl</find>
+      <find>positionObservable</find>
+      <find>Fo</find>
+      <find>locationBehaviorSubject</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application</dir>
@@ -2241,14 +2242,14 @@
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReSettingsDialog.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReMarkersDialog.java" />
         <option value="$PROJECT_DIR$/androidApplication/build.gradle" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/ADLocationListener.java" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/LonLatEvent.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/GITrackingStatus.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/LonLatEvent.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/control/GIPositionControl.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSLocationListener.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java" />
       </list>
     </option>
@@ -2282,7 +2283,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
@@ -2424,7 +2425,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2460,7 +2461,7 @@
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="sync.plugin.last.upgrade.timestamp" value="1532579385042" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1532680726527" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1533191444061" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -2952,13 +2953,6 @@
       <option name="presentableId" value="Default" />
       <updated>1450258278593</updated>
     </task>
-    <task id="LOCAL-00028" summary="merged Rx into Master&#10; - fixed white screen after loading bug">
-      <created>1500038292969</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1500038292969</updated>
-    </task>
     <task id="LOCAL-00029" summary="to removing listviews">
       <created>1500043428664</created>
       <option name="number" value="00029" />
@@ -3295,7 +3289,14 @@
       <option name="project" value="LOCAL" />
       <updated>1532588794321</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="2 Floable&lt;GILonLat&gt;">
+      <created>1532681200053</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1532681200054</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3311,7 +3312,7 @@
     <frame x="0" y="0" width="1914" height="1054" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32943678" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -3319,20 +3320,20 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6505376" sideWeight="0.49032614" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32837406" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3673696" sideWeight="0.47816473" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36666667" sideWeight="0.47816473" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.49806523" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30333334" sideWeight="0.50967383" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34333333" sideWeight="0.50967383" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2342246" sideWeight="0.816609" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6066667" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37111112" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27222222" sideWeight="0.66832507" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.142246" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20777778" sideWeight="0.52791595" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.52791595" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -3532,7 +3533,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
-          <line>131</line>
+          <line>128</line>
           <properties />
           <option name="timeStamp" value="256" />
         </line-breakpoint>
@@ -3562,7 +3563,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
-          <line>273</line>
+          <line>270</line>
           <properties />
           <option name="timeStamp" value="458" />
         </line-breakpoint>
@@ -3603,12 +3604,6 @@
           <option name="timeStamp" value="532" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
-          <line>684</line>
-          <properties />
-          <option name="timeStamp" value="536" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java</url>
           <line>1252</line>
           <properties />
@@ -3616,33 +3611,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
-          <line>275</line>
+          <line>272</line>
           <properties />
           <option name="timeStamp" value="539" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIEditable.java</url>
-          <line>26</line>
-          <properties />
-          <option name="timeStamp" value="551" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
-          <line>351</line>
-          <properties />
-          <option name="timeStamp" value="553" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
-          <line>358</line>
+          <line>355</line>
           <properties />
           <option name="timeStamp" value="554" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
-          <line>311</line>
-          <properties />
-          <option name="timeStamp" value="556" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java</url>
@@ -3651,19 +3628,13 @@
           <option name="timeStamp" value="561" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java</url>
-          <line>101</line>
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java</url>
+          <line>131</line>
           <properties />
-          <option name="timeStamp" value="562" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java</url>
-          <line>680</line>
-          <properties />
-          <option name="timeStamp" value="564" />
+          <option name="timeStamp" value="603" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="565" />
+      <option name="time" value="609" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="androidApplication">
@@ -3677,40 +3648,36 @@
       </configuration>
     </watches-manager>
   </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>(location.getAccuracy(</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>m_btnAutoFollow.isChecked()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>lonLatEvent.actions &amp; ~LonLatEvent.FLAG_PAUSED</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>(lonLatEvent.actions &amp; LonLatEvent.FLAG_FOLLOW) != 0</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>lonLatEvent.actions &amp; LonLatEvent.FLAG_FOLLOW</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIParserEditable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_list.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="39" lean-forward="false" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIEditable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GILocatorDrawThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="50" column="20" lean-forward="false" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIDirectionToPOIArrow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="720">
@@ -3817,7 +3784,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="24" column="17" lean-forward="false" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3884,9 +3850,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3940,7 +3903,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="19" column="17" lean-forward="false" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3948,16 +3910,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="13123" column="28" lean-forward="false" selection-start-line="13123" selection-start-column="28" selection-end-line="13123" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding>
-            <element signature="e#4005#4006#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3986,96 +3938,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/LonLatEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="44" lean-forward="false" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="1201" column="21" lean-forward="false" selection-start-line="1201" selection-start-column="21" selection-end-line="1201" selection-end-column="21" />
-          <folding>
-            <element signature="e#31124#31125#0" expanded="true" />
-            <element signature="e#31164#31165#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.1.9/890fc9ef77d78ac270f322b024c0e660a8f57ea0/rxjava-2.1.9-sources.jar!/io/reactivex/subjects/BehaviorSubject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
+        <state relative-caret-position="2745">
           <caret line="206" column="4" lean-forward="false" selection-start-line="206" selection-start-column="4" selection-end-line="206" selection-end-column="4" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="114" column="49" lean-forward="false" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#12644#13020#0" expanded="true" />
-            <element signature="e#13019#13020#0" expanded="true" />
-            <element signature="e#15868#16204#0" expanded="true" />
-            <element signature="e#16203#16204#0" expanded="true" />
-            <element signature="e#16230#16556#0" expanded="true" />
-            <element signature="e#16555#16556#0" expanded="true" />
-            <element signature="e#16690#17344#0" expanded="true" />
-            <element signature="e#17343#17344#0" expanded="true" />
-            <element signature="e#17466#17812#0" expanded="true" />
-            <element signature="e#17811#17812#0" expanded="true" />
-            <element signature="e#17838#18107#0" expanded="true" />
-            <element signature="e#18106#18107#0" expanded="true" />
-            <element signature="e#18241#18736#0" expanded="true" />
-            <element signature="e#18735#18736#0" expanded="true" />
-            <element signature="e#18859#19207#0" expanded="true" />
-            <element signature="e#19206#19207#0" expanded="true" />
-            <element signature="e#19233#19503#0" expanded="true" />
-            <element signature="e#19502#19503#0" expanded="true" />
-            <element signature="e#19637#20092#0" expanded="true" />
-            <element signature="e#20091#20092#0" expanded="true" />
-            <element signature="e#26138#27060#0" expanded="true" />
-            <element signature="e#27059#27060#0" expanded="true" />
-            <element signature="e#27660#28270#0" expanded="true" />
-            <element signature="e#28269#28270#0" expanded="true" />
-            <element signature="e#28754#29073#0" expanded="true" />
-            <element signature="e#29072#29073#0" expanded="true" />
-            <element signature="e#29582#29932#0" expanded="true" />
-            <element signature="e#29931#29932#0" expanded="true" />
-            <element signature="e#32164#32337#0" expanded="true" />
-            <element signature="e#32336#32337#0" expanded="true" />
-            <element signature="e#32809#32976#0" expanded="true" />
-            <element signature="e#32975#32976#0" expanded="true" />
-            <element signature="e#33472#33644#0" expanded="true" />
-            <element signature="e#33643#33644#0" expanded="true" />
-            <element signature="e#34117#34282#0" expanded="true" />
-            <element signature="e#34281#34282#0" expanded="true" />
-            <element signature="e#36619#37590#0" expanded="true" />
-            <element signature="e#37589#37590#0" expanded="true" />
-            <element signature="e#37636#38790#0" expanded="true" />
-            <element signature="e#38789#38790#0" expanded="true" />
-            <element signature="e#38838#39676#0" expanded="true" />
-            <element signature="e#39675#39676#0" expanded="true" />
-            <element signature="e#39721#39902#0" expanded="true" />
-            <element signature="e#39901#39902#0" expanded="true" />
-            <element signature="e#40351#40824#0" expanded="true" />
-            <element signature="e#40823#40824#0" expanded="true" />
-            <element signature="e#41984#41985#0" expanded="true" />
-            <element signature="e#42015#42016#0" expanded="true" />
-            <element signature="e#42228#42229#0" expanded="true" />
-            <element signature="e#42289#42290#0" expanded="true" />
-            <element signature="e#42447#42448#0" expanded="true" />
-            <element signature="e#42488#42489#0" expanded="true" />
-            <element signature="e#42537#42538#0" expanded="true" />
-            <element signature="e#42580#42581#0" expanded="true" />
-            <element signature="e#42610#42611#0" expanded="true" />
-            <element signature="e#42636#42637#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4083,7 +3950,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="12" column="9" lean-forward="false" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4091,7 +3957,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4099,21 +3964,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
           <caret line="9758" column="0" lean-forward="false" selection-start-line="9758" selection-start-column="0" selection-end-line="9758" selection-end-column="0" />
-          <folding>
-            <element signature="e#522688#522689#0" expanded="false" />
-            <element signature="e#522744#522745#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/control/GIPositionControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="29" column="4" lean-forward="false" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="75" />
-          <folding>
-            <element signature="e#1759#1996#0" expanded="true" />
-            <element signature="e#1995#1996#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4121,38 +3971,217 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GIEditable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-25/android.jar!/android/location/LocationManager.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="51" column="38" lean-forward="false" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.1.9/890fc9ef77d78ac270f322b024c0e660a8f57ea0/rxjava-2.1.9-sources.jar!/io/reactivex/subjects/PublishSubject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="222" column="16" lean-forward="false" selection-start-line="222" selection-start-column="16" selection-end-line="222" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9885">
+          <caret line="746" column="17" lean-forward="false" selection-start-line="746" selection-start-column="17" selection-end-line="746" selection-end-column="17" />
+          <folding>
+            <element signature="e#31124#31125#0" expanded="true" />
+            <element signature="e#31164#31165#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/models/LonLatEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/interactors/LoadProjectInteractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="762">
+          <caret line="98" column="19" lean-forward="true" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
+          <folding>
+            <element signature="e#2645#3261#0" expanded="false" />
+            <element signature="e#3260#3261#0" expanded="false" />
+            <element signature="e#3589#3854#0" expanded="false" />
+            <element signature="e#3853#3854#0" expanded="false" />
+            <element signature="e#3856#4024#0" expanded="false" />
+            <element signature="e#4023#4024#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-25/android.jar!/android/view/ViewGroup.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="436" column="19" lean-forward="false" selection-start-line="436" selection-start-column="19" selection-end-line="436" selection-end-column="19" />
+          <folding>
+            <element signature="e#13167#13168#0" expanded="true" />
+            <element signature="e#13218#13219#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/control/GIPositionControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSLocationListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+        <state relative-caret-position="418">
+          <caret line="116" column="88" lean-forward="false" selection-start-line="116" selection-start-column="88" selection-end-line="116" selection-end-column="141" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4213#4214#0" expanded="true" />
-            <element signature="e#4259#4260#0" expanded="true" />
-            <element signature="e#4796#4797#0" expanded="true" />
-            <element signature="e#4826#4827#0" expanded="true" />
+            <element signature="e#3439#3745#0" expanded="true" />
+            <element signature="e#3744#3745#0" expanded="true" />
+            <element signature="e#3771#4024#0" expanded="true" />
+            <element signature="e#4023#4024#0" expanded="true" />
+            <element signature="e#4153#4464#0" expanded="true" />
+            <element signature="e#4463#4464#0" expanded="true" />
+            <element signature="e#4490#4741#0" expanded="true" />
+            <element signature="e#4740#4741#0" expanded="true" />
+            <element signature="e#4942#5357#0" expanded="true" />
+            <element signature="e#5356#5357#0" expanded="true" />
+            <element signature="e#5383#5693#0" expanded="true" />
+            <element signature="e#5692#5693#0" expanded="true" />
+            <element signature="e#5747#5748#0" expanded="true" />
+            <element signature="e#5793#5794#0" expanded="true" />
+            <element signature="e#5861#5862#0" expanded="true" />
+            <element signature="e#5905#5906#0" expanded="true" />
+            <element signature="e#5957#5958#0" expanded="true" />
+            <element signature="e#5986#5987#0" expanded="true" />
+            <element signature="e#6044#6045#0" expanded="true" />
+            <element signature="e#6081#6082#0" expanded="true" />
+            <element signature="e#6137#6138#0" expanded="true" />
+            <element signature="e#6172#6173#0" expanded="true" />
+            <element signature="e#6234#6235#0" expanded="true" />
+            <element signature="e#6275#6276#0" expanded="true" />
+            <element signature="e#6332#6333#0" expanded="true" />
+            <element signature="e#6368#6369#0" expanded="true" />
+            <element signature="e#8123#8124#0" expanded="true" />
+            <element signature="e#8163#8164#0" expanded="true" />
+            <element signature="e#8222#8223#0" expanded="true" />
+            <element signature="e#8260#8261#0" expanded="true" />
+            <element signature="e#8320#8321#0" expanded="true" />
+            <element signature="e#8359#8360#0" expanded="true" />
+            <element signature="e#8415#8416#0" expanded="true" />
+            <element signature="e#8461#8462#0" expanded="true" />
+            <element signature="e#8998#8999#0" expanded="true" />
+            <element signature="e#9028#9029#0" expanded="true" />
+            <element signature="e#9095#9096#0" expanded="true" />
+            <element signature="e#9140#9141#0" expanded="true" />
+            <element signature="e#9203#9204#0" expanded="true" />
+            <element signature="e#9245#9246#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="933" column="27" lean-forward="false" selection-start-line="933" selection-start-column="19" selection-end-line="933" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#12452#12828#0" expanded="true" />
+            <element signature="e#12827#12828#0" expanded="true" />
+            <element signature="e#15861#16339#0" expanded="true" />
+            <element signature="e#16338#16339#0" expanded="true" />
+            <element signature="e#16602#17319#0" expanded="true" />
+            <element signature="e#17318#17319#0" expanded="true" />
+            <element signature="e#22103#22398#0" expanded="true" />
+            <element signature="e#22397#22398#0" expanded="true" />
+            <element signature="e#22998#23652#0" expanded="true" />
+            <element signature="e#23651#23652#0" expanded="true" />
+            <element signature="e#24136#24455#0" expanded="true" />
+            <element signature="e#24454#24455#0" expanded="true" />
+            <element signature="e#24964#25314#0" expanded="true" />
+            <element signature="e#25313#25314#0" expanded="true" />
+            <element signature="e#27546#27719#0" expanded="true" />
+            <element signature="e#27718#27719#0" expanded="true" />
+            <element signature="e#28191#28358#0" expanded="true" />
+            <element signature="e#28357#28358#0" expanded="true" />
+            <element signature="e#28854#29026#0" expanded="true" />
+            <element signature="e#29025#29026#0" expanded="true" />
+            <element signature="e#29499#29664#0" expanded="true" />
+            <element signature="e#29663#29664#0" expanded="true" />
+            <element signature="e#32001#32972#0" expanded="true" />
+            <element signature="e#32971#32972#0" expanded="true" />
+            <element signature="e#33018#34172#0" expanded="true" />
+            <element signature="e#34171#34172#0" expanded="true" />
+            <element signature="e#34220#35058#0" expanded="true" />
+            <element signature="e#35057#35058#0" expanded="true" />
+            <element signature="e#35103#35284#0" expanded="true" />
+            <element signature="e#35283#35284#0" expanded="true" />
+            <element signature="e#35733#36206#0" expanded="true" />
+            <element signature="e#36205#36206#0" expanded="true" />
+            <element signature="e#37365#37366#0" expanded="true" />
+            <element signature="e#37396#37397#0" expanded="true" />
+            <element signature="e#37609#37610#0" expanded="true" />
+            <element signature="e#37670#37671#0" expanded="true" />
+            <element signature="e#37732#37733#0" expanded="true" />
+            <element signature="e#37773#37774#0" expanded="true" />
+            <element signature="e#37822#37823#0" expanded="true" />
+            <element signature="e#37887#37888#0" expanded="true" />
+            <element signature="e#37917#37918#0" expanded="true" />
+            <element signature="e#37943#37944#0" expanded="true" />
+            <element signature="e#39457#39458#0" expanded="true" />
+            <element signature="e#39510#39511#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="67" column="2" lean-forward="true" selection-start-line="67" selection-start-column="2" selection-end-line="67" selection-end-column="2" />
+        <state relative-caret-position="-3699">
+          <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4573#4936#0" expanded="true" />
-            <element signature="e#4935#4936#0" expanded="true" />
-            <element signature="e#5124#5635#0" expanded="true" />
-            <element signature="e#5634#5635#0" expanded="true" />
-            <element signature="e#5733#5876#0" expanded="true" />
-            <element signature="e#5875#5876#0" expanded="true" />
-            <element signature="e#6028#6759#0" expanded="true" />
-            <element signature="e#6758#6759#0" expanded="true" />
+            <element signature="e#2727#3029#0" expanded="true" />
+            <element signature="e#3028#3029#0" expanded="true" />
+            <element signature="e#3055#3332#0" expanded="true" />
+            <element signature="e#3331#3332#0" expanded="true" />
+            <element signature="e#3355#3633#0" expanded="true" />
+            <element signature="e#3632#3633#0" expanded="true" />
+            <element signature="e#3732#4099#0" expanded="true" />
+            <element signature="e#4098#4099#0" expanded="true" />
+            <element signature="e#4377#5054#0" expanded="true" />
+            <element signature="e#5053#5054#0" expanded="true" />
+            <element signature="e#5080#5357#0" expanded="true" />
+            <element signature="e#5356#5357#0" expanded="true" />
+            <element signature="e#5380#5658#0" expanded="true" />
+            <element signature="e#5657#5658#0" expanded="true" />
+            <element signature="e#5756#5882#0" expanded="true" />
+            <element signature="e#5881#5882#0" expanded="true" />
+            <element signature="e#6075#6421#0" expanded="true" />
+            <element signature="e#6420#6421#0" expanded="true" />
+            <element signature="e#6455#6774#0" expanded="true" />
+            <element signature="e#6773#6774#0" expanded="true" />
+            <element signature="e#6805#7127#0" expanded="true" />
+            <element signature="e#7126#7127#0" expanded="true" />
           </folding>
         </state>
       </provider>

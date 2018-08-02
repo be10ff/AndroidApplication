@@ -46,7 +46,7 @@ public class GIPositionControl extends View implements GIControl {
         setMap(map);
         matrix = new Matrix();
 
-        subscription.add(((Geoinfo) context).locationListener.getLonLat()
+        subscription.add(((Geoinfo) context).getPositionObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<LonLatEvent>() {

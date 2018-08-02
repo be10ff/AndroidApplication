@@ -3,6 +3,8 @@ package ru.tcgeo.application;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.location.GpsStatus;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -30,11 +32,11 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 import ru.tcgeo.application.control.GIControlFloating;
 import ru.tcgeo.application.control.GIGeometryPointControl;
 import ru.tcgeo.application.control.GIPositionControl;
@@ -76,7 +78,7 @@ import ru.tcgeo.application.wkt.GI_WktPoint;
 
 public class Geoinfo extends FragmentActivity
         implements MapView,
-        FloatingActionButtonsCallback/*, LocationCallback*/ {
+        FloatingActionButtonsCallback {
     final static public String locator_view_tag = "LOCATOR_TAG";
 
     static {
@@ -94,6 +96,7 @@ public class Geoinfo extends FragmentActivity
     public FloatingActionButton fbEditButton;
     public boolean toAutoFollow = false;
     public boolean toShowTargetDirection = false;
+    protected CompositeDisposable subscription = new CompositeDisposable();
     @BindView(R.id.root)
     RelativeLayout root;
     @BindView(R.id.map)
@@ -111,13 +114,8 @@ public class Geoinfo extends FragmentActivity
     GIPositionControl positionControl;
     private GIEditingStatus m_Status = GIEditingStatus.STOPPED;
     private GITrackingStatus m_TrackingStatus = GITrackingStatus.STOP;
-    //    private LocationManager locationManager;
-    public GIGPSLocationListener locationListener;
+    private GIGPSLocationListener locationListener;
     private boolean isPaused = false;
-    protected CompositeDisposable subscription = new CompositeDisposable();
-    private PublishSubject<Integer> pausedSubject = PublishSubject.create();
-    private PublishSubject<Integer> trackSubject = PublishSubject.create();
-    private PublishSubject<Integer> followSubject = PublishSubject.create();
 
     public void MarkersDialogClicked() {
         View v = root.findViewById(R.id.direction_to_point_arrow);
@@ -362,63 +360,27 @@ public class Geoinfo extends FragmentActivity
         map.InitBounds(temp.Reprojected(GIProjection.WorldMercator()));
     }
 
+    public Observable<LonLatEvent> getPositionObservable() {
+        if (locationListener != null) {
+            return locationListener.getPositionObservable();
+        } else {
+            return Observable.empty();
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        //getWindow().addFlags(LayoutParams.FLAG_FULLSCREEN);
-        // ?????
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.main);
         ButterKnife.bind(this);
 
-        locationListener = new GIGPSLocationListener(this/*, this*/);
+        locationListener = new GIGPSLocationListener(this);
 
-//        Observable<LonLatEvent> events
-//                =
-        subscription.add(Observable.combineLatest(locationListener.getLonLat(), pausedSubject.hide(),
-                new BiFunction<LonLatEvent, Integer, LonLatEvent>() {
-                    @Override
-                    public LonLatEvent apply(LonLatEvent giLonLat, Integer paused) {
-                        giLonLat.actions = giLonLat.actions | paused;
-                        return giLonLat;
-                    }
-                })
-                .filter(new Predicate<LonLatEvent>() {
-                    @Override
-                    public boolean test(LonLatEvent lonLatEvent) {
-                        return (lonLatEvent.actions & LonLatEvent.FLAG_FOLLOW) != 0 && (lonLatEvent.actions & ~LonLatEvent.FLAG_PAUSED) != 0;
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<LonLatEvent>() {
-                    @Override
-                    public void accept(LonLatEvent lonLatEvent) {
-                        GILonLat mercator = GIProjection.ReprojectLonLat(lonLatEvent.lonlat, GIProjection.WGS84(), getMap().Projection());
-                        Point new_center = getMap().MapToScreen(mercator);
-                        double distance = Math.hypot(new_center.y - getMap().Height() / 2, new_center.x - getMap().Width() / 2);
-                        if (distance > 20) {
-                            getMap().SetCenter(mercator);
-                        }
-                    }
-                }));
-
-        subscription.add(Observable.combineLatest(locationListener.getLonLat(), trackSubject.hide(),
-                new BiFunction<LonLatEvent, Integer, LonLatEvent>() {
-                    @Override
-                    public LonLatEvent apply(LonLatEvent lonLatEvent, Integer track) {
-                        lonLatEvent.actions = lonLatEvent.actions | track;
-                        return lonLatEvent;
-                    }
-                })
-                .filter(new Predicate<LonLatEvent>() {
-                    @Override
-                    public boolean test(LonLatEvent lonLatEvent) {
-                        return (lonLatEvent.actions & LonLatEvent.FLAG_TRACK) != 0;
-                    }
-                })
+        //writing track
+        subscription.add(locationListener.getTrackObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<LonLatEvent>() {
@@ -432,65 +394,27 @@ public class Geoinfo extends FragmentActivity
                     }
                 }));
 
-        subscription.add(Observable.combineLatest(locationListener.getLonLat(), followSubject.hide(),
-                new BiFunction<LonLatEvent, Integer, LonLatEvent>() {
-                    @Override
-                    public LonLatEvent apply(LonLatEvent lonLatEvent, Integer follow) {
-                        lonLatEvent.actions = lonLatEvent.actions | follow;
-                        return lonLatEvent;
-                    }
-                })
-                .filter(new Predicate<LonLatEvent>() {
-                    @Override
-                    public boolean test(LonLatEvent lonLatEvent) {
-                        return (lonLatEvent.actions & LonLatEvent.FLAG_FOLLOW) != 0;
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<LonLatEvent>() {
-                    @Override
-                    public void accept(LonLatEvent lonLatEvent) {
-//                        GILonLat go_to = GILonLat.fromLocation(location);
-                        GILonLat go_to_map = GIProjection.ReprojectLonLat(lonLatEvent.lonlat, GIProjection.WGS84(), GIProjection.WorldMercator());
-                        map.SetCenter(go_to_map);
-                    }
-                }));
+        //autofollow
+        subscription.add(
+                locationListener.getFollowObservable()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<LonLatEvent>() {
+                            @Override
+                            public void accept(LonLatEvent lonLatEvent) {
+                                GILonLat mercator = GIProjection.ReprojectLonLat(lonLatEvent.lonlat, GIProjection.WGS84(), getMap().Projection());
+                                Point new_center = getMap().MapToScreen(mercator);
+                                double distance = Math.hypot(new_center.y - getMap().Height() / 2, new_center.x - getMap().Width() / 2);
+                                if (distance > 20) {
+                                    getMap().SetCenter(mercator);
+                                }
+                            }
+                        }));
 
-        /**/
-//        GILonLat deg = null;
-//        float accurancy = 100;
-//
-//        if (location == null) {
-//            deg = GIProjection.ReprojectLonLat(getMap().Center(), getMap().Projection(), GIProjection.WGS84());
-//        } else {
-//            deg = new GILonLat(location.getLongitude(), location.getLatitude());
-//            accurancy = location.getAccuracy();
-//        }
-//
-//        if (!isPaused && toAutoFollow) {
-//            GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), getMap().Projection());
-//            Point new_center = getMap().MapToScreen(mercator);
-//            double distance = Math.hypot(new_center.y - getMap().Height() / 2, new_center.x - getMap().Width() / 2);
-//            //TODO uncomment
-//            if (distance > 20) {
-//                getMap().SetCenter(mercator);
-//            }
-//        }
-
-//        if (getTrackingStatus() == GITrackingStatus.WRITE) {
-//            if (getMap().getTrackLayer() != null) {
-//                GI_WktPoint point = new GI_WktPoint();
-//                point.Set(deg);
-//                getMap().AddPointToTrack(deg, accurancy);
-//            }
-//        }
-        /**/
-//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         m_Status = GIEditingStatus.STOPPED;
         m_TrackingStatus = GITrackingStatus.STOP;
-        trackSubject.onNext(0);
+        locationListener.getTrackSubject().onNext(0);
 
         setupButtons();
 
@@ -510,6 +434,7 @@ public class Geoinfo extends FragmentActivity
 
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -520,8 +445,8 @@ public class Geoinfo extends FragmentActivity
     protected void onResume() {
         super.onResume();
         isPaused = false;
-        pausedSubject.onNext(0);
-        followSubject.onNext(0);
+        locationListener.getRunningSubject().onNext(LonLatEvent.FLAG_RUNNING);
+        locationListener.getFollowSubject().onNext(0);
         GISensors.Instance(this).run(true);
 
     }
@@ -532,8 +457,8 @@ public class Geoinfo extends FragmentActivity
         super.onPause();
         getMap().StopEditing();
         isPaused = true;
-        pausedSubject.onNext(LonLatEvent.FLAG_PAUSED);
-        followSubject.onNext(0);
+        locationListener.getRunningSubject().onNext(0);
+        locationListener.getFollowSubject().onNext(0);
         GISensors.Instance(this).run(false);
         onSaveProject();
     }
@@ -599,8 +524,6 @@ public class Geoinfo extends FragmentActivity
         itemBuilder.setLayoutParams(action_params);
 
 
-//        fbGPS.SetGPSEnabledStatus(locationListener.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-
         //-------------------------------------------------------------------
         // GPS AUTO_FOLL0W
         //--------------------------------------------------------------------
@@ -608,23 +531,12 @@ public class Geoinfo extends FragmentActivity
         m_btnAutoFollow.setButtonDrawable(R.drawable.auto_follow_status_);
         SubActionButton fbAutoFollow = itemBuilder.setContentView(m_btnAutoFollow).build();
         m_btnAutoFollow.setChecked(toAutoFollow);
-        followSubject.onNext(0);
+        locationListener.getFollowSubject().onNext(0);
         m_btnAutoFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toAutoFollow = m_btnAutoFollow.isChecked();
-                followSubject.onNext(m_btnAutoFollow.isChecked() ? LonLatEvent.FLAG_FOLLOW : 0);
-
-//                if (m_btnAutoFollow.isChecked()) {
-//                    locationListener.getLonLat().replay(1)
-//                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//                    if (location != null) {
-//                        GILonLat go_to = GILonLat.fromLocation(location);
-//                        GILonLat go_to_map = GIProjection.ReprojectLonLat(go_to, GIProjection.WGS84(), GIProjection.WorldMercator());
-//                        map.SetCenter(go_to_map);
-//                    }
-//                }
-//                GIEditLayersKeeper.Instance().GetPositionControl();
+                locationListener.getFollowSubject().onNext(m_btnAutoFollow.isChecked() ? LonLatEvent.FLAG_FOLLOW : 0);
             }
         });
 
@@ -642,12 +554,12 @@ public class Geoinfo extends FragmentActivity
                 if (m_TrackingStatus == GITrackingStatus.STOP) {
                     if (!map.CreateTrack()) {
                         m_TrackingStatus = GITrackingStatus.STOP;
-                        trackSubject.onNext(0);
+                        locationListener.getTrackSubject().onNext(0);
                         m_btnTrackControl.setChecked(false);
                     }
                 } else {
                     m_TrackingStatus = GITrackingStatus.STOP;
-                    trackSubject.onNext(0);
+                    locationListener.getTrackSubject().onNext(0);
                     map.StopTrack();
                 }
             }
@@ -939,9 +851,8 @@ public class Geoinfo extends FragmentActivity
                 .setStartAngle(180)
                 .setEndAngle(270)
                 .build();
-
-
     }
+
 
     public GIEditingStatus getState() {
         return m_Status;
@@ -959,16 +870,12 @@ public class Geoinfo extends FragmentActivity
         return !(m_Status == GIEditingStatus.STOPPED);
     }
 
-//    public GITrackingStatus getTrackingStatus() {
-//        return m_TrackingStatus;
-//    }
-
     public void setTrackingStatus(GITrackingStatus status) {
         m_TrackingStatus = status;
     }
 
     public void setTrackingStatus(int status) {
-        trackSubject.onNext(status);
+        locationListener.getTrackSubject().onNext(status);
     }
 
 
@@ -986,41 +893,8 @@ public class Geoinfo extends FragmentActivity
         return m_marker_point;
     }
 
-//    @Override
-//    public void onLocationChanged(Location location) {
-//        GILonLat deg = null;
-//        float accurancy = 100;
-//
-//        if (location == null) {
-//            deg = GIProjection.ReprojectLonLat(getMap().Center(), getMap().Projection(), GIProjection.WGS84());
-//        } else {
-//            deg = new GILonLat(location.getLongitude(), location.getLatitude());
-//            accurancy = location.getAccuracy();
-//        }
-//
-//        if (!isPaused && toAutoFollow) {
-//            GILonLat mercator = GIProjection.ReprojectLonLat(deg, GIProjection.WGS84(), getMap().Projection());
-//            Point new_center = getMap().MapToScreen(mercator);
-//            double distance = Math.hypot(new_center.y - getMap().Height() / 2, new_center.x - getMap().Width() / 2);
-//            //TODO uncomment
-//            if (distance > 20) {
-//                getMap().SetCenter(mercator);
-//            }
-//        }
-//
-//        if (getTrackingStatus() == GITrackingStatus.WRITE) {
-//            if (getMap().getTrackLayer() != null) {
-//                GI_WktPoint point = new GI_WktPoint();
-//                point.Set(deg);
-//                getMap().AddPointToTrack(deg, accurancy);
-//            }
-//        }
-//
-//    }
 
     public void onSelectPoint(GIGeometryPointControl control) {
-        //m_CurrentTarget = control.m_WKTPoint;
-        //GIDirectionToPOIArrow arrow = new GIDirectionToPOIArrow(m_CurrentTarget);
 
         if (getMap().getCurrentEditingControl() == null) {
             return;
@@ -1038,5 +912,29 @@ public class Geoinfo extends FragmentActivity
         } else {
             setState(GIEditingStatus.EDITING_GEOMETRY);
         }
+    }
+
+    public BehaviorSubject<Boolean> getEnabledBehaviorSubject() {
+        return locationListener.getEnabledBehaviorSubject();
+    }
+
+    public BehaviorSubject<GpsStatus> getStatusBehaviorSubject() {
+        return locationListener.getStatusBehaviorSubject();
+    }
+
+    public BehaviorSubject<String> getNmeaBehaviorSubject() {
+        return locationListener.getNmeaBehaviorSubject();
+    }
+
+    public BehaviorSubject<Location> getLocationBehaviorSubject() {
+        return locationListener.getLocationBehaviorSubject();
+    }
+
+    public Subject<Location> getLocation() {
+        return locationListener.getLocation();
+    }
+
+    public PublishSubject<Integer> getRunnigSubject() {
+        return locationListener.getRunningSubject();
     }
 }

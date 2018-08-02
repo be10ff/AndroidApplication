@@ -657,19 +657,6 @@ public class LoadProjectInteractor {
 //                        }
 //                    }
                     subscriber.onNext(new Layer(layer, current_layer.m_range, current_layer.m_enabled));
-//
-//                    //todo remove with EditLayersKeeper
-//                    GIEditableLayer l = (GIEditableLayer) layer;
-//                    if (l != null && l.m_layer_properties.editable != null
-//                            && l.m_layer_properties.editable.enumType != GILayer.EditableType.TRACK) {
-//                        l.setType(l.m_layer_properties.editable.enumType);
-//                        if (l.m_Type == GILayer.EditableType.TRACK && l.m_layer_properties.editable.active) {
-//                            GIEditLayersKeeper.Instance().trackLayer = l;
-//                        } else if (l.m_Type == GILayer.EditableType.POI && l.m_layer_properties.editable.active) {
-//                            GIEditLayersKeeper.Instance().poiLayer = l;
-//                        }
-//                        GIEditLayersKeeper.Instance().AddEditableLayer(l);
-//                    }
                 }
 
                 else {

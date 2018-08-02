@@ -6,6 +6,7 @@ import android.location.GpsSatellite;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.util.AttributeSet;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,11 +18,15 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function3;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Function4;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.models.LonLatEvent;
 
 public class GIGPSButtonView extends RelativeLayout 
 {
@@ -36,71 +41,7 @@ public class GIGPSButtonView extends RelativeLayout
 	private boolean blink;
 	protected CompositeDisposable subscription = new CompositeDisposable();
 
-	GIGPSLocationListener locationListener;
-
-//	private LocationListener locationListener = new LocationListener() {
-//
-//		public void onLocationChanged(Location location) {
-//			accurancy = location.getAccuracy();
-//			m_textViewAccurancy.setText(String.format("±%02d m", (int) accurancy));
-//			blink = !blink;
-//			if (blink) {
-//				m_textViewAccurancy.setTextColor(Color.argb(255, 63, 255, 63));
-//			} else {
-//				m_textViewAccurancy.setTextColor(Color.argb(255, 191, 63, 0));
-//			}
-//
-//			speed = (int) Math.round(3.6 * location.getSpeed());
-//			if (speed < 10) {
-//				speed = 0;
-//				tvSpeed.setVisibility(INVISIBLE);
-//			} else {
-//				tvSpeed.setVisibility(VISIBLE);
-//				tvSpeed.setText(/*String.format("%03d", speed)*/String.valueOf(speed));
-//			}
-//		}
-//
-//
-//		public void onProviderDisabled(String provider) {
-//			SetGPSEnabledStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-//		}
-//
-//
-//		public void onProviderEnabled(String provider) {
-//			SetGPSEnabledStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-//		}
-//
-//
-//		public void onStatusChanged(String provider, int s, Bundle extras) {
-//		}
-//
-//	};
-
-
-//	private GpsStatus.Listener lGPS = new GpsStatus.Listener() {
-//		public void onGpsStatusChanged(int event) {
-//			if (event == GpsStatus.GPS_EVENT_SATELLITE_STATUS) {
-//				GpsStatus status = locationManager.getGpsStatus(null);
-//				countSatellite = 0;
-//				Iterable<GpsSatellite> sats = status.getSatellites();
-//				for (GpsSatellite sat : sats) {
-//					countSatellite++;
-//				}
-//			}
-//		}
-//	};
-//	private NmeaListener lNmea = new NmeaListener() {
-//
-//		public void onNmeaReceived(long timestamp, String nmea) {
-//
-//			if (accurancy < 15 || countSatellite > 5) {
-//				ShowGPSStatus(1);
-//			} else {
-//				int[] res = ParseNmea(nmea);
-//				ShowGPSStatus(res[1]);
-//			}
-//		}
-//	};
+    Geoinfo activity;
 
 	public GIGPSButtonView(Context context, AttributeSet attrs, int defStyle)
 	{
@@ -130,27 +71,53 @@ public class GIGPSButtonView extends RelativeLayout
 		m_textViewAccurancy.setText("-- m");
 		tvSpeed.setVisibility(INVISIBLE);
 		blink = false;
+        activity = (Geoinfo) context;
+        subscription.add(
+                Observable.combineLatest(
+                        activity.getEnabledBehaviorSubject(),
+                        activity.getRunnigSubject(),
+                        new BiFunction<Boolean, Integer, Pair<Boolean, Integer>>() {
+                            @Override
+                            public Pair<Boolean, Integer> apply(Boolean aBoolean, Integer integer) {
+                                return new Pair<>(aBoolean, integer);
+                            }
+                        })
+                        .filter(new Predicate<Pair<Boolean, Integer>>() {
+                            @Override
+                            public boolean test(Pair<Boolean, Integer> pair) {
+                                return (pair.second & LonLatEvent.FLAG_RUNNING) != 0;
+                            }
+                        })
+                        .map(new Function<Pair<Boolean, Integer>, Boolean>() {
+                            @Override
+                            public Boolean apply(Pair<Boolean, Integer> integerIntegerPair) {
+                                return integerIntegerPair.first;
+                            }
+                        })
 
-		locationListener = ((Geoinfo) context).locationListener;
-		subscription.add(locationListener.enabledBehaviorSubject
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new Consumer<Boolean>() {
-					@Override
-					public void accept(Boolean enabeled) {
-						if (enabeled) {
-							ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_out_of_service));
-						} else {
-							ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_disabeled));
-							m_textViewAccurancy.setText("-- m");
-						}
-					}
-				}));
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<Boolean>() {
+                            @Override
+                            public void accept(Boolean enabeled) {
+                                if (enabeled) {
+                                    ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_out_of_service));
+                                } else {
+                                    ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_disabeled));
+                                    m_textViewAccurancy.setText("-- m");
+                                }
+                            }
+                        }));
 
-		subscription.add(Observable.combineLatest(locationListener.statusBehaviorSubject.hide(), locationListener.nmeaBehaviorSubject.hide(), locationListener.locationBehaviorSubject
-				, new Function3<GpsStatus, String, Location, Integer>() {
-					@Override
-					public Integer apply(GpsStatus gpsStatus, String nmea, Location location) {
+        subscription.add(
+                Observable.combineLatest(
+                        activity.getStatusBehaviorSubject().hide(),
+                        activity.getNmeaBehaviorSubject().hide(),
+                        activity.getLocationBehaviorSubject(),
+                        activity.getRunnigSubject()
+                        , new Function4<GpsStatus, String, Location, Integer, Pair<Integer, Integer>>() {
+                            @Override
+                            public Pair<Integer, Integer> apply(GpsStatus gpsStatus, String nmea, Location location, Integer running) {
 						int countSatellite = 0;
 						Iterable<GpsSatellite> sats = gpsStatus.getSatellites();
 						for (GpsSatellite sat : sats) {
@@ -158,13 +125,25 @@ public class GIGPSButtonView extends RelativeLayout
 						}
 
 						if (location.getAccuracy() < 15 || countSatellite > 5) {
-							return 1;
+                            return new Pair<Integer, Integer>(1, running);
 						} else {
 							int[] res = ParseNmea(nmea);
-							return (res[1]);
-						}
-					}
-				})
+                            return new Pair<Integer, Integer>(res[1], running);
+                        }
+                            }
+                        })
+                        .filter(new Predicate<Pair<Integer, Integer>>() {
+                            @Override
+                            public boolean test(Pair<Integer, Integer> pair) {
+                                return (pair.second & LonLatEvent.FLAG_RUNNING) != 0;
+                            }
+                        })
+                        .map(new Function<Pair<Integer, Integer>, Integer>() {
+                            @Override
+                            public Integer apply(Pair<Integer, Integer> integerIntegerPair) {
+                                return integerIntegerPair.first;
+                            }
+                        })
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Consumer<Integer>() {
@@ -175,7 +154,29 @@ public class GIGPSButtonView extends RelativeLayout
 				}));
 
 
-		subscription.add(locationListener.getLocation()
+        subscription.add(
+                Observable.combineLatest(
+                        activity.getLocation(),
+                        activity.getRunnigSubject(),
+                        new BiFunction<Location, Integer, Pair<Location, Integer>>() {
+                            @Override
+                            public Pair<Location, Integer> apply(Location aBoolean, Integer integer) {
+                                return new Pair<>(aBoolean, integer);
+                            }
+                        })
+                        .filter(new Predicate<Pair<Location, Integer>>() {
+                            @Override
+                            public boolean test(Pair<Location, Integer> pair) {
+                                return (pair.second & LonLatEvent.FLAG_RUNNING) != 0;
+                            }
+                        })
+                        .map(new Function<Pair<Location, Integer>, Location>() {
+                            @Override
+                            public Location apply(Pair<Location, Integer> integerIntegerPair) {
+                                return integerIntegerPair.first;
+                            }
+                        })
+
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Consumer<Location>() {
@@ -203,9 +204,13 @@ public class GIGPSButtonView extends RelativeLayout
 		);
 	}
 
+    @Override
+    protected void onDetachedFromWindow() {
+        subscription.dispose();
+        super.onDetachedFromWindow();
+    }
 
-
-	public void SetGPSEnabledStatus(boolean enabeled)
+    public void SetGPSEnabledStatus(boolean enabeled)
 	{
 		if(enabeled)
 		{
