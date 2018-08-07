@@ -18,9 +18,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.gilib.gps.GIGPSLocationListener;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.LonLatEvent;
@@ -33,11 +33,12 @@ public class GIPositionControl extends View implements GIControl {
     Matrix matrix;
     Point current_pos_on_screen;
     private GIMap m_map;
+    private GIGPSLocationListener locationListener;
     private RelativeLayout m_root;
     private GILonLat m_CurrentPosition;
     private GILonLat m_OriginPosition;
 
-    public GIPositionControl(Context context, GIMap map) {
+    public GIPositionControl(Context context, GIMap map, GIGPSLocationListener locationListener) {
         super(context);
         m_root = (RelativeLayout) map.getParent();
         m_root.addView(this);
@@ -46,7 +47,8 @@ public class GIPositionControl extends View implements GIControl {
         setMap(map);
         matrix = new Matrix();
 
-        subscription.add(((Geoinfo) context).getPositionObservable()
+        this.locationListener = locationListener;
+        subscription.add(locationListener.getPositionObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<LonLatEvent>() {

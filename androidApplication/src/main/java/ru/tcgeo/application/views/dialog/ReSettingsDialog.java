@@ -118,10 +118,16 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                         GILayer tuple = adapter.getItem(holder.getAdapterPosition());
                         GILayer.Builder builder = new GILayer.Builder(tuple);
                         LayerHolder h = (LayerHolder) holder;
-                        builder.sqldbMaxZ((int) h.rsbScaleRange.getSelectedMaxValue());
-                        builder.sqldbMinZ((int) h.rsbScaleRange.getSelectedMinValue());
-                        builder.rangeFrom(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMaxValue()));
-                        builder.rangeTo(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMinValue()));
+//                        builder.sqldbMaxZ((int) h.rsbScaleRange.getSelectedMaxValue());
+//                        builder.sqldbMinZ((int) h.rsbScaleRange.getSelectedMinValue());
+//                        builder.rangeFrom(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMaxValue()));
+//                        builder.rangeTo(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMinValue()));
+
+                        builder.sqldbMaxZ((int) h.rsbScaleRange.getSelectedMinValue());
+                        builder.sqldbMinZ((int) h.rsbScaleRange.getSelectedMaxValue());
+                        builder.rangeFrom(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMinValue()));
+                        builder.rangeTo(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMaxValue()));
+
                         builder.build();
                         callback.onImmediatelyChange();
                     }

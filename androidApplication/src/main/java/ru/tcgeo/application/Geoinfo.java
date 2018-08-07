@@ -18,10 +18,6 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,6 +71,10 @@ import ru.tcgeo.application.views.dialog.ReSettingsDialog;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
+//import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+//import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+//import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
 
 public class Geoinfo extends FragmentActivity
         implements MapView,
@@ -109,7 +109,7 @@ public class Geoinfo extends FragmentActivity
     View pbProgress;
     GIGPSButtonView fbGPS;
     ImageButton fbEdit;
-    FloatingActionMenu editActionMenu;
+    private FloatingActionMenu editActionMenu;
     GIControlFloating m_marker_point;
     GIPositionControl positionControl;
     private GIEditingStatus m_Status = GIEditingStatus.STOPPED;
@@ -430,7 +430,7 @@ public class Geoinfo extends FragmentActivity
         GIMap.inches_per_pixel = screenInches / screenPixels;
 
         scaleControl.setMap(map);
-        positionControl = new GIPositionControl(this, map);
+        positionControl = new GIPositionControl(this, map, locationListener);
 
     }
 
