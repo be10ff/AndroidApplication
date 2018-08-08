@@ -18,6 +18,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -1271,6 +1272,8 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 
             poiLayer.AddGeometry(point);
             StartEditingPOI(poiLayer, point);
+        } else {
+            Toast.makeText(getContext(), R.string.no_poi_layer_error, Toast.LENGTH_LONG).show();
         }
     }
 

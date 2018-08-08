@@ -68,6 +68,7 @@ import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.GIProjection;
 import ru.tcgeo.application.gilib.models.LonLatEvent;
 import ru.tcgeo.application.gilib.models.Marker;
+import ru.tcgeo.application.gilib.parser.GIEditable;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.view.FloatingActionButtonsCallback;
@@ -290,6 +291,9 @@ public class Geoinfo extends FragmentActivity
                         GILayer.Builder builder = new GILayer.Builder(layer);
                         builder.active(false);
                         builder.build();
+                        if(layer.m_layer_properties.editable == null) {
+                            layer.m_layer_properties.editable = new GIEditable();
+                        }
                         layer.m_layer_properties.editable.active = true;
                         map.setPoiLayer(layer);
                     }

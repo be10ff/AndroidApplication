@@ -66,5 +66,6 @@
     <string name="active_source">POI</string>
 
     <string name="date_format">MMM_dd</string>
+    <string name="no_poi_layer_error"> No POI layer found </string>
 
 </resources>
