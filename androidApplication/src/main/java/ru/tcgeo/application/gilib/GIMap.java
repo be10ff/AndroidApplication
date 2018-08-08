@@ -1251,30 +1251,41 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
     }
 
     public void CreatePOI() {
-        if (poiLayer != null) {
-            GI_WktPoint point = new GI_WktPoint();
-            GILonLat location = GIProjection.ReprojectLonLat(Center(), Projection(), GIProjection.WGS84());
-            point.Set(location);
-            point.m_attributes = new HashMap<String, GIDBaseField>();
-            for (String key : poiLayer.getAttributes().keySet()) {
-                point.m_attributes.put(key, new GIDBaseField(poiLayer.getAttributes().get(key)));
-            }
-            GIDBaseField field = new GIDBaseField();
-            field.m_name = "DateTime";
-            field.m_value = CommonUtils.getCurrentTime();
-            point.m_attributes.put("DateTime", field);
 
+        if (poiLayer == null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(App.Instance().dateTimeFormat, Locale.ENGLISH);
+            String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
 
-            GIDBaseField proj_field = new GIDBaseField();
-            proj_field.m_name = "Project";
-            proj_field.m_value = ps.m_name;
-            point.m_attributes.put("Project", proj_field);
+            poiLayer = GILayer.createPoiLayer(ps.m_name, date);
+            poiLayer.setType(GILayer.EditableType.TRACK);
+            poiLayer.Save();
 
-            poiLayer.AddGeometry(point);
-            StartEditingPOI(poiLayer, point);
-        } else {
+            ps.m_Group.addEntry(poiLayer.m_layer_properties);
+            AddLayer(poiLayer);
             Toast.makeText(getContext(), R.string.no_poi_layer_error, Toast.LENGTH_LONG).show();
         }
+
+        GI_WktPoint point = new GI_WktPoint();
+        GILonLat location = GIProjection.ReprojectLonLat(Center(), Projection(), GIProjection.WGS84());
+        point.Set(location);
+        point.m_attributes = new HashMap<String, GIDBaseField>();
+        for (String key : poiLayer.getAttributes().keySet()) {
+            point.m_attributes.put(key, new GIDBaseField(poiLayer.getAttributes().get(key)));
+        }
+        GIDBaseField field = new GIDBaseField();
+        field.m_name = "DateTime";
+        field.m_value = CommonUtils.getCurrentTime();
+        point.m_attributes.put("DateTime", field);
+
+
+        GIDBaseField proj_field = new GIDBaseField();
+        proj_field.m_name = "Project";
+        proj_field.m_value = ps.m_name;
+        point.m_attributes.put("Project", proj_field);
+
+        poiLayer.AddGeometry(point);
+        StartEditingPOI(poiLayer, point);
+
     }
 
     public void StopTrack() {

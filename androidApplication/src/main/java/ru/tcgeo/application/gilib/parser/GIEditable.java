@@ -12,8 +12,13 @@ public class GIEditable {
     public boolean active;
 
     public GIEditable() {
-        enumType = GILayer.EditableType.POINT;
+        enumType = GILayer.EditableType.POI;
         active = false;
+    }
+
+    public GIEditable(GILayer.EditableType enumType, boolean active) {
+        this.enumType = enumType;
+        this.active = active;
     }
 
     public String ToString() {

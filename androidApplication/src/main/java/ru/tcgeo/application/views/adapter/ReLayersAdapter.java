@@ -113,7 +113,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 //            tvScaleRange.setText(tvScaleRange.getContext().getString(R.string.scale_range_format, MapUtils.z2scale((Integer) minValue), MapUtils.z2scale((Integer)maxValue)));
 
-            h.tvScaleRange.setText(context.getString(R.string.scale_range_format, Math.round(item.m_layer_properties.m_range.m_to), Math.round(item.m_layer_properties.m_range.m_from)));
+            h.tvScaleRange.setText(context.getString(R.string.scale_range_format, Math.round(item.m_layer_properties.m_range.m_from), Math.round(item.m_layer_properties.m_range.m_to)));
 
             h.ivRemove.setOnTouchListener(new View.OnTouchListener() {
                 @Override

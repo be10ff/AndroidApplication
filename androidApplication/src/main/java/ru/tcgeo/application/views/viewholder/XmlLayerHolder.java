@@ -95,7 +95,7 @@ public class XmlLayerHolder extends LayerHolder {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.rbPoint:
-                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.POINT);
+                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.POI);
                         break;
                     case R.id.rbLine:
                         callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.LINE);
@@ -104,7 +104,7 @@ public class XmlLayerHolder extends LayerHolder {
                         callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.POLYGON);
                         break;
                     default:
-                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.POINT);
+                        callback.onEditable(XmlLayerHolder.this, GILayer.EditableType.POI);
                         break;
                 }
             }
