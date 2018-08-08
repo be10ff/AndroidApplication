@@ -17,7 +17,7 @@ public interface LayerHolderCallback {
 
     void onScaleRange(RecyclerView.ViewHolder holder);
 
-    void onRemove(RecyclerView.ViewHolder holder);
+    void onRemove(GILayer layer);
 
     void onMarkersSourceCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked);
 

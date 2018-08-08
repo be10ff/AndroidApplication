@@ -49,8 +49,8 @@
             android:id="@+id/rsbScaleRange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            rsb:absoluteMaxValue="@integer/zoom_max"
-            rsb:absoluteMinValue="@integer/zoom_min"
+            rsb:absoluteMinValue="@integer/zoom_max"
+            rsb:absoluteMaxValue="@integer/zoom_min"
             rsb:textAboveThumbsColor="@color/black_text" />
 
         <View

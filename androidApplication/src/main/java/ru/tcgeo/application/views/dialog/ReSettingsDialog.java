@@ -123,8 +123,8 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 //                        builder.rangeFrom(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMaxValue()));
 //                        builder.rangeTo(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMinValue()));
 
-                        builder.sqldbMaxZ((int) h.rsbScaleRange.getSelectedMinValue());
-                        builder.sqldbMinZ((int) h.rsbScaleRange.getSelectedMaxValue());
+                        builder.sqldbMaxZ((int) h.rsbScaleRange.getSelectedMaxValue());
+                        builder.sqldbMinZ((int) h.rsbScaleRange.getSelectedMinValue());
                         builder.rangeFrom(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMinValue()));
                         builder.rangeTo(MapUtils.z2scale((int) h.rsbScaleRange.getSelectedMaxValue()));
 
@@ -133,9 +133,9 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                     }
 
                     @Override
-                    public void onRemove(RecyclerView.ViewHolder holder) {
-                        callback.onRemoveLayer(data.get(holder.getAdapterPosition()));
-                        adapter.onItemDismiss(holder.getAdapterPosition());
+                    public void onRemove(GILayer layer) {
+                        callback.onRemoveLayer(layer);
+//                        adapter.onItemDismiss(holder.getAdapterPosition());
                     }
 
                     @Override
@@ -315,6 +315,11 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
         mItemTouchHelper.startDrag(viewHolder);
+    }
+
+    @Override
+    public void onStartSwipe(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startSwipe(viewHolder);
     }
 
     public static class Builder {

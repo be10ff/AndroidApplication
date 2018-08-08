@@ -89,7 +89,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             h.removeListeners();
             GILayer item = data.get(position);
 
-            h.ivReOrder.setOnTouchListener(new View.OnTouchListener() {
+            h.flReOrder.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
@@ -108,9 +108,10 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             } else {
                 h.ivFileExsist.setImageResource(R.drawable.project_mark_fail);
             }
-            h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.m_layer_properties.m_range.m_to));
-            h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.m_layer_properties.m_range.m_from));
+            h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.m_layer_properties.m_range.m_to));
+            h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.m_layer_properties.m_range.m_from));
 
+//            tvScaleRange.setText(tvScaleRange.getContext().getString(R.string.scale_range_format, MapUtils.z2scale((Integer) minValue), MapUtils.z2scale((Integer)maxValue)));
 
             h.tvScaleRange.setText(context.getString(R.string.scale_range_format, Math.round(item.m_layer_properties.m_range.m_to), Math.round(item.m_layer_properties.m_range.m_from)));
 
@@ -119,7 +120,7 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 public boolean onTouch(View v, MotionEvent event) {
                     if (MotionEventCompat.getActionMasked(event) ==
                             MotionEvent.ACTION_DOWN) {
-                        listener.onStartDrag(holder);
+                        listener.onStartSwipe(holder);
                     }
                     return false;
                 }
@@ -250,8 +251,10 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onItemDismiss(int position) {
+        callback.onRemove(data.get(position));
         data.remove(position);
         notifyItemRemoved(position);
+
 
     }
 

@@ -153,6 +153,7 @@ public class GIPropertiesLayer implements ILayersRoot
 		public Builder(){}
 		public Builder(GIPropertiesLayer layer){
 			this.layer = layer;
+			enabled = layer.m_enabled;
             sourceBuilder = new GISource.Builder(layer.m_source);
             styleBuilder = new GIPropertiesStyle.Builder(layer.m_style);
             rangeBuilder = new GIRange.Builder(layer.m_range);
@@ -262,6 +263,7 @@ public class GIPropertiesLayer implements ILayersRoot
             }
 
             layer.m_enabled = enabled;
+
             if (layer.m_source != null) {
                 layer.m_source = sourceBuilder.build();
             }

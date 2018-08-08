@@ -30,4 +30,6 @@ public interface OnStartDragListener {
      */
     void onStartDrag(RecyclerView.ViewHolder viewHolder);
 
+    void onStartSwipe(RecyclerView.ViewHolder viewHolder);
+
 }

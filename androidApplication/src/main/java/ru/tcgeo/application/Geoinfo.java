@@ -18,13 +18,26 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+//import butterknife.BindView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+//import io.reactivex.Observable;
+//import io.reactivex.android.schedulers.AndroidSchedulers;
+//import io.reactivex.disposables.CompositeDisposable;
+//import io.reactivex.functions.Consumer;
+//import io.reactivex.schedulers.Schedulers;
+//import io.reactivex.subjects.BehaviorSubject;
+//import io.reactivex.subjects.PublishSubject;
+//import io.reactivex.subjects.Subject;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

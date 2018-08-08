@@ -150,10 +150,10 @@ public class LayerHolder extends RecyclerView.ViewHolder {
         initListeners();
     }
 
-    @OnClick(R.id.flRemove)
-    public void onRemove() {
-        callback.onRemove(this);
-    }
+//    @OnClick(R.id.flRemove)
+//    public void onRemove() {
+//        callback.onRemove(this);
+//    }
 
     public void removeListeners() {
         cbLayerVisibility.setOnCheckedChangeListener(null);
@@ -173,7 +173,7 @@ public class LayerHolder extends RecyclerView.ViewHolder {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
 
-                tvScaleRange.setText(tvScaleRange.getContext().getString(R.string.scale_range_format, MapUtils.z2scale((Integer) minValue), maxValue));
+                tvScaleRange.setText(tvScaleRange.getContext().getString(R.string.scale_range_format, MapUtils.z2scale((Integer) minValue), MapUtils.z2scale((Integer)maxValue)));
                 callback.onScaleRange(LayerHolder.this);
             }
         });
