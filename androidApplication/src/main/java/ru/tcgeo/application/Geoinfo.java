@@ -1,11 +1,15 @@
 package ru.tcgeo.application;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.location.GpsStatus;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -15,6 +19,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
@@ -27,17 +32,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-//import butterknife.BindView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-//import io.reactivex.Observable;
-//import io.reactivex.android.schedulers.AndroidSchedulers;
-//import io.reactivex.disposables.CompositeDisposable;
-//import io.reactivex.functions.Consumer;
-//import io.reactivex.schedulers.Schedulers;
-//import io.reactivex.subjects.BehaviorSubject;
-//import io.reactivex.subjects.PublishSubject;
-//import io.reactivex.subjects.Subject;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -52,7 +48,6 @@ import ru.tcgeo.application.control.GIPositionControl;
 import ru.tcgeo.application.control.GIScaleControl;
 import ru.tcgeo.application.control.GITouchControl;
 import ru.tcgeo.application.data.GIEditingStatus;
-import ru.tcgeo.application.data.GITrackingStatus;
 import ru.tcgeo.application.data.interactors.LoadProjectInteractor;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.gps.GICompassView;
@@ -70,6 +65,7 @@ import ru.tcgeo.application.gilib.models.LonLatEvent;
 import ru.tcgeo.application.gilib.models.Marker;
 import ru.tcgeo.application.gilib.parser.GIEditable;
 import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.utils.PermissionManager;
 import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.view.FloatingActionButtonsCallback;
 import ru.tcgeo.application.view.MapView;
@@ -85,14 +81,11 @@ import ru.tcgeo.application.views.dialog.ReSettingsDialog;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
-//import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-//import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-//import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-
 
 public class Geoinfo extends FragmentActivity
         implements MapView,
         FloatingActionButtonsCallback {
+
     final static public String locator_view_tag = "LOCATOR_TAG";
 
     static {
@@ -108,7 +101,7 @@ public class Geoinfo extends FragmentActivity
     public SubActionButton fbEditAttributes;
     public SubActionButton fbEditDelete;
     public FloatingActionButton fbEditButton;
-    public boolean toAutoFollow = false;
+//    public boolean toAutoFollow = false;
     public boolean toShowTargetDirection = false;
     protected CompositeDisposable subscription = new CompositeDisposable();
     @BindView(R.id.root)
@@ -127,7 +120,6 @@ public class Geoinfo extends FragmentActivity
     GIControlFloating m_marker_point;
     GIPositionControl positionControl;
     private GIEditingStatus m_Status = GIEditingStatus.STOPPED;
-    private GITrackingStatus m_TrackingStatus = GITrackingStatus.STOP;
     private GIGPSLocationListener locationListener;
     private boolean isPaused = false;
 
@@ -394,6 +386,9 @@ public class Geoinfo extends FragmentActivity
         setContentView(R.layout.main);
         ButterKnife.bind(this);
 
+        requestRuntimePermission(PermissionManager.PERMISSION_LOCATION_CODE, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION});
+        requestRuntimePermission(PermissionManager.PERMISSION_READ_EXTERNAL_CODE, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE});
+
         locationListener = new GIGPSLocationListener(this);
 
         //writing track
@@ -430,7 +425,7 @@ public class Geoinfo extends FragmentActivity
 
 
         m_Status = GIEditingStatus.STOPPED;
-        m_TrackingStatus = GITrackingStatus.STOP;
+//        m_TrackingStatus = GITrackingStatus.STOP;
         locationListener.getTrackSubject().onNext(0);
 
         setupButtons();
@@ -547,15 +542,21 @@ public class Geoinfo extends FragmentActivity
         final CheckBox m_btnAutoFollow = new CheckBox(this);
         m_btnAutoFollow.setButtonDrawable(R.drawable.auto_follow_status_);
         SubActionButton fbAutoFollow = itemBuilder.setContentView(m_btnAutoFollow).build();
-        m_btnAutoFollow.setChecked(toAutoFollow);
+//        m_btnAutoFollow.setChecked(toAutoFollow);
         locationListener.getFollowSubject().onNext(0);
         m_btnAutoFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toAutoFollow = m_btnAutoFollow.isChecked();
+//                toAutoFollow = m_btnAutoFollow.isChecked();
                 locationListener.getFollowSubject().onNext(m_btnAutoFollow.isChecked() ? LonLatEvent.FLAG_FOLLOW : 0);
             }
         });
+        subscription.add(locationListener.getFollowSubject().subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                m_btnAutoFollow.setChecked((integer & LonLatEvent.FLAG_FOLLOW) != 0 );
+            }
+        }));
 
         //--------------------------------------------------------------------
         // GPS TRACK_CONTROL
@@ -564,23 +565,32 @@ public class Geoinfo extends FragmentActivity
         m_btnTrackControl.setTextSize(0);
         m_btnTrackControl.setButtonDrawable(R.drawable.stop_start_track_button);
         SubActionButton fbTrackControl = itemBuilder.setContentView(m_btnTrackControl).build();
-        m_btnTrackControl.setChecked(m_TrackingStatus == GITrackingStatus.WRITE);
-        m_btnTrackControl.setOnClickListener(new View.OnClickListener() {
+
+        subscription.add(locationListener.getTrackSubject().subscribe(new Consumer<Integer>() {
             @Override
-            public void onClick(View v) {
-                if (m_TrackingStatus == GITrackingStatus.STOP) {
-                    if (!map.CreateTrack()) {
-                        m_TrackingStatus = GITrackingStatus.STOP;
-                        locationListener.getTrackSubject().onNext(0);
-                        m_btnTrackControl.setChecked(false);
-                    }
+            public void accept(Integer integer) throws Exception {
+                m_btnTrackControl.setChecked((integer & LonLatEvent.FLAG_TRACK) != 0 );
+            }
+        }));
+
+        m_btnTrackControl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    map.CreateTrack();
                 } else {
-                    m_TrackingStatus = GITrackingStatus.STOP;
-                    locationListener.getTrackSubject().onNext(0);
                     map.StopTrack();
                 }
             }
         });
+        m_btnTrackControl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = m_btnTrackControl.isChecked();
+            }
+        });
+
+
 
         //--------------------------------------------------------------------
         // GPS SHOW TRACK
@@ -887,9 +897,9 @@ public class Geoinfo extends FragmentActivity
         return !(m_Status == GIEditingStatus.STOPPED);
     }
 
-    public void setTrackingStatus(GITrackingStatus status) {
-        m_TrackingStatus = status;
-    }
+//    public void setTrackingStatus(GITrackingStatus status) {
+//        m_TrackingStatus = status;
+//    }
 
     public void setTrackingStatus(int status) {
         locationListener.getTrackSubject().onNext(status);
@@ -953,5 +963,22 @@ public class Geoinfo extends FragmentActivity
 
     public PublishSubject<Integer> getRunnigSubject() {
         return locationListener.getRunningSubject();
+    }
+
+    public void requestRuntimePermission(int code, String[] permission){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            onRequestPermissionsResult(code, permission, PermissionManager.grantedResults(permission));
+        } else if(!PermissionManager.checkRuntimePermissions( this, permission)) {
+            ActivityCompat.requestPermissions(this, permission, code);
+        } else {
+            onRequestPermissionsResult(code, permission, PermissionManager.grantedResults(permission));
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
     }
 }

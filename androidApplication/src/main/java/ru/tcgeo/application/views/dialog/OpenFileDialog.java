@@ -32,7 +32,7 @@ public class OpenFileDialog extends DialogFragment implements OnItemClickListene
 	private String m_root = "/";//Environment.getExternalStorageDirectory().getAbsolutePath();
 	private TextView m_PathTextView;
 	private ListView m_ListView;
-
+//	https://stackoverflow.com/questions/40068984/universal-way-to-write-to-external-sd-card-on-android
 	public OpenFileDialog()
 	{
 	}
@@ -70,6 +70,7 @@ public class OpenFileDialog extends DialogFragment implements OnItemClickListene
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		onListItemClick((ListView)parent, parent, position, id);
 	}
+
 
     public void onListItemClick(ListView l, View v, int position, long id)
     {

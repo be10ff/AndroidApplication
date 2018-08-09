@@ -35,7 +35,6 @@ import ru.tcgeo.application.R;
 import ru.tcgeo.application.control.GIControl;
 import ru.tcgeo.application.control.GIGeometryPointControl;
 import ru.tcgeo.application.data.GIEditingStatus;
-import ru.tcgeo.application.data.GITrackingStatus;
 import ru.tcgeo.application.gilib.layer.GIEditableLayer;
 import ru.tcgeo.application.gilib.layer.GIGroupLayer;
 import ru.tcgeo.application.gilib.layer.GILayer;
@@ -1199,7 +1198,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         }
 
         if (trackLayer != null) {
-            activity.setTrackingStatus(GITrackingStatus.WRITE);
             activity.setTrackingStatus(LonLatEvent.FLAG_TRACK);
             currentTrack = new GIXMLTrack();
 
@@ -1299,6 +1297,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
             currentTrackControl.Disable();
         }
         currentTrack = null;
+        activity.setTrackingStatus(0);
         UpdateMap();
     }
 
