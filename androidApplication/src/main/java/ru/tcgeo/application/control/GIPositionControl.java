@@ -20,7 +20,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIMap;
-import ru.tcgeo.application.gilib.gps.GIGPSLocationListener;
+import ru.tcgeo.application.data.GIGPSLocationListener;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
 import ru.tcgeo.application.gilib.models.LonLatEvent;

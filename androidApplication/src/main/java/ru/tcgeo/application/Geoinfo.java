@@ -53,7 +53,7 @@ import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.gps.GICompassView;
 import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
 import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
-import ru.tcgeo.application.gilib.gps.GIGPSLocationListener;
+import ru.tcgeo.application.data.GIGPSLocationListener;
 import ru.tcgeo.application.gilib.gps.GILocatorFragment;
 import ru.tcgeo.application.gilib.gps.GISensors;
 import ru.tcgeo.application.gilib.layer.GIEditableLayer;
@@ -542,12 +542,10 @@ public class Geoinfo extends FragmentActivity
         final CheckBox m_btnAutoFollow = new CheckBox(this);
         m_btnAutoFollow.setButtonDrawable(R.drawable.auto_follow_status_);
         SubActionButton fbAutoFollow = itemBuilder.setContentView(m_btnAutoFollow).build();
-//        m_btnAutoFollow.setChecked(toAutoFollow);
         locationListener.getFollowSubject().onNext(0);
         m_btnAutoFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                toAutoFollow = m_btnAutoFollow.isChecked();
                 locationListener.getFollowSubject().onNext(m_btnAutoFollow.isChecked() ? LonLatEvent.FLAG_FOLLOW : 0);
             }
         });
@@ -612,9 +610,25 @@ public class Geoinfo extends FragmentActivity
         //--------------------------------------------------------------------
         // GPS POI CONTROL
         //--------------------------------------------------------------------
-        final ImageButton m_btnPoiControl = new ImageButton(this);
-        m_btnPoiControl.setImageResource(R.drawable.poi_status);
-        m_btnPoiControl.setBackgroundDrawable(null);
+//        final ImageButton m_btnPoiControl = new ImageButton(this);
+//        m_btnPoiControl.setImageResource(R.drawable.poi_status);
+//        m_btnPoiControl.setBackgroundDrawable(null);
+//        SubActionButton fbPoiControl = itemBuilder.setContentView(m_btnPoiControl).build();
+//        m_btnPoiControl.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (getState() != GIEditingStatus.EDITING_POI && getState() != GIEditingStatus.EDITING_GEOMETRY) {
+//                    map.CreatePOI();
+//                } else {
+//                    map.StopEditing();
+//                }
+//            }
+//        });
+
+        final CheckBox m_btnPoiControl = new CheckBox(this);
+        m_btnShowTrack.setTextSize(0);
+        m_btnPoiControl.setButtonDrawable(R.drawable.poi_status);
+//        m_btnPoiControl.setBackgroundDrawable(null);
         SubActionButton fbPoiControl = itemBuilder.setContentView(m_btnPoiControl).build();
         m_btnPoiControl.setOnClickListener(new View.OnClickListener() {
             @Override
