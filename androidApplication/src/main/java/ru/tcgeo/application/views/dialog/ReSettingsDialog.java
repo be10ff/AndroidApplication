@@ -307,6 +307,34 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
     }
 
     @Override
+    public void onAddPointsLayer(GILayer.EditableType type, String name) {
+        GILayer result = callback.onAddLayer(type, name);
+        if (result != null) {
+            adapter.addItemAt(result);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+//    @Override
+//    public void onAddPointsLayer(String name) {
+//        GILayer result = callback.onAddLayer(layer);
+//        if (result != null) {
+//            adapter.addItemAt(result);
+//            adapter.notifyDataSetChanged();
+//        }
+//    }
+
+//    @Override
+//    public void on(GILayer layer) {
+//        GILayer result = callback.onAddLayer(layer);
+//        if (result != null) {
+//            adapter.addItemAt(result);
+//            adapter.notifyDataSetChanged();
+//        }
+//    }
+
+
+    @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
         mItemTouchHelper.startDrag(viewHolder);
     }

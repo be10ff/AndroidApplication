@@ -16,6 +16,11 @@ public interface LayerCallback {
 
     GILayer onAddLayer(File file);
 
+//    GILayer onAddLayer(GILayer tuple);
+
+    GILayer onAddLayer(GILayer.EditableType type, String name);
+
+
     void onRemoveLayer(GILayer tuple);
 
     void onMoveLayer(GILayer fromPosition, GILayer toPosition);

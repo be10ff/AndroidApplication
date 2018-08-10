@@ -25,7 +25,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.gilib.layer.GILayer;
 import ru.tcgeo.application.view.IFolderItemListener;
 
 public class CreateAdditionalLayerFragment extends Fragment {
@@ -35,7 +37,17 @@ public class CreateAdditionalLayerFragment extends Fragment {
 //
 //    @BindView(R.id.filelist)
 //    ListView m_ListView;
-IFolderItemListener folderListener;
+    @OnClick(R.id.tvAddTraffic)
+    public void onAddTraffic(){
+        folderListener.OnFileClicked(new File("Yandex.traffic"));
+    }
+
+    @OnClick(R.id.tvAddPoints)
+    public void onAddPointsLayer(){
+        folderListener.onAddPointsLayer(GILayer.EditableType.POI, "POI");
+    }
+
+    IFolderItemListener folderListener;
     //	https://stackoverflow.com/questions/40068984/universal-way-to-write-to-external-sd-card-on-android
     public CreateAdditionalLayerFragment() {
 

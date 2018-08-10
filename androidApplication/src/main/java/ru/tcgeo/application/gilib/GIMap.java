@@ -332,6 +332,10 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         return result;
     }
 
+    public GILayer addLayer(GILayer.EditableType type, String name) {
+        return  createPoiLayer(name);
+    }
+
     public GILayer addSQLLayer(File file) {
         GIPropertiesLayer properties_layer = new GIPropertiesLayer();
         properties_layer.m_enabled = true;
@@ -1248,18 +1252,28 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         }
     }
 
+    public GILayer createPoiLayer(String name) {
+
+
+        if(name == null || name.isEmpty()) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(App.Instance().dateTimeFormat, Locale.ENGLISH);
+            String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
+            name = ps.m_name + "_" + date + "_poi.xml";
+        }
+
+        poiLayer = GILayer.createPoiLayer(ps.m_name, name);
+        poiLayer.setType(GILayer.EditableType.TRACK);
+        poiLayer.Save();
+
+        ps.m_Group.addEntry(poiLayer.m_layer_properties);
+        AddLayer(poiLayer);
+        return poiLayer;
+    }
+
     public void CreatePOI() {
 
         if (poiLayer == null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat(App.Instance().dateTimeFormat, Locale.ENGLISH);
-            String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
-
-            poiLayer = GILayer.createPoiLayer(ps.m_name, date);
-            poiLayer.setType(GILayer.EditableType.TRACK);
-            poiLayer.Save();
-
-            ps.m_Group.addEntry(poiLayer.m_layer_properties);
-            AddLayer(poiLayer);
+            createPoiLayer("");
             Toast.makeText(getContext(), R.string.no_poi_layer_error, Toast.LENGTH_LONG).show();
         }
 

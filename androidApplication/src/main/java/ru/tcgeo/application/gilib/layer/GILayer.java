@@ -214,63 +214,25 @@ public abstract class GILayer
 		return (GIEditableLayer) layer;
 	}
 
-	public static GIEditableLayer createPoiLayer(String projectName, String date) {
-		File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + projectName);
+	public static GIEditableLayer createPoiLayer(String relativePath, String fileName) {
+		File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + relativePath);
 		if (!dir.exists()) {
 			dir.mkdir();
 		}
-
-		File file = new File(projectName + "_" + date + "_poi.xml");
+		File file = new File(fileName);
 		GIPropertiesLayer properties_layer = new GIPropertiesLayer();
 		properties_layer.m_enabled = true;
 		properties_layer.m_name = file.getName();
 		properties_layer.m_range = new GIRange();
-		properties_layer.m_source = new GISource("absolute", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + projectName + File.separator + file.getName());
+		properties_layer.m_source = new GISource("absolute", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + relativePath + File.separator + file.getName());
 		properties_layer.m_type = GILayer.GILayerType.XML;
 		properties_layer.m_strType = "XML";
 		properties_layer.editable = new GIEditable(EditableType.POI, true);
 		GILayer layer;
-		//
-//		Paint fill = new Paint();
-//		Paint line = new Paint();
-//
-//		GIColor color_fill = new GIColor.Builder().description("fill").name("red").build();
-//		GIColor color_line = new GIColor.Builder().description("line").name("red").build();
-//
-//		line.setColor(color_line.Get());
-//		line.setStyle(Paint.Style.STROKE);
-//		line.setStrokeWidth(2);
-//
-//		fill.setColor(color_fill.Get());
-//		fill.setStrokeWidth(2);
-//		fill.setStyle(Paint.Style.FILL);
-//
+
 		GIVectorStyle vstyle = new GIVectorStyle(null, null, null, 1);
-//
 		properties_layer.m_style = new GIPropertiesStyle.Builder().build();
-//				.type("vector")
-//				.lineWidth(2)
-//				.opacity(1)
-//				.color(color_line)
-//				.color(color_fill)
-//				.build();
-
 		layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.XML, vstyle);
-//		Paint editing_fill = new Paint();
-//		editing_fill.setColor(Color.CYAN);
-//		editing_fill.setAlpha(96);
-//		editing_fill.setStyle(Paint.Style.FILL);
-//
-//		Paint editing_stroke = new Paint();
-//		editing_stroke.setColor(Color.CYAN);
-//		editing_stroke.setStrokeWidth(2);
-//		editing_fill.setAlpha(128);
-//		editing_stroke.setStyle(Paint.Style.STROKE);
-//		GIVectorStyle vstyle_editing = new GIVectorStyle(
-//				editing_stroke, editing_fill, null,
-//				1);
-//		layer.AddStyle(vstyle_editing);
-
 		layer.setName(file.getName());
 
 		layer.m_layer_properties = properties_layer;

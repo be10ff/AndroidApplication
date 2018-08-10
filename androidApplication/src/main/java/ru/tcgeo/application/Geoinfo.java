@@ -259,6 +259,16 @@ public class Geoinfo extends Activity
                     }
 
                     @Override
+                    public GILayer onAddLayer(GILayer.EditableType type, String name) {
+                        return map.addLayer(type, name);
+                    }
+
+//                    @Override
+//                    public GILayer onAddLayer(GILayer tuple) {
+//                        return tuple;
+//                    }
+
+                    @Override
                     public void onRemoveLayer(GILayer layer) {
                         map.m_layers.m_list.remove(layer);
                         map.ps.m_Group.m_Entries.remove(layer.m_layer_properties);
