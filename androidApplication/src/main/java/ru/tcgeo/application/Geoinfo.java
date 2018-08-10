@@ -1,6 +1,7 @@
 package ru.tcgeo.application;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Point;
@@ -82,7 +83,7 @@ import ru.tcgeo.application.wkt.GI_WktGeometry;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
 
-public class Geoinfo extends FragmentActivity
+public class Geoinfo extends Activity
         implements MapView,
         FloatingActionButtonsCallback {
 
@@ -610,20 +611,6 @@ public class Geoinfo extends FragmentActivity
         //--------------------------------------------------------------------
         // GPS POI CONTROL
         //--------------------------------------------------------------------
-//        final ImageButton m_btnPoiControl = new ImageButton(this);
-//        m_btnPoiControl.setImageResource(R.drawable.poi_status);
-//        m_btnPoiControl.setBackgroundDrawable(null);
-//        SubActionButton fbPoiControl = itemBuilder.setContentView(m_btnPoiControl).build();
-//        m_btnPoiControl.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (getState() != GIEditingStatus.EDITING_POI && getState() != GIEditingStatus.EDITING_GEOMETRY) {
-//                    map.CreatePOI();
-//                } else {
-//                    map.StopEditing();
-//                }
-//            }
-//        });
 
         final CheckBox m_btnPoiControl = new CheckBox(this);
         m_btnShowTrack.setTextSize(0);
@@ -925,7 +912,6 @@ public class Geoinfo extends FragmentActivity
     }
 
     public GIControlFloating getMarkerPoint() {
-
         if (m_marker_point == null) {
             m_marker_point = new GIControlFloating(this);
             root.addView(m_marker_point);

@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "ru.geoinfo.application"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 21
 
         vectorDrawables.useSupportLibrary = true
@@ -27,6 +27,7 @@ dependencies {
     implementation group: 'commons-io', name: 'commons-io', version: '2.0.1'
     implementation 'com.android.support:appcompat-v7:25.3.1'
     implementation 'com.android.support:support-v4:25.3.1'
+    implementation 'com.android.support:support-v13:25.3.1'
     implementation 'com.android.support:animated-vector-drawable:25.3.1'
     implementation 'com.android.support:recyclerview-v7:25.3.1'
     implementation 'com.android.support:design:25.3.1'

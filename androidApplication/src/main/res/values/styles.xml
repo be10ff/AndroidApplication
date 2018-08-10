@@ -4,7 +4,13 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
+    <style name="AppBaseTheme" parent="android:Theme.Material">
+        <item name="colorPrimary">#a7f827</item>
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">#ff0fb129</item>
+        <!-- colorAccent is used for the default value for colorControlActivated
+                which is used to tint widgets -->
+        <item name="colorAccent">#ff0fb129</item>
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -14,6 +20,7 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
@@ -125,5 +132,9 @@
         <item name="android:editTextBackground">@null</item>
 
     </style>
+
+    <!--<style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">-->
+    <!--<item name="tabIndicatorColor">@color/measure_line_color</item>-->
+    <!--</style>-->
 
 </resources>

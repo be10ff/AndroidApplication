@@ -1,12 +1,10 @@
 package ru.tcgeo.application.views.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -57,7 +55,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
     private GIProjectProperties project;
 
-    private Context context;
+    private Activity activity;
 
     private ItemTouchHelper mItemTouchHelper;
 
@@ -65,7 +63,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
     public ReSettingsDialog(Builder builder) {
         super(builder.context);
         this.callback = builder.callback;
-        this.context = builder.context;
+        this.activity = builder.context;
         this.data = builder.data;
         this.project = builder.project;
     }
@@ -74,7 +72,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
     public void onAddClick() {
         OpenFileDialog dlg = new OpenFileDialog();
         dlg.setIFolderItemListener(ReSettingsDialog.this);
-        dlg.show(((FragmentActivity) context).getSupportFragmentManager(), "tag");
+        dlg.show(activity.getFragmentManager(), "SettingsDialog");
     }
 
     @Override
@@ -85,7 +83,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
         setContentView(R.layout.dialog_settings);
         ButterKnife.bind(this);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        adapter = new ReLayersAdapter.Builder(context)
+        adapter = new ReLayersAdapter.Builder(activity)
                 .callback(new LayerHolderCallback() {
                     @Override
                     public void onMarkersSourceCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked) {
@@ -259,10 +257,10 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                 .project(project)
                 .build();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
 
         rvLayers.setLayoutManager(layoutManager);
-        rvLayers.addItemDecoration(dividerItemDecoration);
+//        rvLayers.addItemDecoration(dividerItemDecoration);
         rvLayers.setAdapter(adapter);
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
@@ -281,8 +279,8 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
         windowParams.dimAmount = 0.0f;
         windowParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         window.setAttributes(windowParams);
-        int dialogWidth = (int) (ScreenUtils.getScreenWidth(context) * 0.9f);
-        int dialogHeight = (int) (ScreenUtils.getScreenHeight(context) * 0.9f);
+        int dialogWidth = (int) (ScreenUtils.getScreenWidth(activity) * 0.9f);
+        int dialogHeight = (int) (ScreenUtils.getScreenHeight(activity) * 0.9f);
         getWindow().setLayout(dialogWidth, dialogHeight);
     }
 
@@ -294,7 +292,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
 
     @Override
     public void OnCannotFileRead(File file) {
-        Toast.makeText(context, R.string.file_error,
+        Toast.makeText(activity, R.string.file_error,
                 Toast.LENGTH_LONG).show();
     }
 
@@ -323,10 +321,10 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
         private LayerCallback callback;
         private List<GILayer> data;
         private GIProjectProperties project;
-        private Context context;
+        private Activity context;
 
-        public Builder(Context context) {
-            this.context = context;
+        public Builder(Activity activity) {
+            this.context = activity;
         }
 
         public Builder callback(LayerCallback callback) {

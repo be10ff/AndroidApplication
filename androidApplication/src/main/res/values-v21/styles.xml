@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppBaseTheme" parent="android:Theme.Material">
+        <item name="colorPrimary">#a7f827</item>
+        <item name="colorPrimaryDark">#ff0fb129</item>
+        <item name="colorAccent">#ff0fb129</item>
+
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme"/>
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/measure_line_color</item>
+    </style>
+
+</resources>
