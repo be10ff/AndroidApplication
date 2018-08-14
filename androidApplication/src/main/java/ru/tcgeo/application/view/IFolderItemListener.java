@@ -10,4 +10,5 @@ public interface IFolderItemListener
     void OnFileClicked(File file);//What to do When a file is clicked
 //    void onAdditionalLayer(GILayer layer);
     void onAddPointsLayer(GILayer.EditableType type, String name);
+    void onDissmiss();
 }

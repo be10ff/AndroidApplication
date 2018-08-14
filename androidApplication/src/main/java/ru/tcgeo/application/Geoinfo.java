@@ -3,6 +3,7 @@ package ru.tcgeo.application;
 import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.location.GpsStatus;
@@ -102,9 +103,9 @@ public class Geoinfo extends Activity
     public SubActionButton fbEditAttributes;
     public SubActionButton fbEditDelete;
     public FloatingActionButton fbEditButton;
-//    public boolean toAutoFollow = false;
-    public boolean toShowTargetDirection = false;
+
     protected CompositeDisposable subscription = new CompositeDisposable();
+
     @BindView(R.id.root)
     RelativeLayout root;
     @BindView(R.id.map)
@@ -122,7 +123,7 @@ public class Geoinfo extends Activity
     GIPositionControl positionControl;
     private GIEditingStatus m_Status = GIEditingStatus.STOPPED;
     private GIGPSLocationListener locationListener;
-    private boolean isPaused = false;
+//    private boolean isPaused = false;
 
     public void MarkersDialogClicked() {
         View v = root.findViewById(R.id.direction_to_point_arrow);
@@ -263,11 +264,6 @@ public class Geoinfo extends Activity
                         return map.addLayer(type, name);
                     }
 
-//                    @Override
-//                    public GILayer onAddLayer(GILayer tuple) {
-//                        return tuple;
-//                    }
-
                     @Override
                     public void onRemoveLayer(GILayer layer) {
                         map.m_layers.m_list.remove(layer);
@@ -401,6 +397,7 @@ public class Geoinfo extends Activity
         requestRuntimePermission(PermissionManager.PERMISSION_READ_EXTERNAL_CODE, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE});
 
         locationListener = new GIGPSLocationListener(this);
+        positionControl = new GIPositionControl(this, map, locationListener);
 
         //writing track
         subscription.add(locationListener.getTrackObservable()
@@ -436,7 +433,6 @@ public class Geoinfo extends Activity
 
 
         m_Status = GIEditingStatus.STOPPED;
-//        m_TrackingStatus = GITrackingStatus.STOP;
         locationListener.getTrackSubject().onNext(0);
 
         setupButtons();
@@ -453,7 +449,8 @@ public class Geoinfo extends Activity
         GIMap.inches_per_pixel = screenInches / screenPixels;
 
         scaleControl.setMap(map);
-        positionControl = new GIPositionControl(this, map, locationListener);
+        //todo
+//        positionControl = new GIPositionControl(this, map, locationListener);
 
     }
 
@@ -467,7 +464,6 @@ public class Geoinfo extends Activity
     @Override
     protected void onResume() {
         super.onResume();
-        isPaused = false;
         locationListener.getRunningSubject().onNext(LonLatEvent.FLAG_RUNNING);
         locationListener.getFollowSubject().onNext(0);
         GISensors.Instance(this).run(true);
@@ -479,7 +475,6 @@ public class Geoinfo extends Activity
     protected void onPause() {
         super.onPause();
         getMap().StopEditing();
-        isPaused = true;
         locationListener.getRunningSubject().onNext(0);
         locationListener.getFollowSubject().onNext(0);
         GISensors.Instance(this).run(false);
@@ -908,9 +903,6 @@ public class Geoinfo extends Activity
         return !(m_Status == GIEditingStatus.STOPPED);
     }
 
-//    public void setTrackingStatus(GITrackingStatus status) {
-//        m_TrackingStatus = status;
-//    }
 
     public void setTrackingStatus(int status) {
         locationListener.getTrackSubject().onNext(status);
@@ -991,4 +983,28 @@ public class Geoinfo extends Activity
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
+
+
+        // The ACTION_OPEN_DOCUMENT intent was sent with the request code
+        // READ_REQUEST_CODE. If the request code seen here doesn't match, it's the
+        // response to some other intent, and the code below shouldn't run at all.
+
+//        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            // The document selected by the user won't be returned in the intent.
+//            // Instead, a URI to that document will be contained in the return intent
+//            // provided to this method as a parameter.
+//            // Pull that URI using resultData.getData().
+//            Uri uri = null;
+//            if (resultData != null) {
+//                uri = resultData.getData();
+//                Log.i(TAG, "Uri: " + uri.toString());
+//                showImage(uri);
+//            }
+//        }
+    }
+
 }

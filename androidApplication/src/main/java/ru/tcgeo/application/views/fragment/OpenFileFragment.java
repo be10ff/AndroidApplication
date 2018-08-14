@@ -90,7 +90,7 @@ public class OpenFileFragment extends Fragment implements OnItemClickListener {
         } else {
             if (folderListener != null) {
                 folderListener.OnFileClicked(file);
-//                this.dismiss();
+                folderListener.onDissmiss();
             }
         }
 

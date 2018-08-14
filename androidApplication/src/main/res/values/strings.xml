@@ -8,12 +8,13 @@
     <string name="project_file_extention">.pro</string>
     <string name="scale_info_default_text">1 000 m</string>
     <string name="add_attribute">Add</string>
-    <string name="add_from_file">File From External Memory</string>
+    <string name="add_from_file_external">File From External Memory</string>
     <string name="add_from_sd_file">File From SD card</string>
     <string name="add_additional_layer">AdditionalLayer</string>
     <string name="add_layer_traffic">Yandex Traffic</string>
     <string name="add_layer_points">Points Layer</string>
     <string name="add_layer_lines">Lines Layer</string>
+    <string name="add_from_file">From File</string>
 
     <string-array name="extentions">
 		<!--<item>"track"</item>-->

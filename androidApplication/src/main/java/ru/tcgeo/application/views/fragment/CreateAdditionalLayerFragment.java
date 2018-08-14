@@ -1,8 +1,11 @@
 package ru.tcgeo.application.views.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -31,12 +34,8 @@ import ru.tcgeo.application.gilib.layer.GILayer;
 import ru.tcgeo.application.view.IFolderItemListener;
 
 public class CreateAdditionalLayerFragment extends Fragment {
+    private static final int READ_REQUEST_CODE = 42;
 
-//    @BindView(R.id.path)
-//    TextView m_PathTextView;
-//
-//    @BindView(R.id.filelist)
-//    ListView m_ListView;
     @OnClick(R.id.tvAddTraffic)
     public void onAddTraffic(){
         folderListener.OnFileClicked(new File("Yandex.traffic"));
@@ -45,6 +44,15 @@ public class CreateAdditionalLayerFragment extends Fragment {
     @OnClick(R.id.tvAddPoints)
     public void onAddPointsLayer(){
         folderListener.onAddPointsLayer(GILayer.EditableType.POI, "POI");
+    }
+
+    @OnClick(R.id.tvFromFile)
+    public void onAddFromFile(){
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("*/*");
+        startActivityForResult(intent, READ_REQUEST_CODE);
+
+
     }
 
     IFolderItemListener folderListener;
@@ -73,4 +81,22 @@ public class CreateAdditionalLayerFragment extends Fragment {
         this.folderListener = folderItemListener;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
+        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            // The document selected by the user won't be returned in the intent.
+            // Instead, a URI to that document will be contained in the return intent
+            // provided to this method as a parameter.
+            // Pull that URI using resultData.getData().
+            Uri uri = null;
+            if (resultData != null) {
+                uri = resultData.getData();
+                File file = new File(uri.getPath());
+                folderListener.OnFileClicked(file);
+//                showImage(uri);
+            }
+        }
+
+    }
 }

@@ -69,7 +69,7 @@ public class OpenFileDialog extends DialogFragment {
 
         OpenFileFragment openFileFragment = new OpenFileFragment();
         openFileFragment.setIFolderItemListener(folderListener);
-        adapter.addFragment(openFileFragment, getActivity().getString(R.string.add_from_file));
+        adapter.addFragment(openFileFragment, getActivity().getString(R.string.add_from_file_external));
         OpenSDFileFragment openSDFileFragment = new OpenSDFileFragment();
         openSDFileFragment.setIFolderItemListener(folderListener);
         adapter.addFragment(openSDFileFragment, getActivity().getString(R.string.add_from_sd_file));
