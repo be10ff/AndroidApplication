@@ -76,10 +76,10 @@ public class ReMarkersDialog extends Dialog {
                 .build();
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
 
         rvMarkers.setLayoutManager(layoutManager);
-        rvMarkers.addItemDecoration(dividerItemDecoration);
+//        rvMarkers.addItemDecoration(dividerItemDecoration);
         rvMarkers.setAdapter(adapter);
     }
 

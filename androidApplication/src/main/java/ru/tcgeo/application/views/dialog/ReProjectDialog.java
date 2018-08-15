@@ -81,9 +81,9 @@ public class ReProjectDialog extends Dialog {
                 .data(getProjects())
                 .build();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
         rvProjects.setLayoutManager(layoutManager);
-        rvProjects.addItemDecoration(dividerItemDecoration);
+//        rvProjects.addItemDecoration(dividerItemDecoration);
         rvProjects.setAdapter(adapter);
     }
 

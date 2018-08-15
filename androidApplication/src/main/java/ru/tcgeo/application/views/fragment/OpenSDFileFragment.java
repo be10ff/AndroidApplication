@@ -19,10 +19,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.utils.ExternalStorageUtil;
 import ru.tcgeo.application.view.IFolderItemListener;
 
 public class OpenSDFileFragment extends Fragment implements OnItemClickListener {
@@ -31,7 +33,7 @@ public class OpenSDFileFragment extends Fragment implements OnItemClickListener 
     private List<String> m_item = null;
     private List<String> m_path = null;
     private List<String> m_ext = null;
-    private String m_root = "/";//Environment.getExternalStorageDirectory().getAbsolutePath();
+    private String m_root = "/storage";//Environment.getExternalStorageDirectory().getAbsolutePath();
 
     @BindView(R.id.path)
     TextView m_PathTextView;
@@ -41,6 +43,15 @@ public class OpenSDFileFragment extends Fragment implements OnItemClickListener 
 
     //	https://stackoverflow.com/questions/40068984/universal-way-to-write-to-external-sd-card-on-android
     public OpenSDFileFragment() {
+
+        Map<String, File> externalLocations = ExternalStorageUtil.getAllStorageLocations();
+        File sdCard = externalLocations.get(ExternalStorageUtil.SD_CARD);
+        File externalSdCard = externalLocations.get(ExternalStorageUtil.EXTERNAL_SD_CARD);
+//        if(sdCard != null && sdCard.exists()) {
+//            m_root = sdCard.getAbsolutePath();
+//        } else if(externalSdCard != null && externalSdCard.exists()) {
+//            m_root = externalSdCard.getAbsolutePath();
+//        }
     }
 
     public static String getExtention(File file) {
@@ -64,7 +75,7 @@ public class OpenSDFileFragment extends Fragment implements OnItemClickListener 
         //m_param.setMargins(64, 64, 64, 64);
 
         v.setLayoutParams(m_param);
-        setDir(Environment.getExternalStorageDirectory().getAbsolutePath());
+        setDir(m_root);
         //getDir(m_root, m_ListView);
 
         return v;

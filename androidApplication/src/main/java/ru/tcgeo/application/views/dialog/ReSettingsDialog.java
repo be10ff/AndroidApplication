@@ -301,7 +301,8 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
     public void OnFileClicked(File file) {
         GILayer result = callback.onAddLayer(file);
         if (result != null) {
-            adapter.addItemAt(result);
+//            adapter.addItemAt(result);
+            adapter.addItem(result);
             adapter.notifyDataSetChanged();
         }
     }

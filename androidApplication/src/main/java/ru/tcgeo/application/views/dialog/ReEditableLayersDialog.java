@@ -87,10 +87,10 @@ public class ReEditableLayersDialog extends Dialog {
                 .build();
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
 
         rvEditableLayers.setLayoutManager(layoutManager);
-        rvEditableLayers.addItemDecoration(dividerItemDecoration);
+//        rvEditableLayers.addItemDecoration(dividerItemDecoration);
         rvEditableLayers.setAdapter(adapter);
 
     }
