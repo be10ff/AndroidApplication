@@ -14,12 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.control.GIGeometryPointControl;
@@ -27,16 +30,31 @@ import ru.tcgeo.application.utils.GIYandexUtils;
 import ru.tcgeo.application.utils.MaskedWatcher;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
-public class GILonLatInputDialog extends DialogFragment {
+public class AddPointsDialog extends DialogFragment {
     Geoinfo activity;
     GI_WktPoint m_point;
     GIGeometryPointControl m_control;
-    private EditText m_lon_dec;
-    private EditText m_lat_dec;
-    private EditText m_lon_can;
-    private EditText m_lat_can;
-    private EditText m_lon_grad_min;
-    private EditText m_lat_grad_min;
+
+    @BindView(R.id.tvName)
+    TextView tvName;
+
+    @BindView(R.id.lon_decimal)
+    EditText m_lon_dec;
+
+    @BindView(R.id.lat_decimal)
+    EditText m_lat_dec;
+
+    @BindView(R.id.lon_can)
+    EditText m_lon_can;
+
+    @BindView(R.id.lat_can)
+    EditText m_lat_can;
+
+    @BindView(R.id.lon_grad_min)
+    EditText m_lon_grad_min;
+
+    @BindView(R.id.lat_grad_min)
+    EditText m_lat_grad_min;
 
 
 //    public static GILonLatInputDialog newInstance() {
@@ -48,10 +66,10 @@ public class GILonLatInputDialog extends DialogFragment {
 //        return fragment;
 //    }
 
-    public GILonLatInputDialog(GIGeometryPointControl control) {
-        m_control = control;
-        m_point = m_control.m_WKTPoint;
-    }
+//    public AddPointsDialog(GIGeometryPointControl control) {
+//        m_control = control;
+//        m_point = m_control.m_WKTPoint;
+//    }
 
     static public String customFormat(String pattern, double value) {
         DecimalFormat myFormatter = new DecimalFormat(pattern);
@@ -83,13 +101,14 @@ public class GILonLatInputDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInctanceState) {
 //		getDialog().setTitle("Dialog");
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        View v = inflater.inflate(R.layout.lonlat_input_layout, null);
-        m_lon_dec = (EditText) v.findViewById(R.id.lon_decimal);
-        m_lat_dec = (EditText) v.findViewById(R.id.lat_decimal);
-        m_lon_grad_min = (EditText) v.findViewById(R.id.lon_grad_min);
-        m_lat_grad_min = (EditText) v.findViewById(R.id.lat_grad_min);
-        m_lon_can = (EditText) v.findViewById(R.id.lon_can);
-        m_lat_can = (EditText) v.findViewById(R.id.lat_can);
+        View v = inflater.inflate(R.layout.fragment_add_points, null);
+        ButterKnife.bind(this, v);
+//        m_lon_dec = (EditText) v.findViewById(R.id.lon_decimal);
+//        m_lat_dec = (EditText) v.findViewById(R.id.lat_decimal);
+//        m_lon_grad_min = (EditText) v.findViewById(R.id.lon_grad_min);
+//        m_lat_grad_min = (EditText) v.findViewById(R.id.lat_grad_min);
+//        m_lon_can = (EditText) v.findViewById(R.id.lon_can);
+//        m_lat_can = (EditText) v.findViewById(R.id.lat_can);
 
         m_lon_dec.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         final MaskedWatcher lonDecWatcher = new MaskedWatcher("##.########°", null);

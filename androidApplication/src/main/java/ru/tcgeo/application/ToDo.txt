@@ -9,16 +9,21 @@ unessesary ps.m_Edit
 layer settings
 remove GITuple!
  remover string m_zoom_type  from GISQLDB
+ add yandex_traffic, editable layers from dialog
+ RxJava2
+
+todo replace Statuses for Flowables
 
 todo Folder, Traffic, Points/Lines editables (is possible, seems dont)
 
-todo add yandex_traffic, folder, editable layers from dialog
+todo add , folder layers from dialog
 
 todo clearing
 
 todo editing dont works
 
-todo RxJava2
+todo Input LonLat
+
 
 
 

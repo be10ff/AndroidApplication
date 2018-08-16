@@ -7,4 +7,5 @@
     <dimen name="spinner_text_size">16sp</dimen>
     <dimen name="direction_to_point_text_size">16sp</dimen>
     <dimen name="attributes_text_size">12sp</dimen>
+    <dimen name="editing_poi_size">36dp</dimen>
 </resources>

@@ -1252,6 +1252,20 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         }
     }
 
+    public void AddPointToTrack(GILonLat lonlat, String name) {
+        if (currentLayer == null) {
+            return;
+        }
+        GI_WktPoint point = new GI_WktPoint();
+        point.Set(lonlat);
+        point.m_attributes = new HashMap<String, GIDBaseField>();
+        GIDBaseField field = new GIDBaseField();
+        field.m_name = "Description";
+        field.m_value = name;
+        point.m_attributes.put("Description", field);
+        currentLayer.AddGeometry(point);
+    }
+
     public GILayer createPoiLayer(String name) {
 
 

@@ -25,6 +25,11 @@
 		    <!--android:text="@string/latitude" />-->
 
 	<!--</LinearLayout>-->
+	<EditText
+		android:id="@+id/tvName"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+	</EditText>
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -120,6 +125,31 @@
 		    <!-- <requestFocus /> -->
 		</EditText>
 	
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal" >
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center_horizontal"
+			android:padding="8dp"
+			android:background="@drawable/top_button_background_normal"
+			android:text="Add next"/>
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center_horizontal"
+			android:padding="8dp"
+			android:background="@drawable/top_button_background_normal"
+			android:text="Close"/>
+
 	</LinearLayout>
 
 

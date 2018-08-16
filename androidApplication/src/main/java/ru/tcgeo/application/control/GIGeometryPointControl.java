@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +19,7 @@ import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.views.dialog.GILonLatInputDialog;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
@@ -33,18 +35,26 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
     private RelativeLayout m_root;
     private GILonLat m_PointOriginMap;
     private Context m_context;
+//    private Bitmap m_bitmap;
+//    private BitmapDrawable pointDrawable;
 
 	public GIGeometryPointControl (Context context, GIMap map)
 	{
 		super(context);
 		//setMap(map);
 		m_context = context;
-		Bitmap m_bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.edit_point); //measure_point
+//		m_bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.edit_point); //measure_point
+//		pointDrawable = new BitmapDrawable(m_bitmap);
 		LayoutInflater m_LayoutInflater = (LayoutInflater)m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		m_LayoutView = m_LayoutInflater.inflate(R.layout.geometry_editing_point_control, this);
 		m_button = (ToggleButton)m_LayoutView.findViewById(R.id.point_image);
-		m_button.setBackgroundDrawable(m_context.getResources().getDrawable(R.drawable.edit_point)); //measure_point
-		m_offset = new int[] {m_bitmap.getWidth()/2, m_bitmap.getHeight()/2};
+//		m_button.setBackground(pointDrawable);
+		m_button.setBackgroundResource(R.drawable.edit_point);
+
+		//measure_point
+		int size = m_context.getResources().getDimensionPixelSize(R.dimen.editing_poi_size);
+		m_offset = new int[] {size/2, size/2};
+
 		m_button.setEnabled(false);
 		m_button.setClickable(false);
 		setEnabled(false);
@@ -72,9 +82,7 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
 		//TODO something wrong with removing listeners... may be
 		if(active)
 		{
-//			Bitmap m_bitmap = BitmapFactory.decodeResource(m_context.getResources(), R.drawable.unselected_point_large);
-//			m_offset = new int[] {m_bitmap.getWidth()/2, m_bitmap.getHeight()/2};
-			m_button.setBackgroundDrawable(m_context.getResources().getDrawable(R.drawable.point_selection_status));
+			m_button.setBackgroundResource(R.drawable.point_selection_status);
 			m_button.setOnClickListener(this);
 			m_button.setOnLongClickListener(this);
 			m_button.setEnabled(true);
@@ -91,7 +99,7 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
 		{
 //			Bitmap m_bitmap = BitmapFactory.decodeResource(m_context.getResources(), R.drawable.edit_point);
 //			m_offset = new int[] {m_bitmap.getWidth()/2, m_bitmap.getHeight()/2};
-			m_button.setBackgroundDrawable(m_context.getResources().getDrawable(R.drawable.edit_point)); //measure_point
+			m_button.setBackgroundResource(R.drawable.edit_point); //measure_point
 			m_button.setOnClickListener(null);
 			//m_button.setOnLongClickListener(null);
 			m_button.setEnabled(false);
