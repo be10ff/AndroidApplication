@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.DisplayMetrics;
@@ -75,7 +74,9 @@ import ru.tcgeo.application.views.callback.EditableLayerCallback;
 import ru.tcgeo.application.views.callback.LayerCallback;
 import ru.tcgeo.application.views.callback.MarkerCallback;
 import ru.tcgeo.application.views.callback.ProjectsCallback;
+import ru.tcgeo.application.views.dialog.AddPointsDialog;
 import ru.tcgeo.application.views.dialog.EditAttributesDialog;
+import ru.tcgeo.application.views.dialog.GILonLatInputDialog;
 import ru.tcgeo.application.views.dialog.ReEditableLayersDialog;
 import ru.tcgeo.application.views.dialog.ReMarkersDialog;
 import ru.tcgeo.application.views.dialog.ReProjectDialog;
@@ -95,10 +96,12 @@ public class Geoinfo extends Activity
     }
 
     public AppCompatCheckBox btnEditCreate;
+    public AppCompatCheckBox btnEditAddPoints;
     public AppCompatCheckBox btnEditGeometry;
     public AppCompatCheckBox btnEditAttributes;
     public AppCompatCheckBox btnEditDelete;
     public SubActionButton fbEditCreate;
+    public SubActionButton fbEditAddPoints;
     public SubActionButton fbEditGeometry;
     public SubActionButton fbEditAttributes;
     public SubActionButton fbEditDelete;
@@ -316,6 +319,11 @@ public class Geoinfo extends Activity
             }
         }, geometry.m_attributes);
         dialog.show();
+    }
+
+    public void showAddPointsFragment() {
+        AddPointsDialog dialog = new AddPointsDialog();
+        dialog.show(getFragmentManager(), "add_points");
     }
 
     public void LoadProject(String path) {
@@ -747,6 +755,13 @@ public class Geoinfo extends Activity
         btnEditCreate.setBackgroundDrawable(null);
         fbEditCreate = itemBuilder.setContentView(btnEditCreate).build();
 
+        btnEditAddPoints = new AppCompatCheckBox(this);
+        btnEditAddPoints.setTextSize(0);
+//		Drawable d = AppCompatDrawableManager.get().getDrawable(this, R.drawable.edit_create_bg);
+        btnEditAddPoints.setButtonDrawable(R.drawable.edit_add_points_bg);
+        btnEditAddPoints.setBackgroundDrawable(null);
+        fbEditAddPoints = itemBuilder.setContentView(btnEditAddPoints).build();
+
 
         btnEditGeometry = new AppCompatCheckBox(this);
         btnEditGeometry.setTextSize(0);
@@ -790,6 +805,22 @@ public class Geoinfo extends Activity
                 }
             }
         });
+
+        btnEditAddPoints.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fbEditAttributes.setEnabled(false);
+                fbEditGeometry.setEnabled(false);
+                fbEditDelete.setEnabled(false);
+                btnEditAttributes.setChecked(false);
+                btnEditGeometry.setChecked(false);
+                btnEditDelete.setChecked(false);
+
+//                    map.UpdateMap();
+                showAddPointsFragment();
+            }
+        });
+
         btnEditGeometry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -876,11 +907,12 @@ public class Geoinfo extends Activity
         editActionMenu = new FloatingActionMenu.Builder(this)
 
                 .addSubActionView(fbEditCreate)
+                .addSubActionView(fbEditAddPoints)
                 .addSubActionView(fbEditGeometry)
                 .addSubActionView(fbEditAttributes)
                 .addSubActionView(fbEditDelete)
                 .attachTo(fbEditButton)
-                .setRadius(ScreenUtils.dpToPx(144))
+                .setRadius(ScreenUtils.dpToPx(196))
                 .setStartAngle(180)
                 .setEndAngle(270)
                 .build();

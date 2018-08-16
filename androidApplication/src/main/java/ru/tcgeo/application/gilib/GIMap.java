@@ -520,6 +520,10 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         SetBounds(new_bounds);
     }
 
+    public GILonLat getWGSCenter(){
+        return GIProjection.ReprojectLonLat(Center(), this.Projection(), GIProjection.WGS84());
+    }
+
     public void MoveMapBy(double x, double y) {
         m_bounds = new GIBounds(m_bounds.projection(),
                 new GILonLat(Center().lon() + x, Center().lat() + y),
@@ -1252,7 +1256,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         }
     }
 
-    public void AddPointToTrack(GILonLat lonlat, String name) {
+    public void AddPointToPOI(GILonLat lonlat, String name) {
         if (currentLayer == null) {
             return;
         }

@@ -4,23 +4,23 @@ import android.location.Location;
 
 public class GILonLat {
 
-	  private double m_lon;
-	  private double m_lat;
+	  private double lon;
+	  private double lat;
 
 	  public double lat() 
 	  {
-		  return m_lat;
+		  return lat;
 	  }
 
 	  public double lon() 
 	  {
-		  return m_lon;
+		  return lon;
 	  }
 
 	  public GILonLat(double lon, double lat) 
 	  {	
-		  m_lon = lon;
-		  m_lat = lat;
+		  this.lon = lon;
+		  this.lat = lat;
 	  }
 	  
 	  public static GILonLat fromLocation(Location location)
@@ -29,8 +29,16 @@ public class GILonLat {
 
 	  }
 
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
 	public GILonLat OffsetBy (double lon, double lat)
     {
-		return new GILonLat(m_lon + lon, m_lat + lat);
+		return new GILonLat(this.lon + lon, this.lat + lat);
     }
 }
