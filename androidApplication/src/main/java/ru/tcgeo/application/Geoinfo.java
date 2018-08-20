@@ -521,7 +521,6 @@ public class Geoinfo extends Activity
 
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
     }
 
     public void setupButtons() {
