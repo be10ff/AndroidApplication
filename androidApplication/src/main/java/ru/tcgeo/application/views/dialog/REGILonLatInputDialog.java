@@ -14,65 +14,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.control.GIGeometryPointControl;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.utils.CommonUtils;
 import ru.tcgeo.application.utils.GIYandexUtils;
 import ru.tcgeo.application.utils.MaskedWatcher;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
-public class AddPointsDialog extends DialogFragment {
+public class REGILonLatInputDialog extends DialogFragment {
     Geoinfo activity;
-    GILonLat m_point;
-//    GIGeometryPointControl m_control;
-
-    @BindView(R.id.tvName)
-    EditText tvName;
-
-    @BindView(R.id.lon_decimal)
-    EditText m_lon_dec;
-
-    @BindView(R.id.lat_decimal)
-    EditText m_lat_dec;
-
-    @BindView(R.id.lon_can)
-    EditText m_lon_can;
-
-    @BindView(R.id.lat_can)
-    EditText m_lat_can;
-
-    @BindView(R.id.lon_grad_min)
-    EditText m_lon_grad_min;
-
-    @BindView(R.id.lat_grad_min)
-    EditText m_lat_grad_min;
-
-    @OnClick(R.id.tvAddNext)
-    public void onNextPoint(){
-        String name = tvName.getText().toString();
-        if(name == null || name.isEmpty()) {
-            name = CommonUtils.getCurrentTime();
-        }
-        activity.getMap().AddPointToPOI(m_point, name);
-        activity.getMap().UpdateMap();
-    }
-    @OnClick(R.id.tvClose)
-    public void onClose(){
-        dismiss();
-    }
-
+    GI_WktPoint m_point;
+    GIGeometryPointControl m_control;
+    private EditText m_lon_dec;
+    private EditText m_lat_dec;
+    private EditText m_lon_can;
+    private EditText m_lat_can;
+    private EditText m_lon_grad_min;
+    private EditText m_lat_grad_min;
 
 
 //    public static ReReREGILonLatInputDialog newInstance() {
@@ -84,10 +48,10 @@ public class AddPointsDialog extends DialogFragment {
 //        return fragment;
 //    }
 
-//    public AddPointsDialog(GIGeometryPointControl control) {
-//        m_control = control;
-//        m_point = m_control.m_WKTPoint;
-//    }
+    public REGILonLatInputDialog(GIGeometryPointControl control) {
+        m_control = control;
+        m_point = m_control.m_WKTPoint;
+    }
 
     static public String customFormat(String pattern, double value) {
         DecimalFormat myFormatter = new DecimalFormat(pattern);
@@ -114,15 +78,18 @@ public class AddPointsDialog extends DialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (Geoinfo)context;
-        m_point = activity.getMap().getWGSCenter();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInctanceState) {
 //		getDialog().setTitle("Dialog");
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        View v = inflater.inflate(R.layout.fragment_add_points, null);
-        ButterKnife.bind(this, v);
-
+        View v = inflater.inflate(R.layout.lonlat_input_layout, null);
+        m_lon_dec = (EditText) v.findViewById(R.id.lon_decimal);
+        m_lat_dec = (EditText) v.findViewById(R.id.lat_decimal);
+        m_lon_grad_min = (EditText) v.findViewById(R.id.lon_grad_min);
+        m_lat_grad_min = (EditText) v.findViewById(R.id.lat_grad_min);
+        m_lon_can = (EditText) v.findViewById(R.id.lon_can);
+        m_lat_can = (EditText) v.findViewById(R.id.lat_can);
 
         m_lon_dec.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         final MaskedWatcher lonDecWatcher = new MaskedWatcher("##.########°", null);
@@ -140,9 +107,9 @@ public class AddPointsDialog extends DialogFragment {
 
                 if (m_lon_dec.hasFocus()) {
                     try {
-                        m_point.setLon(GIYandexUtils.DoubleLonLatFromString(s.toString()));
-                        m_lon_can.setText(getCanonicalCoordString(m_point.lon()));
-                        m_lon_grad_min.setText(getGradMinCoordString(m_point.lat()));
+                        m_point.m_lon = GIYandexUtils.DoubleLonLatFromString(s.toString());
+                        m_lon_can.setText(getCanonicalCoordString(m_point.m_lon));
+                        m_lon_grad_min.setText(getGradMinCoordString(m_point.m_lon));
 
                     } catch (NumberFormatException e) {
                     }
@@ -167,9 +134,9 @@ public class AddPointsDialog extends DialogFragment {
                 if (m_lat_dec.hasFocus()) {
                     try {
                         //m_point.lat = Double.valueOf(s.toString());
-                        m_point.setLat(GIYandexUtils.DoubleLonLatFromString(s.toString()));
-                        m_lat_can.setText(getCanonicalCoordString(m_point.lat()));
-                        m_lat_grad_min.setText(getGradMinCoordString(m_point.lat()));
+                        m_point.m_lat = GIYandexUtils.DoubleLonLatFromString(s.toString());
+                        m_lat_can.setText(getCanonicalCoordString(m_point.m_lat));
+                        m_lat_grad_min.setText(getGradMinCoordString(m_point.m_lat));
                     } catch (NumberFormatException e) {
                     }
                 }
@@ -192,9 +159,9 @@ public class AddPointsDialog extends DialogFragment {
                 if (m_lon_grad_min.hasFocus()) {
                     try {
 //						int index = m_lon_grad_min.getSelectionEnd();
-                        m_point.setLon(GIYandexUtils.DoubleLonLatFromString(s.toString().replaceAll("[^0-9.,]", "")));
-                        m_lon_can.setText(getCanonicalCoordString(m_point.lon()));
-                        m_lon_dec.setText(String.valueOf(m_point.lon()));
+                        m_point.m_lon = GIYandexUtils.DoubleLonLatFromString(s.toString().replaceAll("[^0-9.,]", ""));
+                        m_lon_can.setText(getCanonicalCoordString(m_point.m_lon));
+                        m_lon_dec.setText(String.valueOf(m_point.m_lon));
 //						m_lon_grad_min.setSelection(index);
                     } catch (NumberFormatException e) {
                     }
@@ -217,9 +184,9 @@ public class AddPointsDialog extends DialogFragment {
                 if (m_lat_grad_min.hasFocus()) {
                     try {
 //						int index = m_lon_grad_min.getSelectionEnd();
-                        m_point.setLat(GIYandexUtils.DoubleLonLatFromString(s.toString().replaceAll("[^0-9.,]", "")));
-                        m_lat_can.setText(getCanonicalCoordString(m_point.lat()));
-                        m_lat_dec.setText(String.valueOf(m_point.lat()));
+                        m_point.m_lat = GIYandexUtils.DoubleLonLatFromString(s.toString().replaceAll("[^0-9.,]", ""));
+                        m_lat_can.setText(getCanonicalCoordString(m_point.m_lat));
+                        m_lat_dec.setText(String.valueOf(m_point.m_lat));
 //						m_lon_grad_min.setSelection(index);
                     } catch (NumberFormatException e) {
                     }
@@ -242,9 +209,9 @@ public class AddPointsDialog extends DialogFragment {
                 if (m_lon_can.hasFocus()) {
                     try {
                         int index = m_lon_can.getSelectionEnd();
-                        m_point.setLon(GIYandexUtils.DoubleLonLatFromString(s.toString().replaceAll("[^0-9.,]", "")));
-                        m_lon_grad_min.setText(getGradMinCoordString(m_point.lon()));
-                        m_lon_dec.setText(String.valueOf(m_point.lon()));
+                        m_point.m_lon = GIYandexUtils.DoubleLonLatFromString(s.toString().replaceAll("[^0-9.,]", ""));
+                        m_lon_grad_min.setText(getGradMinCoordString(m_point.m_lon));
+                        m_lon_dec.setText(String.valueOf(m_point.m_lon));
                         m_lon_can.setSelection(index);
                     } catch (NumberFormatException e) {
                     }
@@ -266,23 +233,23 @@ public class AddPointsDialog extends DialogFragment {
             public void afterTextChanged(Editable s) {
                 if (m_lat_can.hasFocus()) {
                     try {
-                        m_point.setLat(GIYandexUtils.DoubleLonLatFromString(s.toString().replaceAll("[^0-9.,]", "")));
-                        m_lat_grad_min.setText(getGradMinCoordString(m_point.lat()));
-                        m_lat_dec.setText(String.valueOf(m_point.lat()));
+                        m_point.m_lat = GIYandexUtils.DoubleLonLatFromString(s.toString().replaceAll("[^0-9.,]", ""));
+                        m_lat_grad_min.setText(getGradMinCoordString(m_point.m_lat));
+                        m_lat_dec.setText(String.valueOf(m_point.m_lat));
                     } catch (NumberFormatException e) {
                     }
                 }
             }
         });
         /**/
-        m_lon_dec.setText(String.format("%.8f", m_point.lon()));
-        m_lat_dec.setText(String.format("%.8f", m_point.lat()));
+        m_lon_dec.setText(String.format("%.8f", m_point.m_lon));
+        m_lat_dec.setText(String.format("%.8f", m_point.m_lat));
 
-        m_lon_grad_min.setText(getGradMinCoordString(m_point.lon()));
-        m_lat_grad_min.setText(getGradMinCoordString(m_point.lat()));
+        m_lon_grad_min.setText(getGradMinCoordString(m_point.m_lon));
+        m_lat_grad_min.setText(getGradMinCoordString(m_point.m_lat));
 
-        m_lon_can.setText(getCanonicalCoordString(m_point.lon()));
-        m_lat_can.setText(getCanonicalCoordString(m_point.lat()));
+        m_lon_can.setText(getCanonicalCoordString(m_point.m_lon));
+        m_lat_can.setText(getCanonicalCoordString(m_point.m_lat));
 
 
         return v;
@@ -301,12 +268,12 @@ public class AddPointsDialog extends DialogFragment {
 
 //			m_control.m_WKTPoint.m_lon = Double.valueOf(m_lon_dec.getText().toString());
 //			m_control.m_WKTPoint.lat = Double.valueOf(m_lat_dec.getText().toString());
-//            m_control.m_WKTPoint.m_lon = m_point.lon();
-//            m_control.m_WKTPoint.m_lat = m_point.lat();
-//
-//            m_control.setWKTPoint(m_control.m_WKTPoint);
+            m_control.m_WKTPoint.m_lon = m_point.m_lon;
+            m_control.m_WKTPoint.m_lat = m_point.m_lat;
+
+            m_control.setWKTPoint(m_control.m_WKTPoint);
             //m_control.setWKTPoint(m_point);
-//            activity.getMap().getCurrentEditingControl().invalidate();
+            activity.getMap().getCurrentEditingControl().invalidate();
             super.onCancel(dialog);
         } catch (NumberFormatException e) {
         }

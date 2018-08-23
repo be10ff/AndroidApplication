@@ -34,4 +34,5 @@ public class Mercator {
         double y = 0 - R_MAJOR * Math.log(ts);
         return y;
     }
+
 }

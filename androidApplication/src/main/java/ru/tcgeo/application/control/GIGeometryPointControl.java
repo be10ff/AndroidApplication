@@ -1,11 +1,8 @@
 package ru.tcgeo.application.control;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,8 +16,8 @@ import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.models.GIBounds;
 import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.utils.ScreenUtils;
 import ru.tcgeo.application.views.dialog.GILonLatInputDialog;
+import ru.tcgeo.application.views.dialog.ReReREGILonLatInputDialog;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 
 public class GIGeometryPointControl extends LinearLayout implements GIControl, OnClickListener, OnLongClickListener {

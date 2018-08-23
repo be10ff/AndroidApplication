@@ -76,7 +76,6 @@ import ru.tcgeo.application.views.callback.MarkerCallback;
 import ru.tcgeo.application.views.callback.ProjectsCallback;
 import ru.tcgeo.application.views.dialog.AddPointsDialog;
 import ru.tcgeo.application.views.dialog.EditAttributesDialog;
-import ru.tcgeo.application.views.dialog.GILonLatInputDialog;
 import ru.tcgeo.application.views.dialog.ReEditableLayersDialog;
 import ru.tcgeo.application.views.dialog.ReMarkersDialog;
 import ru.tcgeo.application.views.dialog.ReProjectDialog;

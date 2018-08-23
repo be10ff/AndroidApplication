@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.SystemClock;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -39,6 +41,9 @@ public class GIYandexRenderer extends GIRenderer {
 	@Override
 	public void RenderImage(GILayer layer, GIBounds area, int opacity,
                             Bitmap bitmap, double scale) {
+
+		long networkTiming = 0;
+		Log.d("TIMING", "begin " + SystemClock.currentThreadTimeMillis());
 		//GIBounds area_y = new GIBounds(area.m_projection, area.m_left, area.m_top, area.m_right, area.m_bottom);
 		m_canvas = new Canvas(bitmap);
 		//TODO all in Mercator
@@ -162,6 +167,7 @@ public class GIYandexRenderer extends GIRenderer {
         finally
         {
         }
+		Log.d("TIMING", "end " + SystemClock.currentThreadTimeMillis());
     }
 
 	@Override
