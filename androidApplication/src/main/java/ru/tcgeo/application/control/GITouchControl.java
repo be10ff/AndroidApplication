@@ -75,7 +75,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
         m_GotPosition = false;
         this.setOnLongClickListener(this);
         ViewConfiguration vc = ViewConfiguration.get(activity);
-        mTouchSlop = vc.getScaledTouchSlop();
+        mTouchSlop = 2 * vc.getScaledTouchSlop();
 
 
     }
@@ -245,7 +245,7 @@ public class GITouchControl extends View implements GIControl, OnLongClickListen
             GILonLat lonlat = m_map.ScreenToMap(new Point((int) x, (int) y));
             Point point = m_map.MapToScreen(lonlat);
             GIDataRequestorImp requestor = new GIDataRequestorImp(this.getContext(), new Point((int) x, (int) y), m_map.ps);
-            m_map.RequestDataInPoint(new Point((int) x, (int) y), requestor);
+            m_map.RequestDataInPoint(new Point((int) x, (int) y), 2*mTouchSlop, requestor);
             requestor.ShowDialog(this.getContext(), new Point(point.x, point.y), m_map);
         }
         return false;

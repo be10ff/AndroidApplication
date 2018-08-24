@@ -24,7 +24,7 @@
         <item>traffic</item>
     </string-array>
 
-    <color name="Item_Background_Selected">#ffdaffda</color>
+
     <!--<string name="edit_layer_new">Create</string>-->
     <!--<string name="edit_layer_edit_geometry">Edit geometry</string>-->
     <!--<string name="edit_layer_edit_attributes">Edit attributes</string>-->
@@ -75,5 +75,7 @@
 
     <string name="date_format">MMM_dd</string>
     <string name="no_poi_layer_error"> No POI layer found </string>
+    <string name="add_next">Add and Continue</string>
+    <string name="close">Close</string>
 
 </resources>

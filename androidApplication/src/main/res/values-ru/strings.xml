@@ -13,7 +13,6 @@
         <item>traffic</item>
     </string-array>
 
-    <color name="Item_Background_Selected">#ffdaffda</color>
     <!--<string name="edit_layer_new">Create</string>-->
     <!--<string name="edit_layer_edit_geometry">Edit geometry</string>-->
     <!--<string name="edit_layer_edit_attributes">Edit attributes</string>-->

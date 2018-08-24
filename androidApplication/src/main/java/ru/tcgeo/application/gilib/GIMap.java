@@ -704,15 +704,18 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         return requestArea;
     }
 
-    public GIDataRequestor RequestDataInPoint(Point point, GIDataRequestor requestor) {
+    public GIDataRequestor RequestDataInPoint(Point point, int touchSlop, GIDataRequestor requestor) {
         synchronized (m_layers) {
             double scale_ = GIMap.getScale(m_bounds, m_view);
 
             double pixelWidth = m_bounds.width() / m_view_rect.width();
             double pixelHeight = m_bounds.height() / m_view_rect.height();
 
-            double area_width = pixelWidth * 30;
-            double area_height = pixelHeight * 30;
+//            double area_width = touchSlop;
+//            double area_height = touchSlop;
+
+            double area_width = pixelWidth * 64;
+            double area_height = pixelHeight * 64;
 
             double lon = m_bounds.left() + pixelWidth * point.x;
             double lat = m_bounds.top() - pixelHeight * point.y;
@@ -1493,6 +1496,29 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
                 break;
         }
         return res;
+    }
+
+    public void removeEditingControls(){
+        if(currentEditingControl != null) {
+            if(currentEditingControl.m_points != null) {
+                for (GIGeometryPointControl c : currentEditingControl.m_points) {
+                    c.Remove();
+                }
+            }
+            currentEditingControl.Disable();
+        }
+    }
+
+    public void disableEditingControls(){
+        if(currentEditingControl != null) {
+            if(currentEditingControl.m_points != null) {
+                for (GIGeometryPointControl c : currentEditingControl.m_points) {
+                    c.setActiveStatus(false);
+                    c.setChecked(false);
+                    c.invalidate();
+                }
+            }
+        }
     }
 
     class RenderTask implements Runnable {

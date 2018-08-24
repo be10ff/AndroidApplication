@@ -4,7 +4,7 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Material">
+    <style name="AppBaseTheme" parent="android:ThemeOverlay.Material.Dark">
         <item name="colorPrimary">#a7f827</item>
         <!-- colorPrimaryDark is used for the status bar -->
         <item name="colorPrimaryDark">#ff0fb129</item>
@@ -20,7 +20,7 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-
+        <item name="android:textColor">@color/black_text</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
@@ -70,6 +70,13 @@
         <item name="android:textStyle">normal</item>
         <item name="android:typeface">serif</item>
         <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="Theme.Text_Caption" parent="android:Theme">
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="Theme.Text_Small" parent="android:Theme">

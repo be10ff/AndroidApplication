@@ -60,9 +60,9 @@ public class ReMarkersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             Marker item = data.get(position);
             h.tvDescription.setText(item.name);
             if (item.selected) {
-                h.ivDirecton.setVisibility(View.VISIBLE);
+                h.ivDirecton.setImageResource(R.drawable.direction_arrow_new);
             } else {
-                h.ivDirecton.setVisibility(View.INVISIBLE);
+                h.ivDirecton.setImageResource(R.drawable.position_arrow);
             }
         }
     }

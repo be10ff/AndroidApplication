@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -29,26 +30,19 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
 	View m_LayoutView;
 	int[] m_offset;
     private GIMap m_map;
-    private RelativeLayout m_root;
     private GILonLat m_PointOriginMap;
     private Context m_context;
-//    private Bitmap m_bitmap;
-//    private BitmapDrawable pointDrawable;
 
 	public GIGeometryPointControl (Context context, GIMap map)
 	{
 		super(context);
-		//setMap(map);
 		m_context = context;
-//		m_bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.edit_point); //measure_point
-//		pointDrawable = new BitmapDrawable(m_bitmap);
 		LayoutInflater m_LayoutInflater = (LayoutInflater)m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		m_LayoutView = m_LayoutInflater.inflate(R.layout.geometry_editing_point_control, this);
 		m_button = (ToggleButton)m_LayoutView.findViewById(R.id.point_image);
-//		m_button.setBackground(pointDrawable);
 		m_button.setBackgroundResource(R.drawable.edit_point);
 
-		//measure_point
+
 		int size = m_context.getResources().getDimensionPixelSize(R.dimen.editing_poi_size);
 		m_offset = new int[] {size/2, size/2};
 
@@ -56,9 +50,7 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
 		m_button.setClickable(false);
 		setEnabled(false);
 		setClickable(false);
-		//m_button.setEnabled(false);
 		setMap(map);
-		//m_button.setOnClickListener(this);
 	}
 
     public boolean getChecked() {
@@ -84,28 +76,24 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
 			m_button.setOnLongClickListener(this);
 			m_button.setEnabled(true);
 			m_button.setClickable(true);
+			m_button.setFocusable(true);
 			setEnabled(true);
 			setClickable(true);
-//			m_map.getLocationOnScreen(map_location);
-//			map_location[0] -= m_offset[0];
-//			map_location[1] -= m_offset[1];
+			setFocusable(true);
 			MoveTo(m_map.MapToScreenTempo(m_PointOriginMap));
 			invalidate();
 		}
 		else
 		{
-//			Bitmap m_bitmap = BitmapFactory.decodeResource(m_context.getResources(), R.drawable.edit_point);
-//			m_offset = new int[] {m_bitmap.getWidth()/2, m_bitmap.getHeight()/2};
 			m_button.setBackgroundResource(R.drawable.edit_point); //measure_point
 			m_button.setOnClickListener(null);
-			//m_button.setOnLongClickListener(null);
+			m_button.setOnLongClickListener(null);
 			m_button.setEnabled(false);
 			m_button.setClickable(false);
+			m_button.setFocusable(false);
 			setEnabled(false);
 			setClickable(false);
-//			m_map.getLocationOnScreen(map_location);
-//			map_location[0] -= m_offset[0];
-//			map_location[1] -= m_offset[1];
+			setFocusable(false);
 			MoveTo(m_map.MapToScreenTempo(m_PointOriginMap));
 			invalidate();
 		}
@@ -113,22 +101,16 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
 
 	public void Remove()
 	{
-		if(m_root != null)
-		{
-			m_root.removeView(this);
-			this.setVisibility(View.GONE);
-		}
+		this.setVisibility(View.GONE);
 	}
 
 	public void setMap(GIMap map)
 	{
-
 		m_map = map;
 		map.registerGIControl(this);
-    	//m_map.getLocationOnScreen(map_location);
-//		map_location[0] -= m_offset[0];
-//		map_location[1] -= m_offset[1];
+
 	}
+
 	public void onMapMove()
 	{
 
@@ -190,10 +172,13 @@ public class GIGeometryPointControl extends LinearLayout implements GIControl, O
 		((Geoinfo) m_context).onSelectPoint(this);
 	}
 
-	public boolean onLongClick(View v) 
+	public boolean onLongClick(View v)
 	{
-        new GILonLatInputDialog(this).show(((Geoinfo) m_context).getFragmentManager(), "lon_lat");
-        return true;
+		if(isEnabled()) {
+			new GILonLatInputDialog().setControl(this).show(((Geoinfo) m_context).getFragmentManager(), "lon_lat");
+			return true;
+		}
+		return true;
 	}
 
 }

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/editing_poi_size"
     android:layout_height="@dimen/editing_poi_size"
     android:orientation="horizontal" >
-    
+
      <ToggleButton
         android:id="@+id/point_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/editing_poi_size"
+        android:layout_height="@dimen/editing_poi_size"
         android:background="@drawable/measure_point"
         android:gravity="center"
         android:textOff=""
         android:textOn=""
         android:textSize="0sp" />
-        
+
 </LinearLayout>

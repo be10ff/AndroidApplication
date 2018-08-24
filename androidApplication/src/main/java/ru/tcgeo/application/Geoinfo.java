@@ -835,6 +835,10 @@ public class Geoinfo extends Activity
                     btnEditCreate.setChecked(false);
                     btnEditAttributes.setChecked(false);
                     btnEditDelete.setChecked(false);
+
+//                    getMap().removeEditingControls();
+//                    getMap().disableEditingControls();
+
                 } else {
                     setState(GIEditingStatus.WAITING_FOR_SELECT_GEOMETRY_TO_EDITING);
                     fbEditCreate.setEnabled(false);
@@ -854,6 +858,9 @@ public class Geoinfo extends Activity
                     btnEditCreate.setChecked(false);
                     btnEditGeometry.setChecked(false);
                     btnEditDelete.setChecked(false);
+//                    getMap().disableEditingControls();
+//                    getMap().removeEditingControls();
+
                 } else {
                     setState(GIEditingStatus.RUNNING);
                     fbEditCreate.setEnabled(true);
@@ -971,6 +978,9 @@ public class Geoinfo extends Activity
         } else {
             setState(GIEditingStatus.EDITING_GEOMETRY);
         }
+
+
+
     }
 
     public BehaviorSubject<Boolean> getEnabledBehaviorSubject() {

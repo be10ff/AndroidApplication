@@ -35,4 +35,26 @@ public class Mercator {
         return y;
     }
 
+
+    public static String getCanonicalCoordString(double coord) {
+        long degrees = (long) Math.floor(coord) ;
+        long mins = (long) Math.floor((coord - degrees) * 60) ;
+        double secs = ((coord - degrees) * 60 - mins) * 60;
+        String res = String.format("%02d%02d%07.4f", degrees, mins, secs);
+        return res.replace(",", "");
+    }
+
+    public static String getGradMinCoordString(double coord) {
+        long degrees = (long) Math.floor(coord) ;
+        double mins =  (coord - degrees) * 60  ;
+        String res = String.format("%02d%09.6f", degrees, mins);
+        return res.replace(",", "");
+    }
+
+    public static String getGradCoordString(double coord) {
+        long degrees = (long) Math.round(coord * 100000000) ;
+        String res = String.valueOf(degrees);
+        return String.valueOf(degrees);
+
+    }
 }

@@ -4,7 +4,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/settings_section_bg"
+    android:background="@drawable/panel_background"
     android:orientation="vertical"
     android:padding="10dp">
 

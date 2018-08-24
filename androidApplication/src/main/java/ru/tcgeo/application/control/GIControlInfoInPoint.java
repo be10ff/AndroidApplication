@@ -33,9 +33,11 @@ public class GIControlInfoInPoint extends LinearLayout implements GIControl, OnC
 		setMap(map);
 		m_context = context;
 		LayoutInflater m_LayoutInflater = (LayoutInflater)m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		m_LayoutView = m_LayoutInflater.inflate(R.layout.info_control_nine_patch, this);
-		Button btn = (Button)findViewById(R.id.button_close_info);
-		btn.setOnClickListener(this);
+		View v = m_LayoutInflater.inflate(R.layout.info_control_nine_patch, this);
+		m_LayoutView = findViewById(R.id.rlContainer);
+		m_LayoutView.setOnClickListener(this);
+//		View btn = findViewById(R.id.button_close_info);
+//		btn.setOnClickListener(this);
 		hasClosed = false;
 		setText(text);
 		setCaption(caption);
@@ -198,10 +200,8 @@ public class GIControlInfoInPoint extends LinearLayout implements GIControl, OnC
 	}
 	public void setCaption(String info)
 	{
-       	//View v = findViewById(R.id.control_info_coords);
-       	//v.setT
-		TextView tv = (TextView)findViewById(R.id.control_info_coords);
-		tv.setText(info);
+//		TextView tv = (TextView)findViewById(R.id.control_info_coords);
+//		tv.setText(info);
 	}	
 	public void setLonLat(GILonLat lonlat)
 	{
@@ -222,6 +222,12 @@ public class GIControlInfoInPoint extends LinearLayout implements GIControl, OnC
     	{
     		Close();
     	}
+
+		if(v.getId() == R.id.rlContainer)
+		{
+			Close();
+		}
+
     	/*if(v.getId() == R.id.control_info_text)
     	{
 			this.bringToFront();
