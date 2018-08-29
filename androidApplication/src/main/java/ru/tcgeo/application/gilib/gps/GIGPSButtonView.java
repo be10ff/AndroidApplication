@@ -67,7 +67,7 @@ public class GIGPSButtonView extends RelativeLayout
 	private void Init(Context context)
 	{
 		ButterKnife.bind(this, layoutView);
-		ivStatus.setImageResource(R.drawable.gps_disabeled);
+		ivStatus.setImageResource(R.drawable.ic_gps_off);
 		m_textViewAccurancy.setText("-- m");
 		tvSpeed.setVisibility(INVISIBLE);
 		blink = false;
@@ -101,9 +101,9 @@ public class GIGPSButtonView extends RelativeLayout
                             @Override
                             public void accept(Boolean enabeled) {
                                 if (enabeled) {
-                                    ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_out_of_service));
+                                    ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.ic_gps_not_fixed));
                                 } else {
-                                    ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_disabeled));
+                                    ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.ic_gps_fixed));
                                     m_textViewAccurancy.setText("-- m");
                                 }
                             }

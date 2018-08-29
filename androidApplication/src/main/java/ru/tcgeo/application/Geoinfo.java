@@ -675,7 +675,7 @@ public class Geoinfo extends Activity
         // COMPASS_OPEN_BUTTON
         //--------------------------------------------------------------------
         final ImageButton btnProjectSelectorButton = new ImageButton(this);
-        btnProjectSelectorButton.setImageResource(R.drawable.open);
+        btnProjectSelectorButton.setImageResource(R.drawable.ic_folder_open);
         btnProjectSelectorButton.setBackgroundDrawable(null);
         SubActionButton fbOpen = itemBuilder.setContentView(btnProjectSelectorButton).build();
         btnProjectSelectorButton.setOnClickListener(new View.OnClickListener() {
@@ -688,7 +688,7 @@ public class Geoinfo extends Activity
         // COMPASS_OPEN_Layers
         //--------------------------------------------------------------------
         final ImageButton btnLayers = new ImageButton(this);
-        btnLayers.setImageResource(R.drawable.gear);
+        btnLayers.setImageResource(R.drawable.ic_settings);
         btnLayers.setBackgroundDrawable(null);
         SubActionButton fbLayers = itemBuilder.setContentView(btnLayers).build();
         btnLayers.setOnClickListener(new View.OnClickListener() {
@@ -702,7 +702,7 @@ public class Geoinfo extends Activity
         // COMPASS_EDIT_Layers
         //--------------------------------------------------------------------
         final ImageButton btnEditLayers = new ImageButton(this);
-        btnEditLayers.setImageResource(R.drawable.edit);
+        btnEditLayers.setImageResource(R.drawable.edit_geometry);
         btnEditLayers.setBackgroundDrawable(null);
         SubActionButton fbEditLayers = itemBuilder.setContentView(btnEditLayers).build();
         btnEditLayers.setOnClickListener(new View.OnClickListener() {
@@ -715,7 +715,7 @@ public class Geoinfo extends Activity
         // COMPASS_MARKERS
         //--------------------------------------------------------------------
         final ImageButton btnMarkers = new ImageButton(this);
-        btnMarkers.setImageResource(R.drawable.poi);
+        btnMarkers.setImageResource(R.drawable.ic_place);
         btnMarkers.setBackgroundDrawable(null);
         SubActionButton fbMarkers = itemBuilder.setContentView(btnMarkers).build();
         btnMarkers.setOnClickListener(new View.OnClickListener() {
@@ -881,7 +881,7 @@ public class Geoinfo extends Activity
         fbEdit = new ImageButton(this);
         FloatingActionButton.LayoutParams edit_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
         edit_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
-        fbEdit.setImageResource(R.drawable.edit);
+        fbEdit.setImageResource(R.drawable.edit_geometry);
         fbEdit.setBackgroundDrawable(null);
         fbEdit.setOnClickListener(new View.OnClickListener() {
             @Override
