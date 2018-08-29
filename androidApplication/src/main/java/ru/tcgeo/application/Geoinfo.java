@@ -49,12 +49,12 @@ import ru.tcgeo.application.control.GIPositionControl;
 import ru.tcgeo.application.control.GIScaleControl;
 import ru.tcgeo.application.control.GITouchControl;
 import ru.tcgeo.application.data.GIEditingStatus;
+import ru.tcgeo.application.data.GIGPSLocationListener;
 import ru.tcgeo.application.data.interactors.LoadProjectInteractor;
 import ru.tcgeo.application.gilib.GIMap;
 import ru.tcgeo.application.gilib.gps.GICompassView;
 import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
 import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
-import ru.tcgeo.application.data.GIGPSLocationListener;
 import ru.tcgeo.application.gilib.gps.GILocatorFragment;
 import ru.tcgeo.application.gilib.gps.GISensors;
 import ru.tcgeo.application.gilib.layer.GIEditableLayer;
@@ -755,7 +755,6 @@ public class Geoinfo extends Activity
 
         btnEditAddPoints = new AppCompatCheckBox(this);
         btnEditAddPoints.setTextSize(0);
-//		Drawable d = AppCompatDrawableManager.get().getDrawable(this, R.drawable.edit_create_bg);
         btnEditAddPoints.setButtonDrawable(R.drawable.edit_add_points_bg);
         btnEditAddPoints.setBackgroundDrawable(null);
         fbEditAddPoints = itemBuilder.setContentView(btnEditAddPoints).build();

@@ -16,6 +16,8 @@ public class GICompassDrawThread extends Thread
 {
 	Context mContext;
 	Bitmap arrow;
+//	VectorDrawableCompat arrowDrawable;
+
     private boolean running = false;
     private SurfaceHolder surfaceHolder;
 
@@ -23,6 +25,7 @@ public class GICompassDrawThread extends Thread
 	{
 		this.surfaceHolder = surfaceHolder;
         arrow = BitmapFactory.decodeResource(App.Instance().getResources(), R.drawable.arrow);
+
     }
 
 	public GICompassDrawThread(Context context, SurfaceHolder surfaceHolder)
@@ -30,6 +33,8 @@ public class GICompassDrawThread extends Thread
 		this.surfaceHolder = surfaceHolder;
 		mContext = context;
 		arrow = BitmapFactory.decodeResource(context.getResources(), R.drawable.arrow);
+//		arrowDrawable = VectorDrawableCompat.create(context.getResources(), R.drawable.edit_geometry, null);
+
 	}
 	
 	public void setRunning(boolean running)
@@ -49,12 +54,14 @@ public class GICompassDrawThread extends Thread
 				sleep(300);
 				float arrow_width = arrow.getWidth();
 				float arrow_height = arrow.getHeight();
+//				arrowDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
 				canvas  = surfaceHolder.lockCanvas(null);
 				if(canvas == null) continue;
 				canvas.drawColor(0, PorterDuff.Mode.CLEAR);
 				float[] orientation =  GISensors.Instance(mContext).getOrientation();
 				canvas.rotate(- orientation[0] , canvas.getWidth()/2,canvas.getHeight()/2);
-				canvas.drawBitmap(arrow, new Rect(0, 0, (int)arrow_width, (int)arrow_height), new Rect(0, 0, canvas.getWidth(), canvas.getHeight()), null); 
+				canvas.drawBitmap(arrow, new Rect(0, 0, (int) arrow_width, (int) arrow_height), new Rect(0, 0, canvas.getWidth(), canvas.getHeight()), null);
+//				arrowDrawable.draw(canvas);
 			}
 			catch(Exception e) {
 				String res = e.toString();
