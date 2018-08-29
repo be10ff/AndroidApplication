@@ -7,35 +7,29 @@
 
     <TextView
         android:id="@+id/tvAddTraffic"
-        style="@style/Theme.Text_Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/top_button_background_normal"
-        android:gravity="center"
+        style="@style/Theme.Button"
         android:text="@string/add_layer_traffic" />
 
     <TextView
         android:id="@+id/tvAddPoints"
-        style="@style/Theme.Text_Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/top_button_background_normal"
-        android:gravity="center"
+        style="@style/Theme.Button"
         android:text="@string/add_layer_points" />
 
     <TextView
         android:id="@+id/tvFromFile"
-        style="@style/Theme.Text_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/button_background"
-        android:gravity="center"
+        style="@style/Theme.Button"
         android:text="@string/add_from_file" />
 
     <!--<TextView-->

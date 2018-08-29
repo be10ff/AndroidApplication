@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@drawable/panel_background"
     android:padding="36dp">
 
     <android.support.design.widget.TabLayout

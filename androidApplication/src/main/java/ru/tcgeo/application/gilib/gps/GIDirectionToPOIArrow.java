@@ -60,7 +60,7 @@ public class GIDirectionToPOIArrow  extends View implements GIControl
         paint_fill = new Paint();
 		paint_fill.setColor(Color.argb(255, 63, 255, 63));//setColor(Color.argb(255, 255, 127, 0));
 		paint_fill.setStyle(Style.FILL);
-        paint_fill.setTextSize(getResources().getDimension(R.dimen.direction_to_point_text_size));
+        paint_fill.setTextSize(getResources().getDimension(R.dimen.large_text_size));
         paint_fill.setShadowLayer(5, 2, 2, Color.BLACK);
 
 		bounds = new Rect();

@@ -10,7 +10,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="8dp"
         android:text="@string/new_attribute_name"
-        android:textSize="@dimen/attributes_text_size" />
+        android:textSize="@dimen/caption_text_size" />
 
     <TextView
         android:layout_width="240dp"
@@ -18,6 +18,6 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="8dp"
         android:text="@string/new_attribute_value"
-        android:textSize="@dimen/attributes_text_size"></TextView>
+        android:textSize="@dimen/caption_text_size"></TextView>
 
 </LinearLayout>

@@ -12,7 +12,7 @@
 
         <TextView
             android:id="@+id/control_info_coords"
-            style="@style/Theme.Text_Small"
+            style="@style/Theme.Text_Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/control_info_text"
-            style="@style/Theme.Text_Small"
+            style="@style/Theme.Text_Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null" />

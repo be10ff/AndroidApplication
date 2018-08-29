@@ -807,6 +807,7 @@ public class Geoinfo extends Activity
         btnEditAddPoints.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnEditAddPoints.setChecked(false);
                 fbEditAttributes.setEnabled(false);
                 fbEditGeometry.setEnabled(false);
                 fbEditDelete.setEnabled(false);

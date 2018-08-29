@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
-    android:background="@color/white"
+    android:background="@color/control_text_button_bg"
     android:tag="root">
  
        <ru.tcgeo.application.gilib.GIMap

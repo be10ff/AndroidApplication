@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppBaseTheme" parent="android:Theme.Material">
-        <item name="colorPrimary">#a7f827</item>
-        <item name="colorPrimaryDark">#ff0fb129</item>
-        <item name="colorAccent">#ff0fb129</item>
-        <item name="android:textColor">@color/black_text</item>
+    <!--<style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!--<item name="colorPrimary">#a7f827</item>-->
+        <!--<item name="colorPrimaryDark">#ff0fb129</item>-->
+        <!--<item name="colorAccent">#ff0fb129</item>-->
+        <!--<item name="android:textColor">@color/black_text</item>-->
+        <!--<item name="android:editTextStyle">@style/App_EditTextStyle</item>-->
+        <!--<item name="editTextStyle">@style/App_EditTextStyle</item>-->
+    <!--</style>-->
+    <!---->
+    <!--<style name="AppTheme" parent="AppBaseTheme"/>-->
+    <!--<style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">-->
+        <!--<item name="tabIndicatorColor">@color/measure_line_color</item>-->
+    <!--</style>-->
 
-    </style>
+    <!--<style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!--<item name="colorPrimary">@color/olive_yellow</item>-->
+        <!--<item name="colorPrimaryDark">@color/olive_green</item>-->
+        <!--<item name="colorAccent">@color/olive_green</item>-->
+        <!--<item name="android:textColor">@color/black_text</item>-->
+        <!--<item name="android:editTextStyle">@style/App_EditTextStyle</item>-->
+        <!--<item name="editTextStyle">@style/App_EditTextStyle</item>-->
+    <!--</style>-->
+
     <style name="AppTheme" parent="AppBaseTheme"/>
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/measure_line_color</item>
-
+        <item name="tabIndicatorColor">@color/control_dark</item>
     </style>
 
 </resources>

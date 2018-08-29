@@ -87,7 +87,11 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                 .callback(new LayerHolderCallback() {
                     @Override
                     public void onMarkersSourceCheckChanged(RecyclerView.ViewHolder holder, boolean isChecked) {
-                        GILayer tuple = adapter.getItem(holder.getAdapterPosition());
+                        int pos = holder.getAdapterPosition();
+                        if(pos == -1) {
+                            return;
+                        }
+                        GILayer tuple = adapter.getItem(pos);
                         callback.onMarkersSourceCheckChanged(tuple, isChecked);
                         adapter.notifyDataSetChanged();
                     }

@@ -103,7 +103,7 @@
             android:layout_height="1dp"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
-            android:background="@color/layers_dialog_dividers" />
+            android:background="@color/control_text_button_disable_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -132,14 +132,14 @@
             android:layout_height="wrap_content"
             rsb:absoluteMinValue="@integer/zoom_max"
             rsb:absoluteMaxValue="@integer/zoom_min"
-            rsb:textAboveThumbsColor="@color/black_text" />
+            rsb:textAboveThumbsColor="@color/control_dark" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
-            android:background="@color/layers_dialog_dividers" />
+            android:background="@color/control_text_button_disable_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -148,7 +148,7 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/CaptionText"
+                style="@style/Theme.Text_Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
@@ -156,7 +156,7 @@
                 android:text="@string/layer_colors" />
 
             <TextView
-                style="@style/CaptionText"
+                style="@style/Theme.Text_Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="right|center_vertical"
@@ -169,7 +169,7 @@
                 android:layout_margin="24dp" />
 
             <TextView
-                style="@style/CaptionText"
+                style="@style/Theme.Text_Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="right|center_vertical"
@@ -187,7 +187,7 @@
             android:layout_height="1dp"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
-            android:background="@color/layers_dialog_dividers" />
+            android:background="@color/control_text_button_disable_bg" />
 
 
         <RadioGroup
@@ -198,14 +198,14 @@
 
             <CheckBox
                 android:id="@+id/cbPoiLayer"
-                style="@style/Theme.Item_text.light_small"
+                style="@style/Theme.Text_Normal_Gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/active_source" />
 
             <RadioButton
                 android:id="@+id/rbPoint"
-                style="@style/Theme.Item_text.light_small"
+                style="@style/Theme.Text_Normal_Gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/editable_point" />
@@ -213,14 +213,14 @@
 
             <RadioButton
                 android:id="@+id/rbLine"
-                style="@style/Theme.Item_text.light_small"
+                style="@style/Theme.Text_Normal_Gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/editable_lines" />
 
             <RadioButton
                 android:id="@+id/rbPolygon"
-                style="@style/Theme.Item_text.light_small"
+                style="@style/Theme.Text_Normal_Gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/editable_polygon" />
@@ -232,7 +232,7 @@
             android:layout_height="1dp"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
-            android:background="@color/layers_dialog_dividers" />
+            android:background="@color/control_text_button_disable_bg" />
         <TextView
             style="@style/Theme.Text_Normal_Gray"
             android:layout_width="wrap_content"
@@ -246,7 +246,7 @@
             rsb:absoluteMaxValue="@integer/stroke_width_max"
             rsb:absoluteMinValue="@integer/zoom_min"
             rsb:singleThumb="true"
-            rsb:textAboveThumbsColor="@color/black_text" />
+            rsb:textAboveThumbsColor="@color/control_dark" />
 
 
 

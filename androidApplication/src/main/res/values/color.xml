@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="layers_dialog_dividers">#22222222</color>
-    <color name="measure_line_color">#ff0fb129</color>
-    <color name="black_text">#ff333333</color>
-    <color name="dark_red_text">#ffbd0000</color>
-    <color name="white">#ffffff</color>
-    <color name="colorDivider">#EBEBEB</color>
-    <color name="control">#a7f827</color>
-    <color name="sub_text">#8a000000</color>
-    <color name="gray_text">#4a000000</color>
-    <color name="transparent_bg">#2affffff</color>
 
-    <color name="text_color_selector">#ffdaffda</color>
+    <color name="light_green">#89AC76</color>
+    <color name="light_gray">#a08D917A</color>
+    <!--<color name="light_gray">#8D917A</color>-->
+    <color name="yellow_green">#425E17</color>
+    <!--<color name="green">#414833</color>-->
+    <!--<color name="olive">#142300</color>-->
+    <color name="green_gray">#4D5645</color>
+    <color name="olive_yellow">#999950</color>
+    <color name="olive_green">#424632</color>
 
-    <!--<selector xmlns:android="http://schemas.android.com/apk/res/android" >-->
-        <!--<item-->
-            <!--android:color="#00ff00"-->
-            <!--android:state_pressed="false" />-->
-        <!--<item-->
-            <!--android:color="#0000ff"-->
-            <!--android:state_pressed="true" />-->
-    <!--</selector>-->
+
+    <color name="control_dark">@color/olive_green</color>
+    <color name="control_light">@color/olive_yellow</color>
+    <color name="control_off">@color/green_gray</color>
+    <color name="control_text_disable">@color/yellow_green</color>
+    <color name="control_text_button_bg">@color/light_green</color>
+    <color name="control_text_button_disable_bg">@color/light_gray</color>
 
 
 </resources>
