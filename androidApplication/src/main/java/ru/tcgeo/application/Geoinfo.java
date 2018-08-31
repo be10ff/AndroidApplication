@@ -532,18 +532,18 @@ public class Geoinfo extends Activity
         // GPS buttons
         //--------------------------------------------------------------------
         fbGPS = new GIGPSButtonView(this);
-        FloatingActionButton.LayoutParams gps_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
+        FloatingActionButton.LayoutParams gps_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(80), ScreenUtils.dpToPx(80));
         gps_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
 
         FloatingActionButton gps_action_button = new FloatingActionButton.Builder(this)
                 .setContentView(fbGPS)
-                .setBackgroundDrawable(null)
+                .setBackgroundDrawable(R.drawable.menu_circle_button_background)
                 .setPosition(FloatingActionButton.POSITION_TOP_LEFT)
                 .setLayoutParams(gps_menu_params)
                 .build();
 
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
-        FloatingActionButton.LayoutParams action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(84), ScreenUtils.dpToPx(84));
+        FloatingActionButton.LayoutParams action_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(64), ScreenUtils.dpToPx(64));
         action_params.gravity = Gravity.CENTER_HORIZONTAL;
         itemBuilder.setLayoutParams(action_params);
 
@@ -553,7 +553,7 @@ public class Geoinfo extends Activity
         //--------------------------------------------------------------------
         final CheckBox m_btnAutoFollow = new CheckBox(this);
         m_btnAutoFollow.setButtonDrawable(R.drawable.auto_follow_status_);
-        SubActionButton fbAutoFollow = itemBuilder.setContentView(m_btnAutoFollow).build();
+        SubActionButton fbAutoFollow = itemBuilder.setContentView(m_btnAutoFollow).setBackgroundDrawable(getResources().getDrawable(R.drawable.menu_circle_button_background)).build();
         locationListener.getFollowSubject().onNext(0);
         m_btnAutoFollow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -662,12 +662,13 @@ public class Geoinfo extends Activity
         // Compass buttons
         //--------------------------------------------------------------------
         GICompassView fbCompass = new GICompassView(this);
-        FloatingActionButton.LayoutParams compass_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
+        FloatingActionButton.LayoutParams compass_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(80), ScreenUtils.dpToPx(80));
         compass_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
 
         FloatingActionButton compass_action_button = new FloatingActionButton.Builder(this)
                 .setContentView(fbCompass)
-                .setBackgroundDrawable(null)
+//                .setBackgroundDrawable(null)
+                .setBackgroundDrawable(R.drawable.menu_circle_button_background)
                 .setPosition(FloatingActionButton.POSITION_TOP_RIGHT)
                 .setLayoutParams(compass_menu_params)
                 .build();
@@ -878,7 +879,7 @@ public class Geoinfo extends Activity
         });
 
         fbEdit = new ImageButton(this);
-        FloatingActionButton.LayoutParams edit_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(96), ScreenUtils.dpToPx(96));
+        FloatingActionButton.LayoutParams edit_menu_params = new FloatingActionButton.LayoutParams(ScreenUtils.dpToPx(80), ScreenUtils.dpToPx(80));
         edit_menu_params.setMargins(ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2), ScreenUtils.dpToPx(2));
         fbEdit.setImageResource(R.drawable.edit_geometry);
         fbEdit.setBackgroundDrawable(null);
@@ -897,7 +898,8 @@ public class Geoinfo extends Activity
 
         fbEditButton = new FloatingActionButton.Builder(this)
                 .setContentView(fbEdit)
-                .setBackgroundDrawable(null)
+//                .setBackgroundDrawable(null)
+                .setBackgroundDrawable(R.drawable.menu_circle_button_background)
                 .setPosition(FloatingActionButton.POSITION_BOTTOM_RIGHT)
                 .setLayoutParams(edit_menu_params)
                 .build();

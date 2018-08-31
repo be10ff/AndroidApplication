@@ -104,9 +104,9 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             h.cbLayerVisibility.setChecked(item.m_layer_properties.m_enabled);
             h.tvFilePath.setText(item.m_layer_properties.m_source.GetAbsolutePath());
             if (new File(item.m_layer_properties.m_source.GetAbsolutePath()).exists()) {
-                h.ivFileExsist.setImageResource(R.drawable.project_mark);
+                h.ivFileExsist.setImageResource(R.drawable.edit_done);
             } else {
-                h.ivFileExsist.setImageResource(R.drawable.project_mark_fail);
+                h.ivFileExsist.setImageResource(R.drawable.ic_problem);
             }
             h.rsbScaleRange.setSelectedMaxValue(MapUtils.scale2Z(item.m_layer_properties.m_range.m_to));
             h.rsbScaleRange.setSelectedMinValue(MapUtils.scale2Z(item.m_layer_properties.m_range.m_from));

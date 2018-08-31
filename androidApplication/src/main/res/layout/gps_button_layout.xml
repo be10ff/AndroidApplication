@@ -23,7 +23,7 @@
         android:shadowDy="2"
         android:shadowRadius="5"
         android:text="--"
-        android:textColor="@color/control_light"
+        android:textColor="@color/control_off"
         android:textSize="36sp"
         android:textStyle="bold"
         android:typeface="normal"
@@ -41,7 +41,7 @@
         android:shadowDy="2"
         android:shadowRadius="5"
         android:text="-- m"
-        android:textColor="@color/control_light"
+        android:textColor="@color/control_off"
         android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="normal"/>

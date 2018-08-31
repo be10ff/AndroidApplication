@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/panel_background"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_margin="4dp"
+    android:padding="16dp">
 
     <include layout="@layout/item_layers_header_list" />
     >

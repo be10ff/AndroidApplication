@@ -183,7 +183,7 @@ public class GIGPSButtonView extends RelativeLayout
 					@Override
 					public void accept(Location location) {
 						float accurancy = location.getAccuracy();
-						m_textViewAccurancy.setText(String.format("±%02d m", (int) accurancy));
+						m_textViewAccurancy.setText(String.format("±%02d", (int) accurancy));
 						blink = !blink;
 						if (blink) {
 							m_textViewAccurancy.setTextColor(Color.argb(255, 63, 255, 63));
@@ -214,11 +214,11 @@ public class GIGPSButtonView extends RelativeLayout
 	{
 		if(enabeled)
 		{
-			ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_out_of_service));
+			ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.ic_gps_not_fixed));
 		}
 		else
 		{
-			ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_disabeled));
+			ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.ic_gps_off));
 			m_textViewAccurancy.setText("-- m");
 		}
 	}
@@ -228,17 +228,17 @@ public class GIGPSButtonView extends RelativeLayout
 		{
 			case 0:
 			{
-				ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_out_of_service));
+				ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.ic_gps_not_fixed));
 				break;
 			}
 			case 2:
 			{
-				ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_unavaliable));
+				ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.ic_gps_fixed));
 				break;
 			}
 			case 1:
 			{
-				ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.gps_avaliable));
+				ivStatus.setImageDrawable(getResources().getDrawable(R.drawable.ic_gps_fixed));
 				break;
 			}
 

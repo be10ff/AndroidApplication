@@ -10,6 +10,7 @@
     <color name="green_gray">#4D5645</color>
     <color name="olive_yellow">#999950</color>
     <color name="olive_green">#424632</color>
+    <color name="clean_green">#00ff00</color>
 
 
     <color name="control_dark">@color/olive_green</color>
