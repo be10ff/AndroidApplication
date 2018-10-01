@@ -2,7 +2,6 @@ package ru.tcgeo.application.views.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +23,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.interfaces.IFolderItemListener;
 import ru.tcgeo.application.utils.ExternalStorageUtil;
-import ru.tcgeo.application.view.IFolderItemListener;
 
 public class OpenSDFileFragment extends Fragment implements OnItemClickListener {
 

@@ -11,7 +11,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal" >
 
-		<ru.tcgeo.application.ui.MaskedEditText
+		<ru.tcgeo.application.utils.MaskedEditText
 			android:id="@+id/lon_can"
 			android:layout_width="0dp"
 			android:layout_weight="1"
@@ -23,7 +23,7 @@
 			app:mask="##°##’##.####”"
 			app:notMaskedSymbol="#" />
 
-		<ru.tcgeo.application.ui.MaskedEditText
+		<ru.tcgeo.application.utils.MaskedEditText
 			android:id="@+id/lat_can"
 			android:layout_width="0dp"
 			android:layout_weight="1"
@@ -42,7 +42,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal" >
 
-		<ru.tcgeo.application.ui.MaskedEditText
+		<ru.tcgeo.application.utils.MaskedEditText
 			android:id="@+id/lon_grad_min"
 			android:layout_width="0dp"
 			android:layout_weight="1"
@@ -54,7 +54,7 @@
 			app:mask="##°##.######’"
 			app:notMaskedSymbol="#" />
 
-		<ru.tcgeo.application.ui.MaskedEditText
+		<ru.tcgeo.application.utils.MaskedEditText
 			android:id="@+id/lat_grad_min"
 			android:layout_width="0dp"
 			android:layout_weight="1"
@@ -72,7 +72,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal" >
 
-		<ru.tcgeo.application.ui.MaskedEditText
+		<ru.tcgeo.application.utils.MaskedEditText
 			android:id="@+id/lon_decimal"
 			android:layout_width="0dp"
 			android:layout_weight="1"
@@ -84,7 +84,7 @@
 			app:mask="##.########°"
 			app:notMaskedSymbol="#" />
 
-		<ru.tcgeo.application.ui.MaskedEditText
+		<ru.tcgeo.application.utils.MaskedEditText
 			android:id="@+id/lat_decimal"
 			android:layout_width="0dp"
 			android:layout_weight="1"

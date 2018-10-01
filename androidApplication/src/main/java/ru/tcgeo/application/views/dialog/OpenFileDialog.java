@@ -17,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.view.IFolderItemListener;
+import ru.tcgeo.application.interfaces.IFolderItemListener;
 import ru.tcgeo.application.views.fragment.CreateAdditionalLayerFragment;
 import ru.tcgeo.application.views.fragment.OpenFileFragment;
 import ru.tcgeo.application.views.fragment.OpenSDFileFragment;

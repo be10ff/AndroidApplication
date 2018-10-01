@@ -2,7 +2,7 @@ package ru.tcgeo.application;
 
 import android.app.Application;
 
-import ru.tcgeo.application.gilib.GIMap;
+import ru.tcgeo.application.data.GIMap;
 import ru.tcgeo.application.utils.SPUtils;
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 

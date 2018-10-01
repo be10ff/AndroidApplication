@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.view.IFolderItemListener;
+import ru.tcgeo.application.interfaces.IFolderItemListener;
 
 public class CreateAdditionalLayerFragment extends Fragment {
     private static final int READ_REQUEST_CODE = 42;

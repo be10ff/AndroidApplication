@@ -4,37 +4,24 @@ package ru.tcgeo.application.views.dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.control.GIGeometryPointControl;
 import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.ui.MaskedEditText;
 import ru.tcgeo.application.utils.CommonUtils;
-import ru.tcgeo.application.utils.GIYandexUtils;
-import ru.tcgeo.application.utils.MaskedWatcher;
 import ru.tcgeo.application.views.callback.LonLatInputCallback;
-import ru.tcgeo.application.views.widget.LonLatInputView;
-import ru.tcgeo.application.wkt.GI_WktPoint;
+import ru.tcgeo.application.views.control.LonLatInputView;
 
 public class AddPointsDialog extends DialogFragment implements LonLatInputCallback {
     Geoinfo activity;

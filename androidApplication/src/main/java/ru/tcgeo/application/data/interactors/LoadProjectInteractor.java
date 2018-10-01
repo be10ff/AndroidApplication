@@ -31,7 +31,7 @@ import ru.tcgeo.application.gilib.parser.GIPropertiesGroup;
 import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
 import ru.tcgeo.application.gilib.parser.GIRange;
 import ru.tcgeo.application.gilib.parser.GISQLDB;
-import ru.tcgeo.application.view.MapView;
+import ru.tcgeo.application.interfaces.MapView;
 
 /**
  * Created by abelov on 28.04.16.

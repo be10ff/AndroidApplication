@@ -23,7 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.view.IFolderItemListener;
+import ru.tcgeo.application.interfaces.IFolderItemListener;
 
 public class OpenFileFragment extends Fragment implements OnItemClickListener {
 
