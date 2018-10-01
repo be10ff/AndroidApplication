@@ -130,8 +130,6 @@ public class GIRuleToolControl extends View implements OnClickListener, GIContro
 			len = len/1000;
 		}
 		return String.format(form, len);
-
-
 	}
 
     public void Disable() {

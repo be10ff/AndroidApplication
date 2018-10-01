@@ -28,7 +28,7 @@
         android:textStyle="bold"
         android:typeface="normal"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/panel_border_small"/>
+        android:background="@drawable/panel_background" />
 
     <TextView
         android:id="@+id/textViewAccurancy"

@@ -23,25 +23,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa8c29bb-4d7a-43e8-80fa-51877adc9ddf" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_problem.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/jim_off.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/jim_on.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/adapter/ReLayersAdapter.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/adapter/ReLayersAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/OpenFileDialog.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/OpenFileDialog.java" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/menu_circle_button_background.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/drawable/menu_circle_button_background.xml" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/file_list_row_layout.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/file_list_row_layout.xml" />
+      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/control/GIRuleToolControl.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/control/GIRuleToolControl.java" />
+      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReReREGILonLatInputDialog.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReReREGILonLatInputDialog.java" />
+      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/fragment/CreateAdditionalLayerFragment.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/fragment/CreateAdditionalLayerFragment.java" />
+      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/LayerHolder.java" afterPath="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/LayerHolder.java" />
       <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/gps_button_layout.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/gps_button_layout.xml" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_editable_layers_list.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_editable_layers_list.xml" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_list.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_list.xml" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_project_holder.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_project_holder.xml" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_sqlite_list.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_sqlite_list.xml" />
+      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_header_list.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_header_list.xml" />
       <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_xml_list.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_xml_list.xml" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_marker_list.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_marker_list.xml" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_projects_list.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_projects_list.xml" />
-      <change beforePath="$PROJECT_DIR$/androidApplication/src/main/res/values/color.xml" afterPath="$PROJECT_DIR$/androidApplication/src/main/res/values/color.xml" />
     </list>
     <ignored path="AndroidApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -72,37 +62,72 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Geoinfo.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="127" column="0" lean-forward="true" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ReLayersAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/adapter/ReLayersAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="73" column="90" lean-forward="false" selection-start-line="73" selection-start-column="90" selection-end-line="73" selection-end-column="90" />
+            <state relative-caret-position="141">
+              <caret line="235" column="0" lean-forward="false" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="item_layers_list.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_list.xml">
+      <file leaf-file-name="ProjectLayerHeaderHolder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/ProjectLayerHeaderHolder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-126">
-              <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+            <state relative-caret-position="255">
+              <caret line="25" column="25" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="33" />
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="GIMap.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="964" column="30" lean-forward="false" selection-start-line="964" selection-start-column="30" selection-end-line="964" selection-end-column="30" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OpenFileFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/fragment/OpenFileFragment.java">
+      <file leaf-file-name="GIGPSPointsLayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="52" column="49" lean-forward="false" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
-              <folding>
-                <element signature="e#5119#5127#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="276">
+              <caret line="144" column="0" lean-forward="false" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GILayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/layer/GILayer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="386">
+              <caret line="238" column="0" lean-forward="false" selection-start-line="238" selection-start-column="0" selection-end-line="238" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReSettingsDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReSettingsDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="258">
+              <caret line="316" column="0" lean-forward="false" selection-start-line="316" selection-start-column="0" selection-end-line="316" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -110,32 +135,29 @@
       <file leaf-file-name="OpenFileDialog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/OpenFileDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="58" column="25" lean-forward="false" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
+            <state relative-caret-position="243">
+              <caret line="59" column="23" lean-forward="false" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Geoinfo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
+      <file leaf-file-name="CreateAdditionalLayerFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/fragment/CreateAdditionalLayerFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="533" column="27" lean-forward="false" selection-start-line="533" selection-start-column="27" selection-end-line="533" selection-end-column="27" />
+            <state relative-caret-position="156">
+              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GIGPSButtonView.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java">
+      <file leaf-file-name="CreateAdditionalLayerFragment_ViewBinding.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/androidApplication/build/generated/source/apt/debug/ru/tcgeo/application/views/fragment/CreateAdditionalLayerFragment_ViewBinding.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="183" column="59" lean-forward="true" selection-start-line="183" selection-start-column="59" selection-end-line="183" selection-end-column="59" />
-              <folding>
-                <element signature="e#6397#6523#0" expanded="true" />
-                <element signature="e#6522#6523#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="148">
+              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -2068,12 +2090,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_move_point.xml" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_more_vert.xml" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_markers_enable.xml" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_visibility_off.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_markers_disable.xml" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_header_list.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_zero_data.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReSettingsDialog.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/main.xml" />
@@ -2104,21 +2121,26 @@
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/values/color.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/adapter/ReLayersAdapter.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_problem.xml" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/gps_button_layout.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/jim_off.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/jim_on.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/drawable/auto_follow_status_.xml" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_projects_list.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_editable_layers_list.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_marker_list.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_project_holder.xml" />
-        <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_xml_list.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_sqlite_list.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_list.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/file_list_row_layout.xml" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/OpenFileDialog.java" />
         <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/gps_button_layout.xml" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReReREGILonLatInputDialog.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/control/GIRuleToolControl.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_xml_list.xml" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/LayerHolder.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_header_list.xml" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/fragment/CreateAdditionalLayerFragment.java" />
+        <option value="$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java" />
       </list>
     </option>
   </component>
@@ -2152,6 +2174,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -2225,6 +2251,18 @@
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="tcgeo" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidApplication" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidApplication" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="androidApplication" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ru" type="462c0819:PsiDirectoryNode" />
+              <item name="tcgeo" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -2272,6 +2310,33 @@
               <item name="androidApplication" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ru" type="462c0819:PsiDirectoryNode" />
+              <item name="tcgeo" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="viewholder" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidApplication" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidApplication" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="androidApplication" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ru" type="462c0819:PsiDirectoryNode" />
+              <item name="tcgeo" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="viewholder" type="462c0819:PsiDirectoryNode" />
+              <item name="helper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidApplication" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidApplication" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="androidApplication" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -2296,10 +2361,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2307,9 +2368,9 @@
     <property name="last_directory_selection" value="$PROJECT_DIR$/androidApplication/src/main/res/drawable" />
     <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="device.picker.selection" value="5641e928" />
+    <property name="device.picker.selection" value="GQCUC66ST8EE694H" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="5443a464" />
-    <property name="SearchEverywhereHistoryKey" value="GITo&#9;FILE&#9;file:///home/user/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/control/GITouchControl.java&#10;GIT&#9;PSI&#9;JAVA://ru.tcgeo.application.control.GITouchControl&#10;Com&#9;PSI&#9;JAVA://ru.tcgeo.application.gilib.gps.GICompassView&#10;GILo&#9;FILE&#9;file:///home/user/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSLocationListener.java&#10;GItr&#9;PSI&#9;JAVA://ru.tcgeo.application.data.GITrackingStatus&#10;GIP&#9;FILE&#9;file:///home/artem/StudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java&#10;GIM&#9;FILE&#9;file:///home/artem/StudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java&#10;GIPo&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java&#10;Edi&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayerDialog.java&#10;GIL&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java&#10;XML&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java&#10;GPS&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java&#10;gisq&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLRenderer.java&#10;rE&#9;PSI&#9;JAVA://ru.tcgeo.application.gilib.GIEditableRenderer&#10;Ed&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java&#10;Sca&#9;PSI&#9;JAVA://ru.tcgeo.application.views.GIScaleControl&#10;GIS&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GISQLDB.java&#10;Ma&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java&#10;gi&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLRenderer.java" />
+    <property name="SearchEverywhereHistoryKey" value="Dir&#9;PSI&#9;JAVA://ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow&#10;GIM&#9;PSI&#9;JAVA://ru.tcgeo.application.gilib.GIMap&#10;GITo&#9;FILE&#9;file:///home/user/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/control/GITouchControl.java&#10;GIT&#9;PSI&#9;JAVA://ru.tcgeo.application.control.GITouchControl&#10;Com&#9;PSI&#9;JAVA://ru.tcgeo.application.gilib.gps.GICompassView&#10;GILo&#9;FILE&#9;file:///home/user/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSLocationListener.java&#10;GItr&#9;PSI&#9;JAVA://ru.tcgeo.application.data.GITrackingStatus&#10;GIP&#9;FILE&#9;file:///home/artem/StudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java&#10;GIPo&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java&#10;Edi&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayerDialog.java&#10;GIL&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GILayer.java&#10;XML&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIXMLTrack.java&#10;GPS&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java&#10;gisq&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLRenderer.java&#10;rE&#9;PSI&#9;JAVA://ru.tcgeo.application.gilib.GIEditableRenderer&#10;Ed&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIEditLayersKeeper.java&#10;Sca&#9;PSI&#9;JAVA://ru.tcgeo.application.views.GIScaleControl&#10;GIS&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/parser/GISQLDB.java&#10;Ma&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java&#10;gi&#9;FILE&#9;file:///home/abelov/AndroidStudioProjects/AndroidApplication/androidApplication/src/main/java/ru/tcgeo/application/gilib/GISQLRenderer.java" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="116" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_4_API_21" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="197" />
@@ -3123,7 +3184,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535539142935</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="redesing #3">
+      <created>1535695104681</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1535695104681</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3154,14 +3222,14 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23689839" sideWeight="0.816609" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31176472" sideWeight="0.816609" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23974082" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31101513" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23908414" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23903744" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.150108" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4136069" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -3273,7 +3341,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="start of GoogleFolderTileLayer:&#10;todo GITileInfoFolder, GIFolderLayer, GIFolderRenderer" />
     <MESSAGE value="re-adding TileLayer..." />
     <MESSAGE value="re-adding TileLayer... GIWktBounds, parsing" />
     <MESSAGE value="Folders for tracks" />
@@ -3298,7 +3365,8 @@
     <MESSAGE value="massive re-designing &amp; re-styling #2 before removing PNGs" />
     <MESSAGE value="massive re-designing &amp; re-styling #3 before removing PNGs" />
     <MESSAGE value="to redesing floating menus" />
-    <option name="LAST_COMMIT_MESSAGE" value="to redesing floating menus" />
+    <MESSAGE value="redesing #3" />
+    <option name="LAST_COMMIT_MESSAGE" value="redesing #3" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -3392,13 +3460,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
-          <line>283</line>
+          <line>282</line>
           <properties />
           <option name="timeStamp" value="247" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
-          <line>296</line>
+          <line>295</line>
           <properties />
           <option name="timeStamp" value="251" />
         </line-breakpoint>
@@ -3416,7 +3484,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java</url>
-          <line>1030</line>
+          <line>1029</line>
           <properties />
           <option name="timeStamp" value="293" />
         </line-breakpoint>
@@ -3450,13 +3518,41 @@
           <properties />
           <option name="timeStamp" value="386" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReSettingsDialog.java</url>
+          <line>113</line>
+          <properties />
+          <option name="timeStamp" value="412" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReSettingsDialog.java</url>
+          <line>74</line>
+          <properties />
+          <option name="timeStamp" value="415" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/fragment/CreateAdditionalLayerFragment.java</url>
+          <line>46</line>
+          <properties />
+          <option name="timeStamp" value="416" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="411" />
+      <option name="time" value="417" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>dir.exists()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>item.getName()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>getCurrentLayer().m_shapes</expression-string>
         <language-id>JAVA</language-id>
@@ -3492,184 +3588,9 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>getGradMinCoordString(m_point.m_lon)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>string.substring(4, string.length())</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.android/build-cache/440ea75719d07dfa2ab6bf0460b90c5a646c4933/output/jars/classes.jar!/com/oguzdev/circularfloatingactionmenu/library/FloatingActionButton.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="180" column="46" lean-forward="false" selection-start-line="180" selection-start-column="46" selection-end-line="180" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-25/android/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="18253" column="16" lean-forward="false" selection-start-line="18253" selection-start-column="16" selection-end-line="18253" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/edit_create_bg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/edit_add_points_bg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="40" lean-forward="false" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/edit_geometry.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="27" lean-forward="false" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-vector-drawable/25.3.1/support-vector-drawable-25.3.1-sources.jar!/android/support/graphics/drawable/VectorDrawableCompat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7800">
-          <caret line="574" column="39" lean-forward="false" selection-start-line="574" selection-start-column="39" selection-end-line="574" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GICompassDrawThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="63" column="43" lean-forward="false" selection-start-line="63" selection-start-column="43" selection-end-line="63" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/item_circle_button_background.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/menu_circle_button_background.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/panel_border_small.9.png">
-      <provider editor-type-id="images">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="ninepatcheditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_done.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/edit_block.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="46" lean-forward="false" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/edit_done.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="37" lean-forward="false" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/color.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/LayerHolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="35" column="27" lean-forward="false" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_header_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="29" column="48" lean-forward="false" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/layers_list_item_button.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="43" lean-forward="false" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/ic_visibility_off.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/gps_button_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="43" column="27" lean-forward="false" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/car_on.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -3684,7 +3605,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="585">
           <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3695,7 +3615,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
           <caret line="56" column="9" lean-forward="false" selection-start-line="56" selection-start-column="9" selection-end-line="56" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3718,7 +3637,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3729,7 +3647,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3737,7 +3654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3745,7 +3661,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="51" column="56" lean-forward="false" selection-start-line="51" selection-start-column="56" selection-end-line="51" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3753,7 +3668,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="53" column="52" lean-forward="false" selection-start-line="53" selection-start-column="52" selection-end-line="53" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3761,7 +3675,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3769,7 +3682,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3780,7 +3692,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="47" lean-forward="false" selection-start-line="18" selection-start-column="47" selection-end-line="19" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3791,9 +3702,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#533#568#0" expanded="false" />
-          </folding>
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3804,7 +3712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="50" column="44" lean-forward="false" selection-start-line="50" selection-start-column="44" selection-end-line="50" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3812,29 +3719,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_project_holder.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_xml_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="26" lean-forward="false" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3845,26 +3729,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/adapter/ReLayersAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="73" column="90" lean-forward="false" selection-start-line="73" selection-start-column="90" selection-end-line="73" selection-end-column="90" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_list.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-126">
+        <state relative-caret-position="120">
           <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3875,15 +3749,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="41" column="17" lean-forward="false" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3891,7 +3756,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3902,7 +3766,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3913,13 +3776,94 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="52" column="49" lean-forward="false" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
-          <folding>
-            <element signature="e#5119#5127#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/open_filedialog_layout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="37" column="22" lean-forward="false" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/drawable/panel_background.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/gps_button_layout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="43" lean-forward="false" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReReREGILonLatInputDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3450">
+          <caret line="254" column="19" lean-forward="false" selection-start-line="254" selection-start-column="17" selection-end-line="254" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/utils/GIYandexUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4950">
+          <caret line="340" column="20" lean-forward="false" selection-start-line="340" selection-start-column="20" selection-end-line="340" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIDirectionToPOIArrow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="870">
+          <caret line="78" column="69" lean-forward="false" selection-start-line="78" selection-start-column="69" selection-end-line="78" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/data/GIGPSLocationListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2010">
+          <caret line="167" column="38" lean-forward="false" selection-start-line="167" selection-start-column="38" selection-end-line="167" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/utils/MapUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="34" lean-forward="false" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/control/GIRuleToolControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="87" column="29" lean-forward="false" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/dialog_settings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -3930,30 +3874,153 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="19" column="17" lean-forward="false" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_project_holder.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="29" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/SqliteLayerHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="51" column="23" lean-forward="false" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/LayerHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+          <folding>
+            <element signature="e#2411#2412#0" expanded="false" />
+            <element signature="e#2708#4904#0" expanded="false" />
+            <element signature="e#4314#4824#0" expanded="false" />
+            <element signature="e#4823#4824#0" expanded="false" />
+            <element signature="e#4903#4904#0" expanded="false" />
+            <element signature="e#5374#5635#0" expanded="false" />
+            <element signature="e#5634#5635#0" expanded="false" />
+            <element signature="e#5693#6131#0" expanded="false" />
+            <element signature="e#5909#6048#0" expanded="false" />
+            <element signature="e#6130#6131#0" expanded="false" />
+            <element signature="e#7260#7692#0" expanded="false" />
+            <element signature="e#7691#7692#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_header_list.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/res/layout/item_layers_xml_list.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="41" lean-forward="false" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/viewholder/ProjectLayerHeaderHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="25" column="25" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/OpenFileDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="58" column="25" lean-forward="false" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
+        <state relative-caret-position="243">
+          <caret line="59" column="23" lean-forward="false" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/layer/GILayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="238" column="0" lean-forward="false" selection-start-line="238" selection-start-column="0" selection-end-line="238" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/build/generated/source/apt/debug/ru/tcgeo/application/views/fragment/CreateAdditionalLayerFragment_ViewBinding.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/wkt/GIGPSPointsLayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="144" column="0" lean-forward="false" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/dialog/ReSettingsDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="316" column="0" lean-forward="false" selection-start-line="316" selection-start-column="0" selection-end-line="316" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/adapter/ReLayersAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="235" column="0" lean-forward="false" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/views/fragment/CreateAdditionalLayerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/GIMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="964" column="30" lean-forward="false" selection-start-line="964" selection-start-column="30" selection-end-line="964" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/Geoinfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="533" column="27" lean-forward="false" selection-start-line="533" selection-start-column="27" selection-end-line="533" selection-end-column="27" />
+        <state relative-caret-position="330">
+          <caret line="127" column="0" lean-forward="true" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/androidApplication/src/main/java/ru/tcgeo/application/gilib/gps/GIGPSButtonView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="183" column="59" lean-forward="true" selection-start-line="183" selection-start-column="59" selection-end-line="183" selection-end-column="59" />
-          <folding>
-            <element signature="e#6397#6523#0" expanded="true" />
-            <element signature="e#6522#6523#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

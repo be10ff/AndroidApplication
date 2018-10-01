@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:descendantFocusability="blocksDescendants"
+
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatEditText
@@ -22,6 +22,7 @@
             android:singleLine="true"
             android:text="@string/layers_list_default_text"
             android:theme="@style/EditTextStyle" />
+
 
         <CheckBox
             android:id="@+id/cbLayerVisibility"

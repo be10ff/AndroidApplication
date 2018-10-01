@@ -18,7 +18,6 @@ import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
@@ -76,6 +75,7 @@ public class LayerHolder extends RecyclerView.ViewHolder {
     protected LayerHolderCallback callback;
 
     ValueAnimator mAnimator;
+
     TextWatcher etLayerNameTextChangedListener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -90,6 +90,7 @@ public class LayerHolder extends RecyclerView.ViewHolder {
             callback.onLayerName(LayerHolder.this);
         }
     };
+
     private boolean expanded;
 
     public LayerHolder(View itemView, LayerHolderCallback callback) {

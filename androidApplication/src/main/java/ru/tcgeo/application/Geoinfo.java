@@ -125,7 +125,6 @@ public class Geoinfo extends Activity
     GIPositionControl positionControl;
     private GIEditingStatus m_Status = GIEditingStatus.STOPPED;
     private GIGPSLocationListener locationListener;
-//    private boolean isPaused = false;
 
     public void MarkersDialogClicked() {
         View v = root.findViewById(R.id.direction_to_point_arrow);

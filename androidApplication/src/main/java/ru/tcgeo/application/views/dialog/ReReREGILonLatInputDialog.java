@@ -19,13 +19,14 @@ import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.control.GIGeometryPointControl;
 import ru.tcgeo.application.utils.GIYandexUtils;
-//import ru.tcgeo.application.utils.MaskedWatcher;
 import ru.tcgeo.application.wkt.GI_WktPoint;
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
 import ru.tinkoff.decoro.slots.Slot;
 import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
+
+//import ru.tcgeo.application.utils.MaskedWatcher;
 
 public class ReReREGILonLatInputDialog extends DialogFragment {
     Geoinfo activity;
@@ -248,11 +249,13 @@ public class ReReREGILonLatInputDialog extends DialogFragment {
     }
 
     public String getGradMinCoordString(double coord) {
-//        int degrees = (int) Math.floor(coord);//º   ° ctrl+shift+u +code +space
+//        int degrees = (int) math.floor(coord);//º   ° ctrl+shift+u +code +space
+
+
 //        float mins = (float) ((coord - degrees) * 60);
-//        String res = String.format("%02d° %09.6f'", degrees, mins);
-//		String res =  customFormat("00", degrees)+ "° " + customFormat("00.######", mins) + "'";
-//		getDoubleCoordFromGGMMMMtring(res);
+//        string res = string.format("%02d° %09.6f'", degrees, mins);
+//		string res =  customformat("00", degrees)+ "° " + customformat("00.######", mins) + "'";
+//		getdoublecoordfromggmmmmtring(res);
         long degrees = (long) Math.floor(coord) ;
         long mins = (long) Math.round((coord - degrees) * 60 * 1000000) ;
         String res = String.valueOf(degrees) + String.valueOf(mins);
