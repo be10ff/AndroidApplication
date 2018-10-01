@@ -1,0 +1,80 @@
+<resources>
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/olive_yellow</item>
+        <item name="colorPrimaryDark">@color/control_dark</item>
+        <item name="colorAccent">@color/control_dark</item>
+        <item name="android:textColor">@color/control_dark</item>
+        <item name="android:editTextStyle">@style/EditTextStyle</item>
+        <item name="editTextStyle">@style/EditTextStyle</item>
+    </style>
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:textColor">@color/control_dark</item>
+        <item name="editTextStyle">@style/EditTextStyle</item>
+        <item name="android:textAppearance">@style/BaseTextStyle</item>
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+
+    <style name="EditTextStyle" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">@color/control_dark</item>
+        <item name="colorControlNormal">@color/control_text_disable</item>
+        <item name="colorControlActivated">@color/control_dark</item>
+        <item name="colorControlHighlight">@color/control_off</item>
+
+    </style>
+
+
+    <style name="BaseTextStyle" parent="android:TextAppearance.DeviceDefault.Medium">
+        <!--<item name="android:fontFamily">sans-serif</item>-->
+        <item name="android:textColor">@color/control_dark</item>
+    </style>
+
+
+    <style name="Theme.Text_Normal" parent="android:Theme">
+        <item name="android:textColor">@color/control_dark</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">@dimen/text_size</item>
+    </style>
+
+    <style name="Theme.Text_Large" parent="android:Theme">
+        <item name="android:textColor">@color/control_dark</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+
+    <style name="Theme.Text_Caption" parent="android:Theme">
+        <item name="android:textColor">@color/control_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">@dimen/caption_text_size</item>
+    </style>
+
+    <style name="Theme.Text_Button" parent="android:Theme">
+        <item name="android:textColor">@color/button_text_color_selector</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+
+
+    <style name="Theme.Text_Normal_Gray" parent="android:Theme">
+        <item name="android:textColor">@color/control_text_disable</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">@dimen/text_size</item>
+    </style>
+
+
+    <style name="Theme.Button" parent="Theme.Text_Button">
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+
+</resources>
