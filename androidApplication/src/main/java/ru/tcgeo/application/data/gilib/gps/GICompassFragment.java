@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.gps;
+package ru.tcgeo.application.data.gilib.gps;
 
 import android.app.Activity;
 import android.app.Fragment;

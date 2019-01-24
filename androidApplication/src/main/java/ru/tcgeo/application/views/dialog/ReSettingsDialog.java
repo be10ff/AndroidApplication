@@ -19,12 +19,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.layer.GIEditableLayer;
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.layer.GISQLLayer;
-import ru.tcgeo.application.gilib.layer.renderer.GIEditableRenderer;
-import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.data.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.layer.GISQLLayer;
+import ru.tcgeo.application.data.gilib.layer.renderer.GIEditableRenderer;
+import ru.tcgeo.application.data.gilib.models.GIColor;
+import ru.tcgeo.application.data.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.data.wkt.GIGPSPointsLayer;
 import ru.tcgeo.application.interfaces.IFolderItemListener;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.utils.ScreenUtils;
@@ -36,7 +37,6 @@ import ru.tcgeo.application.views.viewholder.SqliteLayerHolder;
 import ru.tcgeo.application.views.viewholder.XmlLayerHolder;
 import ru.tcgeo.application.views.viewholder.helper.OnStartDragListener;
 import ru.tcgeo.application.views.viewholder.helper.SimpleItemTouchHelperCallback;
-import ru.tcgeo.application.wkt.GIGPSPointsLayer;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**

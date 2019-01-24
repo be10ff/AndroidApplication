@@ -1,4 +1,4 @@
-package ru.tcgeo.application.wkt;
+package ru.tcgeo.application.data.wkt;
 
 import android.util.Log;
 import android.util.Xml;
@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import ru.tcgeo.application.App;
-import ru.tcgeo.application.gilib.layer.GIEditableLayer;
-import ru.tcgeo.application.gilib.models.GIEncoding;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.data.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.data.gilib.models.GIEncoding;
+import ru.tcgeo.application.data.gilib.models.GIVectorStyle;
 
 public class GIGPSPointsLayer  extends GIEditableLayer
 {

@@ -10,8 +10,8 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
 import ru.tcgeo.application.utils.MapUtils;
 
 public class GISquareToolControl extends GIRuleToolControl {

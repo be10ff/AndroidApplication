@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.requestor;
+package ru.tcgeo.application.data.gilib.requestor;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -15,9 +15,9 @@ import java.util.Locale;
 
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.views.control.GIControlInfoInPoint;
 
 public class GIDataRequestorImp implements GIDataRequestor {

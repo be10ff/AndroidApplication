@@ -21,9 +21,9 @@ import io.reactivex.schedulers.Schedulers;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.data.GIGPSLocationListener;
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.LonLatEvent;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.LonLatEvent;
 
 public class GIPositionControl extends View implements GIControl {
 

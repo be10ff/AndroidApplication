@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.parser;
+package ru.tcgeo.application.data.gilib.parser;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -37,7 +37,7 @@ public class GIParserRange extends GIParser
 			{
 				if(!m_ParserCurrent.getAttributeValue(i).equalsIgnoreCase("nan"))
 				{
-					m_root.m_to = Integer.parseInt(m_ParserCurrent.getAttributeValue(i));;
+					m_root.m_to = Integer.parseInt(m_ParserCurrent.getAttributeValue(i));
 				}
 				else
 				{

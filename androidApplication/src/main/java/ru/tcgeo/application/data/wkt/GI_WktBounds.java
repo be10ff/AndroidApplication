@@ -1,12 +1,12 @@
-package ru.tcgeo.application.wkt;
+package ru.tcgeo.application.data.wkt;
 
 import android.graphics.Canvas;
 import android.graphics.PointF;
 
 import java.util.ArrayList;
 
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIVectorStyle;
 
 
 public class GI_WktBounds extends GI_WktGeometry {

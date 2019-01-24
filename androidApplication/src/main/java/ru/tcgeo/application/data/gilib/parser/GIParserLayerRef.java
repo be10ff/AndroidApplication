@@ -1,13 +1,13 @@
-package ru.tcgeo.application.gilib.parser;
+package ru.tcgeo.application.data.gilib.parser;
 
 import org.xmlpull.v1.XmlPullParser;
 
 public class GIParserLayerRef extends GIParser
 {
-	ru.tcgeo.application.gilib.parser.GIPropertiesEdit m_root;
+	ru.tcgeo.application.data.gilib.parser.GIPropertiesEdit m_root;
 	GIPropertiesLayerRef m_current;
 
-	public GIParserLayerRef(XmlPullParser parent, ru.tcgeo.application.gilib.parser.GIPropertiesEdit root)
+	public GIParserLayerRef(XmlPullParser parent, ru.tcgeo.application.data.gilib.parser.GIPropertiesEdit root)
 	{
 		super(parent);
 		section_name = "LayerRef";

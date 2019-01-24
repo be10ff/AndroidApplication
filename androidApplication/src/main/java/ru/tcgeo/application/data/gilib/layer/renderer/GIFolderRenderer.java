@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.layer.renderer;
+package ru.tcgeo.application.data.gilib.layer.renderer;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,12 +8,12 @@ import android.graphics.RectF;
 
 import java.util.ArrayList;
 
-import ru.tcgeo.application.gilib.layer.GIFolderLayer;
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.layer.GISQLLayer;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIStyle;
-import ru.tcgeo.application.gilib.models.tile.GITileInfoFolder;
+import ru.tcgeo.application.data.gilib.layer.GIFolderLayer;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.layer.GISQLLayer;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIStyle;
+import ru.tcgeo.application.data.gilib.models.tile.GITileInfoFolder;
 
 public class GIFolderRenderer extends GIRenderer {
 

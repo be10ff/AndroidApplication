@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.planimetry;
+package ru.tcgeo.application.data.gilib.planimetry;
 
 import android.graphics.Point;
 import android.graphics.PointF;
@@ -68,13 +68,14 @@ public class Vertex extends PointF implements GIGeometryObject
 		Vertex obj = (Vertex)o;
 		return (Math.abs(obj.x - this.x) < delta) && (Math.abs(obj.y - this.y) < delta);
 	}
-	public boolean GetOriginVisiblity()
-	{
-		if(code > 0)
-		{
-			return false;
-		}
-		return true;
+
+	public static boolean IsPoint_C_Between_A_B(PointF a, PointF b, PointF c) {
+		float minX = Math.min(a.x, b.x);
+		float maxX = Math.max(a.x, b.x);
+		float minY = Math.min(a.y, b.y);
+		float maxY = Math.max(a.y, b.y);
+
+		return minX <= c.x && c.x <= maxX && minY <= c.y && c.y <= maxY;
 	}
 	public void SetOriginVisiblity(int  c)
 	{
@@ -94,19 +95,9 @@ public class Vertex extends PointF implements GIGeometryObject
 	{
 		return Math.sqrt(Math.pow((x - point.x), 2) + Math.pow((y - point.y), 2));
 	}
-	
-	public static boolean IsPoint_C_Between_A_B(PointF a, PointF b, PointF c)
-	{
-		float minX = Math.min(a.x, b.x);
-		float maxX = Math.max(a.x, b.x);		
-		float minY = Math.min(a.y, b.y);
-		float maxY = Math.max(a.y, b.y);		
-		
-		if( minX <= c.x  && c.x <= maxX && minY <= c.y && c.y <= maxY)
-		{
-			return true;
-		}
-		return false;
+
+	public boolean GetOriginVisiblity() {
+		return code <= 0;
 	}
 	/*
 	public static int getCode(PointF point, Rect rect)

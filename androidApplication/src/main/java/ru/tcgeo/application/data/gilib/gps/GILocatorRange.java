@@ -12,7 +12,7 @@
 //import ru.tcgeo.application.App;
 //import ru.tcgeo.application.R;
 //import ru.tcgeo.application.views.control.GIControl;
-//import ru.tcgeo.application.data.gilib.GIMap;
+//import ru.tcgeo.application.data.GIMap;
 //import ru.tcgeo.application.data.gilib.models.GIBounds;
 //
 //public class GILocatorRange extends View implements GIControl

@@ -1,9 +1,6 @@
 package ru.tcgeo.application.views.callback;
 
-import android.location.Location;
-
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.wkt.GI_WktPoint;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
 
 /**
  * Created by artem on 16.04.18.

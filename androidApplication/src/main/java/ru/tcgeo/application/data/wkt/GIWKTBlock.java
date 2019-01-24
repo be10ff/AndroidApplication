@@ -1,4 +1,4 @@
-package ru.tcgeo.application.wkt;
+package ru.tcgeo.application.data.wkt;
 
 import java.util.ArrayList;
 

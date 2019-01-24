@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.models.tile;
+package ru.tcgeo.application.data.gilib.models.tile;
 
 import android.graphics.Bitmap;
 

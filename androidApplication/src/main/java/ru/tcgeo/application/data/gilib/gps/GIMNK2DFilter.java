@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.gps;
+package ru.tcgeo.application.data.gilib.gps;
 
 import android.location.Location;
 

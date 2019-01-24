@@ -14,11 +14,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.wkt.GI_WktPoint;
 import ru.tcgeo.application.views.callback.LonLatInputCallback;
 import ru.tcgeo.application.views.control.GIGeometryPointControl;
-import ru.tcgeo.application.views.control.LonLatInputView;
-import ru.tcgeo.application.wkt.GI_WktPoint;
+import ru.tcgeo.application.views.widget.LonLatInputView;
 
 //import ru.tcgeo.application.utils.MaskedWatcher;
 

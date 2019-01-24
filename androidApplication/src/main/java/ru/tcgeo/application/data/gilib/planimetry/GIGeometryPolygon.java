@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.planimetry;
+package ru.tcgeo.application.data.gilib.planimetry;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,7 +17,47 @@ import java.util.ArrayList;
  */
 public class GIGeometryPolygon extends GIShape
 {
-	public static enum KIND {convex_cc, convex_uncc, unconvex_cc, unconvex_uncc};
+	/**
+	 * принадлежность точки многоугольнику через подсчет числа пересечений
+	 *
+	 * @param point интересующая точка
+	 * @return true если  число пересечений не четное
+	 */
+	public boolean IncludePoint(PointF point) {
+		int count = 0;
+		Edge infinity = new Edge(new Vertex(point), new Vertex(new PointF(10000, point.y)));
+		for (int i = 0; i < m_points.size() - 1; i++) {
+			if ((Math.abs(m_points.get(i).y - point.y) < Vertex.delta) && ((m_points.get(i).x - point.x) > Vertex.delta)) {
+				int next = i + 1;
+				int prev = i - 1;
+
+				if ((i + 1) == m_points.size()) {
+					next = 0;
+				}
+				if ((i - 1) < 0) {
+					prev = m_points.size() - 1;
+				}
+				//PointF point_c = m_points.get(i);
+				PointF point_n = m_points.get(next);
+				PointF point_p = m_points.get(prev);
+				if ((point_n.y >= point.y) && (point_p.y < point.y)) {
+					count++;
+				}
+				if ((point_n.y < point.y) && (point_p.y >= point.y)) {
+					count++;
+				}
+
+			} else {
+				Edge current = new Edge(m_points.get(i), m_points.get(i + 1));
+				if (current.intersectionAsEdgesStrong(infinity) != null) {
+					count++;
+				}
+			}
+
+		}
+		return count % 2 != 0;
+	}
+
 	private KIND[] kindes = {KIND.convex_cc, KIND.convex_uncc, KIND.unconvex_cc, KIND.unconvex_uncc};
 	public int iKind;
 	private ArrayList<Edge> m_levels;
@@ -1067,95 +1107,10 @@ public class GIGeometryPolygon extends GIShape
 //		m_levels = lines;
 //		return lines;
 //	}
-	/**
-	 * принадлежность точки многоугольнику через подсчет числа пересечений
-	 * @param point интересующая точка
-	 * @return true если  число пересечений не четное
-	 */
-	public boolean IncludePoint(PointF point)
-	{
-		int count = 0;
-		Edge infinity = new Edge(new Vertex(point), new Vertex(new PointF(10000, point.y)));
-		for(int i = 0; i < m_points.size()-1; i++)
-		{
-			if((Math.abs(m_points.get(i).y - point.y) < Vertex.delta) && ((m_points.get(i).x - point.x) > Vertex.delta))
-			{
-				int next = i+1;
-				int prev = i-1;
-
-				if((i+1) == m_points.size() )
-				{
-					next = 0;
-				}
-				if((i-1) < 0)
-				{
-					prev = m_points.size() - 1;
-				}
-				//PointF point_c = m_points.get(i);
-				PointF point_n = m_points.get(next);
-				PointF point_p = m_points.get(prev);
-				if((point_n.y >= point.y)&&(point_p.y < point.y))
-				{
-					count++;
-				}
-				if((point_n.y < point.y)&&(point_p.y >= point.y))
-				{
-					count++;
-				}
-
-			}
-			else
-			{
-				Edge current = new Edge(m_points.get(i), m_points.get(i+1));
-				if(current.intersectionAsEdgesStrong(infinity) != null)
-				{
-					count++;
-				}
-			}
-
-		}
-		if(count%2 == 0)
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
-	/**
-	 * для редактируемого слоя. попадание клика в полигон
-	 * @param point координаты клика
-	 * @return
-	 */
-	public boolean IsPointInside_widing(PointF point)
-	{
-		double result = 0;
-		if(m_points.size() < 2)
-		{
-			return false;
-		}
-		for(int i = 0; i < m_points.size() - 1; i++)
-		{
-			Edge first = new Edge(point, m_points.get(i));
-			Edge second = new Edge(point, m_points.get(i+1));
-
-			double rr = Math.acos(Edge.scalarMultiplication(first, second)/(first.Lenght() * second.Lenght()));
-			double ss = Edge.vectorMultiplication(first, second);
-			result = result + rr*Math.signum(ss);
-		}
-		return (Math.abs(result) > 0.1);
-
-	}
-	public boolean IsPointInsidePolygon(PointF point)
-	{
+	public boolean IsPointInsidePolygon(PointF point) {
 		//return IncludePoint(point);
 
-		if(!IsPointInside_widing(point))
-		{
-			return false;
-		}
-		return true;
+		return IsPointInside_widing(point);
 
 
 		/*else
@@ -1180,6 +1135,30 @@ public class GIGeometryPolygon extends GIShape
 			return true;
 		}*/
 		//return false;
+	}
+	/**
+	 * для редактируемого слоя. попадание клика в полигон
+	 * @param point координаты клика
+	 * @return
+	 */
+	public boolean IsPointInside_widing(PointF point)
+	{
+		double result = 0;
+		if(m_points.size() < 2)
+		{
+			return false;
+		}
+		for(int i = 0; i < m_points.size() - 1; i++)
+		{
+			Edge first = new Edge(point, m_points.get(i));
+			Edge second = new Edge(point, m_points.get(i+1));
+
+			double rr = Math.acos(Edge.scalarMultiplication(first, second)/(first.Lenght() * second.Lenght()));
+			double ss = Edge.vectorMultiplication(first, second);
+			result = result + rr*Math.signum(ss);
+		}
+		return (Math.abs(result) > 0.1);
+
 	}
 
 	/**
@@ -1225,15 +1204,10 @@ public class GIGeometryPolygon extends GIShape
 				}
 			}
 		}
-		if(counter%2 == 0)
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return counter % 2 != 0;
 	}
+
+	public enum KIND {convex_cc, convex_uncc, unconvex_cc, unconvex_uncc}
 
 	/**
 	 *

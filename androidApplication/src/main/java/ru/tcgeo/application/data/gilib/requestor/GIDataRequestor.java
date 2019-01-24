@@ -1,8 +1,8 @@
-package ru.tcgeo.application.gilib.requestor;
+package ru.tcgeo.application.data.gilib.requestor;
 
 
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
 
 public interface GIDataRequestor
 {

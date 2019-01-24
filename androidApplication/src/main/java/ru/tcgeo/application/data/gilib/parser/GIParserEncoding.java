@@ -1,11 +1,11 @@
-package ru.tcgeo.application.gilib.parser;
+package ru.tcgeo.application.data.gilib.parser;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import ru.tcgeo.application.gilib.models.GIEncoding;
+import ru.tcgeo.application.data.gilib.models.GIEncoding;
 
-public class GIParserEncoding extends ru.tcgeo.application.gilib.parser.GIParser {
+public class GIParserEncoding extends ru.tcgeo.application.data.gilib.parser.GIParser {
 	GIEncoding m_root;
 	
 	public GIParserEncoding(XmlPullParser parent, GIEncoding root)

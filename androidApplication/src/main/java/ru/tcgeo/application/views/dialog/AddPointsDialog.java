@@ -18,10 +18,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
 import ru.tcgeo.application.utils.CommonUtils;
 import ru.tcgeo.application.views.callback.LonLatInputCallback;
-import ru.tcgeo.application.views.control.LonLatInputView;
+import ru.tcgeo.application.views.widget.LonLatInputView;
 
 public class AddPointsDialog extends DialogFragment implements LonLatInputCallback {
     Geoinfo activity;

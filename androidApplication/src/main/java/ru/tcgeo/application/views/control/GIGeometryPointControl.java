@@ -13,10 +13,10 @@ import android.widget.ToggleButton;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.wkt.GI_WktPoint;
 import ru.tcgeo.application.views.dialog.GILonLatInputDialog;
-import ru.tcgeo.application.wkt.GI_WktPoint;
 
 public class GIGeometryPointControl extends LinearLayout implements GIControl, OnClickListener, OnLongClickListener {
 

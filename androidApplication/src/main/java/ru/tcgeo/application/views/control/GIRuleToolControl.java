@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
 import ru.tcgeo.application.utils.MapUtils;
 
 public class GIRuleToolControl extends View implements OnClickListener, GIControl {

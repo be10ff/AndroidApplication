@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.layer.renderer;
+package ru.tcgeo.application.data.gilib.layer.renderer;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,11 +14,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIStyle;
-import ru.tcgeo.application.gilib.models.tile.GITileInfoYandex;
-import ru.tcgeo.application.gilib.models.tile.GITrafficTileInfoYandex;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIStyle;
+import ru.tcgeo.application.data.gilib.models.tile.GITileInfoYandex;
+import ru.tcgeo.application.data.gilib.models.tile.GITrafficTileInfoYandex;
 
 public class GIYandexRenderer extends GIRenderer {
 

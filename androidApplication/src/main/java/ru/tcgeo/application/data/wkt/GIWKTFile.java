@@ -1,6 +1,6 @@
-package ru.tcgeo.application.wkt;
+package ru.tcgeo.application.data.wkt;
 
-import ru.tcgeo.application.gilib.script.GIScriptQueue;
+import ru.tcgeo.application.data.gilib.script.GIScriptQueue;
 
 public class GIWKTFile extends GIWKTDescription {
 

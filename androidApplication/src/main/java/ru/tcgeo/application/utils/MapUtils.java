@@ -1,6 +1,6 @@
 package ru.tcgeo.application.utils;
 
-import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
 
 /**
  * Created by a_belov on 06.07.15.

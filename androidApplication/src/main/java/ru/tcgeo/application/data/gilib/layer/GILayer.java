@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.layer;
+package ru.tcgeo.application.data.gilib.layer;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -7,20 +7,20 @@ import android.os.Environment;
 
 import java.io.File;
 
-import ru.tcgeo.application.gilib.layer.renderer.GIRenderer;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.models.GIEncoding;
-import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.models.GIStyle;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
-import ru.tcgeo.application.gilib.parser.GIEditable;
-import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
-import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
-import ru.tcgeo.application.gilib.parser.GIRange;
-import ru.tcgeo.application.gilib.parser.GISource;
-import ru.tcgeo.application.gilib.requestor.GIDataRequestor;
-import ru.tcgeo.application.wkt.GIGPSPointsLayer;
+import ru.tcgeo.application.data.gilib.layer.renderer.GIRenderer;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIColor;
+import ru.tcgeo.application.data.gilib.models.GIEncoding;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.GIStyle;
+import ru.tcgeo.application.data.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.data.gilib.parser.GIEditable;
+import ru.tcgeo.application.data.gilib.parser.GIPropertiesLayer;
+import ru.tcgeo.application.data.gilib.parser.GIPropertiesStyle;
+import ru.tcgeo.application.data.gilib.parser.GIRange;
+import ru.tcgeo.application.data.gilib.parser.GISource;
+import ru.tcgeo.application.data.gilib.requestor.GIDataRequestor;
+import ru.tcgeo.application.data.wkt.GIGPSPointsLayer;
 
 public abstract class GILayer
 {

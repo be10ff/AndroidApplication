@@ -1,4 +1,4 @@
-package ru.tcgeo.application.wkt;
+package ru.tcgeo.application.data.wkt;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

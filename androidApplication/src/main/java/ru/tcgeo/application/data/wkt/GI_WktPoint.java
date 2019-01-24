@@ -1,4 +1,4 @@
-package ru.tcgeo.application.wkt;
+package ru.tcgeo.application.data.wkt;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,10 +8,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 import ru.tcgeo.application.App;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.GIVectorStyle;
 
 public class GI_WktPoint extends GI_WktGeometry {
 

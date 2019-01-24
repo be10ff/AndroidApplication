@@ -1,4 +1,4 @@
-package ru.tcgeo.application.wkt;
+package ru.tcgeo.application.data.wkt;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -6,7 +6,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.HashMap;
 
-import ru.tcgeo.application.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.data.gilib.layer.GIEditableLayer;
 
 
 public class GIGPSParser {

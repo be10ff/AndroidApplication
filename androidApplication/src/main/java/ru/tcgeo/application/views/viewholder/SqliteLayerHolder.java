@@ -10,7 +10,7 @@ import org.florescu.android.rangeseekbar.RangeSeekBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.layer.GISQLLayer;
+import ru.tcgeo.application.data.gilib.layer.GISQLLayer;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 
 /**

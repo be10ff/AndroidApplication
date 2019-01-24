@@ -1,14 +1,14 @@
-package ru.tcgeo.application.gilib.parser;
+package ru.tcgeo.application.data.gilib.parser;
 
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.layer.GISQLLayer;
-import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.models.GIEncoding;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.layer.GISQLLayer;
+import ru.tcgeo.application.data.gilib.models.GIColor;
+import ru.tcgeo.application.data.gilib.models.GIEncoding;
 //import ru.tcgeo.application.data.gilib.models.GIIcon;
 
 public class GIPropertiesLayer implements ILayersRoot

@@ -32,39 +32,39 @@ import java.util.Locale;
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.layer.GIEditableLayer;
-import ru.tcgeo.application.gilib.layer.GIGroupLayer;
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.layer.GISQLLayer;
-import ru.tcgeo.application.gilib.models.GIBitmap;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.GIPList;
-import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
-import ru.tcgeo.application.gilib.models.LonLatEvent;
-import ru.tcgeo.application.gilib.models.Marker;
-import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
-import ru.tcgeo.application.gilib.parser.GIPropertiesStyle;
-import ru.tcgeo.application.gilib.parser.GIRange;
-import ru.tcgeo.application.gilib.parser.GISQLDB;
-import ru.tcgeo.application.gilib.parser.GISource;
-import ru.tcgeo.application.gilib.requestor.GIDataRequestor;
+import ru.tcgeo.application.data.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.data.gilib.layer.GIGroupLayer;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.layer.GISQLLayer;
+import ru.tcgeo.application.data.gilib.models.GIBitmap;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIColor;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GIPList;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.data.gilib.models.LonLatEvent;
+import ru.tcgeo.application.data.gilib.models.Marker;
+import ru.tcgeo.application.data.gilib.parser.GIPropertiesLayer;
+import ru.tcgeo.application.data.gilib.parser.GIPropertiesStyle;
+import ru.tcgeo.application.data.gilib.parser.GIRange;
+import ru.tcgeo.application.data.gilib.parser.GISQLDB;
+import ru.tcgeo.application.data.gilib.parser.GISource;
+import ru.tcgeo.application.data.gilib.requestor.GIDataRequestor;
+import ru.tcgeo.application.data.wkt.GIDBaseField;
+import ru.tcgeo.application.data.wkt.GIGPSPointsLayer;
+import ru.tcgeo.application.data.wkt.GIGeometryControl;
+import ru.tcgeo.application.data.wkt.GIXMLTrack;
+import ru.tcgeo.application.data.wkt.GI_WktGeometry;
+import ru.tcgeo.application.data.wkt.GI_WktLinestring;
+import ru.tcgeo.application.data.wkt.GI_WktPoint;
+import ru.tcgeo.application.data.wkt.GI_WktPolygon;
 import ru.tcgeo.application.utils.CommonUtils;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.views.control.GIControl;
 import ru.tcgeo.application.views.control.GIGeometryPointControl;
-import ru.tcgeo.application.wkt.GIDBaseField;
-import ru.tcgeo.application.wkt.GIGPSPointsLayer;
-import ru.tcgeo.application.wkt.GIGeometryControl;
-import ru.tcgeo.application.wkt.GIXMLTrack;
-import ru.tcgeo.application.wkt.GI_WktGeometry;
-import ru.tcgeo.application.wkt.GI_WktLinestring;
-import ru.tcgeo.application.wkt.GI_WktPoint;
-import ru.tcgeo.application.wkt.GI_WktPolygon;
 
-import static ru.tcgeo.application.gilib.layer.GILayer.EditableType.POI;
+import static ru.tcgeo.application.data.gilib.layer.GILayer.EditableType.POI;
 
 
 public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//implements Runnable SurfaceView
@@ -79,7 +79,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 
 
     public Rect m_view;        // view size
-    public ru.tcgeo.application.gilib.parser.GIProjectProperties ps;
+    public ru.tcgeo.application.data.gilib.parser.GIProjectProperties ps;
     //TODO: make private
 
     public GIGroupLayer m_layers;

@@ -12,7 +12,7 @@
 		style="@style/Theme.Text_Large">
 	</EditText>
 
-	<ru.tcgeo.application.views.control.LonLatInputView
+	<ru.tcgeo.application.views.widget.LonLatInputView
 		android:id="@+id/ivLonLat"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content" />

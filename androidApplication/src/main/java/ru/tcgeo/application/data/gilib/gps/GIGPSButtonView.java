@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.gps;
+package ru.tcgeo.application.data.gilib.gps;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -26,7 +26,7 @@ import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.LonLatEvent;
+import ru.tcgeo.application.data.gilib.models.LonLatEvent;
 
 public class GIGPSButtonView extends RelativeLayout 
 {

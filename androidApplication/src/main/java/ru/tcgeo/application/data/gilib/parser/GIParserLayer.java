@@ -1,10 +1,10 @@
-package ru.tcgeo.application.gilib.parser;
+package ru.tcgeo.application.data.gilib.parser;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.models.GIEncoding;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.models.GIEncoding;
 
 //import ru.tcgeo.application.data.gilib.models.GIIcon;
 

@@ -5,9 +5,9 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.planimetry.Vertex;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.planimetry.Vertex;
 
 public class GIYandexUtils 
 {
@@ -174,7 +174,7 @@ public class GIYandexUtils
         final double MerkElipsK = 0.0000001;
         final long sradiusa = 6378137;
         final long sradiusb = 6356752;
-        final double FExct = (double) Math.sqrt(sradiusa * sradiusa - sradiusb
+		final double FExct = Math.sqrt(sradiusa * sradiusa - sradiusb
                 * sradiusb)
                 / sradiusa;
         final int TilesAtZoom = 1 << aZoom;
@@ -211,13 +211,13 @@ public class GIYandexUtils
             final double aLon, final int zoom) {
         final int[] out = new int[2];
 
-        final double E2 = (double) aLat * Math.PI / 180;
+		final double E2 = aLat * Math.PI / 180;
         final long sradiusa = 6378137;
         final long sradiusb = 6356752;
-        final double J2 = (double) Math.sqrt(sradiusa * sradiusa - sradiusb
+		final double J2 = Math.sqrt(sradiusa * sradiusa - sradiusb
                 * sradiusb)
                 / sradiusa;
-        final double M2 = (double) Math.log((1 + Math.sin(E2))
+		final double M2 = Math.log((1 + Math.sin(E2))
                 / (1 - Math.sin(E2)))
                 / 2
                 - J2

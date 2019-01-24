@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.layer;
+package ru.tcgeo.application.data.gilib.layer;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -7,9 +7,9 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.parser.GIRange;
-import ru.tcgeo.application.gilib.requestor.GIDataRequestor;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.parser.GIRange;
+import ru.tcgeo.application.data.gilib.requestor.GIDataRequestor;
 
 
 public class GIGroupLayer extends GILayer

@@ -3,7 +3,7 @@ package ru.tcgeo.application.views.control;
 import android.graphics.Rect;
 
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
 
 
 public interface GIControl {

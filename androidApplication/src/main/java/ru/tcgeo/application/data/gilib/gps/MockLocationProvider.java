@@ -1,12 +1,12 @@
-package ru.tcgeo.application.gilib.gps;
+package ru.tcgeo.application.data.gilib.gps;
 
 
 import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
 
-import ru.tcgeo.application.wkt.GI_WktLinestring;
-import ru.tcgeo.application.wkt.GI_WktPoint;
+import ru.tcgeo.application.data.wkt.GI_WktLinestring;
+import ru.tcgeo.application.data.wkt.GI_WktPoint;
 
 public class MockLocationProvider extends Thread 
 {

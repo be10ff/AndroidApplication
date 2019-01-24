@@ -18,7 +18,7 @@
 //import ru.tcgeo.application.R;
 //import ru.tcgeo.application.views.control.GIControl;
 //import ru.tcgeo.application.views.control.GIRuleToolControl;
-//import ru.tcgeo.application.data.gilib.GIMap;
+//import ru.tcgeo.application.data.GIMap;
 //import ru.tcgeo.application.data.gilib.models.GIBounds;
 //import ru.tcgeo.application.data.gilib.models.GILonLat;
 //import ru.tcgeo.application.data.gilib.models.GIProjection;

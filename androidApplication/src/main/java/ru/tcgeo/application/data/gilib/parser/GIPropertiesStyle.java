@@ -1,8 +1,8 @@
-package ru.tcgeo.application.gilib.parser;
+package ru.tcgeo.application.data.gilib.parser;
 
 import java.util.ArrayList;
 
-import ru.tcgeo.application.gilib.models.GIColor;
+import ru.tcgeo.application.data.gilib.models.GIColor;
 
 public class GIPropertiesStyle 
 {

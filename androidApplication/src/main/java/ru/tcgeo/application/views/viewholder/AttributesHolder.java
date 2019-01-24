@@ -10,7 +10,7 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.Attribute;
+import ru.tcgeo.application.data.gilib.models.Attribute;
 import ru.tcgeo.application.views.callback.AttributesCallback;
 
 /**

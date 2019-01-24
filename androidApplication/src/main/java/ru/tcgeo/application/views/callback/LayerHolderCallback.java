@@ -2,8 +2,8 @@ package ru.tcgeo.application.views.callback;
 
 import android.support.v7.widget.RecyclerView;
 
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.layer.GISQLLayer;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.layer.GISQLLayer;
 
 /**
  * Created by artem on 14.07.17.

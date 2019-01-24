@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.layer;
+package ru.tcgeo.application.data.gilib.layer;
 
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import ru.tcgeo.application.gilib.layer.renderer.GIEditableRenderer;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIEncoding;
-import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
-import ru.tcgeo.application.gilib.requestor.GIDataRequestor;
-import ru.tcgeo.application.gilib.requestor.GIGeometry;
-import ru.tcgeo.application.wkt.GIDBaseField;
-import ru.tcgeo.application.wkt.GI_WktGeometry;
+import ru.tcgeo.application.data.gilib.layer.renderer.GIEditableRenderer;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIEncoding;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.data.gilib.requestor.GIDataRequestor;
+import ru.tcgeo.application.data.gilib.requestor.GIGeometry;
+import ru.tcgeo.application.data.wkt.GIDBaseField;
+import ru.tcgeo.application.data.wkt.GI_WktGeometry;
 
 public abstract class GIEditableLayer extends GILayer
 {

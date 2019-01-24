@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.models;
+package ru.tcgeo.application.data.gilib.models;
 
 /**
  * Created by artem on 18.07.17.

@@ -11,7 +11,7 @@ import java.util.List;
 
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.data.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.views.callback.ProjectsHolderCallback;
 import ru.tcgeo.application.views.callback.ZeroDataHolderCallback;
 import ru.tcgeo.application.views.viewholder.ProjectHolder;

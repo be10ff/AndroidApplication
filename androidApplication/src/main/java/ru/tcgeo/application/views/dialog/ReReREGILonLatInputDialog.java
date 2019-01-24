@@ -17,9 +17,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.data.wkt.GI_WktPoint;
 import ru.tcgeo.application.utils.GIYandexUtils;
 import ru.tcgeo.application.views.control.GIGeometryPointControl;
-import ru.tcgeo.application.wkt.GI_WktPoint;
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
 import ru.tinkoff.decoro.slots.Slot;
@@ -242,7 +242,7 @@ public class ReReREGILonLatInputDialog extends DialogFragment {
 //        return res;
         long degrees = (long) Math.floor(coord) ;
         long mins = (long) Math.floor((coord - degrees) * 60) ;
-        long secs = (long)Math.round(((coord - degrees) * 60 - mins) * 60*1000000);
+        long secs = Math.round(((coord - degrees) * 60 - mins) * 60 * 1000000);
 //        String res = String.format("%02d° %02d’ %07.4f”", degrees, mins, secs);
         String res =  String.valueOf(degrees) + String.valueOf(mins) + String.valueOf(secs);
         return String.valueOf(degrees) + String.valueOf(mins) + String.valueOf(secs);
@@ -257,7 +257,7 @@ public class ReReREGILonLatInputDialog extends DialogFragment {
 //		string res =  customformat("00", degrees)+ "° " + customformat("00.######", mins) + "'";
 //		getdoublecoordfromggmmmmtring(res);
         long degrees = (long) Math.floor(coord) ;
-        long mins = (long) Math.round((coord - degrees) * 60 * 1000000) ;
+        long mins = Math.round((coord - degrees) * 60 * 1000000);
         String res = String.valueOf(degrees) + String.valueOf(mins);
         return String.valueOf(degrees) + String.valueOf(mins);
 
@@ -269,7 +269,7 @@ public class ReReREGILonLatInputDialog extends DialogFragment {
 //        String res = String.format("%02d° %09.6f'", degrees, mins);
 //		String res =  customFormat("00", degrees)+ "° " + customFormat("00.######", mins) + "'";
 //		getDoubleCoordFromGGMMMMtring(res);
-        long degrees = (long) Math.round(coord * 100000000) ;
+        long degrees = Math.round(coord * 100000000);
         String res = String.valueOf(degrees);
         return String.valueOf(degrees);
 

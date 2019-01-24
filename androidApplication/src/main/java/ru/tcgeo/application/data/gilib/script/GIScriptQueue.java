@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.script;
+package ru.tcgeo.application.data.gilib.script;
 
 public class GIScriptQueue {
 

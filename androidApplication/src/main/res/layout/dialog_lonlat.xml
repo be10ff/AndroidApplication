@@ -5,7 +5,7 @@
 	android:background="@drawable/panel_background"
 	android:orientation="vertical">
 
-	<ru.tcgeo.application.views.control.LonLatInputView
+	<ru.tcgeo.application.views.widget.LonLatInputView
 		android:id="@+id/ivLonLat"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content" />

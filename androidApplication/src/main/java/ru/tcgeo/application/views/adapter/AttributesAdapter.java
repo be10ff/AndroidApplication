@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.Attribute;
+import ru.tcgeo.application.data.gilib.models.Attribute;
 import ru.tcgeo.application.views.callback.AttributesCallback;
 import ru.tcgeo.application.views.viewholder.AttributesAddHolder;
 import ru.tcgeo.application.views.viewholder.AttributesHeaderHolder;

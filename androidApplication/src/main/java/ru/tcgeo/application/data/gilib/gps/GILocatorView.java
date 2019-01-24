@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.gps;
+package ru.tcgeo.application.data.gilib.gps;
 /**
  * Локатор - указывает направление на точку на местности
  */
@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import ru.tcgeo.application.wkt.GI_WktGeometry;
+import ru.tcgeo.application.data.wkt.GI_WktGeometry;
 
 //import ru.tcgeo.application.data.gilib.gps.thread.GILocatorDrawThread;
 

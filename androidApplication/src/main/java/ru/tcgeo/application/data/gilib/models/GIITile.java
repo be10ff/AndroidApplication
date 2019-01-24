@@ -1,10 +1,10 @@
-package ru.tcgeo.application.gilib.models;
+package ru.tcgeo.application.data.gilib.models;
 
 
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.models.tile.GISQLYandexTile;
-import ru.tcgeo.application.gilib.models.tile.GITileInfoFolder;
-import ru.tcgeo.application.gilib.models.tile.GITileInfoOSM;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.models.tile.GISQLYandexTile;
+import ru.tcgeo.application.data.gilib.models.tile.GITileInfoFolder;
+import ru.tcgeo.application.data.gilib.models.tile.GITileInfoOSM;
 
 public abstract class GIITile
 {

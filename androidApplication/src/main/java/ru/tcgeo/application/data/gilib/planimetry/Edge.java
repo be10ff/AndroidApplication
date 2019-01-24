@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.planimetry;
+package ru.tcgeo.application.data.gilib.planimetry;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class Edge implements GIGeometryObject
 {
 	public Point m_morton_codes;
-	public ru.tcgeo.application.gilib.planimetry.Vertex m_start;
-	public ru.tcgeo.application.gilib.planimetry.Vertex m_end;
+	public ru.tcgeo.application.data.gilib.planimetry.Vertex m_start;
+	public ru.tcgeo.application.data.gilib.planimetry.Vertex m_end;
 	public PointF m_intersection_point;
 	public RectF m_bounds;
 	private ArrayList<Edge> m_text_bounds;
@@ -25,7 +25,7 @@ public class Edge implements GIGeometryObject
 	 * @param s начало
 	 * @param e конец
 	 */
-	public Edge(ru.tcgeo.application.gilib.planimetry.Vertex s, ru.tcgeo.application.gilib.planimetry.Vertex e)
+	public Edge(ru.tcgeo.application.data.gilib.planimetry.Vertex s, ru.tcgeo.application.data.gilib.planimetry.Vertex e)
 	{
 		m_start = s;
 		m_end = e;
@@ -38,8 +38,8 @@ public class Edge implements GIGeometryObject
 	 */
 	public Edge(PointF s, PointF e)
 	{
-		m_start = new ru.tcgeo.application.gilib.planimetry.Vertex(s);
-		m_end = new ru.tcgeo.application.gilib.planimetry.Vertex(e);
+		m_start = new ru.tcgeo.application.data.gilib.planimetry.Vertex(s);
+		m_end = new ru.tcgeo.application.data.gilib.planimetry.Vertex(e);
 		m_unique = true;
 	}
 	/**
@@ -51,8 +51,8 @@ public class Edge implements GIGeometryObject
 	 */
 	public Edge(float x1, float y1, float x2, float y2)
 	{
-		m_start = new ru.tcgeo.application.gilib.planimetry.Vertex(new PointF(x1, y1));
-		m_end = new ru.tcgeo.application.gilib.planimetry.Vertex(new PointF(x2, y2));
+		m_start = new ru.tcgeo.application.data.gilib.planimetry.Vertex(new PointF(x1, y1));
+		m_end = new ru.tcgeo.application.data.gilib.planimetry.Vertex(new PointF(x2, y2));
 		m_unique = true;
 	}
 	
@@ -80,37 +80,15 @@ public class Edge implements GIGeometryObject
 	{
 		return TYPE.edge;
 	}
-	/*	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o) 
-		{
-			return true;
-		}
-		if (!(o instanceof Vertex)) 
-		{
-			return false;
-		}
-		Vertex obj = (Vertex)o;
-		return (Math.abs(obj.x - this.x) < delta) && (Math.abs(obj.y - this.y) < delta);
-	}
+
+	/**
+	 * пересекают ли отрезоки горизонталь
+	 * @param a, b интересующие отрезоки
+	 * @param y горизонталь
+	 * @return true если концы отрезков лежат по разные стороны или на горизонтали включительно
 	 */
-	public boolean equal(Object o)
-	{
-		if (this == o) 
-		{
-			return true;
-		}
-		if (!(o instanceof Edge))
-		{
-			return false;
-		}
-		Edge obj = (Edge)o;
-		if(HasPointAsEnd(obj.m_start)&&HasPointAsEnd(obj.m_end))
-		{
-			return true;
-		}
-		return false;
+	public static boolean IsCrossingHorizontal(Edge a, Edge b, float y) {
+		return (!(a.m_start.y >= y) || !(a.m_end.y >= y) || !(b.m_start.y >= y) || !(b.m_end.y >= y)) && (!(a.m_start.y <= y) || !(a.m_end.y <= y) || !(b.m_start.y <= y) || !(b.m_end.y <= y));
 	}
 	/*public boolean isConcurrent(Edge edge)
 	{
@@ -158,13 +136,13 @@ public class Edge implements GIGeometryObject
 	}
 
 	/**
-	 * 
-	 * @return true если длина меньше Vertex.delta
+	 * статический
+	 * @param a отрезок
+	 * @param y горизонталь
+	 * @return true если Y концов отстоит не больше чем на Vertex.delta от Y
 	 */
-	public boolean isAboutEmpty()
-	{
-		return Math.abs(m_start.x - m_end.x) +  Math.abs(m_start.y - m_end.y) < ru.tcgeo.application.gilib.planimetry.Vertex.delta;
-		
+	public static boolean IsCoincidesHorizontal(Edge a, float y) {
+		return (Math.abs(a.m_start.y - y) < Vertex.delta) && (Math.abs(a.m_end.y - y) < Vertex.delta);
 	}
 	
 	/**
@@ -176,31 +154,55 @@ public class Edge implements GIGeometryObject
 	}
 	
 	/**
-	 * центральная точка
-	 * @return
+	 * пересечение двух отрезков
 	 */
-	ru.tcgeo.application.gilib.planimetry.Vertex center_point()
-	{
-		PointF point = new PointF((m_start.x + m_end.x)/2, (m_start.y + m_end.y)/2);
-		return new ru.tcgeo.application.gilib.planimetry.Vertex(point);
+	public static boolean ParametricIntersection(PointF start1, PointF end1, PointF start2, PointF end2) {
+		PointF dir1 = new PointF(end1.x - start1.x, end1.y - start1.y);
+		PointF dir2 = new PointF(end2.x - start2.x, end2.y - start2.y);
+
+
+		float a1 = -dir1.y;
+		float b1 = +dir1.x;
+		float d1 = -(a1 * start1.x + b1 * start1.y);
+
+		float a2 = -dir2.y;
+		float b2 = +dir2.x;
+		float d2 = -(a2 * start2.x + b2 * start2.y);
+
+		float seg1_line2_start = a2 * start1.x + b2 * start1.y + d2;
+		float seg1_line2_end = a2 * end1.x + b2 * end1.y + d2;
+
+		float seg2_line1_start = a1 * start2.x + b1 * start2.y + d1;
+		float seg2_line1_end = a1 * end2.x + b1 * end2.y + d1;
+
+		return !(seg1_line2_start * seg1_line2_end >= 0) && !(seg2_line1_start * seg2_line1_end >= 0);
 	}
-	
-	/**
-	 * сонаправленность с отрезком(вектором)
-	 * @param edge вектор для сравнения
-	 * @return true если cos угла между ними положителен
-	 */
-	boolean isInOrder(Edge edge)
+
+	/*	@Override
+	public boolean equals(Object o)
 	{
-		//Edge a = this;
-		//Edge b = edge;
-		//float a_b = vectorX()*edge.vectorX() + vectorY()*edge.vectorY();
-		//if(a_b > 0)
-		if(Edge.scalarMultiplication(this, edge) > 0)
+		if (this == o)
 		{
 			return true;
 		}
-		return false;
+		if (!(o instanceof Vertex))
+		{
+			return false;
+		}
+		Vertex obj = (Vertex)o;
+		return (Math.abs(obj.x - this.x) < delta) && (Math.abs(obj.y - this.y) < delta);
+	}
+	 */
+	public boolean equal(Object o) {
+		if (this == o)
+		{
+			return true;
+		}
+		if (!(o instanceof Edge)) {
+			return false;
+		}
+		Edge obj = (Edge) o;
+		return HasPointAsEnd(obj.m_start) && HasPointAsEnd(obj.m_end);
 	}
 
 	/**
@@ -484,21 +486,12 @@ public class Edge implements GIGeometryObject
 	}
 	
 	/**
-	 * совпадает ли точка с одним из концов отрезка
-	 * @param point интересующая точка
-	 * @return да если совпадают с точностью Vertex.delta
+	 *
+	 * @return true если длина меньше Vertex.delta
 	 */
-	public boolean HasPointAsEnd(PointF point)
-	{
-		if(m_start.equals(point))
-		{
-			return true;
-		}
-		if(m_end.equals(point))
-		{
-			return true;
-		}
-		return false;
+	public boolean isAboutEmpty() {
+		return Math.abs(m_start.x - m_end.x) + Math.abs(m_start.y - m_end.y) < ru.tcgeo.application.data.gilib.planimetry.Vertex.delta;
+
 	}
 	/**
 	 * пересекает ли отрезок горизонталь
@@ -510,52 +503,41 @@ public class Edge implements GIGeometryObject
 	{
 		return (edge.m_start.y <= y &&  edge.m_end.y >= y) || (edge.m_start.y >= y &&  edge.m_end.y <= y);
 	}
+
 	/**
-	 * пересекают ли отрезоки горизонталь
-	 * @param a, b интересующие отрезоки
-	 * @param y горизонталь
-	 * @return true если концы отрезков лежат по разные стороны или на горизонтали включительно
+	 * центральная точка
+	 * @return
 	 */
-	public static boolean IsCrossingHorizontal(Edge a, Edge b, float y)
-	{
-		if((a.m_start.y >= y && a.m_end.y >= y && b.m_start.y >= y && b.m_end.y >= y)|| (a.m_start.y <= y && a.m_end.y <= y && b.m_start.y <= y&& b.m_end.y <= y))
-		{
-			return false;
-		}
-		return true;
-	}
-	/**
-	 * статический 
-	 * @param a отрезок
-	 * @param y горизонталь
-	 * @return true если Y концов отстоит не больше чем на Vertex.delta от Y
-	 */
-	public static boolean IsCoincidesHorizontal(Edge a, float y)
-	{
-		if( (Math.abs(a.m_start.y - y) < Vertex.delta) && (Math.abs(a.m_end.y - y) < Vertex.delta) )
-		{
-			return true;
-		}
-		return false;
+	ru.tcgeo.application.data.gilib.planimetry.Vertex center_point() {
+		PointF point = new PointF((m_start.x + m_end.x) / 2, (m_start.y + m_end.y) / 2);
+		return new ru.tcgeo.application.data.gilib.planimetry.Vertex(point);
 	}
 
 	/**
-	 * можно ли объеденить с отрезком. проверки на принадлежность одной линии нет. для горизонтальных отрезков
-	 * @param edge интересующий отрезок
-	 * @return 
+	 * сонаправленность с отрезком(вектором)
+	 *
+	 * @param edge вектор для сравнения
+	 * @return true если cos угла между ними положителен
 	 */
-	public boolean CanBeJoin(Edge edge)
-	{
-		if(!((Math.abs(edge.m_start.y - m_start.y) < Vertex.delta) && (Math.abs(edge.m_end.y - m_end.y) < Vertex.delta) && (Math.abs(edge.m_start.y - edge.m_end.y) < Vertex.delta)))
-		{
-			return false;
+	boolean isInOrder(Edge edge) {
+		//Edge a = this;
+		//Edge b = edge;
+		//float a_b = vectorX()*edge.vectorX() + vectorY()*edge.vectorY();
+		//if(a_b > 0)
+		return Edge.scalarMultiplication(this, edge) > 0;
+	}
+
+	/**
+	 * совпадает ли точка с одним из концов отрезка
+	 *
+	 * @param point интересующая точка
+	 * @return да если совпадают с точностью Vertex.delta
+	 */
+	public boolean HasPointAsEnd(PointF point) {
+		if (m_start.equals(point)) {
+			return true;
 		}
-		
-		if((Math.max(edge.m_start.x, edge.m_end.x) + Vertex.delta < Math.min(m_start.x, m_end.x) - Vertex.delta)||(Math.min(edge.m_start.x, edge.m_end.x) -Vertex.delta > Math.max(m_start.x, m_end.x)+Vertex.delta))
-		{
-			return false;
-		}
-		return true;
+		return m_end.equals(point);
 	}
 	
 	/**
@@ -644,10 +626,24 @@ public class Edge implements GIGeometryObject
 	 * координата Y вектора отрезка
 	 * @return m_end.y - m_start.y
 	 */
-	public static float vectorY(Edge edge)
-	{
-		return edge.m_end.y -edge.m_start.y;
+	public static float vectorY(Edge edge) {
+		return edge.m_end.y - edge.m_start.y;
 	}
+
+	/**
+	 * можно ли объеденить с отрезком. проверки на принадлежность одной линии нет. для горизонтальных отрезков
+	 *
+	 * @param edge интересующий отрезок
+	 * @return
+	 */
+	public boolean CanBeJoin(Edge edge) {
+		if (!((Math.abs(edge.m_start.y - m_start.y) < Vertex.delta) && (Math.abs(edge.m_end.y - m_end.y) < Vertex.delta) && (Math.abs(edge.m_start.y - edge.m_end.y) < Vertex.delta))) {
+			return false;
+		}
+
+		return (!(Math.max(edge.m_start.x, edge.m_end.x) + Vertex.delta < Math.min(m_start.x, m_end.x) - Vertex.delta)) && (!(Math.min(edge.m_start.x, edge.m_end.x) - Vertex.delta > Math.max(m_start.x, m_end.x) + Vertex.delta));
+	}
+	
 	/**
 	 * колинеарность отрезков
 	 * @param edge отрезок для сравнения
@@ -656,13 +652,9 @@ public class Edge implements GIGeometryObject
 	public  boolean IsCoLinear(Edge edge)
 	{
 		//if(Math.abs(vectorX()*edge.vectorY() - vectorY()*edge.vectorX()) < Vertex.delta)
-		if(Math.abs(Edge.vectorMultiplication(this, edge)) < Vertex.delta)
-		{
-			return true;
-		}
-		return false;
+		return Math.abs(Edge.vectorMultiplication(this, edge)) < Vertex.delta;
 	}
-	
+
 	/**
 	 * включает ли в себя интересующий отрезок
 	 * @param edge интересующий отрезок
@@ -684,8 +676,8 @@ public class Edge implements GIGeometryObject
 			float A2 = (a2.y - b2.y);
 			float B2 = (b2.x - a2.x);
 			float C2 = b2.x*a2.y - a2.x*b2.y;
-			
-	
+
+
 			if((Math.abs(B1) > Math.abs(A1))&&(Math.abs(B2) > Math.abs(A2)))
 			//if((Math.abs(B1) > 0.001)&&(Math.abs(B2) > 0.001))
 			{
@@ -693,12 +685,8 @@ public class Edge implements GIGeometryObject
 				float Y2 = C2/B2;
 				if(Math.abs(Y1 - Y2) < Vertex.delta)
 				{
-					if((a2.x > Math.min(a1.x, b1.x))&&(a2.x < Math.max(a1.x, b1.x)))
-					{
-						if((b2.x > Math.min(a1.x, b1.x)) && (b2.x < Math.max(a1.x, b1.x)))
-						{
-							return true;
-						}
+					if((a2.x > Math.min(a1.x, b1.x)) && (a2.x < Math.max(a1.x, b1.x))) {
+						return (b2.x > Math.min(a1.x, b1.x)) && (b2.x < Math.max(a1.x, b1.x));
 					}
 				}
 			}
@@ -708,18 +696,15 @@ public class Edge implements GIGeometryObject
 				float X2 = C2/A2;
 				if(Math.abs(X1 - X2) < Vertex.delta)
 				{
-					if((a2.y > Math.min(a1.y, b1.y))&&(a2.y < Math.max(a1.y, b1.y)))
-					{
-						if((b2.y > Math.min(a1.y, b1.y)) && (b2.y < Math.max(a1.y, b1.y)))
-						{
-							return true;
-						}
+					if((a2.y > Math.min(a1.y, b1.y)) && (a2.y < Math.max(a1.y, b1.y))) {
+						return (b2.y > Math.min(a1.y, b1.y)) && (b2.y < Math.max(a1.y, b1.y));
 					}
 				}
 			}
 		}
 		return false;
 	}
+
 /**
  * проверка принадлежности точки отрезку
  * @param point проверяемая точка
@@ -734,30 +719,25 @@ public class Edge implements GIGeometryObject
 			float A = (a.y - b.y);
 			float B = (b.x - a.x);
 			float C = b.x*a.y - a.x*b.y;
-			
+
 			if(Math.abs(A*c.x + B*c.y - C) < Vertex.delta)
 			{
 				//if((Math.abs(B) > 0.001))
 				if((Math.abs(B) > Math.abs(A)))
 				{
 					//if((c.x >= (Math.min(a.x, b.x) -0.1))&&(c.x <= (Math.max(a.x, b.x) + 0.1)))
-					if((c.x > (Math.min(a.x, b.x) + Vertex.delta))&&(c.x < (Math.max(a.x, b.x) - Vertex.delta)))
-					{
-						return true;
-					}
+					return (c.x > (Math.min(a.x, b.x) + Vertex.delta)) && (c.x < (Math.max(a.x, b.x) - Vertex.delta));
 				}
 				else //if((Math.abs(A) > 0.001))
 				{
 					//if((c.y >= (Math.min(a.y, b.y) - 0.1 ))&&(c.y <= (Math.max(a.y, b.y) + 0.1)))
-					if((c.y > (Math.min(a.y, b.y) + Vertex.delta ))&&(c.y < (Math.max(a.y, b.y) - Vertex.delta)))
-					{
-						return true;
-					}
+					return (c.y > (Math.min(a.y, b.y) + Vertex.delta)) && (c.y < (Math.max(a.y, b.y) - Vertex.delta));
 				}
 			}
 
 		return false;
-	}	
+	}
+
 	public boolean IsAboutIncluded(PointF point)
 	{
 			PointF a = m_start;
@@ -767,66 +747,19 @@ public class Edge implements GIGeometryObject
 			float A = (a.y - b.y);
 			float B = (b.x - a.x);
 			float C = b.x*a.y - a.x*b.y;
-			
+
 			if(Math.abs(A*c.x + B*c.y - C) < Vertex.delta)
 			{
 				if((Math.abs(B) > Math.abs(A)))
 				//if((Math.abs(B) > 0.0001))
 				{
-					if((c.x > (Math.min(a.x, b.x) - Vertex.delta))&&(c.x < (Math.max(a.x, b.x) + Vertex.delta)))
-					{
-						return true;
-					}
-				}
-				else //if((Math.abs(A) > 0.0001))
+					return (c.x > (Math.min(a.x, b.x) - Vertex.delta)) && (c.x < (Math.max(a.x, b.x) + Vertex.delta));
+				} else //if((Math.abs(A) > 0.0001))
 				{
-					if((c.y > (Math.min(a.y, b.y) - Vertex.delta ))&&(c.y < (Math.max(a.y, b.y) + Vertex.delta)))
-					{
-						return true;
-					}
+					return (c.y > (Math.min(a.y, b.y) - Vertex.delta)) && (c.y < (Math.max(a.y, b.y) + Vertex.delta));
 				}
 			}
 
-		return false;
-	}	
-	public boolean IsOnLine(Edge edge)
-	{
-
-		if(IsCoLinear(edge))
-		{
-			PointF a1 = m_start;
-			PointF b1 = m_end;
-			//Ax + By  = C
-			float A1 = (a1.y - b1.y);
-			float B1 = (b1.x - a1.x);
-			float C1 = b1.x*a1.y - a1.x*b1.y;
-			PointF a2 = edge.m_start;
-			PointF b2 = edge.m_end;
-			float A2 = (a2.y - b2.y);
-			float B2 = (b2.x - a2.x);
-			float C2 = b2.x*a2.y - a2.x*b2.y;
-			
-			
-			//if((Math.abs(B1) > 0.001)&&(Math.abs(B2) > 0.001))
-			if((Math.abs(B1) > Math.abs(A1))&&(Math.abs(B2) > Math.abs(A2)))
-			{
-				float Y1 = C1/B1;
-				float Y2 = C2/B2;
-				if(Math.abs(Y1 - Y2) < Vertex.delta)
-				{
-					return true;
-				}
-			}
-			else //if((Math.abs(A1) > 0.001)&&(Math.abs(A2) > 0.001))
-			{
-				float X1 = C1/A1;
-				float X2 = C2/A2;
-				if(Math.abs(X1 - X2) < Vertex.delta)
-				{
-					return true;
-				}
-			}
-		}
 		return false;
 	}
 	
@@ -2079,41 +2012,43 @@ public class Edge implements GIGeometryObject
 		
 		return ParametricIntersection(one.m_start, one.m_end, other.m_start, other.m_end);
 	}
-	/**
-	 * пересечение двух отрезков
-	 */
-	public static boolean ParametricIntersection(PointF start1, PointF end1, PointF start2, PointF end2)
-	{
-		PointF dir1 = new PointF(end1.x - start1.x, end1.y - start1.y);
-		PointF dir2 = new PointF(end2.x - start2.x, end2.y - start2.y);
-		
-		
-		float a1 = -dir1.y;
-		float b1 = +dir1.x;
-		float d1 = -(a1*start1.x + b1*start1.y);
-		
-		float a2 = -dir2.y;
-		float b2 = +dir2.x;
-		float d2 = -(a2*start2.x + b2*start2.y);
-		
-        float seg1_line2_start = a2*start1.x + b2*start1.y + d2;
-        float seg1_line2_end = a2*end1.x + b2*end1.y + d2;
 
-        float seg2_line1_start = a1*start2.x + b1*start2.y + d1;
-        float seg2_line1_end = a1*end2.x + b1*end2.y + d1;
-        
-        if (seg1_line2_start * seg1_line2_end >= 0 || seg2_line1_start * seg2_line1_end >= 0) 
-        {
-            return false;
-        }
-		
-		return true;
+	public boolean IsOnLine(Edge edge) {
+
+		if (IsCoLinear(edge)) {
+			PointF a1 = m_start;
+			PointF b1 = m_end;
+			//Ax + By  = C
+			float A1 = (a1.y - b1.y);
+			float B1 = (b1.x - a1.x);
+			float C1 = b1.x * a1.y - a1.x * b1.y;
+			PointF a2 = edge.m_start;
+			PointF b2 = edge.m_end;
+			float A2 = (a2.y - b2.y);
+			float B2 = (b2.x - a2.x);
+			float C2 = b2.x * a2.y - a2.x * b2.y;
+
+
+			//if((Math.abs(B1) > 0.001)&&(Math.abs(B2) > 0.001))
+			if ((Math.abs(B1) > Math.abs(A1)) && (Math.abs(B2) > Math.abs(A2))) {
+				float Y1 = C1 / B1;
+				float Y2 = C2 / B2;
+				return Math.abs(Y1 - Y2) < Vertex.delta;
+			} else //if((Math.abs(A1) > 0.001)&&(Math.abs(A2) > 0.001))
+			{
+				float X1 = C1 / A1;
+				float X2 = C2 / A2;
+				return Math.abs(X1 - X2) < Vertex.delta;
+			}
+		}
+		return false;
 	}
 	
 	public static double Angle(Edge one, Edge two)
 	{
 		return Math.atan2(Edge.vectorMultiplication(one, two), Edge.scalarMultiplication(one, two));
 	}
+
 	/**
 	 * ParametricCoordsOfSectionByPolygon похоже не работает
 	 * IsEdgeIntersectedByPolygon - алгоритм Кириуса-Бэка работает.
@@ -2188,11 +2123,7 @@ public class Edge implements GIGeometryObject
 		{
 			return true;
 		}
-		if(inside)
-		{
-			return true;
-		}
-		return false;
+		return inside;
 
 	}
 	

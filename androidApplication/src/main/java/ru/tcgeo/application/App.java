@@ -3,8 +3,8 @@ package ru.tcgeo.application;
 import android.app.Application;
 
 import ru.tcgeo.application.data.GIMap;
+import ru.tcgeo.application.data.wkt.GI_WktGeometry;
 import ru.tcgeo.application.utils.SPUtils;
-import ru.tcgeo.application.wkt.GI_WktGeometry;
 
 /**
  * Created by a_belov on 03.07.15.

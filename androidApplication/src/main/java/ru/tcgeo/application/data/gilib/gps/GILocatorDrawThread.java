@@ -16,12 +16,12 @@ import android.view.SurfaceHolder;
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
+import ru.tcgeo.application.data.wkt.GI_WktGeometry;
+import ru.tcgeo.application.data.wkt.GI_WktPoint;
 import ru.tcgeo.application.utils.MapUtils;
-import ru.tcgeo.application.wkt.GI_WktGeometry;
-import ru.tcgeo.application.wkt.GI_WktPoint;
 
 public class GILocatorDrawThread extends Thread 
 {

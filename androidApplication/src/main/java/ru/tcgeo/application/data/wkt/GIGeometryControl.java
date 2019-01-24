@@ -1,4 +1,4 @@
-package ru.tcgeo.application.wkt;
+package ru.tcgeo.application.data.wkt;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,8 +9,8 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.layer.GIEditableLayer;
-import ru.tcgeo.application.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
 import ru.tcgeo.application.views.control.GIControl;
 import ru.tcgeo.application.views.control.GIGeometryPointControl;
 

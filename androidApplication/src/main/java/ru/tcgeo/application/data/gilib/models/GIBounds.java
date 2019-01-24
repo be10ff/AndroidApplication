@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.models;
+package ru.tcgeo.application.data.gilib.models;
 
 
 public class GIBounds
@@ -99,30 +99,18 @@ public class GIBounds
 
 	public Boolean ContainsBounds (GIBounds other)
 	{
-		if(m_left <= other.m_left && m_right >= other.m_right && m_top >= other.m_top && m_bottom <= other.m_bottom)
-		{
-			return true;
-		}
-		return false;
+		return m_left <= other.m_left && m_right >= other.m_right && m_top >= other.m_top && m_bottom <= other.m_bottom;
 	}
 
 	public Boolean ContainsPoint (GILonLat raw_point)
 	{
 		GILonLat point = GIProjection.ReprojectLonLat(raw_point, GIProjection.WGS84(), m_projection);
-		if(m_left <= point.lon() && m_right >= point.lon() && m_top >= point.lat() && m_bottom <= point.lat())
-		{
-			return true;
-		}
-		return false;
+		return m_left <= point.lon() && m_right >= point.lon() && m_top >= point.lat() && m_bottom <= point.lat();
 	}
 
 	public Boolean Intersects (GIBounds with)
 	{
-		if(m_left > with.m_right || m_right < with.m_left || m_top < with.m_bottom || m_bottom > with.m_top)
-		{
-			return false;
-		}
-		return true;
+		return !(m_left > with.m_right) && !(m_right < with.m_left) && !(m_top < with.m_bottom) && !(m_bottom > with.m_top);
 	}
 
 	public GIBounds Intersect (GIBounds with)

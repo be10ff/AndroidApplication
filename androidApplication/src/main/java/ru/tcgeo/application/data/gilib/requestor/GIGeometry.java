@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.requestor;
+package ru.tcgeo.application.data.gilib.requestor;
 
 public class GIGeometry
 {

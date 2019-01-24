@@ -1,6 +1,6 @@
 package ru.tcgeo.application.views.callback;
 
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.data.gilib.parser.GIProjectProperties;
 
 /**
  * Created by artem on 14.07.17.

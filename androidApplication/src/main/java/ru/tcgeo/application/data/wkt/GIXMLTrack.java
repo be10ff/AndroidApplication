@@ -1,4 +1,4 @@
-package ru.tcgeo.application.wkt;
+package ru.tcgeo.application.data.wkt;
 
 import android.graphics.Canvas;
 import android.graphics.Path;
@@ -14,13 +14,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.App;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIEncoding;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
-import ru.tcgeo.application.gilib.planimetry.Edge;
-import ru.tcgeo.application.gilib.planimetry.Vertex;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIEncoding;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.data.gilib.planimetry.Edge;
+import ru.tcgeo.application.data.gilib.planimetry.Vertex;
 import ru.tcgeo.application.utils.MapUtils;
 
 public class GIXMLTrack extends GI_WktGeometry {

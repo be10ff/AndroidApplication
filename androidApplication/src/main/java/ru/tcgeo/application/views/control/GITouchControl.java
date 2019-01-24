@@ -14,9 +14,9 @@ import android.view.ViewConfiguration;
 import io.reactivex.subjects.PublishSubject;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.requestor.GIDataRequestorImp;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.requestor.GIDataRequestorImp;
 
 
 public class GITouchControl extends View implements GIControl, OnLongClickListener/*, ITouchControl */ {

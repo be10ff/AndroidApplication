@@ -21,16 +21,16 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.layer.GIEditableLayer;
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.layer.GISQLLayer;
-import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
-import ru.tcgeo.application.gilib.parser.GIPropertiesGroup;
-import ru.tcgeo.application.gilib.parser.GIPropertiesLayer;
-import ru.tcgeo.application.gilib.parser.GIRange;
-import ru.tcgeo.application.gilib.parser.GISQLDB;
+import ru.tcgeo.application.data.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.layer.GISQLLayer;
+import ru.tcgeo.application.data.gilib.models.GIColor;
+import ru.tcgeo.application.data.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.data.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.data.gilib.parser.GIPropertiesGroup;
+import ru.tcgeo.application.data.gilib.parser.GIPropertiesLayer;
+import ru.tcgeo.application.data.gilib.parser.GIRange;
+import ru.tcgeo.application.data.gilib.parser.GISQLDB;
 import ru.tcgeo.application.interfaces.MapView;
 
 /**

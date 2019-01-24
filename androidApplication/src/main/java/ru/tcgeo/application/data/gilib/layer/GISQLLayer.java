@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.layer;
+package ru.tcgeo.application.data.gilib.layer;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,11 +10,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
 
-import ru.tcgeo.application.gilib.layer.renderer.GISQLRenderer;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIITile;
-import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.models.tile.GITileInfoOSM;
+import ru.tcgeo.application.data.gilib.layer.renderer.GISQLRenderer;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIITile;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.tile.GITileInfoOSM;
 
 
 public class GISQLLayer extends GILayer {

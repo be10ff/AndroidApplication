@@ -3,8 +3,6 @@ package ru.tcgeo.application.views.callback;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import ru.tcgeo.application.wkt.GI_WktPoint;
-
 /**
  * Created by artem on 16.04.18.
  */

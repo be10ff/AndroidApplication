@@ -1,11 +1,11 @@
-package ru.tcgeo.application.gilib.parser;
+package ru.tcgeo.application.data.gilib.parser;
 
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
 
 
-public class GIPropertiesGroup extends ru.tcgeo.application.gilib.parser.GIPropertiesLayer implements ru.tcgeo.application.gilib.parser.ILayersRoot
+public class GIPropertiesGroup extends ru.tcgeo.application.data.gilib.parser.GIPropertiesLayer implements ru.tcgeo.application.data.gilib.parser.ILayersRoot
 {
 	public double m_opacity;
 	public boolean m_enabled;
@@ -25,7 +25,7 @@ public class GIPropertiesGroup extends ru.tcgeo.application.gilib.parser.GIPrope
 		serializer.attribute("", "opacity", String.valueOf(m_opacity));
 		serializer.attribute("", "enabled", String.valueOf(m_enabled));
 		serializer.attribute("", "obscure", String.valueOf(m_obscure));
-		for(ru.tcgeo.application.gilib.parser.GIPropertiesLayer entry:m_Entries)
+		for (ru.tcgeo.application.data.gilib.parser.GIPropertiesLayer entry : m_Entries)
 		{
 			serializer = entry.Save(serializer);
 		}

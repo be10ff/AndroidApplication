@@ -6,7 +6,7 @@
     android:padding="10dp"
     android:paddingLeft="10dp" >
 
-    <ru.tcgeo.application.gilib.gps.GILocatorView
+    <ru.tcgeo.application.data.gilib.gps.GILocatorView
         android:id="@+id/DrawViewLocator"
         android:layout_width="300dp"
         android:layout_height="300dp"

@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.layer.renderer;
+package ru.tcgeo.application.data.gilib.layer.renderer;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,12 +8,12 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.layer.GIEditableLayer;
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIStyle;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
-import ru.tcgeo.application.wkt.GI_WktGeometry;
+import ru.tcgeo.application.data.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIStyle;
+import ru.tcgeo.application.data.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.data.wkt.GI_WktGeometry;
 
 
 public class GIEditableRenderer extends GIRenderer {

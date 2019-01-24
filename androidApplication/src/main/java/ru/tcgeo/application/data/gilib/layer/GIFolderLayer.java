@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.layer;
+package ru.tcgeo.application.data.gilib.layer;
 
 import android.graphics.Bitmap;
 
@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import ru.tcgeo.application.gilib.layer.renderer.GIFolderRenderer;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIITile;
-import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.models.tile.GITileInfoFolder;
-import ru.tcgeo.application.gilib.models.tile.GITileInfoOSM;
+import ru.tcgeo.application.data.gilib.layer.renderer.GIFolderRenderer;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIITile;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.tile.GITileInfoFolder;
+import ru.tcgeo.application.data.gilib.models.tile.GITileInfoOSM;
 
 
 public class GIFolderLayer extends GILayer {

@@ -1,4 +1,4 @@
-package ru.tcgeo.application.views.control;
+package ru.tcgeo.application.views.widget;
 
 
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
 import ru.tcgeo.application.utils.GIYandexUtils;
 import ru.tcgeo.application.utils.MaskedEditText;
 import ru.tcgeo.application.views.callback.LonLatInputCallback;

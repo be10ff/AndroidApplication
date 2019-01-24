@@ -1,8 +1,8 @@
-package ru.tcgeo.application.gilib.models.tile;
+package ru.tcgeo.application.data.gilib.models.tile;
 
 
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
 
 public class GISQLYandexTile extends GITileInfoOSM
 {

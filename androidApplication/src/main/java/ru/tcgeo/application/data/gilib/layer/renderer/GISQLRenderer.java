@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.layer.renderer;
+package ru.tcgeo.application.data.gilib.layer.renderer;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,11 +11,11 @@ import android.graphics.RectF;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.layer.GISQLLayer;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIStyle;
-import ru.tcgeo.application.gilib.models.tile.GITileInfoOSM;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.layer.GISQLLayer;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIStyle;
+import ru.tcgeo.application.data.gilib.models.tile.GITileInfoOSM;
 
 public class GISQLRenderer extends GIRenderer {
 

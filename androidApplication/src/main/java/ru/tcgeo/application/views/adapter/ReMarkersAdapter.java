@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.Marker;
+import ru.tcgeo.application.data.gilib.models.Marker;
 import ru.tcgeo.application.views.callback.MarkerHolderCallback;
 import ru.tcgeo.application.views.callback.ZeroDataHolderCallback;
 import ru.tcgeo.application.views.viewholder.MarkerHolder;

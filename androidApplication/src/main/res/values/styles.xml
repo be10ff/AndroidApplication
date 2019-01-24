@@ -61,6 +61,7 @@
     </style>
 
 
+
     <style name="Theme.Text_Normal_Gray" parent="android:Theme">
         <item name="android:textColor">@color/control_text_disable</item>
         <item name="android:textStyle">normal</item>

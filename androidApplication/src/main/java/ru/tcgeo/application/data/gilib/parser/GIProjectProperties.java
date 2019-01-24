@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.parser;
+package ru.tcgeo.application.data.gilib.parser;
 
 import android.content.Context;
 import android.util.Log;
@@ -20,7 +20,7 @@ import java.io.StringWriter;
 
 import ru.tcgeo.application.App;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
 
 
 public class GIProjectProperties 

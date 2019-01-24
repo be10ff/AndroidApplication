@@ -1,10 +1,10 @@
-package ru.tcgeo.application.gilib.layer.renderer;
+package ru.tcgeo.application.data.gilib.layer.renderer;
 
 import android.graphics.Bitmap;
 
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GIStyle;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GIStyle;
 
 public abstract class GIRenderer
 {

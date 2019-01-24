@@ -13,11 +13,12 @@ import java.util.Collections;
 import java.util.List;
 
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.layer.GIEditableLayer;
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.layer.GISQLLayer;
-import ru.tcgeo.application.gilib.models.GIColor;
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.data.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.layer.GISQLLayer;
+import ru.tcgeo.application.data.gilib.models.GIColor;
+import ru.tcgeo.application.data.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.data.wkt.GIGPSPointsLayer;
 import ru.tcgeo.application.utils.MapUtils;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 import ru.tcgeo.application.views.viewholder.LayerHolder;
@@ -26,7 +27,6 @@ import ru.tcgeo.application.views.viewholder.SqliteLayerHolder;
 import ru.tcgeo.application.views.viewholder.XmlLayerHolder;
 import ru.tcgeo.application.views.viewholder.helper.ItemTouchHelperAdapter;
 import ru.tcgeo.application.views.viewholder.helper.OnStartDragListener;
-import ru.tcgeo.application.wkt.GIGPSPointsLayer;
 
 
 /**

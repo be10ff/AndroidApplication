@@ -20,12 +20,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.models.Attribute;
+import ru.tcgeo.application.data.gilib.models.Attribute;
+import ru.tcgeo.application.data.wkt.GIDBaseField;
+import ru.tcgeo.application.data.wkt.GI_WktGeometry;
 import ru.tcgeo.application.views.adapter.AttributesAdapter;
 import ru.tcgeo.application.views.callback.AttributesCallback;
 import ru.tcgeo.application.views.viewholder.AttributesHolder;
-import ru.tcgeo.application.wkt.GIDBaseField;
-import ru.tcgeo.application.wkt.GI_WktGeometry;
 
 public class EditAttributesDialog extends Dialog {
 

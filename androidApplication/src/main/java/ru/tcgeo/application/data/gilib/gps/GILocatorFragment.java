@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.gps;
+package ru.tcgeo.application.data.gilib.gps;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -10,7 +10,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.wkt.GI_WktGeometry;
+import ru.tcgeo.application.data.wkt.GI_WktGeometry;
 
 public class GILocatorFragment extends Fragment
 {

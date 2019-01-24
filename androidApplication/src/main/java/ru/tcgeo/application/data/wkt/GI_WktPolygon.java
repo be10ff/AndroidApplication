@@ -1,4 +1,4 @@
-package ru.tcgeo.application.wkt;
+package ru.tcgeo.application.data.wkt;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,11 +11,11 @@ import android.graphics.PointF;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.App;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.models.GIVectorStyle;
-import ru.tcgeo.application.gilib.planimetry.GIGeometryPolygon;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.GIVectorStyle;
+import ru.tcgeo.application.data.gilib.planimetry.GIGeometryPolygon;
 
 public class GI_WktPolygon extends GI_WktGeometry
 {
@@ -183,10 +183,7 @@ public class GI_WktPolygon extends GI_WktGeometry
 		{
 			if(m_rings.size() > 0)
 			{
-				if(m_rings.get(0).m_points.size() > 0)
-				{
-					return false;
-				}
+				return m_rings.get(0).m_points.size() <= 0;
 			}
 		}
 		return true;

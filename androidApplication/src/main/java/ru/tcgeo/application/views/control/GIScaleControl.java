@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.data.GIMap;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
 
 public class GIScaleControl extends RelativeLayout implements GIControl {
     public TextView m_scale_info_text;

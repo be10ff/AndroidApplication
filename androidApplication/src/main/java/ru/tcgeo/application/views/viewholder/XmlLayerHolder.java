@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.tcgeo.application.R;
-import ru.tcgeo.application.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
 import ru.tcgeo.application.views.callback.LayerHolderCallback;
 
 /**

@@ -1,4 +1,4 @@
-package ru.tcgeo.application.gilib.parser;
+package ru.tcgeo.application.data.gilib.parser;
 
 public interface ILayersRoot
 {

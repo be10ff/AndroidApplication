@@ -16,8 +16,8 @@ import io.reactivex.functions.Predicate;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.LonLatEvent;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.LonLatEvent;
 import ru.tcgeo.application.utils.MapUtils;
 //todo
 //https://stackoverflow.com/questions/42842092/locationlistner-no-longer-listen-for-gps-status-change-after-upgrade-to-android

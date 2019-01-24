@@ -46,21 +46,23 @@ import io.reactivex.subjects.Subject;
 import ru.tcgeo.application.data.GIEditingStatus;
 import ru.tcgeo.application.data.GIGPSLocationListener;
 import ru.tcgeo.application.data.GIMap;
+import ru.tcgeo.application.data.gilib.gps.GICompassView;
+import ru.tcgeo.application.data.gilib.gps.GIDirectionToPOIArrow;
+import ru.tcgeo.application.data.gilib.gps.GIGPSButtonView;
+import ru.tcgeo.application.data.gilib.gps.GILocatorFragment;
+import ru.tcgeo.application.data.gilib.gps.GISensors;
+import ru.tcgeo.application.data.gilib.layer.GIEditableLayer;
+import ru.tcgeo.application.data.gilib.layer.GILayer;
+import ru.tcgeo.application.data.gilib.models.GIBounds;
+import ru.tcgeo.application.data.gilib.models.GILonLat;
+import ru.tcgeo.application.data.gilib.models.GIProjection;
+import ru.tcgeo.application.data.gilib.models.LonLatEvent;
+import ru.tcgeo.application.data.gilib.models.Marker;
+import ru.tcgeo.application.data.gilib.parser.GIEditable;
+import ru.tcgeo.application.data.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.data.interactors.LoadProjectInteractor;
-import ru.tcgeo.application.gilib.gps.GICompassView;
-import ru.tcgeo.application.gilib.gps.GIDirectionToPOIArrow;
-import ru.tcgeo.application.gilib.gps.GIGPSButtonView;
-import ru.tcgeo.application.gilib.gps.GILocatorFragment;
-import ru.tcgeo.application.gilib.gps.GISensors;
-import ru.tcgeo.application.gilib.layer.GIEditableLayer;
-import ru.tcgeo.application.gilib.layer.GILayer;
-import ru.tcgeo.application.gilib.models.GIBounds;
-import ru.tcgeo.application.gilib.models.GILonLat;
-import ru.tcgeo.application.gilib.models.GIProjection;
-import ru.tcgeo.application.gilib.models.LonLatEvent;
-import ru.tcgeo.application.gilib.models.Marker;
-import ru.tcgeo.application.gilib.parser.GIEditable;
-import ru.tcgeo.application.gilib.parser.GIProjectProperties;
+import ru.tcgeo.application.data.wkt.GI_WktGeometry;
+import ru.tcgeo.application.data.wkt.GI_WktPoint;
 import ru.tcgeo.application.interfaces.FloatingActionButtonsCallback;
 import ru.tcgeo.application.interfaces.MapView;
 import ru.tcgeo.application.utils.PermissionManager;
@@ -80,8 +82,6 @@ import ru.tcgeo.application.views.dialog.ReEditableLayersDialog;
 import ru.tcgeo.application.views.dialog.ReMarkersDialog;
 import ru.tcgeo.application.views.dialog.ReProjectDialog;
 import ru.tcgeo.application.views.dialog.ReSettingsDialog;
-import ru.tcgeo.application.wkt.GI_WktGeometry;
-import ru.tcgeo.application.wkt.GI_WktPoint;
 
 
 public class Geoinfo extends Activity
@@ -562,7 +562,7 @@ public class Geoinfo extends Activity
         });
         subscription.add(locationListener.getFollowSubject().subscribe(new Consumer<Integer>() {
             @Override
-            public void accept(Integer integer) throws Exception {
+            public void accept(Integer integer) {
                 m_btnAutoFollow.setChecked((integer & LonLatEvent.FLAG_FOLLOW) != 0 );
             }
         }));
@@ -577,7 +577,7 @@ public class Geoinfo extends Activity
 
         subscription.add(locationListener.getTrackSubject().subscribe(new Consumer<Integer>() {
             @Override
-            public void accept(Integer integer) throws Exception {
+            public void accept(Integer integer) {
                 m_btnTrackControl.setChecked((integer & LonLatEvent.FLAG_TRACK) != 0 );
             }
         }));

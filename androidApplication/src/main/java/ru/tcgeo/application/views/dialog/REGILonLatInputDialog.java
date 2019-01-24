@@ -22,10 +22,10 @@ import java.util.Locale;
 
 import ru.tcgeo.application.Geoinfo;
 import ru.tcgeo.application.R;
+import ru.tcgeo.application.data.wkt.GI_WktPoint;
 import ru.tcgeo.application.utils.GIYandexUtils;
 import ru.tcgeo.application.utils.MaskedWatcher;
 import ru.tcgeo.application.views.control.GIGeometryPointControl;
-import ru.tcgeo.application.wkt.GI_WktPoint;
 
 public class REGILonLatInputDialog extends DialogFragment {
     Geoinfo activity;
