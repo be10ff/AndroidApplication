@@ -62,6 +62,9 @@ public class GIParserLayer extends GIParser
 				{
 					m_current.m_type = GILayer.GILayerType.FOLDER;
 				}
+				if (m_current.m_strType.equalsIgnoreCase("GOOGLE_MV_FOLDER")) {
+					m_current.m_type = GILayer.GILayerType.GOOGLE_MV_FOLDER;
+				}
 				if(m_current.m_strType.equalsIgnoreCase("XML"))
 				{
 					m_current.m_type = GILayer.GILayerType.XML;

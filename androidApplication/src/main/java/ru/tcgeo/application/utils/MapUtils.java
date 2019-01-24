@@ -145,4 +145,30 @@ public class MapUtils {
         int scale = (int) (1 / (Math.pow(2, z) * con));
         return scale;
     }
+
+    public static int[] googleMV2Tile(String name) {
+        int[] array = {0b00, 0b10, 0b11, 0b01};
+        int[] result = new int[2];
+        int len = name.length() - 1;
+        for (int i = len; i > 0; i--) {
+            int ch = array[name.charAt(i) - 'q'];
+            int cx = (ch & 0b10) >> 1;
+            result[0] = result[0] + (cx << (len - i)); //309
+            int cy = ch & 0b01;
+            result[1] = result[1] + (cy << (len - i)); //160
+        }
+        return result;
+    }
+
+    public static String Tile2GoogleMV(int x, int y, int z) {
+        StringBuilder builder = new StringBuilder();
+        builder.append('t');
+        char[] array = {'q', 'r', 't', 's'};
+        for (int i = z - 2; i >= 0; i--) {
+            int CXi = (x >> i) & 1;
+            int CYi = (y >> i) & 1;
+            builder.append(array[CXi | (CYi << 1)]);
+        }
+        return builder.toString();
+    }
 }

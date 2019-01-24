@@ -11,8 +11,6 @@ import android.view.SurfaceView;
 
 import ru.tcgeo.application.wkt.GI_WktGeometry;
 
-//import ru.tcgeo.application.gilib.gps.thread.GILocatorDrawThread;
-
 public class GILocatorView extends SurfaceView implements SurfaceHolder.Callback
 {
 	public GI_WktGeometry m_POI;
