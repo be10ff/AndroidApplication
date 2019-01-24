@@ -3,8 +3,9 @@ package ru.tcgeo.application.data.gilib.models;
 
 import ru.tcgeo.application.data.gilib.layer.GILayer;
 import ru.tcgeo.application.data.gilib.models.tile.GISQLYandexTile;
-import ru.tcgeo.application.data.gilib.models.tile.GITileInfoFolder;
+import ru.tcgeo.application.data.gilib.models.tile.GITileInfoGoogleMV;
 import ru.tcgeo.application.data.gilib.models.tile.GITileInfoOSM;
+import ru.tcgeo.application.data.gilib.models.tile.GITileInfoTopoFolder;
 
 public abstract class GIITile
 {
@@ -20,9 +21,12 @@ public abstract class GIITile
 			{
 				return new GISQLYandexTile(z, lon, lat);
 			}
-			case FOLDER:
+			case TOPO_FOLDER:
 			{
-				return new GITileInfoFolder(z, lon, lat);
+				return new GITileInfoTopoFolder(z, lon, lat);
+			}
+			case GOOGLE_MV: {
+				return new GITileInfoGoogleMV(z, lon, lat);
 			}
 			default:
 			{
@@ -42,9 +46,12 @@ public abstract class GIITile
 			{
 				return new GISQLYandexTile(z, tile_x, tile_y);
 			}
-			case FOLDER:
+			case TOPO_FOLDER:
 			{
-				return new GITileInfoFolder(z, tile_x, tile_y);
+				return new GITileInfoTopoFolder(z, tile_x, tile_y);
+			}
+			case GOOGLE_MV: {
+				return new GITileInfoGoogleMV(z, tile_x, tile_y);
 			}
 			default:
 			{

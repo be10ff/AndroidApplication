@@ -58,9 +58,12 @@ public class GIParserLayer extends GIParser
 				{
 					m_current.m_type = GILayer.GILayerType.SQL_YANDEX_LAYER;
 				}
-				if(m_current.m_strType.equalsIgnoreCase("FOLDER"))
+				if (m_current.m_strType.equalsIgnoreCase("TOPO_FOLDER"))
 				{
-					m_current.m_type = GILayer.GILayerType.FOLDER;
+					m_current.m_type = GILayer.GILayerType.TOPO_FOLDER;
+				}
+				if (m_current.m_strType.equalsIgnoreCase("GOOGLE_MV")) {
+					m_current.m_type = GILayer.GILayerType.GOOGLE_MV;
 				}
 				if(m_current.m_strType.equalsIgnoreCase("XML"))
 				{

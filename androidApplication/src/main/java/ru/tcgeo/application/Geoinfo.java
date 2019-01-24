@@ -90,6 +90,8 @@ public class Geoinfo extends Activity
 
     final static public String locator_view_tag = "LOCATOR_TAG";
 
+    private long lastExitAttemptTime = 0;
+
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
@@ -387,6 +389,15 @@ public class Geoinfo extends Activity
             return locationListener.getPositionObservable();
         } else {
             return Observable.empty();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - lastExitAttemptTime < 500) {
+            finish();
+        } else {
+            lastExitAttemptTime = System.currentTimeMillis();
         }
     }
 

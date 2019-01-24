@@ -19,7 +19,6 @@ public class GIFolderLayer extends GILayer {
 
 	String m_path;
 	ArrayList<Integer> m_levels;
-	//min & max zoom in *.sqldb see getMinMaxLevels()
 	private int max;
 	private int min;
 
@@ -27,12 +26,12 @@ public class GIFolderLayer extends GILayer {
 	public GIFolderLayer(String path)
 	{
 		m_path = path;
-		type = GILayerType.ON_LINE;
 		m_renderer = new GIFolderRenderer();
 		m_projection = GIProjection.WGS84();
 		max = 19;
 		min = 0;
 		getMinMaxLevels();
+		type = GILayerType.ON_LINE;
 	}
 
 	@Override

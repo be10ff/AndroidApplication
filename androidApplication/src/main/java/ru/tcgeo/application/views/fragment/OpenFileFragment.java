@@ -27,11 +27,14 @@ import ru.tcgeo.application.interfaces.IFolderItemListener;
 
 public class OpenFileFragment extends Fragment implements OnItemClickListener {
 
+    protected File file;
     IFolderItemListener folderListener;
-    private List<String> m_item = null;
-    private List<String> m_path = null;
-    private List<String> m_ext = null;
-    private String m_root = "/";//Environment.getExternalStorageDirectory().getAbsolutePath();
+    protected List<String> m_item = null;
+    protected List<String> m_path = null;
+    protected List<String> m_ext = null;
+    protected String m_root = "/";//Environment.getExternalStorageDirectory().getAbsolutePath();
+
+    private long lastExitAttemptTime = 0;
 
     @BindView(R.id.path)
     TextView m_PathTextView;
@@ -65,20 +68,36 @@ public class OpenFileFragment extends Fragment implements OnItemClickListener {
         //m_param.setMargins(64, 64, 64, 64);
 
         v.setLayoutParams(m_param);
-        setDir(Environment.getExternalStorageDirectory().getAbsolutePath());
+        setDir();
         //getDir(m_root, m_ListView);
 
         return v;
     }
 
+    protected void setDir() {
+        setDir(Environment.getExternalStorageDirectory().getAbsolutePath());
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        onListItemClick((ListView) parent, parent, position, id);
+        onListItemClick((ListView) parent, parent, position, id, false);
     }
 
 
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        File file = new File(m_path.get(position));
+    public void onListItemClick(ListView l, View v, int position, long id, boolean open) {
+//        file = new File(m_path.get(position));
+//        if (System.currentTimeMillis() - lastExitAttemptTime < 500) {
+//            if (folderListener != null) {
+//                folderListener.OnFileClicked(file);
+//                folderListener.onDissmiss();
+//            }
+//        } else {
+//            lastExitAttemptTime = System.currentTimeMillis();
+//
+//
+//        }
+
+        file = new File(m_path.get(position));
         if (file.isDirectory()) {
             if (file.canRead()) {
                 getDir(m_path.get(position), l);

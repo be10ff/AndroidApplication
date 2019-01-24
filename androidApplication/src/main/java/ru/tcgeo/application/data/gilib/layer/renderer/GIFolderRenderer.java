@@ -8,9 +8,9 @@ import android.graphics.RectF;
 
 import java.util.ArrayList;
 
-import ru.tcgeo.application.data.gilib.layer.GIFolderLayer;
 import ru.tcgeo.application.data.gilib.layer.GILayer;
 import ru.tcgeo.application.data.gilib.layer.GISQLLayer;
+import ru.tcgeo.application.data.gilib.layer.GITopoFolderLayer;
 import ru.tcgeo.application.data.gilib.models.GIBounds;
 import ru.tcgeo.application.data.gilib.models.GIStyle;
 import ru.tcgeo.application.data.gilib.models.tile.GITileInfoFolder;
@@ -26,7 +26,7 @@ public class GIFolderRenderer extends GIRenderer {
 	@Override
 	public void RenderImage(GILayer layer_, GIBounds area, int opacity, Bitmap bitmap, double scale)
 	{
-        GIFolderLayer layer = (GIFolderLayer)layer_;
+		GITopoFolderLayer layer = (GITopoFolderLayer) layer_;
         m_canvas = new Canvas(bitmap);
 		area = area.Reprojected(layer.projection());
 		int Width_px = bitmap.getWidth();

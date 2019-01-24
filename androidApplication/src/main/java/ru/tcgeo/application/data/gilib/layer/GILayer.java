@@ -68,13 +68,23 @@ public abstract class GILayer
 //			{
 //				return new GIGPSPointsLayer(path, new GIVectorStyle());
 //			}
-			case FOLDER:
+			case TOPO_FOLDER:
 			{
-				GIFolderLayer layer = new GIFolderLayer(path);
+				GITopoFolderLayer layer = new GITopoFolderLayer(path);
 				layer.type = type;
 				return layer;
 			}
 
+			case GOOGLE_MV: {
+				GIGoogleMVLayer layer = new GIGoogleMVLayer(path);
+				layer.type = type;
+				return layer;
+			}
+			case SAS: {
+				GIGoogleMVLayer layer = new GIGoogleMVLayer(path);
+				layer.type = type;
+				return layer;
+			}
 			default:
 			{
 				return null;
@@ -105,9 +115,14 @@ public abstract class GILayer
 				layer.type = type;
 				return layer;
 			}
-			case FOLDER:
+			case TOPO_FOLDER:
 			{
-				GIFolderLayer layer = new GIFolderLayer(path);
+				GITopoFolderLayer layer = new GITopoFolderLayer(path);
+				layer.type = type;
+				return layer;
+			}
+			case GOOGLE_MV: {
+				GIGoogleMVLayer layer = new GIGoogleMVLayer(path);
 				layer.type = type;
 				return layer;
 			}
@@ -136,9 +151,14 @@ public abstract class GILayer
 			{
 				return new GISQLLayer(path);
 			}
-			case FOLDER:
+			case TOPO_FOLDER:
 			{
-				GIFolderLayer layer = new GIFolderLayer(path);
+				GITopoFolderLayer layer = new GITopoFolderLayer(path);
+				layer.type = type;
+				return layer;
+			}
+			case GOOGLE_MV: {
+				GIGoogleMVLayer layer = new GIGoogleMVLayer(path);
 				layer.type = type;
 				return layer;
 			}
@@ -312,7 +332,19 @@ public abstract class GILayer
 	}
 
 	public enum GILayerType {
-		LAYER_GROUP, RASTER_LAYER, VECTOR_LAYER, TILE_LAYER, ON_LINE, SQL_LAYER, /*DBASE,*/ XML, SQL_YANDEX_LAYER, /*PLIST, ZIP,*/ FOLDER
+		LAYER_GROUP,
+		RASTER_LAYER,
+		VECTOR_LAYER,
+		TILE_LAYER,
+		ON_LINE,
+		SQL_LAYER,
+		/*DBASE,*/
+		XML,
+		SQL_YANDEX_LAYER,
+		/*PLIST, ZIP,*/
+		TOPO_FOLDER,
+		GOOGLE_MV,
+		SAS
 	}
 
 	public enum EditableType {

@@ -1,25 +1,22 @@
 package ru.tcgeo.application.data.gilib.models.tile;
 
+abstract public class GITileInfoFolder extends GITileInfoOSM {
 
-public class GITileInfoFolder extends GITileInfoOSM
-{
-	private String path;
+    protected String path;
 
-	public GITileInfoFolder(){
-        super();
-	}
-	public GITileInfoFolder(int z, double lon, double lat){
+    public GITileInfoFolder(int z, double lon, double lat) {
         super(z, lon, lat);
+        path();
+    }
 
-        path = "/Z" + m_zoom + "/" + m_ytile + "_" + m_xtile + ".png";
-	}
-
-	public GITileInfoFolder(int z, int tile_x, int tile_y){
+    public GITileInfoFolder(int z, int tile_x, int tile_y) {
         super(z, tile_x, tile_y);
-        path = "/Z" + m_zoom + "/" + m_ytile + "_" + m_xtile + ".png";
-	}
+        path();
+    }
 
-	public String getPath(){
+    abstract public void path();
+
+    public String getPath() {
         return path;
-	}
+    }
 }

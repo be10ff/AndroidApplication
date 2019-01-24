@@ -216,7 +216,8 @@ public class ReLayersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return TYPE_XML;
         } else if (data.get(position).type == GILayer.GILayerType.SQL_LAYER
                 || data.get(position).type == GILayer.GILayerType.SQL_YANDEX_LAYER
-                || data.get(position).type == GILayer.GILayerType.FOLDER) {
+                || data.get(position).type == GILayer.GILayerType.TOPO_FOLDER
+                || data.get(position).type == GILayer.GILayerType.GOOGLE_MV) {
             return TYPE_SQL;
         } else {
             return TYPE_DEFAULT;
