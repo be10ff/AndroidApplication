@@ -64,10 +64,6 @@ public abstract class GILayer
 			{
 				return new GIGPSPointsLayer(path, new GIVectorStyle());
 			}
-//			case ZIP:
-//			{
-//				return new GIGPSPointsLayer(path, new GIVectorStyle());
-//			}
 			case TOPO_FOLDER:
 			{
 				GITopoFolderLayer layer = new GITopoFolderLayer(path);

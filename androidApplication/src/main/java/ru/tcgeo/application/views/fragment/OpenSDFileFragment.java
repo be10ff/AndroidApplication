@@ -1,6 +1,6 @@
 package ru.tcgeo.application.views.fragment;
 
-public class OpenSDFileFragment extends OpenFileFragment {
+public class OpenSDFileFragment extends ReOpenFileFragment {
 
     //	https://stackoverflow.com/questions/40068984/universal-way-to-write-to-external-sd-card-on-android
     public OpenSDFileFragment() {
@@ -8,8 +8,9 @@ public class OpenSDFileFragment extends OpenFileFragment {
         m_root = "/storage";
     }
 
+    @Override
     protected void setDir() {
-        setDir(m_root);
+        getDir(m_root);
     }
 
 }

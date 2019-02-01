@@ -326,6 +326,10 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
             result = addXMLLayer(file);
         } else if (extention.equalsIgnoreCase("yandex") || extention.equalsIgnoreCase("traffic")) {
             result = addYandexTraffic(file);
+        } else if (file.isDirectory() && extention.equalsIgnoreCase("topo")) {
+            result = addFolderTopoLayer(file);
+        } else if (file.isDirectory() && extention.equalsIgnoreCase("sas")) {
+            result = addFolderSasLayer(file);
         }
         UpdateMap();
         return result;
@@ -346,6 +350,70 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         GILayer layer;
         //TODO
         layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.SQL_YANDEX_LAYER);
+        properties_layer.m_sqldb = new GISQLDB();//"auto";
+        properties_layer.m_sqldb.m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
+
+        properties_layer.m_sqldb.m_min_z = 1;
+        properties_layer.m_sqldb.m_max_z = 19;
+
+        int min = 1;
+        int max = 19;
+
+        properties_layer.m_range = new GIRange();
+        double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
+        properties_layer.m_range.m_from = (int) (1 / (Math.pow(2, min) * con));
+        properties_layer.m_range.m_to = (int) (1 / (Math.pow(2, max) * con));
+
+        ps.m_Group.addEntry(properties_layer);
+        layer.setName(file.getName());
+        layer.m_layer_properties = properties_layer;
+//        mMap.InsertLayerAt(layer, 0);
+        return AddLayer(layer);
+    }
+
+    public GILayer addFolderTopoLayer(File file) {
+        GIPropertiesLayer properties_layer = new GIPropertiesLayer();
+        properties_layer.m_enabled = true;
+        properties_layer.m_name = file.getName();
+        properties_layer.m_range = new GIRange();
+        properties_layer.m_source = new GISource("absolute", file.getAbsolutePath()); //getName()
+        properties_layer.m_type = GILayer.GILayerType.TOPO_FOLDER;
+        properties_layer.m_strType = "TOPO_FOLDER";
+        GILayer layer;
+        //TODO
+        layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.TOPO_FOLDER);
+        properties_layer.m_sqldb = new GISQLDB();//"auto";
+        properties_layer.m_sqldb.m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
+
+        properties_layer.m_sqldb.m_min_z = 1;
+        properties_layer.m_sqldb.m_max_z = 19;
+
+        int min = 1;
+        int max = 19;
+
+        properties_layer.m_range = new GIRange();
+        double con = 0.0254 * 0.0066 * 256 / (0.5 * 40000000);
+        properties_layer.m_range.m_from = (int) (1 / (Math.pow(2, min) * con));
+        properties_layer.m_range.m_to = (int) (1 / (Math.pow(2, max) * con));
+
+        ps.m_Group.addEntry(properties_layer);
+        layer.setName(file.getName());
+        layer.m_layer_properties = properties_layer;
+//        mMap.InsertLayerAt(layer, 0);
+        return AddLayer(layer);
+    }
+
+    public GILayer addFolderSasLayer(File file) {
+        GIPropertiesLayer properties_layer = new GIPropertiesLayer();
+        properties_layer.m_enabled = true;
+        properties_layer.m_name = file.getName();
+        properties_layer.m_range = new GIRange();
+        properties_layer.m_source = new GISource("absolute", file.getAbsolutePath()); //getName()
+        properties_layer.m_type = GILayer.GILayerType.SAS;
+        properties_layer.m_strType = "SAS";
+        GILayer layer;
+        //TODO
+        layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.TOPO_FOLDER);
         properties_layer.m_sqldb = new GISQLDB();//"auto";
         properties_layer.m_sqldb.m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
 

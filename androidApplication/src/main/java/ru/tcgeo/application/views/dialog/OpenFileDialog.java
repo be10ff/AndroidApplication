@@ -19,8 +19,8 @@ import butterknife.ButterKnife;
 import ru.tcgeo.application.R;
 import ru.tcgeo.application.interfaces.IFolderItemListener;
 import ru.tcgeo.application.views.fragment.CreateAdditionalLayerFragment;
-import ru.tcgeo.application.views.fragment.OpenFileFragment;
 import ru.tcgeo.application.views.fragment.OpenSDFileFragment;
+import ru.tcgeo.application.views.fragment.ReOpenFileFragment;
 
 public class OpenFileDialog extends DialogFragment {
 
@@ -51,7 +51,7 @@ public class OpenFileDialog extends DialogFragment {
     private void setupViewPager() {
         adapter = new SampleFragmentPagerAdapter(getChildFragmentManager());
 
-        OpenFileFragment openFileFragment = new OpenFileFragment();
+        ReOpenFileFragment openFileFragment = new ReOpenFileFragment();
         openFileFragment.setIFolderItemListener(folderListener);
         adapter.addFragment(openFileFragment, getActivity().getString(R.string.add_from_file_external));
         OpenSDFileFragment openSDFileFragment = new OpenSDFileFragment();
