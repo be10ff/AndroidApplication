@@ -27,7 +27,6 @@ public class GIPropertiesLayer implements ILayersRoot {
 
     public void addEntry(GIPropertiesLayer layer) {
         boolean present = false;
-        //todo
         if (!present) {
             m_Entries.add(layer);
         }
@@ -90,10 +89,6 @@ public class GIPropertiesLayer implements ILayersRoot {
         public GIPropertiesStyle.Builder styleBuilder;
         public GIRange.Builder rangeBuilder;
         public GISQLDB.Builder sqldbBuilder;
-        //		private GISource source;
-//		private GIPropertiesStyle style;
-//		private GIRange range;
-//		private GISQLDB sqldb;
         GIPropertiesLayer layer;
         private GIEditable.Builder editableBuilder;
         private String name;

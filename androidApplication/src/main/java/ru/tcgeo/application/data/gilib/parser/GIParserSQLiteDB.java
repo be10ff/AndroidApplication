@@ -1,7 +1,6 @@
 package ru.tcgeo.application.data.gilib.parser;
 
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 import ru.tcgeo.application.data.gilib.layer.GISQLLayer;
 
@@ -27,11 +26,13 @@ public class GIParserSQLiteDB extends GIParser
 
                 if (m_ParserCurrent.getAttributeValue(i).equalsIgnoreCase(GISQLLayer.GISQLiteZoomingType.SMART.name())) {
                     m_root.m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
-                } else if (m_ParserCurrent.getAttributeValue(i).equalsIgnoreCase(GISQLLayer.GISQLiteZoomingType.ADAPTIVE.name())) {
-                    m_root.m_zooming_type = GISQLLayer.GISQLiteZoomingType.ADAPTIVE;
-                } else {
-                    m_root.m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
-                }
+				} else if (m_ParserCurrent.getAttributeValue(i).equalsIgnoreCase(GISQLLayer.GISQLiteZoomingType.ADAPTIVE.name())) {
+					m_root.m_zooming_type = GISQLLayer.GISQLiteZoomingType.ADAPTIVE;
+				} else if (m_ParserCurrent.getAttributeValue(i).equalsIgnoreCase(GISQLLayer.GISQLiteZoomingType.AUTO.name())) {
+					m_root.m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
+				} else {
+					m_root.m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
+				}
             }
 			if(m_ParserCurrent.getAttributeName(i).equalsIgnoreCase("min"))
 			{
@@ -49,8 +50,7 @@ public class GIParserSQLiteDB extends GIParser
 	}
 	
 	@Override
-	protected void readSectionEnties() throws XmlPullParserException 
-	{
+	protected void readSectionEnties() {
 		return;
 	}
 	

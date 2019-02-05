@@ -15,7 +15,7 @@ public class GISQLDB {
 
 
     public GISQLDB() {
-        m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
+        m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
         m_max_z = 19;
         m_min_z = 1;
         mRatio = 1;

@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.os.Environment;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -40,7 +39,6 @@ import ru.tcgeo.application.data.gilib.models.GIBitmap;
 import ru.tcgeo.application.data.gilib.models.GIBounds;
 import ru.tcgeo.application.data.gilib.models.GIColor;
 import ru.tcgeo.application.data.gilib.models.GILonLat;
-import ru.tcgeo.application.data.gilib.models.GIPList;
 import ru.tcgeo.application.data.gilib.models.GIProjection;
 import ru.tcgeo.application.data.gilib.models.GIVectorStyle;
 import ru.tcgeo.application.data.gilib.models.LonLatEvent;
@@ -351,7 +349,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         //TODO
         layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.SQL_YANDEX_LAYER);
         properties_layer.m_sqldb = new GISQLDB();//"auto";
-        properties_layer.m_sqldb.m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
+        properties_layer.m_sqldb.m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
 
         properties_layer.m_sqldb.m_min_z = 1;
         properties_layer.m_sqldb.m_max_z = 19;
@@ -383,7 +381,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         //TODO
         layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.TOPO_FOLDER);
         properties_layer.m_sqldb = new GISQLDB();//"auto";
-        properties_layer.m_sqldb.m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
+        properties_layer.m_sqldb.m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
 
         properties_layer.m_sqldb.m_min_z = 1;
         properties_layer.m_sqldb.m_max_z = 19;
@@ -415,7 +413,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         //TODO
         layer = GILayer.CreateLayer(properties_layer.m_source.GetAbsolutePath(), GILayer.GILayerType.TOPO_FOLDER);
         properties_layer.m_sqldb = new GISQLDB();//"auto";
-        properties_layer.m_sqldb.m_zooming_type = GISQLLayer.GISQLiteZoomingType.AUTO;
+        properties_layer.m_sqldb.m_zooming_type = GISQLLayer.GISQLiteZoomingType.SMART;
 
         properties_layer.m_sqldb.m_min_z = 1;
         properties_layer.m_sqldb.m_max_z = 19;
@@ -1084,21 +1082,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 
     public List<Marker> getMarkers() {
         List<Marker> result = new ArrayList<>();
-        if (ps.m_markers_source == null && ps.m_markers != null && !ps.m_markers.isEmpty()) {
-            GIPList PList = new GIPList();
-            PList.Load(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + ps.m_markers); // "/sdcard/"
-            for (Marker marker : PList.m_list) {
-                result.add(marker);
-            }
-        }
         if (ps.m_markers_source != null) {
-            if (ps.m_markers_source.equalsIgnoreCase("file")) {
-                GIPList PList = new GIPList();
-                PList.Load(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + ps.m_markers);// "/sdcard/"
-                for (Marker marker : PList.m_list) {
-                    result.add(marker);
-                }
-            }
             if (ps.m_markers_source.equalsIgnoreCase("layer")) {
                 GIEditableLayer layer = null;
                 for (GILayer l : m_layers.m_list) {
@@ -1109,7 +1093,6 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
                     }
                 }
                 if (layer != null) {
-                    GIPList list = new GIPList();
                     for (GI_WktGeometry geom : layer.m_shapes) {
                         if (geom instanceof GI_WktPoint) {
                             GI_WktPoint point = (GI_WktPoint) geom;
