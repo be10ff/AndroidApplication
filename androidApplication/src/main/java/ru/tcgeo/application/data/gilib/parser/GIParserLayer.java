@@ -4,10 +4,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import ru.tcgeo.application.data.gilib.layer.GILayer;
-import ru.tcgeo.application.data.gilib.models.GIEncoding;
-
-//import ru.tcgeo.application.data.gilib.models.GIIcon;
-
 
 public class GIParserLayer extends GIParser
 {
@@ -34,18 +30,7 @@ public class GIParserLayer extends GIParser
 			if(m_ParserCurrent.getAttributeName(i).equalsIgnoreCase("type"))
 			{
 				m_current.m_strType = m_ParserCurrent.getAttributeValue(i);
-				if(m_current.m_strType.equalsIgnoreCase("vector"))
-				{
-					m_current.m_type = GILayer.GILayerType.VECTOR_LAYER;
-				}
-				if(m_current.m_strType.equalsIgnoreCase("raster"))
-				{
-					m_current.m_type = GILayer.GILayerType.RASTER_LAYER;
-				}
-				if(m_current.m_strType.equalsIgnoreCase("TILEINDEX"))
-				{
-					m_current.m_type = GILayer.GILayerType.TILE_LAYER;
-				}
+
 				if(m_current.m_strType.equalsIgnoreCase("ON_LINE"))
 				{
 					m_current.m_type = GILayer.GILayerType.ON_LINE;
@@ -100,13 +85,6 @@ public class GIParserLayer extends GIParser
 			GIParserStyle parser = new GIParserStyle(m_ParserCurrent, m_current.m_style);
 			m_ParserCurrent = parser.ReadSection();
 		}
-		if(CurrentSectionName.equalsIgnoreCase("Encoding"))
-		{
-			m_current.m_encoding = new GIEncoding("CP1251");
-			GIParserEncoding parser = new GIParserEncoding(m_ParserCurrent, m_current.m_encoding);
-			m_ParserCurrent = parser.ReadSection();	
-			m_current.m_encoding = parser.m_root;
-		}
 		if(CurrentSectionName.equalsIgnoreCase("Range"))
 		{
 			m_current.m_range = new GIRange();
@@ -118,19 +96,11 @@ public class GIParserLayer extends GIParser
             GIParserEditable parser = new GIParserEditable(m_ParserCurrent, m_current.editable);
             m_ParserCurrent = parser.ReadSection();
         }
-//		if(CurrentSectionName.equalsIgnoreCase("Icon"))
-//		{
-//			m_current.m_icon = new GIIcon();
-//			GIParserIcon parser = new GIParserIcon(m_ParserCurrent, m_current.m_icon);
-//			m_ParserCurrent = parser.ReadSection();
-//		}
 
 	}
 	
 	@Override
-	protected void FinishSection()
-	{
-		//m_root.m_Entries.add(m_current);
+    protected void FinishSection() {
 		m_root.addEntry(m_current);
 	}
 	//-----------------------------------------------------------------

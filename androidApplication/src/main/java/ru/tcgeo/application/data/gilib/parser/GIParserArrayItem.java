@@ -9,7 +9,8 @@ import ru.tcgeo.application.data.gilib.models.Marker;
 public class GIParserArrayItem extends GIParserArray {
 	Marker m_item;
 	String m_looking_for_key;
-	GIParserArrayItem(XmlPullParser parent, GIPList list) 
+
+	GIParserArrayItem(XmlPullParser parent, GIPList list)
 	{
 		super(parent, list);
 		section_name = "dict";
@@ -28,16 +29,16 @@ public class GIParserArrayItem extends GIParserArray {
 		}*/
 		return;
 	}
-	
+
 	@Override
 	protected void ReadSectionText()
 	{
 		/*m_ps.m_search_body = m_ParserCurrent.getText();*/
 		return;
 	}
-	
+
 	@Override
-	protected void readSectionEnties() throws XmlPullParserException 
+	protected void readSectionEnties() throws XmlPullParserException
 	{
 		StringBuffer lookingFor = new StringBuffer();
 		if(m_ParserCurrent.getName().equalsIgnoreCase("key"))
@@ -100,12 +101,12 @@ public class GIParserArrayItem extends GIParserArray {
 			}
 
 		}
-	}	
-	
+	}
+
 	protected void FinishSection()
 	{
 		m_List.m_list.add(m_item);
 		return;
 	}
-	
+
 }

@@ -28,127 +28,108 @@ public abstract class GILayer
 	public long m_id;
 	public GIPropertiesLayer m_layer_properties;
 	public int position = -1;
-	protected GIBounds     m_maxExtent;
 	protected GIProjection m_projection;
     protected GIRenderer m_renderer;
     protected String       m_name;
 
-	public static GILayer CreateLayer (String path, GILayerType type)
-	{
-		switch (type)
-		{
-			case ON_LINE:
-			{
-//				if(path.equalsIgnoreCase("OSM"))
-//					return new GIOSMLayer(path);
-//				if(path.equalsIgnoreCase("Google"))
-//					return new GIGoogleLayer(path);
-//				if(path.equalsIgnoreCase("GeoPortal"))
-//					return new GIWMSLayer(path);
-				if(path.equalsIgnoreCase("Yandex"))
-					return new GIYandexLayer(path);
-			}
-			case SQL_LAYER:
-			{
-				GISQLLayer layer = new GISQLLayer(path);
-				layer.type = type;
-				return layer;
-			}
-			case SQL_YANDEX_LAYER:
-			{
-				GISQLLayer layer = new GISQLLayer(path);
-				layer.type = type;
-				return layer;
-			}
-			case XML:
-			{
-				return new GIGPSPointsLayer(path, new GIVectorStyle());
-			}
-			case TOPO_FOLDER:
-			{
-				GITopoFolderLayer layer = new GITopoFolderLayer(path);
-				layer.type = type;
-				return layer;
-			}
+	public static GILayer CreateLayer(String path, GILayerType type) {
 
-			case GOOGLE_MV: {
-				GIGoogleMVLayer layer = new GIGoogleMVLayer(path);
-				layer.type = type;
-				return layer;
-			}
-			case SAS: {
-				GIGoogleMVLayer layer = new GIGoogleMVLayer(path);
-				layer.type = type;
-				return layer;
-			}
-			default:
-			{
-				return null;
-			}
-		}
+		return CreateLayer(path, type, new GIVectorStyle(), new GIEncoding("CP1251"));
+//		switch (type) {
+//			case ON_LINE: {
+//				if(path.equalsIgnoreCase("Yandex"))
+//					return new GIYandexLayer(path);
+//			}
+//			case SQL_LAYER: {
+//				GISQLLayer layer = new GISQLLayer(path);
+//				layer.type = type;
+//				return layer;
+//			}
+//			case SQL_YANDEX_LAYER: {
+//				GISQLLayer layer = new GISQLLayer(path);
+//				layer.type = type;
+//				return layer;
+//			}
+//			case XML: {
+//				return new GIGPSPointsLayer(path, new GIVectorStyle());
+//			}
+//			case TOPO_FOLDER: {
+//				GITopoFolderLayer layer = new GITopoFolderLayer(path);
+//				layer.type = type;
+//				return layer;
+//			}
+//
+//			case GOOGLE_MV: {
+//				GIGoogleMVLayer layer = new GIGoogleMVLayer(path);
+//				layer.type = type;
+//				return layer;
+//			}
+//			case SAS: {
+//				GIGoogleMVLayer layer = new GIGoogleMVLayer(path);
+//				layer.type = type;
+//				return layer;
+//			}
+//			default:
+//			{
+//				return null;
+//			}
+//		}
 	}
 
-	public static GILayer CreateLayer (String path, GILayerType type,
-			GIStyle style)
-	{
-		switch (type)
-		{
-			case ON_LINE:
-			{
-				if(path.equalsIgnoreCase("Yandex"))
-					return new GIYandexLayer(path);
-			}
+	public static GILayer CreateLayer(String path, GILayerType type, GIStyle style) {
 
-			case SQL_LAYER:
-			{
-				GISQLLayer layer = new GISQLLayer(path);
-				layer.type = type;
-				return layer;
-			}
-			case SQL_YANDEX_LAYER:
-			{
-				GISQLLayer layer = new GISQLLayer(path);
-				layer.type = type;
-				return layer;
-			}
-			case TOPO_FOLDER:
-			{
-				GITopoFolderLayer layer = new GITopoFolderLayer(path);
-				layer.type = type;
-				return layer;
-			}
-			case GOOGLE_MV: {
-				GIGoogleMVLayer layer = new GIGoogleMVLayer(path);
-				layer.type = type;
-				return layer;
-			}
-			case XML:
-			{
-				return new GIGPSPointsLayer(path, (GIVectorStyle)style);
-			}
-			default:
-			{
-				return null;
-			}
-		}
+		return CreateLayer(path, type, style, new GIEncoding("CP1251"));
+//		switch (type)
+//		{
+//			case ON_LINE: {
+//				if(path.equalsIgnoreCase("Yandex"))
+//					return new GIYandexLayer(path);
+//			}
+//
+//			case SQL_LAYER: {
+//				GISQLLayer layer = new GISQLLayer(path);
+//				layer.type = type;
+//				return layer;
+//			}
+//			case SQL_YANDEX_LAYER: {
+//				GISQLLayer layer = new GISQLLayer(path);
+//				layer.type = type;
+//				return layer;
+//			}
+//			case TOPO_FOLDER: {
+//				GITopoFolderLayer layer = new GITopoFolderLayer(path);
+//				layer.type = type;
+//				return layer;
+//			}
+//			case GOOGLE_MV: {
+//				GIGoogleMVLayer layer = new GIGoogleMVLayer(path);
+//				layer.type = type;
+//				return layer;
+//			}
+//			case XML: {
+//				return new GIGPSPointsLayer(path, (GIVectorStyle)style);
+//			}
+//			default: {
+//				return null;
+//			}
+//		}
 	}
 
-	public static GILayer CreateLayer (String path, GILayerType type,
-	        GIStyle style, GIEncoding encoding)
-	{
-		switch (type)
-		{
-			case ON_LINE:
-			{
+	public static GILayer CreateLayer(String path, GILayerType type, GIStyle style, GIEncoding encoding) {
+		switch (type) {
+			case ON_LINE: {
 				if(path.equalsIgnoreCase("Yandex"))
 					return new GIYandexLayer(path);
 			}
-			case SQL_LAYER:
-			{
+			case SQL_LAYER: {
 				return new GISQLLayer(path);
 			}
-			case TOPO_FOLDER:
-			{
+			case SQL_YANDEX_LAYER: {
+				GISQLLayer layer = new GISQLLayer(path);
+				layer.type = type;
+				return layer;
+			}
+			case TOPO_FOLDER: {
 				GITopoFolderLayer layer = new GITopoFolderLayer(path);
 				layer.type = type;
 				return layer;
@@ -158,12 +139,10 @@ public abstract class GILayer
 				layer.type = type;
 				return layer;
 			}
-			case XML:
-			{
+			case XML: {
 				return new GIGPSPointsLayer(path, (GIVectorStyle)style, encoding);
 			}
-			default:
-			{
+			default: {
 				return null;
 			}
 		}
@@ -259,8 +238,7 @@ public abstract class GILayer
 
 	public abstract void Redraw (GIBounds area, Bitmap bitmap, Integer opacity, double scale);
 
-	public void RedrawLabels (GIBounds area, Bitmap bitmap, float scale_factor, double s)
-	{
+	public void RedrawLabels(GIBounds area, Bitmap bitmap, float scale_factor, double s) {
 		// TODO
 	}
 
@@ -269,14 +247,12 @@ public abstract class GILayer
 		m_renderer.AddStyle(style);
 	}
 
-	public Boolean LabelByCharacteristic (String name)
-	{
+	public Boolean LabelByCharacteristic(String name) {
 		return null;
 		// TODO
 	}
 
-	public void DeleteLabel ()
-	{
+	public void DeleteLabel() {
 		// TODO
 	}
 
@@ -290,11 +266,6 @@ public abstract class GILayer
 		m_name = name;
 	}
 
-	public GIBounds maxExtent ()
-	{
-		return null;
-		// TODO
-	}
 
 	public GIProjection projection ()
 	{
@@ -323,15 +294,8 @@ public abstract class GILayer
 		return 0;
 	}
 
-	public void free()
-	{
-
-	}
-
 	public enum GILayerType {
 		LAYER_GROUP,
-		RASTER_LAYER,
-		VECTOR_LAYER,
 		TILE_LAYER,
 		ON_LINE,
 		SQL_LAYER,

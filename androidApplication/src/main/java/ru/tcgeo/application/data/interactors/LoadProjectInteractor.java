@@ -112,22 +112,6 @@ public class LoadProjectInteractor {
             if (current_layer.m_type == GILayer.GILayerType.LAYER_GROUP) {
                 loadGroup(ps, (GIPropertiesGroup) current_layer, subscriber);
             }
-            if (current_layer.m_type == GILayer.GILayerType.TILE_LAYER) {
-                GILayer layer;
-                if (current_layer.m_source.m_location.equalsIgnoreCase("local")) {
-                    layer = GILayer.CreateLayer(
-                            current_layer.m_source.GetLocalPath(),
-                            GILayer.GILayerType.TILE_LAYER);
-                    layer.setName(current_layer.m_name);
-                    layer.m_layer_properties = current_layer;
-                    subscriber.onNext(new Layer(layer,
-                            current_layer.m_range,
-                            current_layer.m_enabled));
-                } else {
-                    continue;
-                }
-
-            }
             if (current_layer.m_type == GILayer.GILayerType.ON_LINE) {
                 GILayer layer;
                 if (current_layer.m_source.m_location.equalsIgnoreCase("text")) {
@@ -300,7 +284,7 @@ public class LoadProjectInteractor {
                     }
                     layer = GILayer.CreateLayer(
                             path,
-                            GILayer.GILayerType.XML, vstyle, current_layer.m_encoding);
+                            GILayer.GILayerType.XML, vstyle);
 
                     layer.setName(current_layer.m_name);
                     layer.m_layer_properties = current_layer;

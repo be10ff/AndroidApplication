@@ -1294,7 +1294,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
             currentTrack.m_attributes.put("Project", proj_field);
 
 
-            ((GIXMLTrack) currentTrack).Create(ps.m_name, ps.m_name + CommonUtils.getCurrentTimeShort(), trackLayer.getStyle(), trackLayer.getEncoding());
+            ((GIXMLTrack) currentTrack).Create(ps.m_name, ps.m_name + CommonUtils.getCurrentTimeShort(), trackLayer.getStyle());
             currentTrack.m_status = GI_WktGeometry.GIWKTGeometryStatus.NEW;
             trackLayer.m_shapes.add(currentTrack);
 
@@ -1342,7 +1342,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
             currentTrack.m_attributes.put("Project", proj_field);
 
 
-            ((GIXMLTrack) currentTrack).Create(ps.m_name, ps.m_name + CommonUtils.getCurrentTimeShort(), trackLayer.getStyle(), trackLayer.getEncoding());
+            ((GIXMLTrack) currentTrack).Create(ps.m_name, ps.m_name + CommonUtils.getCurrentTimeShort(), trackLayer.getStyle());
             currentTrack.m_status = GI_WktGeometry.GIWKTGeometryStatus.NEW;
             trackLayer.m_shapes.add(currentTrack);
 

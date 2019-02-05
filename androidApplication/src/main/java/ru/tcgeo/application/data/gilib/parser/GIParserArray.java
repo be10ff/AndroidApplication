@@ -43,8 +43,8 @@ public class GIParserArray extends GIParser
 			GIParserArrayItem parser = new GIParserArrayItem(m_ParserCurrent, m_List);
 			m_ParserCurrent = parser.ReadSection();
 		}
-	}	
-	
+	}
+
 	protected void FinishSection()
 	{
 		return;

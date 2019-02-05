@@ -17,210 +17,171 @@ import ru.tcgeo.application.R;
 import ru.tcgeo.application.data.GIMap;
 import ru.tcgeo.application.data.gilib.layer.GILayer;
 import ru.tcgeo.application.data.gilib.models.GILonLat;
-import ru.tcgeo.application.data.gilib.parser.GIProjectProperties;
 import ru.tcgeo.application.views.control.GIControlInfoInPoint;
 
 public class GIDataRequestorImp implements GIDataRequestor {
 
-	//GIControlInfoInPoint m_info_control;
-	public GIMap m_map;
-    GIProjectProperties m_project_settings;
+    public GIMap m_map;
     private boolean m_debug;
     private Context m_context;
     private Point m_show_point;
-	private InfPoint m_point;
+    private InfPoint m_point;
 
-    public GIDataRequestorImp(Context context, Point point, GIProjectProperties project_settings) {
+    public GIDataRequestorImp(Context context, Point point) {
 
         m_show_point = point;
         m_context = context;
-        m_project_settings = project_settings;
         m_debug = false;
     }
 
-	public GILonLat getRequestPoint()
-	{
-		return m_point.m_point;
-	}
+    public GILonLat getRequestPoint() {
+        return m_point.m_point;
+    }
 
-	public boolean isLayerPresent(String layer_name)
-	{
-		for(int i = 0; i < m_point.m_layers.size(); i++)
-		{
-            //String nname = m_point.m_layers.get(i).currentLayer.getName();
-            if(layer_name.equalsIgnoreCase(m_point.m_layers.get(i).m_layer.getName()))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+    public boolean isLayerPresent(String layer_name) {
+        for (int i = 0; i < m_point.m_layers.size(); i++) {
+            if (layer_name.equalsIgnoreCase(m_point.m_layers.get(i).m_layer.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	public Layer LayerByName(String layer_name) //GILayer
-	{
-		for(int i = 0; i < m_point.m_layers.size(); i++)
-		{
-			if(layer_name.equalsIgnoreCase(m_point.m_layers.get(i).m_layer.getName()))
-			{
+    public Layer LayerByName(String layer_name) {
+        for (int i = 0; i < m_point.m_layers.size(); i++) {
+            if (layer_name.equalsIgnoreCase(m_point.m_layers.get(i).m_layer.getName())) {
                 return m_point.m_layers.get(i);//.currentLayer;
             }
-		}
-		return null;
-	}
+        }
+        return null;
+    }
 
-	public String GetText()
-	{
-		return m_point.GetTextInfo();
-	}
+    public String GetText() {
+        return m_point.GetTextInfo();
+    }
 
-	public boolean needsHierarchicalView() {
-		return false;
-	}
+    public boolean needsHierarchicalView() {
+        return false;
+    }
 
-	public GIDataRequestor StartGatheringData(GILonLat point) {
-		m_point = new InfPoint(point);
-		return this;
-	}
+    public GIDataRequestor StartGatheringData(GILonLat point) {
+        m_point = new InfPoint(point);
+        return this;
+    }
 
-	public GIDataRequestor EndGatheringData(GILonLat point) {
-		return this;
-	}
+    public GIDataRequestor EndGatheringData(GILonLat point) {
+        return this;
+    }
 
-	public GIDataRequestor StartHierarchyLevel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public GIDataRequestor StartHierarchyLevel() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public GIDataRequestor EndHierarchyLevel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public GIDataRequestor EndHierarchyLevel() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public GIDataRequestor StartLayer(GILayer layer) {
-		m_point.StartLayer(layer);
-		return this;
-	}
+    public GIDataRequestor StartLayer(GILayer layer) {
+        m_point.StartLayer(layer);
+        return this;
+    }
 
-	public GIDataRequestor EndLayer(GILayer layer) {
-		m_point.EndLayer();
-		return this;
-	}
+    public GIDataRequestor EndLayer(GILayer layer) {
+        m_point.EndLayer();
+        return this;
+    }
 
-	public GIDataRequestor StartObject(GIGeometry geometry) {
-		m_point.m_current_layer.StartObject(geometry);
-		return this;
-	}
+    public GIDataRequestor StartObject(GIGeometry geometry) {
+        m_point.m_current_layer.StartObject(geometry);
+        return this;
+    }
 
-	public GIDataRequestor EndObject(GIGeometry geometry) {
-		m_point.m_current_layer.EndObject();
-		return this;
-	}
+    public GIDataRequestor EndObject(GIGeometry geometry) {
+        m_point.m_current_layer.EndObject();
+        return this;
+    }
 
-	public GIDataRequestor ProcessSemantic(String name, String value) {
-		Pair current = new Pair(name, value);
-		m_point.m_current_layer.m_current_feature.Process(current);
-		return this;
-	}
+    public GIDataRequestor ProcessSemantic(String name, String value) {
+        Pair current = new Pair(name, value);
+        m_point.m_current_layer.m_current_feature.Process(current);
+        return this;
+    }
 
-	public void ShowDialog(Context context, Point show_point, GIMap map)
-	{
-		//TODO
-		//String res = GetText();
-		m_map = map;
-		//main working
-		//GIScriptExpression err = (GIScriptExpression) m_project_settings.m_scriptparser_info.Eval(this);
-
-		//ShowDlg(context, show_point,  GetText());
-		//ShowControl("ID", GetText());
-		String res = String.format(Locale.ENGLISH, "(%.0f : %.0f)", m_point.m_point.lon(), m_point.m_point.lat());
-		ShowControl(GetText(), "");
-
-	}
-
-	public void ShowControl(String info_text, String caption_text)
-	{
-		//Log.v("ScriptLogs", "test");
-		info_text = info_text.replace("\\n", System.getProperty("line.separator"));
-		caption_text = caption_text.replace("\\n", System.getProperty("line.separator"));
-        GIControlInfoInPoint info_control = GIControlInfoInPoint.Instance(m_context, m_map, m_point.m_point, info_text, caption_text);
-        //info_control.setMap(m_map);
-	}
-
-	public void LogMsg(String tag, String text)
-	{
-		Log.d(tag, text);
-	}
-
-	public void Show()
-	{
+    public void ShowDialog(Context context, Point show_point, GIMap map) {
+        //TODO
+        m_map = map;
+        String res = String.format(Locale.ENGLISH, "(%.0f : %.0f)", m_point.m_point.lon(), m_point.m_point.lat());
+        ShowControl(GetText(), "");
 
     }
 
-    private void ShowDlg(Context context, Point show_point, String info_text)
-	{
+    public void ShowControl(String info_text, String caption_text) {
+        info_text = info_text.replace("\\n", System.getProperty("line.separator"));
+        caption_text = caption_text.replace("\\n", System.getProperty("line.separator"));
+        GIControlInfoInPoint info_control = GIControlInfoInPoint.Instance(m_context, m_map, m_point.m_point, info_text, caption_text);
+    }
+
+    public void LogMsg(String tag, String text) {
+        Log.d(tag, text);
+    }
+
+    public void Show() {
+
+    }
+
+    private void ShowDlg(Context context, Point show_point, String info_text) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
-		Dialog info_dialog = new Dialog(context, R.style.Theme_layers_dialog);
-		info_dialog.setContentView(R.layout.info_dialog);
-		info_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-		info_dialog.setCanceledOnTouchOutside(false);
-		info_dialog.setCancelable(true);
+        Dialog info_dialog = new Dialog(context, R.style.Theme_layers_dialog);
+        info_dialog.setContentView(R.layout.info_dialog);
+        info_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        info_dialog.setCanceledOnTouchOutside(false);
+        info_dialog.setCancelable(true);
 
 
-        info_dialog.setOnDismissListener(new OnDismissListener()
-		{
-			public void onDismiss (DialogInterface dialog)
-			{
-			}
-		});
-
-		//info_dialog.getWindow().setGravity(Gravity.TOP | Gravity.LEFT);
-    	android.view.WindowManager.LayoutParams parameters = info_dialog.getWindow().getAttributes();
-		if(show_point.x > dm.widthPixels - 483)
-		{
-			if(show_point.y > dm.heightPixels - 265)
-			{
-				info_dialog.getWindow().setBackgroundDrawableResource(R.drawable.point_info_panel_bottom_right_nine);
-		    	parameters.x = show_point.x - 483 +16;
-                parameters.y = show_point.y - 265 + 28;
+        info_dialog.setOnDismissListener(new OnDismissListener() {
+            public void onDismiss(DialogInterface dialog) {
             }
-			else
-			{
-				info_dialog.getWindow().setBackgroundDrawableResource(R.drawable.point_info_panel_top_right_nine);
-		    	parameters.x = show_point.x - 483 +16 ;
+        });
+
+        android.view.WindowManager.LayoutParams parameters = info_dialog.getWindow().getAttributes();
+        if (show_point.x > dm.widthPixels - 483) {
+            if (show_point.y > dm.heightPixels - 265) {
+                info_dialog.getWindow().setBackgroundDrawableResource(R.drawable.point_info_panel_bottom_right_nine);
+                parameters.x = show_point.x - 483 + 16;
+                parameters.y = show_point.y - 265 + 28;
+            } else {
+                info_dialog.getWindow().setBackgroundDrawableResource(R.drawable.point_info_panel_top_right_nine);
+                parameters.x = show_point.x - 483 + 16;
                 parameters.y = show_point.y - 28;
             }
-		}
-		else
-		{
-			if(show_point.y > dm.heightPixels - 265)
-			{
-				info_dialog.getWindow().setBackgroundDrawableResource(R.drawable.point_info_panel_bottom_left_nine);
-		    	parameters.x = show_point.x - 16;
+        } else {
+            if (show_point.y > dm.heightPixels - 265) {
+                info_dialog.getWindow().setBackgroundDrawableResource(R.drawable.point_info_panel_bottom_left_nine);
+                parameters.x = show_point.x - 16;
                 parameters.y = show_point.y - 265 + 28;
+            } else {
+                info_dialog.getWindow().setBackgroundDrawableResource(R.drawable.point_info_panel_top_left_nine);
+                parameters.x = show_point.x - 16;
+                parameters.y = show_point.y - 28;
             }
-			else
-			{
-				info_dialog.getWindow().setBackgroundDrawableResource(R.drawable.point_info_panel_top_left_nine);
-		    	parameters.x = show_point.x - 16;
-				parameters.y = show_point.y - 28;
-			}
 
         }
-		parameters.y += 65 + 5;
+        parameters.y += 65 + 5;
         parameters.x += 5;
         info_dialog.getWindow().setAttributes(parameters);
 
-        TextView tv = (TextView)info_dialog.findViewById(R.id.textView1);
-		tv.setText(info_text);
+        TextView tv = (TextView) info_dialog.findViewById(R.id.textView1);
+        tv.setText(info_text);
 
         info_dialog.show();
 
-	}
+    }
 
-    public Context GetContext()
-	{
-		return m_context;
-	}
+    public Context GetContext() {
+        return m_context;
+    }
 
     public class Pair {
         public String m_name;

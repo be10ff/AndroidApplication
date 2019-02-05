@@ -14,17 +14,8 @@ import ru.tcgeo.application.data.gilib.parser.GIParserArray;
 
 public class GIPList {
 
-	//	public class GIMarker
-//	{
-//		public String name;
-//		public String description;
-//		public String image;
-//		public double lon;
-//		public double lat;
-//		public double diag;
-//	}
 	public ArrayList<Marker> m_list;
-	
+
 	public GIPList()
 	{
 
@@ -61,15 +52,15 @@ public class GIPList {
 					parser.next();
 				}
 			}
-			catch(IOException e)
-			{}	
+			catch(IOException e) {
+			}
 			finally {}
 
 		}
 		catch(XmlPullParserException e)
 		{}
 		return;
-		
+
 	}
 
 }
