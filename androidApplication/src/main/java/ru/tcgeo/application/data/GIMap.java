@@ -1260,8 +1260,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
         currentEditingControl.invalidate();
     }
 
-    public boolean CreateTrack() {
-        boolean res = false;
+    public void CreateTrack() {
         if (trackLayer == null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat(App.Instance().dateTimeFormat, Locale.ENGLISH);
             String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
@@ -1295,7 +1294,7 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
             currentTrack.m_attributes.put("Project", proj_field);
 
 
-            res = ((GIXMLTrack) currentTrack).Create(ps.m_name, ps.m_name + CommonUtils.getCurrentTimeShort(), trackLayer.getStyle(), trackLayer.getEncoding());
+            ((GIXMLTrack) currentTrack).Create(ps.m_name, ps.m_name + CommonUtils.getCurrentTimeShort(), trackLayer.getStyle(), trackLayer.getEncoding());
             currentTrack.m_status = GI_WktGeometry.GIWKTGeometryStatus.NEW;
             trackLayer.m_shapes.add(currentTrack);
 
@@ -1305,7 +1304,54 @@ public class GIMap extends SurfaceView //implements SurfaceHolder.Callback//impl
 
             trackLayer.Save();
         }
-        return res;
+    }
+
+
+    //todo
+    public void addTrackFromXML() {
+        if (trackLayer == null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(App.Instance().dateTimeFormat, Locale.ENGLISH);
+            String date = dateFormat.format(new Date(Calendar.getInstance().getTimeInMillis()));
+
+            trackLayer = GILayer.createTrack(ps.m_name, date);
+            trackLayer.setType(GILayer.EditableType.TRACK);
+            trackLayer.Save();
+
+            ps.m_Group.addEntry(trackLayer.m_layer_properties);
+            AddLayer(trackLayer);
+
+        }
+
+        if (trackLayer != null) {
+
+            currentTrack = new GIXMLTrack();
+
+            currentTrack.m_attributes = new HashMap<String, GIDBaseField>();
+            for (String key : trackLayer.getAttributes().keySet()) {
+                currentTrack.m_attributes.put(key, new GIDBaseField(trackLayer.getAttributes().get(key)));
+            }
+            String time = CommonUtils.getCurrentTime();
+            GIDBaseField field = new GIDBaseField();
+            field.m_name = "Description";
+            field.m_value = time;
+            currentTrack.m_attributes.put("Description", field);
+
+            GIDBaseField proj_field = new GIDBaseField();
+            proj_field.m_name = "Project";
+            proj_field.m_value = ps.m_name;
+            currentTrack.m_attributes.put("Project", proj_field);
+
+
+            ((GIXMLTrack) currentTrack).Create(ps.m_name, ps.m_name + CommonUtils.getCurrentTimeShort(), trackLayer.getStyle(), trackLayer.getEncoding());
+            currentTrack.m_status = GI_WktGeometry.GIWKTGeometryStatus.NEW;
+            trackLayer.m_shapes.add(currentTrack);
+
+            //todo
+            currentTrackControl = new GIGeometryControl(this, trackLayer, currentTrack);
+            currentTrackControl.setMap(this);
+
+            trackLayer.Save();
+        }
     }
 
     public void AddPointToTrack(GILonLat lonlat, float accurancy) {
