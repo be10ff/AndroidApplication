@@ -6,11 +6,11 @@
     <string name="project_list_addition_text">Project_info</string>
     <string name="scale_info_default_text">1 000 m</string>
     <string-array name="extentions">
-        <!--<item>"track"</item>-->
         <item>"sqlitedb"</item>
         <item>xml</item>
         <item>yandex</item>
         <item>traffic</item>
+        <item>track</item>
     </string-array>
 
     <!--<string name="edit_layer_new">Create</string>-->

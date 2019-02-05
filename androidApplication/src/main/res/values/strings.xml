@@ -17,11 +17,11 @@
     <string name="add_from_file">From File</string>
 
     <string-array name="extentions">
-		<!--<item>"track"</item>-->
 		<item>"sqlitedb"</item>
 		<item>xml</item>
         <item>yandex</item>
         <item>traffic</item>
+        <item>track</item>
     </string-array>
 
 

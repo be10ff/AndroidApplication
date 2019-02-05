@@ -46,8 +46,6 @@ public class GIGPSParserTrack extends GIGPSParser
                         ((GIXMLTrack) m_geometry).m_points.add(point);
                     }
 
-					int  iiiii = 0;
-
                     ArrayList<GI_WktGeometry> points = ((GIXMLTrack)m_geometry).m_points;
 
                     if(points.size() > 2) {

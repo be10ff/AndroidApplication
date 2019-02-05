@@ -183,6 +183,7 @@ public abstract class GILayer
 		properties_layer.m_source = new GISource("absolute", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + projectName + File.separator + file.getName());
 		properties_layer.m_type = GILayer.GILayerType.XML;
 		properties_layer.m_strType = "XML";
+		properties_layer.editable = new GIEditable(EditableType.TRACK, true);
 		GILayer layer;
 		//
 		Paint fill = new Paint();

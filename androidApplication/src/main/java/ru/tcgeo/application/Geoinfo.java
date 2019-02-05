@@ -355,7 +355,7 @@ public class Geoinfo extends Activity
         if (layer.giLayer instanceof GIEditableLayer) {
             GIEditableLayer l = (GIEditableLayer) layer.giLayer;
             if (l != null && l.m_layer_properties.editable != null
-                    && l.m_layer_properties.editable.enumType != GILayer.EditableType.TRACK) {
+                /*&& l.m_layer_properties.editable.enumType != GILayer.EditableType.TRACK*/) {
                 l.setType(l.m_layer_properties.editable.enumType);
                 if (l.m_Type == GILayer.EditableType.TRACK && l.m_layer_properties.editable.active) {
                     map.setTrackLayer(l);
