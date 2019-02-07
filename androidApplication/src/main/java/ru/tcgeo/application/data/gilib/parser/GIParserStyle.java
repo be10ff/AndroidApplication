@@ -6,7 +6,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.util.ArrayList;
 
 import ru.tcgeo.application.data.gilib.models.GIColor;
-//import ru.tcgeo.application.data.gilib.models.GIIcon;
 
 
 public class GIParserStyle extends GIParser {
@@ -43,12 +42,7 @@ public class GIParserStyle extends GIParser {
             GIParserColor parser = new GIParserColor(m_ParserCurrent, m_root.m_colors);
             m_ParserCurrent = parser.ReadSection();
         }
-//		if(CurrentSectionName.equalsIgnoreCase("Icon"))
-//		{
-//			m_root.m_icon = new GIIcon();
-//			GIParserIcon parser = new GIParserIcon(m_ParserCurrent, m_root.m_icon);
-//			m_ParserCurrent = parser.ReadSection();
-//		}
+
     }
 
     @Override

@@ -207,6 +207,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                                             color.set(new_color);
                                             ((GIEditableRenderer) layer.renderer()).m_style.m_paint_brush.setColor(new_color);
                                             adapter.notifyItemChanged(holder.getAdapterPosition());
+                                            callback.onImmediatelyChange();
                                         }
 
                                         @Override
@@ -233,6 +234,7 @@ public class ReSettingsDialog extends Dialog implements IFolderItemListener, OnS
                                             color.set(new_color);
                                             ((GIEditableRenderer) layer.renderer()).m_style.m_paint_pen.setColor(new_color);
                                             adapter.notifyItemChanged(holder.getAdapterPosition());
+                                            callback.onImmediatelyChange();
                                         }
 
                                         @Override
