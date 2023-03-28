@@ -77,6 +77,7 @@ public class GITileInfoYandex
 	  //return Math.toDegrees(Math.atan(Math.sinh(n)));
 	}*/
 
+    //yandexUtils
     public double tile2lon(int x, int z) {
         return x / Math.pow(2.0, z) * 360.0 - 180;
     }

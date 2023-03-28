@@ -37,7 +37,7 @@ import ru.tcgeo.application.interfaces.MapView;
  * Created by abelov on 28.04.16.
  */
 public class LoadProjectInteractor {
-    private Bitmap wktPointBitmap;
+    private final Bitmap wktPointBitmap;
     private Disposable subscription;
 
     private MapView view;

@@ -14,6 +14,9 @@ import android.graphics.Rect;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -33,8 +36,8 @@ public class GIPositionControl extends View implements GIControl {
     Matrix matrix;
     Point current_pos_on_screen;
     private GIMap m_map;
-    private GIGPSLocationListener locationListener;
-    private RelativeLayout m_root;
+    private final GIGPSLocationListener locationListener;
+    private final RelativeLayout m_root;
     private GILonLat m_CurrentPosition;
     private GILonLat m_OriginPosition;
 
@@ -57,6 +60,8 @@ public class GIPositionControl extends View implements GIControl {
                         setLonLat(lonLatEvent.lonlat);
                     }
                 }));
+        List<Number> a = new ArrayList<Number>();
+        a.add(0);
 
 
     }

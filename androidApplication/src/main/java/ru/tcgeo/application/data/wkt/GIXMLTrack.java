@@ -185,13 +185,14 @@ public class GIXMLTrack extends GI_WktGeometry {
 	
 	public boolean Create(String folder, String name, GIVectorStyle style, GIEncoding encoding)
 	{
-		m_name_wo_extention = name;
+        m_name_wo_extention = name;
 
-		m_file = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder + File.separator + name  + ".track";
+        m_file = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder + File.separator + name + ".track";
 
-		return CreateOutput(folder, name);
+        return
+                CreateOutput(folder, name);
 
-	}
+    }
 
 	//TODO test it
 	public void AddPoint(GI_WktPoint point, float accurancy)

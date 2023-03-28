@@ -60,7 +60,7 @@ public class GIGPSParserTrack extends GIGPSParser
                             double ab = MapUtils.GetDistance(a.LonLat(), b.LonLat());
                             double bc = MapUtils.GetDistance(b.LonLat(), c.LonLat());
                             double ac = MapUtils.GetDistance(a.LonLat(), c.LonLat());
-
+							//!(ac < ab && ac < bc)
                             if(ac > ab ||  ac > bc){
                                 filtered.add(points.get(k));
                             } else {

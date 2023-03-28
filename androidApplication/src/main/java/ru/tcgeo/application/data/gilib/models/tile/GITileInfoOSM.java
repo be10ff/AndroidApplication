@@ -60,12 +60,13 @@ public class GITileInfoOSM
 		String urlStr = "http://a.tile.openstreetmap.org/" + m_zoom + "/" + m_xtile + "/" + m_ytile  + ".png";
 		return urlStr;
 	}
-	
+	//yandexUtils
 	public double tile2lon(int x, int z) 
 	{
 	   return x / Math.pow(2.0, z) * 360.0 - 180;
 	}
-	
+
+    //yandexUtils
 	public double tile2lat(int y, int z) 
 	{
 	  double n = Math.PI - (2.0 * Math.PI * y) / Math.pow(2.0, z);
